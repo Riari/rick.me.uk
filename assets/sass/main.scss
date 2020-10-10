@@ -109,6 +109,7 @@ hr {
 }
 
 .button {
+    position: relative;
     display: inline-block;
     padding: 1em;
     margin: .2em;
@@ -116,9 +117,23 @@ hr {
     color: $color-text;
     font-weight: bold;
     text-decoration: none;
+    overflow: hidden;
+
+    &__hover {
+        display: block;
+        position: absolute;
+        width: 600px;
+        height: 160px;
+        top: 0;
+        left: 0;
+        background: radial-gradient(circle, rgba($color-muted-1, 0.5), rgba($color-muted-1, 0), rgba($color-muted-1, 0));
+        z-index: -1;
+        transition: opacity 0.2s ease-out;
+    }
 
     &:hover {
         background: rgba($color-muted-1, 0.4);
+        transition: background 0.2s ease-out;
     }
 }
 

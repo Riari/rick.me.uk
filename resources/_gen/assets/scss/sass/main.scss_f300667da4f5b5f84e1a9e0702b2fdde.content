@@ -98,15 +98,28 @@ hr {
   color: #f1fa8c; }
 
 .button {
+  position: relative;
   display: inline-block;
   padding: 1em;
   margin: .2em;
   background: rgba(68, 71, 90, 0.3);
   color: #f8f8f2;
   font-weight: bold;
-  text-decoration: none; }
+  text-decoration: none;
+  overflow: hidden; }
+  .button__hover {
+    display: block;
+    position: absolute;
+    width: 600px;
+    height: 160px;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle, rgba(68, 71, 90, 0.5), rgba(68, 71, 90, 0), rgba(68, 71, 90, 0));
+    z-index: -1;
+    transition: opacity 0.2s ease-out; }
   .button:hover {
-    background: rgba(68, 71, 90, 0.4); }
+    background: rgba(68, 71, 90, 0.4);
+    transition: background 0.2s ease-out; }
 
 .proficiencies__row {
   display: flex;
