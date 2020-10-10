@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>riari.dev</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;500&display=swap">
+
+    {{ $fontsScss := resources.Get "sass/fonts.scss" | resources.ToCSS }}
+    {{ $mainScss := resources.Get "sass/main.scss" | resources.ToCSS }}
+    {{ $style := slice $fontsScss $mainScss | resources.Concat "css/style.css" | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+</head>
+
+<body>
