@@ -132,4 +132,6 @@ hr {
     flex-direction: column; }
     .proficiencies__row__label {
       margin-bottom: 1em;
-      min-width: auto; } }
+      min-width: auto; }
+  .links {
+    flex-direction: column; } }
