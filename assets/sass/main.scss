@@ -1,24 +1,4 @@
-$color-background: #252530;
-$color-primary-1: #8be9fd;
-$color-primary-2: #50fa7b;
-$color-primary-3: #ffb86c;
-$color-primary-4: #ff79c6;
-$color-primary-5: #bd93f9;
-$color-primary-6: #ff5555;
-$color-primary-7: #f1fa8c;
-$color-muted-1: #44475a;
-$color-muted-2: #aeb0c7;
-$color-text: #f8f8f2;
-
-$palette: (
-    primary-1: $color-primary-1,
-    primary-2: $color-primary-2,
-    primary-3: $color-primary-3,
-    primary-4: $color-primary-4,
-    primary-5: $color-primary-5,    
-    primary-6: $color-primary-6,
-    primary-7: $color-primary-7
-);
+@import "palette.scss";
 
 html,
 body {
@@ -55,7 +35,7 @@ p.subtitle {
 }
 
 hr {
-    margin: 3em 0;
+    margin: 2.4em 0;
     height: 2px;
     border: 0;
     background: $color-muted-1;
@@ -93,16 +73,15 @@ hr {
 .tags {
     .tag {
         display: inline-block;
-        padding: .1em .6em;
+        padding: .12em .6em;
         margin: .1em;
         border-radius: 2em;
-        background: red;
     }
 
     @for $i from 1 through 7 {
         &--primary-#{$i} .tag,
         .tag--primary-#{$i} {
-            background: linear-gradient(145deg, rgba($color-muted-1, 0.2), rgba($color-muted-1, 0.5), rgba(map-get($palette, primary-#{$i}), 0.1));
+            background: linear-gradient(145deg, rgba($color-muted-1, 0.12), rgba($color-muted-1, 0.3), rgba(map-get($palette, primary-#{$i}), 0.12));
             color: map-get($palette, primary-#{$i});
         }
     }

@@ -34,15 +34,17 @@
         });
 
         const buttons = document.getElementsByClassName('button');
+        const hoverSpan = document.createElement('span');
+        hoverSpan.classList.add('button__hover');
 
         for (var i = 0; i < buttons.length; i++) {
+            buttons[i].appendChild(hoverSpan.cloneNode());
             buttons[i].addEventListener('mouseleave', event => {
                 event.target.style.background = null;
             
                 const hoverSpan = event.target.querySelector('.button__hover');
                 hoverSpan.style.opacity = '0.0';
             });
-
         }
     });
     </script>
