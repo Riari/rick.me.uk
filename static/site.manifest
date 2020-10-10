@@ -1,0 +1,7 @@
+{
+    "name": "riari.dev",
+    "short_name": "riari.dev",
+    "theme_color": "#252530",
+    "background_color": "#252530",
+    "display": "standalone"
+}
