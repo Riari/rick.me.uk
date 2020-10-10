@@ -129,6 +129,12 @@ hr {
       vertical-align: -10px; }
 
 @media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 2.8em; }
+  h2 {
+    font-size: 1.9em; }
+  hr {
+    margin: 2em 0; }
   .proficiencies__row {
     flex-direction: column; }
     .proficiencies__row__label {
