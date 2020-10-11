@@ -81,7 +81,7 @@ hr {
     @for $i from 1 through 7 {
         &--primary-#{$i} .tag,
         .tag--primary-#{$i} {
-            background: linear-gradient(145deg, rgba($color-muted-1, 0.12), rgba($color-muted-1, 0.3), rgba(map-get($palette, primary-#{$i}), 0.12));
+            background: linear-gradient(145deg, rgba($color-muted-1, 0.2), rgba($color-muted-1, 0.3), rgba(map-get($palette, primary-#{$i}), 0.12));
             color: map-get($palette, primary-#{$i});
         }
     }

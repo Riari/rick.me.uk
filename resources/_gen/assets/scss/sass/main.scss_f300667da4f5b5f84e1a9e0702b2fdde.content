@@ -63,37 +63,37 @@ hr {
 
 .tags--primary-1 .tag,
 .tags .tag--primary-1 {
-  background: linear-gradient(145deg, rgba(68, 71, 90, 0.12), rgba(68, 71, 90, 0.3), rgba(139, 233, 253, 0.12));
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.2), rgba(68, 71, 90, 0.3), rgba(139, 233, 253, 0.12));
   color: #8be9fd; }
 
 .tags--primary-2 .tag,
 .tags .tag--primary-2 {
-  background: linear-gradient(145deg, rgba(68, 71, 90, 0.12), rgba(68, 71, 90, 0.3), rgba(80, 250, 123, 0.12));
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.2), rgba(68, 71, 90, 0.3), rgba(80, 250, 123, 0.12));
   color: #50fa7b; }
 
 .tags--primary-3 .tag,
 .tags .tag--primary-3 {
-  background: linear-gradient(145deg, rgba(68, 71, 90, 0.12), rgba(68, 71, 90, 0.3), rgba(255, 184, 108, 0.12));
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.2), rgba(68, 71, 90, 0.3), rgba(255, 184, 108, 0.12));
   color: #ffb86c; }
 
 .tags--primary-4 .tag,
 .tags .tag--primary-4 {
-  background: linear-gradient(145deg, rgba(68, 71, 90, 0.12), rgba(68, 71, 90, 0.3), rgba(255, 121, 198, 0.12));
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.2), rgba(68, 71, 90, 0.3), rgba(255, 121, 198, 0.12));
   color: #ff79c6; }
 
 .tags--primary-5 .tag,
 .tags .tag--primary-5 {
-  background: linear-gradient(145deg, rgba(68, 71, 90, 0.12), rgba(68, 71, 90, 0.3), rgba(189, 147, 249, 0.12));
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.2), rgba(68, 71, 90, 0.3), rgba(189, 147, 249, 0.12));
   color: #bd93f9; }
 
 .tags--primary-6 .tag,
 .tags .tag--primary-6 {
-  background: linear-gradient(145deg, rgba(68, 71, 90, 0.12), rgba(68, 71, 90, 0.3), rgba(255, 85, 85, 0.12));
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.2), rgba(68, 71, 90, 0.3), rgba(255, 85, 85, 0.12));
   color: #ff5555; }
 
 .tags--primary-7 .tag,
 .tags .tag--primary-7 {
-  background: linear-gradient(145deg, rgba(68, 71, 90, 0.12), rgba(68, 71, 90, 0.3), rgba(241, 250, 140, 0.12));
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.2), rgba(68, 71, 90, 0.3), rgba(241, 250, 140, 0.12));
   color: #f1fa8c; }
 
 .button {
