@@ -220,7 +220,7 @@ ul.tags {
       margin-bottom: .4em; }
   .page .body {
     flex: 1;
-    padding: 2em 1em;
+    padding: 1.6em 1em;
     background: #fff;
     font-family: 'Lora', serif;
     font-size: 1.2em;
@@ -228,9 +228,18 @@ ul.tags {
     line-height: 1.6;
     color: #252530; }
     .page .body .publish-date {
+      margin-bottom: 2em;
       font-weight: bold;
       color: #44475a;
       text-align: center; }
+    .page .body a {
+      color: #44475a; }
+    .page .body ul {
+      margin-left: 1em; }
+    .page .body p > code {
+      padding: 0 .2em;
+      background: #d6ebfe;
+      color: #1400cc; }
 
 .pagination {
   list-style: none;

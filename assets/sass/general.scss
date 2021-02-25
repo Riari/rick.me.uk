@@ -237,7 +237,7 @@ ul.tags {
 
     .body {
         flex: 1;
-        padding: 2em 1em;
+        padding: 1.6em 1em;
         background: #fff;
         font-family: 'Lora', serif;
         font-size: 1.2em;
@@ -246,9 +246,24 @@ ul.tags {
         color: $color-background;
 
         .publish-date {
+            margin-bottom: 2em;
             font-weight: bold;
             color: $color-muted-1;
             text-align: center;
+        }
+
+        a {
+            color: $color-muted-1;
+        }
+
+        ul {
+            margin-left: 1em;
+        }
+
+        p > code {
+            padding: 0 .2em;
+            background: #d6ebfe;
+            color: #1400cc;
         }
     }
 }
