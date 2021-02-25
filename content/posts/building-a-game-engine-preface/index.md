@@ -25,6 +25,6 @@ To help keep myself on track and not produce an incorrigible mess, I'm using lot
 * Game Engine Architecture (2015)
 * Game Coding Complete, Fourth Edition (2013)
 * [The Cherno's Game Engine series](https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT)
-* Modern open source C++ game engines (there are [lots](https://github.com/amzeratul/halley) [of](https://github.com/nem0/LumixEngine) [examples](https://github.com/urho3d/Urho3D)!)
+* Modern open source C++ game engines ([there](https://github.com/TheCherno/Hazel) [are](https://github.com/godlikepanos/anki-3d-engine) [lots](https://github.com/amzeratul/halley) [of](https://github.com/nem0/LumixEngine) [examples](https://github.com/urho3d/Urho3D)!)
 
 Lastly, the repo for this project is available at [https://github.com/Riari/iris-engine](https://github.com/Riari/iris-engine) and at the time of writing, my focus is on integrating an initial version of an [entity component system](https://en.wikipedia.org/wiki/Entity_component_system), the work-in-progress of which is in the `ecs` branch (so I can easily refer to the original, non-componentised code). In the next post, I'll cover some of the work I'm doing on that.
