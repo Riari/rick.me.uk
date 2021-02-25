@@ -15,37 +15,6 @@
     <meta name="theme-color" content="#252530">    
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script>
-    document.addEventListener('DOMContentLoaded', event => {
-        document.addEventListener('mousemove', event => {
-            if (event.target.classList == null || !event.target.classList.contains('button')) return;
-
-            const rect = event.target.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
-            
-            const hoverSpan = event.target.querySelector('.button__hover');
-            hoverSpan.style.opacity = '1.0';
-            hoverSpan.style.left = `${mouseX - (hoverSpan.offsetWidth / 2)}px`;
-            hoverSpan.style.top = `${mouseY - (hoverSpan.offsetHeight / 2)}px`;
-        });
-
-        const buttons = document.getElementsByClassName('button');
-        const hoverSpan = document.createElement('span');
-        hoverSpan.classList.add('button__hover');
-
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].appendChild(hoverSpan.cloneNode());
-            buttons[i].addEventListener('mouseleave', event => {
-                event.target.style.background = null;
-            
-                const hoverSpan = event.target.querySelector('.button__hover');
-                hoverSpan.style.opacity = '0.0';
-            });
-        }
-    });
-    </script>
 </head>
 
 <body>

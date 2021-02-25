@@ -188,17 +188,63 @@ hr {
   min-height: 100vh;
   display: flex;
   flex-direction: column; }
+  .post .inner-container {
+    max-width: 800px; }
   .post .head {
-    padding: 4em 1em;
+    padding: 0 1em 4em 1em;
+    background-size: cover;
     text-align: center; }
+    .post .head .links {
+      display: flex;
+      padding-top: 0; }
+      .post .head .links .primary {
+        flex: 1;
+        text-align: left; }
+      .post .head .links .secondary {
+        text-align: right; }
+      .post .head .links a {
+        display: inline-block;
+        padding: .4em .8em;
+        border-bottom-left-radius: .2em;
+        border-bottom-right-radius: .2em;
+        background: rgba(27, 27, 36, 0.6);
+        font-family: 'JetBrains Mono', monospace;
+        color: #f8f8f2;
+        text-decoration: none; }
+        .post .head .links a:hover {
+          background: rgba(27, 27, 36, 0.8); }
     .post .head h1 {
       margin-bottom: .4em; }
     .post .head h2.subheading {
       font-size: 1.4em;
       color: #aeb0c7; }
-    .post .head span.meta {
-      font-weight: bold;
-      color: #44475a; }
+    .post .head ul.tags {
+      list-style: none;
+      margin: 1.2em 0 0 0;
+      padding: 0; }
+      .post .head ul.tags li {
+        display: inline-block; }
+        .post .head ul.tags li a {
+          position: relative;
+          display: inline-block;
+          padding: .3em 1.2em;
+          margin: .1em;
+          color: #8be9fd;
+          text-decoration: none; }
+          .post .head ul.tags li a::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: skew(-20deg);
+            background: #008cff;
+            opacity: .1;
+            transition: opacity .1s; }
+          .post .head ul.tags li a:hover::after {
+            opacity: .2; }
   .post .body {
     flex: 1;
     padding: 2em 1em;
@@ -208,5 +254,7 @@ hr {
     font-weight: 400;
     line-height: 1.6;
     color: #252530; }
-    .post .body .inner-container {
-      max-width: 800px; }
+    .post .body .publish-date {
+      font-weight: bold;
+      color: #44475a;
+      text-align: center; }

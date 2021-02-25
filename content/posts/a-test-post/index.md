@@ -1,10 +1,11 @@
 +++
-categories = ["Development", "VIM"]
-date = "2021-02-24"
-summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-tags = [".vimrc", "plugins", "spf13-vim", "vim"]
 title = "A Test Post"
 slug = "a-test-post"
+summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+date = "2021-02-24"
+categories = ["Devlog"]
+tags = ["cpp", "game-engine", "ecs"]
+image = "header.png"
 +++
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend velit et mi ultrices condimentum. Proin finibus felis id nisi porttitor, ac mattis nisi finibus. Pellentesque ornare lorem ac mi aliquam molestie. Mauris nec nisl sed quam mollis pulvinar. Morbi eget ipsum sit amet urna convallis gravida ac vitae nisi. In lectus sapien, egestas hendrerit lobortis sed, malesuada pretium libero. Donec a venenatis justo, in gravida lacus. Nam at ligula eget turpis blandit convallis vitae vel est. Morbi fringilla leo sapien, sed semper elit pulvinar eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque libero ligula, viverra vel felis nec, egestas vehicula nulla. Aenean suscipit ligula urna, a congue lacus finibus ut. Aliquam iaculis erat convallis dapibus dictum. Donec bibendum erat mi, quis malesuada urna mattis consectetur. Aenean felis enim, ultricies sed tincidunt vel, auctor et ex. Praesent finibus tempor laoreet.
