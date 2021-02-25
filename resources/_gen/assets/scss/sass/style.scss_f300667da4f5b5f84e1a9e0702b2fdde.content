@@ -272,11 +272,13 @@ ul.tags {
 
 @media only screen and (max-width: 768px) {
   h1 {
-    font-size: 2.8em; }
+    font-size: 2.6em; }
   h2 {
-    font-size: 1.9em; }
+    font-size: 1.7em; }
   hr {
-    margin: 2em 0; } }
+    margin: 2em 0; }
+  .page .body article {
+    font-size: .8em; } }
 
 .container--home {
   min-height: 100vh;
