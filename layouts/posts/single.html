@@ -1,23 +1,16 @@
 {{ partial "header.html" . }}
 
-<div class="post">
+<div class="page">
     <div class="head" style="background-image: url({{ .Params.Image }});">
-        <div class="container">
-            <div class="inner-container links">
-                <div class="primary">
-                    <a href="/"><span class="text--primary-1">riari</span><span class="text--muted-1">.</span><span class="text--primary-2">dev</span></a>
-                </div>
-                <div class="secondary">
-                    <a href="/posts/">Posts</a>
-                </div>
-            </div>
+        <div>
+            {{ partial "links.html" . }}
 
             <h1>{{ .Title }}</h1>
             <h2 class="subheading">{{ .Summary }}</h2>
 
             <ul class="tags">
                 {{ range (.GetTerms "tags") }}
-                    <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+                    <li><a href="{{ .Permalink }}"><span>{{ .LinkTitle }}</span></a></li>
                 {{ end }}
             </ul>
         </div>

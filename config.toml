@@ -1,7 +1,8 @@
 baseURL = "https://www.riari.dev"
 languageCode = "en-gb"
-title = "Riari (Rick Mann)"
+title = "riari.dev"
 pygmentsUseClasses = true
+paginate = 10
 
 [permalinks]
   posts = "/posts/:year/:month/:slug/"

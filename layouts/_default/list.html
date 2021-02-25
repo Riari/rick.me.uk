@@ -1,5 +1,33 @@
 {{ partial "header.html" . }}
 
-List template
+<div class="page">
+    <div class="head head--slim">
+        {{ partial "links.html" . }}
+
+        <h1>{{ .Title }}</h1>
+        {{ if .Data.Singular }}<h2 class="subheading">{{ .Data.Singular }}</h2>{{ end }}
+    </div>
+
+    <hr>
+
+    <div class="inner-container">
+        {{ range .Paginator.Pages }}
+            <div class="post-card">
+                <div class="header">
+                    <span class="title"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
+                    <span class="publish-date">{{ .Date.Format "02 Jan 2006" }}</span>
+                </div>
+                <div class="summary">
+                    {{ .Summary }}
+                </div>
+                <div class="permalink">
+                    <a href="{{ .Permalink }}">Permalink</a>
+                </div>
+            </div>
+        {{ end }}
+
+        {{ template "_internal/pagination.html" . }}
+    </div>
+</div>
 
 {{ partial "footer.html" . }}

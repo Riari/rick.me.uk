@@ -38,7 +38,11 @@ h1 {
 h2 {
   font-size: 2.1em; }
 
-p.subtitle {
+h2.subheading {
+  font-size: 1.4em;
+  color: #aeb0c7; }
+
+p.lead {
   font-size: 1.6em; }
 
 hr {
@@ -59,16 +63,14 @@ hr {
 .text--muted-2 {
   color: #aeb0c7; }
 
-.container--home {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
+.text-center {
+  text-align: center; }
 
 .inner-container {
   margin: 0 auto;
   padding: 1em;
-  max-width: 1200px; }
+  max-width: 1200px;
+  width: 100%; }
 
 .tags .tag {
   display: inline-block;
@@ -136,73 +138,59 @@ hr {
     background: rgba(68, 71, 90, 0.4);
     box-shadow: inset 0 0 0 2px #44475a; }
 
-.proficiencies__row {
-  display: flex;
-  border-bottom: 1px solid rgba(68, 71, 90, 0.2);
-  padding: .6em 0; }
-  .proficiencies__row__label {
-    padding: 0.1em 0;
-    font-weight: bold;
-    min-width: 240px;
-    color: #aeb0c7; }
+ul.tags {
+  list-style: none;
+  margin: 1.2em 0 0 0;
+  padding: 0; }
+  ul.tags li {
+    display: inline-block; }
+    ul.tags li a {
+      position: relative;
+      display: inline-block;
+      padding: .3em 1.2em;
+      margin: .1em;
+      color: #8be9fd;
+      text-decoration: none; }
+      ul.tags li a::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        transform: skew(-20deg);
+        background: #006eff;
+        opacity: .1;
+        transition: opacity .1s; }
+      ul.tags li a:hover::after {
+        opacity: .2; }
+      ul.tags li a span {
+        position: relative;
+        z-index: 2; }
 
-.links {
-  display: flex; }
-  .links .button {
-    flex: 1; }
-    .links .button img {
-      width: 32px;
-      height: 32px;
-      margin-right: 0.6em;
-      vertical-align: -10px; }
-
-.highlight {
-  font-size: .8em; }
-  .highlight > div {
-    border-radius: .2em; }
-    .highlight > div table tr td:first-child {
-      width: 50px;
-      min-width: 50px;
-      text-align: right; }
-    .highlight > div table tr td:nth-child(2) {
-      width: 100%; }
-    .highlight > div code {
-      font-family: 'JetBrains Mono', monospace; }
-
-@media only screen and (max-width: 768px) {
-  h1 {
-    font-size: 2.8em; }
-  h2 {
-    font-size: 1.9em; }
-  hr {
-    margin: 2em 0; }
-  .proficiencies__row {
-    flex-direction: column; }
-    .proficiencies__row__label {
-      margin-bottom: 1em;
-      min-width: auto; }
-  .links {
-    flex-direction: column; } }
-
-.post {
+.page {
   min-height: 100vh;
   display: flex;
   flex-direction: column; }
-  .post .inner-container {
+  .page .inner-container {
     max-width: 800px; }
-  .post .head {
+  .page .head {
     padding: 0 1em 4em 1em;
     background-size: cover;
     text-align: center; }
-    .post .head .links {
+    .page .head--slim {
+      padding: 0 1em; }
+    .page .head .links {
       display: flex;
       padding-top: 0; }
-      .post .head .links .primary {
+      .page .head .links .primary {
         flex: 1;
         text-align: left; }
-      .post .head .links .secondary {
+      .page .head .links .secondary {
         text-align: right; }
-      .post .head .links a {
+      .page .head .links a {
         display: inline-block;
         padding: .4em .8em;
         border-bottom-left-radius: .2em;
@@ -210,42 +198,18 @@ hr {
         background: rgba(27, 27, 36, 0.6);
         font-family: 'JetBrains Mono', monospace;
         color: #f8f8f2;
-        text-decoration: none; }
-        .post .head .links a:hover {
-          background: rgba(27, 27, 36, 0.8); }
-    .post .head h1 {
+        text-decoration: none;
+        transition: background .1s, color .1s; }
+        .page .head .links a span {
+          transition: color .1s; }
+        .page .head .links a:hover {
+          background: rgba(224, 235, 245, 0.8);
+          color: #252530; }
+          .page .head .links a:hover span {
+            color: #252530; }
+    .page .head h1 {
       margin-bottom: .4em; }
-    .post .head h2.subheading {
-      font-size: 1.4em;
-      color: #aeb0c7; }
-    .post .head ul.tags {
-      list-style: none;
-      margin: 1.2em 0 0 0;
-      padding: 0; }
-      .post .head ul.tags li {
-        display: inline-block; }
-        .post .head ul.tags li a {
-          position: relative;
-          display: inline-block;
-          padding: .3em 1.2em;
-          margin: .1em;
-          color: #8be9fd;
-          text-decoration: none; }
-          .post .head ul.tags li a::after {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            transform: skew(-20deg);
-            background: #008cff;
-            opacity: .1;
-            transition: opacity .1s; }
-          .post .head ul.tags li a:hover::after {
-            opacity: .2; }
-  .post .body {
+  .page .body {
     flex: 1;
     padding: 2em 1em;
     background: #fff;
@@ -254,7 +218,117 @@ hr {
     font-weight: 400;
     line-height: 1.6;
     color: #252530; }
-    .post .body .publish-date {
+    .page .body .publish-date {
       font-weight: bold;
       color: #44475a;
       text-align: center; }
+
+.pagination {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center; }
+  .pagination li {
+    display: inline-block;
+    border-radius: .3em;
+    background: rgba(27, 27, 36, 0.6);
+    transition: background .1s, color .1s; }
+    .pagination li a {
+      display: block;
+      padding: .4em .8em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .8em;
+      color: inherit;
+      text-decoration: none; }
+    .pagination li:hover {
+      background: rgba(224, 235, 245, 0.8);
+      color: #252530; }
+    .pagination li.active {
+      font-weight: bold; }
+    .pagination li.disabled {
+      cursor: default;
+      opacity: .5; }
+      .pagination li.disabled:hover {
+        background: rgba(27, 27, 36, 0.6);
+        color: inherit; }
+
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 2.8em; }
+  h2 {
+    font-size: 1.9em; }
+  hr {
+    margin: 2em 0; } }
+
+.container--home {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .container--home .proficiencies__row {
+    display: flex;
+    border-bottom: 1px solid rgba(68, 71, 90, 0.2);
+    padding: .6em 0; }
+    .container--home .proficiencies__row__label {
+      padding: 0.1em 0;
+      font-weight: bold;
+      min-width: 240px;
+      color: #aeb0c7; }
+  .container--home .links {
+    display: flex; }
+    .container--home .links .button {
+      flex: 1; }
+      .container--home .links .button img {
+        width: 32px;
+        height: 32px;
+        margin-right: 0.6em;
+        vertical-align: -10px; }
+  .container--home .highlight {
+    font-size: .8em; }
+    .container--home .highlight > div {
+      border-radius: .3em; }
+      .container--home .highlight > div table tr td:first-child {
+        width: 50px;
+        min-width: 50px;
+        text-align: right; }
+      .container--home .highlight > div table tr td:nth-child(2) {
+        width: 100%; }
+      .container--home .highlight > div code {
+        font-family: 'JetBrains Mono', monospace; }
+
+@media only screen and (max-width: 768px) {
+  .container--home .proficiencies__row {
+    flex-direction: column; }
+    .container--home .proficiencies__row__label {
+      margin-bottom: 1em;
+      min-width: auto; }
+  .container--home .links {
+    flex-direction: column; } }
+
+.post-card {
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: .3em;
+  background: #fff;
+  overflow: hidden; }
+  .post-card .header {
+    display: flex;
+    margin-bottom: .5em; }
+    .post-card .header .title {
+      flex: 1; }
+      .post-card .header .title a {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: bold;
+        color: #44475a;
+        text-decoration: none; }
+    .post-card .header .publish-date {
+      color: #aeb0c7; }
+  .post-card .summary {
+    font-family: 'Lora', serif;
+    color: #252530; }
+  .post-card .permalink {
+    text-align: right; }
+    .post-card .permalink a {
+      font-weight: bold;
+      color: #aeb0c7;
+      text-decoration: none; }

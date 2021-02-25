@@ -1,0 +1,42 @@
+.post-card {
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: .3em;
+    background: #fff;
+    overflow: hidden;
+
+    .header {
+        display: flex;
+        margin-bottom: .5em;
+
+        .title {
+            flex: 1;
+
+            a {
+                font-family: "JetBrains Mono", monospace;
+                font-weight: bold;
+                color: $color-muted-1;
+                text-decoration: none;
+            }
+        }
+        
+        .publish-date {
+            color: $color-muted-2;
+        }
+    }
+
+    .summary {
+        font-family: 'Lora', serif;
+        color: $color-background;
+    }
+
+    .permalink {
+        text-align: right;
+
+        a {
+            font-weight: bold;
+            color: $color-muted-2;
+            text-decoration: none;
+        }
+    }
+}
