@@ -1,23 +1,34 @@
 {{ partial "header.html" . }}
 
 <div class="container container--home">
-    <div class="inner-content">
+    <div class="inner-container">
         <h1><span class="text--muted-1" style="padding-right: .2em;">&#8250;</span><span class="text--primary-1">riari</span><span class="text--muted-1">.</span><span class="text--primary-2">dev</span></h1>
         <p class="lead">Hi, I'm Rick; a game developer with a background in full stack web dev.</p>
     
         <hr>
 
-        <h2>Posts</h2>
-        
-        {{ range(where .Site.RegularPages "Type" "posts" | first 3) }}
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-        {{ end }}
+        <div class="recent-posts">
+            <div class="inline-heading">
+                <h2>Posts</h2>
 
-        <a href="/posts/">See more</a>
-    
-        <h2>Proficiencies</h2>
+                <span class="more-link">
+                    <a href="/posts/">See full list</a>
+                </span>
+            </div>
+        
+            <ul>
+                {{ range(where .Site.RegularPages "Type" "posts" | first 3) }}
+                    <li>
+                        <a href="{{ .Permalink }}" class="link">{{ .Title }}</a>
+                        <span class="publish-date">{{ .Date.Format "02 Jan 2006" }}</span>
+                    </li>
+                {{ end }}
+            </ul>
+        </div>
     
         <div class="proficiencies">
+            <h2>Proficiencies</h2>
+
             <div class="proficiencies__row">
                 <div class="proficiencies__row__label">
                     Languages

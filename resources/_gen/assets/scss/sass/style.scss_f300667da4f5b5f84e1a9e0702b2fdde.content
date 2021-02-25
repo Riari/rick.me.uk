@@ -42,6 +42,12 @@ h2.subheading {
   font-size: 1.4em;
   color: #aeb0c7; }
 
+.inline-heading h1, .inline-heading h2 {
+  display: inline-block;
+  margin-top: 0;
+  margin-right: .4em;
+  vertical-align: -0.1em; }
+
 p.lead {
   font-size: 1.6em; }
 
@@ -67,6 +73,7 @@ hr {
   text-align: center; }
 
 .inner-container {
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 1em;
   max-width: 1200px;
@@ -177,6 +184,7 @@ ul.tags {
   .page .inner-container {
     max-width: 800px; }
   .page .head {
+    margin: 0;
     padding: 0 1em 4em 1em;
     background-size: cover;
     text-align: center; }
@@ -184,7 +192,8 @@ ul.tags {
       padding: 0 1em; }
     .page .head .links {
       display: flex;
-      padding-top: 0; }
+      padding: 0;
+      margin-bottom: 1.6em; }
       .page .head .links .primary {
         flex: 1;
         text-align: left; }
@@ -265,6 +274,36 @@ ul.tags {
   display: flex;
   justify-content: center;
   align-items: center; }
+  .container--home .recent-posts ul {
+    list-style: none;
+    margin: 0 0 1em 0;
+    padding: 0; }
+    .container--home .recent-posts ul li {
+      display: flex;
+      padding: 0.4em 1em;
+      margin: .1em 0;
+      background: #2c2c39; }
+      .container--home .recent-posts ul li a.link {
+        flex: 1;
+        font-family: "JetBrains Mono", monospace;
+        color: #bd93f9;
+        text-decoration: none;
+        transition: color .1s; }
+        .container--home .recent-posts ul li a.link:hover {
+          color: #fff; }
+      .container--home .recent-posts ul li .publish-date {
+        color: #aeb0c7; }
+  .container--home .recent-posts .more-link {
+    text-align: right; }
+    .container--home .recent-posts .more-link a {
+      display: inline-block;
+      padding: .2em .6em;
+      background: #2c2c39;
+      color: #aeb0c7;
+      text-decoration: none;
+      transition: color .1s; }
+      .container--home .recent-posts .more-link a:hover {
+        color: #fff; }
   .container--home .proficiencies__row {
     display: flex;
     border-bottom: 1px solid rgba(68, 71, 90, 0.2);
@@ -306,29 +345,40 @@ ul.tags {
     flex-direction: column; } }
 
 .post-card {
-  padding: 1em;
   margin-bottom: 1em;
   border-radius: .3em;
-  background: #fff;
-  overflow: hidden; }
+  border-top-left-radius: .6em;
+  border-top-right-radius: .6em;
+  background: #fff; }
   .post-card .header {
     display: flex;
-    margin-bottom: .5em; }
+    margin-bottom: .5em;
+    padding: 1.2em 1.6em;
+    border-top-left-radius: .3em;
+    border-top-right-radius: .3em;
+    background: #42425c; }
     .post-card .header .title {
       flex: 1; }
       .post-card .header .title a {
         font-family: "JetBrains Mono", monospace;
         font-weight: bold;
-        color: #44475a;
+        color: #fff;
         text-decoration: none; }
+        .post-card .header .title a:hover {
+          text-decoration: underline; }
     .post-card .header .publish-date {
       color: #aeb0c7; }
   .post-card .summary {
+    padding: 1.2em 1.6em;
     font-family: 'Lora', serif;
     color: #252530; }
   .post-card .permalink {
+    padding: 0 1.6em 1.2em 1.6em;
     text-align: right; }
     .post-card .permalink a {
       font-weight: bold;
       color: #aeb0c7;
-      text-decoration: none; }
+      text-decoration: none;
+      transition: color .1s; }
+      .post-card .permalink a:hover {
+        color: #000; }

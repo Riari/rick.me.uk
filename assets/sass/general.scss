@@ -33,6 +33,15 @@ h2.subheading {
     color: $color-muted-2;
 }
 
+.inline-heading {
+    h1, h2 {
+        display: inline-block;
+        margin-top: 0;
+        margin-right: .4em;
+        vertical-align: -0.1em;
+    }
+}
+
 p.lead {
     font-size: 1.6em;
 }
@@ -65,6 +74,7 @@ hr {
 }
 
 .inner-container {
+    box-sizing: border-box;
     margin: 0 auto;
     padding: 1em;
     max-width: 1200px;
@@ -171,6 +181,7 @@ ul.tags {
     }
 
     .head {
+        margin: 0;
         padding: 0 1em 4em 1em;
         background-size: cover;
         text-align: center;
@@ -181,7 +192,8 @@ ul.tags {
 
         .links {
             display: flex;
-            padding-top: 0;
+            padding: 0;
+            margin-bottom: 1.6em;
 
             .primary {
                 flex: 1;

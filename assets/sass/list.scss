@@ -1,13 +1,17 @@
 .post-card {
-    padding: 1em;
     margin-bottom: 1em;
     border-radius: .3em;
+    border-top-left-radius: .6em;
+    border-top-right-radius: .6em;
     background: #fff;
-    overflow: hidden;
 
     .header {
         display: flex;
         margin-bottom: .5em;
+        padding: 1.2em 1.6em;
+        border-top-left-radius: .3em;
+        border-top-right-radius: .3em;
+        background: #42425c;
 
         .title {
             flex: 1;
@@ -15,8 +19,12 @@
             a {
                 font-family: "JetBrains Mono", monospace;
                 font-weight: bold;
-                color: $color-muted-1;
+                color: #fff;
                 text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
         
@@ -26,17 +34,24 @@
     }
 
     .summary {
+        padding: 1.2em 1.6em;
         font-family: 'Lora', serif;
         color: $color-background;
     }
 
     .permalink {
+        padding: 0 1.6em 1.2em 1.6em;
         text-align: right;
 
         a {
             font-weight: bold;
             color: $color-muted-2;
             text-decoration: none;
+            transition: color .1s;
+
+            &:hover {
+                color: #000;
+            }
         }
     }
 }
