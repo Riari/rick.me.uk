@@ -4,12 +4,10 @@
 <head>
     <title>riari.dev</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;500&display=swap">
-
-    {{ $fontsScss := resources.Get "sass/fonts.scss" | resources.ToCSS }}
-    {{ $mainScss := resources.Get "sass/main.scss" | resources.ToCSS }}
-    {{ $style := slice $fontsScss $mainScss | resources.Concat "css/style.css" | resources.Minify | resources.Fingerprint }}
+    {{ $mainScss := resources.Get "sass/style.scss" | resources.ToCSS }}
+    {{ $style := slice $mainScss | resources.Concat "css/style.css" | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    <link rel="stylesheet" href="/css/syntax.css">
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">

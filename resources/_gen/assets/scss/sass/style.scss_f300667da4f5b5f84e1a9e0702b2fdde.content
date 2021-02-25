@@ -1,3 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url("/fonts/JetBrainsMono-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; }
+
 html,
 body {
   min-height: 100vh;
@@ -50,26 +65,10 @@ hr {
   justify-content: center;
   align-items: center; }
 
-.head,
-.content {
+.inner-container {
   margin: 0 auto;
   padding: 1em;
   max-width: 1200px; }
-
-.head {
-  padding: 2em 1em;
-  text-align: center; }
-  .head h2.subheading {
-    font-size: 1.4em;
-    color: #44475a; }
-  .head span.meta {
-    font-weight: bold;
-    color: #aeb0c7; }
-
-.content article {
-  padding: 1em 2em;
-  border-radius: .4em;
-  background: rgba(125, 148, 161, 0.1); }
 
 .tags .tag {
   display: inline-block;
@@ -157,6 +156,19 @@ hr {
       margin-right: 0.6em;
       vertical-align: -10px; }
 
+.highlight {
+  font-size: .8em; }
+  .highlight > div {
+    border-radius: .2em; }
+    .highlight > div table tr td:first-child {
+      width: 50px;
+      min-width: 50px;
+      text-align: right; }
+    .highlight > div table tr td:nth-child(2) {
+      width: 100%; }
+    .highlight > div code {
+      font-family: 'JetBrains Mono', monospace; }
+
 @media only screen and (max-width: 768px) {
   h1 {
     font-size: 2.8em; }
@@ -171,3 +183,30 @@ hr {
       min-width: auto; }
   .links {
     flex-direction: column; } }
+
+.post {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; }
+  .post .head {
+    padding: 4em 1em;
+    text-align: center; }
+    .post .head h1 {
+      margin-bottom: .4em; }
+    .post .head h2.subheading {
+      font-size: 1.4em;
+      color: #aeb0c7; }
+    .post .head span.meta {
+      font-weight: bold;
+      color: #44475a; }
+  .post .body {
+    flex: 1;
+    padding: 2em 1em;
+    background: #fff;
+    font-family: 'Lora', serif;
+    font-size: 1.2em;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #252530; }
+    .post .body .inner-container {
+      max-width: 800px; }

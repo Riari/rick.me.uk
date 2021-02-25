@@ -1,3 +1,21 @@
 baseURL = "https://www.riari.dev"
 languageCode = "en-gb"
 title = "Riari (Rick Mann)"
+pygmentsUseClasses = true
+
+[permalinks]
+  posts = "/posts/:year/:month/:slug/"
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineAnchors = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "dracula"
+    tabWidth = 4

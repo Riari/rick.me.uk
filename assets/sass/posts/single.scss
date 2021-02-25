@@ -1,0 +1,39 @@
+.post {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .head {
+        padding: 4em 1em;
+        text-align: center;
+
+        h1 {
+            margin-bottom: .4em;
+        }
+
+        h2.subheading {
+            font-size: 1.4em;
+            color: $color-muted-2;
+        }
+
+        span.meta {
+            font-weight: bold;
+            color: $color-muted-1;
+        }
+    }
+
+    .body {
+        flex: 1;
+        padding: 2em 1em;
+        background: #fff;
+        font-family: 'Lora', serif;
+        font-size: 1.2em;
+        font-weight: 400;
+        line-height: 1.6;
+        color: $color-background;
+
+        .inner-container {
+            max-width: 800px;
+        }
+    }
+}

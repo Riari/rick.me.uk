@@ -1,5 +1,3 @@
-@import "palette.scss";
-
 html,
 body {
     min-height: 100vh;
@@ -64,7 +62,7 @@ hr {
     align-items: center;
 }
 
-.content {
+.inner-container {
     margin: 0 auto;
     padding: 1em;
     max-width: 1200px;
@@ -143,6 +141,32 @@ hr {
             height: 32px;
             margin-right: 0.6em;
             vertical-align: -10px;
+        }
+    }
+}
+
+.highlight {
+    font-size: .8em;
+
+    &> div {
+        border-radius: .2em;
+
+        table {
+            tr {
+                td:first-child {
+                    width: 50px;
+                    min-width: 50px;
+                    text-align: right;
+                }
+
+                td:nth-child(2) {
+                    width: 100%;
+                }
+            }
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
         }
     }
 }
