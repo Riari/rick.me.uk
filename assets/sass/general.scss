@@ -240,7 +240,7 @@ ul.tags {
         padding: 1.6em 1em;
         background: #fff;
         font-family: 'Lora', serif;
-        font-size: 1.2em;
+        font-size: 1.1em;
         font-weight: 400;
         line-height: 1.6;
         color: $color-background;
@@ -260,10 +260,14 @@ ul.tags {
             margin-left: 1em;
         }
 
-        p > code {
-            padding: 0 .2em;
-            background: #d6ebfe;
-            color: #1400cc;
+        p {
+            margin-bottom: 1.2em;
+
+            & > code {
+                padding: 0 .2em;
+                background: #d6ebfe;
+                color: #1400cc;
+            }
         }
     }
 }
