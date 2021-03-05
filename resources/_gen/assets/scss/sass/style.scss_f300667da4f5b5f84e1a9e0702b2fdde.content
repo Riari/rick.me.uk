@@ -298,7 +298,7 @@ ul.tags {
       background: #2c2c39; }
       .container--home .recent-posts ul li a.link {
         flex: 1;
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         color: #bd93f9;
         text-decoration: none;
         transition: color .1s; }
@@ -373,7 +373,7 @@ ul.tags {
     .post-card .header .title {
       flex: 1; }
       .post-card .header .title a {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-weight: bold;
         color: #fff;
         text-decoration: none; }
@@ -395,3 +395,7 @@ ul.tags {
       transition: color .1s; }
       .post-card .permalink a:hover {
         color: #000; }
+
+.highlight code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .9em; }
