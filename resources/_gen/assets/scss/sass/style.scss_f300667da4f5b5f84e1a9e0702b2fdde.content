@@ -234,14 +234,43 @@ ul.tags {
       text-align: center; }
     .page .body a {
       color: #44475a; }
-    .page .body ul {
+    .page .body article ul {
       margin-left: 1em; }
-    .page .body p {
+    .page .body article p {
       margin-bottom: 1.2em; }
-      .page .body p > code {
-        padding: 0 .2em;
-        background: #d6ebfe;
-        color: #1400cc; }
+    .page .body article > pre {
+      border-radius: .3em;
+      background: #282a36;
+      padding: .4em .8em; }
+      .page .body article > pre code {
+        font-family: "JetBrains Mono", monospace;
+        color: #f8f8f2; }
+    .page .body article p > code,
+    .page .body article ul > li > code {
+      padding: 0 .2em;
+      background: #d6ebfe;
+      color: #1400cc; }
+    .page .body article img {
+      max-width: 100%; }
+    .page .body hr {
+      height: 1px;
+      border: 0;
+      background: #eaebf1; }
+    .page .body .adjacent-post-links {
+      display: flex; }
+      .page .body .adjacent-post-links .next,
+      .page .body .adjacent-post-links .previous {
+        flex: 50%; }
+        .page .body .adjacent-post-links .next a,
+        .page .body .adjacent-post-links .previous a {
+          text-decoration: none; }
+          .page .body .adjacent-post-links .next a .prefix,
+          .page .body .adjacent-post-links .previous a .prefix {
+            font-size: .8em;
+            color: #aeb0c7; }
+          .page .body .adjacent-post-links .next a .title,
+          .page .body .adjacent-post-links .previous a .title {
+            text-decoration: underline; }
 
 .pagination {
   list-style: none;
@@ -280,7 +309,13 @@ ul.tags {
   hr {
     margin: 2em 0; }
   .page .body article {
-    font-size: .8em; } }
+    font-size: .8em; }
+  .page .body .adjacent-post-links {
+    flex-direction: column;
+    text-align: center; }
+    .page .body .adjacent-post-links .next,
+    .page .body .adjacent-post-links .prev {
+      margin-bottom: .3em; } }
 
 .container--home {
   min-height: 100vh;
@@ -294,7 +329,7 @@ ul.tags {
     .container--home .recent-posts ul li {
       display: flex;
       padding: 0.4em 1em;
-      margin: .1em 0;
+      margin: .2em 0;
       background: #2c2c39; }
       .container--home .recent-posts ul li a.link {
         flex: 1;
@@ -355,46 +390,54 @@ ul.tags {
       margin-bottom: 1em;
       min-width: auto; }
   .container--home .links {
+    flex-direction: column; }
+  .recent-posts ul li {
     flex-direction: column; } }
 
 .post-card {
   margin-bottom: 1em;
-  border-radius: .3em;
-  border-top-left-radius: .6em;
-  border-top-right-radius: .6em;
-  background: #fff; }
-  .post-card .header {
+  border-radius: .3em; }
+  .post-card-header {
     display: flex;
-    margin-bottom: .5em;
     padding: 1.2em 1.6em;
     border-top-left-radius: .3em;
     border-top-right-radius: .3em;
     background: #42425c; }
-    .post-card .header .title {
+    .post-card-header-title {
       flex: 1; }
-      .post-card .header .title a {
+      .post-card-header-title a {
         font-family: 'JetBrains Mono', monospace;
         font-weight: bold;
         color: #fff;
         text-decoration: none; }
-        .post-card .header .title a:hover {
+        .post-card-header-title a:hover {
           text-decoration: underline; }
-    .post-card .header .publish-date {
+    .post-card-header-publish-date {
       color: #aeb0c7; }
-  .post-card .summary {
-    padding: 1.2em 1.6em;
-    font-family: 'Lora', serif;
-    color: #252530; }
-  .post-card .permalink {
-    padding: 0 1.6em 1.2em 1.6em;
-    text-align: right; }
-    .post-card .permalink a {
-      font-weight: bold;
-      color: #aeb0c7;
-      text-decoration: none;
-      transition: color .1s; }
-      .post-card .permalink a:hover {
-        color: #000; }
+  .post-card-body {
+    border-bottom-left-radius: .3em;
+    border-bottom-right-radius: .3em;
+    background: #fff; }
+    .post-card-body-summary {
+      padding: 1.2em 1.6em;
+      font-family: 'Lora', serif;
+      color: #252530; }
+    .post-card-body-permalink {
+      padding: 0 1.6em 1.2em 1.6em;
+      text-align: right; }
+      .post-card-body-permalink a {
+        font-weight: bold;
+        color: #aeb0c7;
+        text-decoration: none;
+        transition: color .1s; }
+        .post-card-body-permalink a:hover {
+          color: #000; }
+
+@media only screen and (max-width: 768px) {
+  .post-card-header {
+    flex-direction: column; }
+    .post-card-header-title {
+      margin-bottom: .3em; } }
 
 .highlight code {
   font-family: 'JetBrains Mono', monospace;

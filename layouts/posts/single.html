@@ -25,8 +25,36 @@
             <article>
                 {{ .Content }}
             </article>
+
+            <hr>
+
+            <div class="adjacent-post-links">
+                <div class="previous">
+                    {{ if .PrevPage }}
+                        <a href="{{ .PrevPage.Permalink }}">
+                            <span class="prefix">‹ Previous post</span>
+                            <br>
+                            <span class="title">{{ .PrevPage.Title | truncate 50 "..."}}</span>
+                        </a>
+                    {{ end }}
+                </div>
+
+                <div class="next">
+                    {{ if .NextPage }}
+                        <a href="{{ .NextPage.Permalink }}">
+                            <span class="prefix">Next post ›</span>
+                            <br>
+                            <span class="title">{{ .NextPage.Title | truncate 50 "..." }}</span>
+                        </a>
+                    {{ end }}
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+mediumZoom('article p img')
+</script>
 
 {{ partial "footer.html" . }}

@@ -13,7 +13,7 @@
             li {
                 display: flex;
                 padding: 0.4em 1em;
-                margin: .1em 0;
+                margin: .2em 0;
                 background: lighten($color-background, 3%);
     
                 a.link {
@@ -123,5 +123,9 @@
         .links {
             flex-direction: column;
         }
+    }
+    
+    .recent-posts ul li {
+        flex-direction: column;
     }
 }

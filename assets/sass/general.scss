@@ -256,17 +256,63 @@ ul.tags {
             color: $color-muted-1;
         }
 
-        ul {
-            margin-left: 1em;
-        }
-
-        p {
-            margin-bottom: 1.2em;
-
-            & > code {
+        article {
+            ul {
+                margin-left: 1em;
+            }
+    
+            p {
+                margin-bottom: 1.2em;
+            }
+    
+            & > pre {
+                border-radius: .3em;
+                background: #282a36;
+                padding: .4em .8em;
+    
+                code {
+                    font-family: "JetBrains Mono", monospace;
+                    color: $color-text;
+                }
+            }
+    
+            p > code,
+            ul > li > code {
                 padding: 0 .2em;
                 background: #d6ebfe;
                 color: #1400cc;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        hr {
+            height: 1px;
+            border: 0;
+            background: lighten($color-muted-2, 20%);
+        }
+
+        .adjacent-post-links {
+            display: flex;
+
+            .next,
+            .previous {
+                flex: 50%;
+
+                a {
+                    text-decoration: none;
+
+                    .prefix {
+                        font-size: .8em;
+                        color: $color-muted-2;
+                    }
+
+                    .title {
+                        text-decoration: underline;
+                    }
+                }
             }
         }
     }
@@ -327,7 +373,19 @@ ul.tags {
         margin: 2em 0;
     }
 
-    .page .body article {
-        font-size: .8em;
+    .page .body {
+        article {
+            font-size: .8em;
+        }
+
+        .adjacent-post-links {
+            flex-direction: column;
+            text-align: center;
+
+            .next,
+            .prev {
+                margin-bottom: .3em;
+            }
+        }
     }
 }

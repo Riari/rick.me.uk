@@ -20,7 +20,7 @@
                 {{ range(where .Site.RegularPages "Type" "posts" | first 3) }}
                     <li>
                         <a href="{{ .Permalink }}" class="link">{{ .Title }}</a>
-                        <span class="publish-date">{{ .Date.Format "02 Jan 2006" }}</span>
+                        <span class="publish-date">{{ .Date.Format "2 Jan 2006" }}</span>
                     </li>
                 {{ end }}
             </ul>

@@ -1,19 +1,15 @@
 .post-card {
     margin-bottom: 1em;
     border-radius: .3em;
-    border-top-left-radius: .6em;
-    border-top-right-radius: .6em;
-    background: #fff;
 
-    .header {
+    &-header {
         display: flex;
-        margin-bottom: .5em;
         padding: 1.2em 1.6em;
         border-top-left-radius: .3em;
         border-top-right-radius: .3em;
         background: #42425c;
 
-        .title {
+        &-title {
             flex: 1;
 
             a {
@@ -28,30 +24,46 @@
             }
         }
         
-        .publish-date {
+        &-publish-date {
             color: $color-muted-2;
         }
     }
 
-    .summary {
-        padding: 1.2em 1.6em;
-        font-family: 'Lora', serif;
-        color: $color-background;
-    }
+    &-body {
+        border-bottom-left-radius: .3em;
+        border-bottom-right-radius: .3em;
+        background: #fff;
 
-    .permalink {
-        padding: 0 1.6em 1.2em 1.6em;
-        text-align: right;
-
-        a {
-            font-weight: bold;
-            color: $color-muted-2;
-            text-decoration: none;
-            transition: color .1s;
-
-            &:hover {
-                color: #000;
+        &-summary {
+            padding: 1.2em 1.6em;
+            font-family: 'Lora', serif;
+            color: $color-background;
+        }
+    
+        &-permalink {
+            padding: 0 1.6em 1.2em 1.6em;
+            text-align: right;
+    
+            a {
+                font-weight: bold;
+                color: $color-muted-2;
+                text-decoration: none;
+                transition: color .1s;
+    
+                &:hover {
+                    color: #000;
+                }
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .post-card-header {
+        flex-direction: column;
+
+        &-title {
+            margin-bottom: .3em;
         }
     }
 }

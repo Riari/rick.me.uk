@@ -13,15 +13,17 @@
     <div class="inner-container">
         {{ range .Paginator.Pages }}
             <div class="post-card">
-                <div class="header">
-                    <span class="title"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
-                    <span class="publish-date">{{ .Date.Format "02 Jan 2006" }}</span>
+                <div class="post-card-header">
+                    <span class="post-card-header-title"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
+                    <span class="post-card-header-publish-date">{{ .Date.Format "2 Jan 2006" }}</span>
                 </div>
-                <div class="summary">
-                    {{ .Summary }}
-                </div>
-                <div class="permalink">
-                    <a href="{{ .Permalink }}">Permalink</a>
+                <div class="post-card-body">
+                    <div class="post-card-body-summary">
+                        {{ .Summary }}
+                    </div>
+                    <div class="post-card-body-permalink">
+                        <a href="{{ .Permalink }}">Permalink</a>
+                    </div>
                 </div>
             </div>
         {{ end }}
