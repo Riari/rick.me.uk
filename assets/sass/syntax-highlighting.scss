@@ -1,4 +1,8 @@
-.highlight code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .9em;
+.highlight > .chroma {
+    border-radius: .2em;
+
+    code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: .9em;
+    }
 }
