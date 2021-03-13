@@ -21,6 +21,8 @@ Needless to say, there's a long way to go. Writing an ECS when there's still so 
 
 I should point out that I have no intention of attempting to innovate with my implementation. The ECS architectural pattern has been popular for a very long time and its principles have been talked about as far back as almost twenty years ago, when Scott Bilas detailed some aspects of it in his [GDC talk, "A Data-Driven Game Object System"](https://www.gamedevs.org/uploads/data-driven-game-object-system.pdf). Many variants and evolutions of it have emerged since, but the core ideas remain the same.
 
+---
+
 ### What _is_ an ECS?
 
 If you're not familiar with it, in brief, it's a compositional, data-oriented approach to defining game objects and their behaviours. It consists of:
@@ -32,6 +34,8 @@ If you're not familiar with it, in brief, it's a compositional, data-oriented ap
 Because it's so prevalent in modern game engines, it should be no surprise that there's an abundance of ECS libraries across many languages, with C++ in particular having a number of well-established options such as [entt](https://github.com/skypjack/entt) and [EntityX](https://github.com/alecthomas/entityx). There are also many articles, forum posts, and other materials that discuss ways of implementing the pattern; some are more rough and ready, others go deeper into the topic and accommodate things like enhanced memory efficiency via custom memory allocators.
 
 ---
+
+### What I did
 
 For my purposes, I wanted an approach that isn't too difficult to learn, but also doesn't compromise too much on efficiency. The [approach described by Austin Morlan](https://austinmorlan.com/posts/entity_component_system/) seemed like a good middle ground, so I used that as a reference.
 
@@ -92,7 +96,13 @@ With the ECS factored in, the overall process looks something like this:
 
 ![Iris engine process flow](./process-flow.jpg)
 
-Still a bit primitive, but better than it was without the ECS, where I used classic game objects with inheritance. There are lots of ways to go from here; further work on the renderer, implementation of a scene graph, work on formats for storing entities/components on disk and loading them from there, and a ton of other stuff I'm not thinking about yet, like audio, and concurrency and parallelism.
+Still a bit primitive, but better than it was without the ECS, where I used classic game objects with inheritance.
+
+---
+
+### What's next
+
+There are lots of ways to go from here; further work on the renderer, implementation of a scene graph, work on formats for storing entities/components on disk and loading them from there, and a ton of other stuff I'm not thinking about yet, like audio, and concurrency and parallelism.
 
 One of the current issues is that scenes are implemented very primitively, where each scene has a concrete implementation that takes care of its own setup, interacting directly with the ECS. For example, `MainScene` currently looks like this:
 
