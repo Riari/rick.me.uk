@@ -7,7 +7,7 @@ tags = ["cpp", "game-engine", "ecs"]
 image = "/images/post-headers/building-game-engine-generic.png"
 +++
 
-In this post, I'll cover some of the work I've done on the initial version of the ECS for [Iris Engine](https://github.com/Riari/iris-engine). Before I get into that, I'll summarise everything else I've done so far prior to implementing the ECS.
+In this post, I'll cover some of the work I've done on the initial version of the ECS for [Iris Engine](https://github.com/Riari/iris-engine). Before I get into that, I'll summarise the other work I've done prior to implementing the ECS.
 
 Currently, the engine consists of:
 
@@ -112,4 +112,4 @@ private:
 };
 {{</highlight>}}
 
-Although scenes/levels/worlds aren't part of the ECS pattern and there are many ways of dealing with them depending on specific requirements, this arrangement is far from ideal, so it's probably the next thing I'll tackle.
+Although scenes/levels/worlds aren't part of the ECS pattern and there are many ways of dealing with them depending on specific requirements, this arrangement is far from ideal because it goes against the data-driven nature of the ECS, so it's probably the next thing I'll tackle.
