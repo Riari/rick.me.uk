@@ -246,7 +246,8 @@ ul.tags {
         font-family: "JetBrains Mono", monospace;
         color: #f8f8f2; }
     .page .body article p > code,
-    .page .body article ul > li > code {
+    .page .body article ul > li > code,
+    .page .body article ol > li > code {
       padding: 0 .2em;
       background: #d6ebfe;
       color: #1400cc; }
@@ -271,6 +272,8 @@ ul.tags {
           .page .body .adjacent-post-links .next a .title,
           .page .body .adjacent-post-links .previous a .title {
             text-decoration: underline; }
+      .page .body .adjacent-post-links .next {
+        text-align: right; }
 
 .pagination {
   list-style: none;

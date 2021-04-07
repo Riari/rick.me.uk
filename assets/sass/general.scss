@@ -277,7 +277,8 @@ ul.tags {
             }
     
             p > code,
-            ul > li > code {
+            ul > li > code,
+            ol > li > code {
                 padding: 0 .2em;
                 background: #d6ebfe;
                 color: #1400cc;
@@ -313,6 +314,10 @@ ul.tags {
                         text-decoration: underline;
                     }
                 }
+            }
+
+            .next {
+                text-align: right;
             }
         }
     }
