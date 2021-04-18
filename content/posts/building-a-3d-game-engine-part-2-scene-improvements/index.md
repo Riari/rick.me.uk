@@ -166,7 +166,7 @@ With all of those changes in place, the program flow now looks like this:
         - Switch to the window's context
         - Update registered systems with state: `Update` -> `PreRender` -> `Render` -> `PostRender`
 
-Here's a rough overview of how the ECS, Window, Scene, and App fit together (some unimportant elements such as InputManager and AssetManager not pictured):
+Here's a rough overview of how the ECS, Window, Scene, and App fit together (some elements outside the scope of this post, such as InputManager and AssetManager, are not pictured):
 ![Iris engine ECS/Scene/App structure](./engine-structure.jpg)
 
 Lastly, here's a screenshot of it in action with two windows and scenes:
