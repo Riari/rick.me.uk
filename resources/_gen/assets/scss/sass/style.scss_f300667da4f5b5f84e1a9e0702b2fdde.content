@@ -318,7 +318,8 @@ ul.tags {
     text-align: center; }
     .page .body .adjacent-post-links .next,
     .page .body .adjacent-post-links .prev {
-      margin-bottom: .3em; } }
+      margin-bottom: .3em;
+      text-align: center; } }
 
 .container--home {
   min-height: 100vh;
@@ -442,8 +443,16 @@ ul.tags {
     .post-card-header-title {
       margin-bottom: .3em; } }
 
-.highlight > .chroma {
-  border-radius: .2em; }
-  .highlight > .chroma code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .9em; }
+.highlight {
+  margin: 1em 0; }
+  .highlight > .chroma {
+    border-radius: .2em; }
+    .highlight > .chroma .lntd:nth-child(1) {
+      min-width: 30px; }
+    .highlight > .chroma .lntd:nth-child(2) {
+      min-width: 100%; }
+    .highlight > .chroma .hl .lnt {
+      color: rgba(255, 255, 255, 0.6); }
+    .highlight > .chroma code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .9em; }

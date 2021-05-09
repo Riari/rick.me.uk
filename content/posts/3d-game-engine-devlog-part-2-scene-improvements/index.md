@@ -1,9 +1,13 @@
 +++
-title = "Building a 3D Game Engine, Part 2: Scene Improvements"
-slug = "building-a-3d-game-engine-part-2-scene-improvements"
+title = "3D Game Engine Devlog, Part 2: Scene Improvements"
+slug = "3d-game-engine-devlog-part-2-scene-improvements"
+aliases = [
+    "/posts/2021/04/3d-game-engine-devlog-part-2-scene-improvements/",
+    "/posts/2021/04/building-a-3d-game-engine-part-2-scene-improvements/"
+]
 summary = "Improvements to build time and scene integration."
 date = "2021-04-18"
-tags = ["cpp", "game-engine", "ecs"]
+tags = ["devlog", "cpp", "game-engine", "ecs"]
 image = "/images/post-headers/building-game-engine-generic.png"
 +++
 

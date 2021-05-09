@@ -1,9 +1,9 @@
 +++
-title = "Building a 3D Game Engine in C++ (Preface)"
-slug = "building-a-game-engine-preface"
+title = "Building a 3D Game Engine in C++: A Devlog (Preface)"
+slug = "building-a-game-engine-devlog-preface"
 summary = "Chronicling my first attempt at building a 3D game engine on modern paradigms."
 date = "2021-02-25"
-tags = ["cpp", "game-engine"]
+tags = ["devlog", "cpp", "game-engine"]
 image = "/images/post-headers/building-game-engine-generic.png"
 +++
 
