@@ -2,7 +2,6 @@
 title = "3D Game Engine Devlog, Part 2: Scene Improvements"
 slug = "3d-game-engine-devlog-part-2-scene-improvements"
 aliases = [
-    "/posts/2021/04/3d-game-engine-devlog-part-2-scene-improvements/",
     "/posts/2021/04/building-a-3d-game-engine-part-2-scene-improvements/"
 ]
 summary = "Improvements to build time and scene integration."

@@ -2,7 +2,6 @@
 title = "3D Game Engine Devlog, Part 1: The ECS"
 slug = "3d-game-engine-devlog-part-1-ecs"
 aliases = [
-    "/posts/2021/03/3d-game-engine-devlog-part-1-ecs/",
     "/posts/2021/03/building-a-3d-game-engine-part-1-ecs/"
 ]
 summary = "Progress on the Entity Component System."
