@@ -59,7 +59,7 @@ Further following [LearnOpenGL's chapter on lighting maps](https://learnopengl.c
 
 - **Diffuse map:** a texture that defines the colours and pattern of the surface under diffused light
 - **Specular map:** a texture that defines areas on the surface where specular lighting can appear (i.e. the reflective areas), as well as the intensity of the highlight for each pixel
-- **Emission map:** a texture that defines the colours and pattern of light-emitting areas of the surface
+- **Emission map:** a texture that defines the colours and pattern of light-emitting areas of the surface *
 
 *\* An emission map by itself doesn't define light that is actually emitted from the object in a way that would affect nearby objects—it simply gives the impression of light emission.*
 
