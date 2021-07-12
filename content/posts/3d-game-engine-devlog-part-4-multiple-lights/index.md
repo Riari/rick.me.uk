@@ -233,7 +233,7 @@ Problem solved! After some tweaking of the light data and number of lights, here
 
 ![All of the lights](./combined-lights-2.jpg)
 
-One directional light, numberous point lights, and a spot light attached to the camera (although it's not very noticeable here).
+One directional light, numerous point lights, and a spot light attached to the camera (although it's not very noticeable here).
 
 ---
 
