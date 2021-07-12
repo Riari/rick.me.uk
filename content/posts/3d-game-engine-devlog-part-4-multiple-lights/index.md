@@ -69,9 +69,9 @@ Here's how it looked (note the black cube, which represents the directional ligh
 
 ![Combined lights](./combined-lights-1.jpg)
 
-It kind of worked, but the point light was significantly weaker despite being so close to one of the crates. Instead of handling it this way, what I needed to do instead was calculate the final `ambient + diffuse + specular` per light and add them together (along with the material's emission colour) to get the final fragment colour.
+It kind of worked, but the point light was significantly weaker despite being so close to one of the crates. Instead of handling it this way, what I needed to do instead was calculate the final `ambient + diffuse + specular` per light and add them together (along with the material's emission colour) to get the final fragment colour. More on this further down.
 
-Before moving on to properly implementing multiple light support, I decided to implement spot lights. Sometimes referred to as omnidirectional lights, they emit light in a cone shape from a specific point, with the angle and several other properties affecting the direction and width of the cone, how soft the edges of the light are, and the attenuation curve (which determines how the light's intensity diminishes). Implementations and available parameters seem to vary between engines, but I just followed the example given on LearnOpenGL, starting with some additions to the struct:
+Before moving on to properly implementing multiple light support, I decided to implement spot lights. Sometimes referred to as omnidirectional lights, they emit light in a cone shape from a specific point, with the angle and several other properties affecting the direction and size of the cone, how soft the edges of the light are, and the attenuation curve (which determines how the light's intensity diminishes over a distance). Implementations and available parameters seem to vary between engines, but I just followed the example given on LearnOpenGL, starting with some additions to the struct:
 
 {{<highlight cpp "linenos=table">}}
 struct SpotLight
@@ -135,7 +135,7 @@ void SpotLightDemo::Update(Window &window, Scene& scene)
 
     for (auto const& id : m_entities)
     {
-        // TODO: find a better way of limiting the update to the intersection of system and scene entities
+        // This check is not ideal; it will be replaced later!
         if (sceneEntities.find(id) == sceneEntities.end()) continue;
 
         auto& transform = GetComponent<Transform>(id);
@@ -159,7 +159,7 @@ Good result!
 
 ### Let there be lights
 
-The first step towards rendering the scene with multiple lights was to modify the fragment shader to accept arrays for spot lights and point lights (not directional lights, since there only needs to be one in existence at any given moment). I set a maximum size for the arrays (since we can't have an infinite number of lights and it's possible to keep the maximum number of active lights below a certain threshold, which I'll explore later) and also added uniforms for specifying the number of active lights for each type:
+The first step towards rendering the scene with multiple lights was to modify the fragment shader to accept arrays for spot lights and point lights (not directional lights, since there only needs to be one in existence at any given moment). I set a maximum size for the arrays (since we can't have an infinite number of lights and it's a good idea to keep the number of active lights below a certain threshold anyway, which I'll explore later) and also added uniforms for specifying the number of currently active lights for each type:
 
 {{<highlight glsl "linenos=table">}}
 #define MAX_POINT_LIGHTS 20
@@ -209,7 +209,7 @@ color += emissionMap * (sin(time) * 0.5f + 0.5f) * 2.0;
 FragColor = vec4(color, 1.0);
 {{</highlight>}}
 
-During the process of getting this to work, I ran into issues figuring out the correct calculations in screen space, so I moved back to doing shader calculations in world space—which requires providing the camera position to the fragment shader-to get it working. When I understand the maths better, I'll come back to this to see if I can get it working in screen space.
+During the process of getting this to work, I ran into issues figuring out the correct calculations in view space, so I moved back to doing shader calculations in world space—which requires providing the camera position to the fragment shader—to get it working. When I understand the maths better, I'll come back to this to see if I can get it working in view space.
 
 At this point, I also realised that `MeshRenderer` was simply getting too cumbersome and doing too much work, so I turned my existing `PointLightDemo` and `SpotLightDemo` systems into `PointLightController` and `SpotLightController` respectively, moving all of the lighting data updates into them and removing that burden from `MeshRenderer`. This was a much cleaner arrangement, with a total of four systems registered:
 
@@ -309,7 +309,7 @@ Once the panels were attached to the layer, all that was left to do was play wit
 
 {{<vimeo 574096404>}}
 
-Much better!
+Much better! This also helped me identify an issue in the fragment shader that was causing lighting to be slightly wrong from some angles, so having a debug UI is already paying off.
 
 ---
 
