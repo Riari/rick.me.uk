@@ -2,7 +2,7 @@
 title = "3D Game Engine Devlog, Part 4: Multiple Lights"
 slug = "3d-game-engine-devlog-part-4-multiple-lights"
 summary = "Light types and multiple light support"
-date = "2021-07-03"
+date = "2021-07-12"
 tags = ["devlog", "cpp", "game-engine", "ecs", "opengl"]
 image = "/images/post-headers/building-game-engine-generic.png"
 +++
