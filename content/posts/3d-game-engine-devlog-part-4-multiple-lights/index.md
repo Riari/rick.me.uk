@@ -69,7 +69,7 @@ Here's how it looked (note the black cube, which represents the directional ligh
 
 ![Combined lights](./combined-lights-1.jpg)
 
-It kind of worked, but the point light was significantly weaker despite being so close to one of the crates. Instead of handling it this way, what I needed to do instead was calculate the final `ambient + diffuse + specular` per light and add them together (along with the material's emission colour) to get the final fragment colour. More on this further down.
+It kind of worked, but the point light was significantly weaker despite being so close to one of the crates. Instead of handling it this way, what I needed to do instead was calculate the final `ambient + diffuse + specular` per light, sum the results, and add the material's emission colour to get the final fragment colour. More on this further down.
 
 Before moving on to properly implementing multiple light support, I decided to implement spot lights. Sometimes referred to as omnidirectional lights, they emit light in a cone shape from a specific point, with the angle and several other properties affecting the direction and size of the cone, how soft the edges of the light are, and the attenuation curve (which determines how the light's intensity diminishes over a distance). Implementations and available parameters seem to vary between engines, but I just followed the example given on LearnOpenGL, starting with some additions to the struct:
 
