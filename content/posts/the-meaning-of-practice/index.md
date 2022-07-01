@@ -17,7 +17,7 @@ The last big feature I attempted to work on was model loading. I wanted to integ
 
 ![Broken model #2](./broken_model_2.jpg)
 
-I went back to it at several points to attempt various fixes, none of which worked. This wasn't helped by the sloppy architecture I had already established, which was compounded by the momentum of adding new features (especially as I had already started building up some long term plans).
+I was able to correct the texture issues (which turned out to be a simple case of telling assimp not to flip UVs on import), but the lighting issues remained. I went back to it at several points to attempt various fixes, none of which worked. This wasn't helped by the sloppy architecture I had already established, which was compounded by the momentum of adding new features (especially as I had already started building up some long term plans).
 
 In the year since I started that model loading work, I've revisited the code less and less frequently to the point that I was putting it aside for months at a time. I was still somewhat determined to fix it and get back on track, and to that end, I recently started ripping out the very primitive bitset ECS I wrote to replace it with an open source archetype ECS (namely [Flecs](https://github.com/SanderMertens/flecs)), the goal of which was twofold: it would possibly help me uncover the cause of the rendering issue as I migrated all of the logic into a new ECS, and it would eliminate a big chunk of first party code (one less thing to iterate on and maintain). Unfortunately, I didn't get far with that, and while I'm fairly confident that I _could_ get to the bottom of the issue and fix it, it became apparent that I was having an issue of motivation more than anything else.
 
