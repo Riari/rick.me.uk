@@ -11,7 +11,7 @@ When I started building [Iris Engine](https://github.com/Riari/iris-engine) last
 
 Modern game engines are immensely complex considering the requirements they typically must satisfy—especially those designed to be genre-agnostic and robust enough to be reasonably useful for any type of game. It should be no surprise that my very first attempt to build something even remotely approaching that category was doomed to fail (something that I sort of hinted at at the end of [part 2 of the devlog series](/posts/2021/04/3d-game-engine-devlog-part-2-scene-improvements/) without realising quite how right I was).
 
-The last big feature I attempted to work on was model loading. I wanted to integrate [assimp](https://github.com/assimp/assimp) so I could load common 3D model formats and render them. That's when I started having issues. I should point out that they were no fault of assimp—it was doing its part just fine, but somewhere along the way I was handling the resulting data incorrectly. While model files were being loaded without errors, they were being rendered with obvious texture and lighting issues:
+The last big feature I attempted to work on was model loading. I wanted to integrate [assimp](https://github.com/assimp/assimp) so I could load common 3D model formats and render them. That's when I started having issues. I should point out that they were no fault of assimp's—it was doing its part just fine, but somewhere along the way I was handling the resulting data incorrectly. While model files were being loaded without errors, they were being rendered with obvious texture and lighting issues:
 
 ![Broken model #1](./broken_model_1.jpg)
 
