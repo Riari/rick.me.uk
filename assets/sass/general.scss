@@ -229,6 +229,10 @@ ul.tags {
         min-height: 100vh;
     }
 
+    &--pre-footer {
+        padding: 0 1em;
+    }
+
     .inner-container {
         box-sizing: border-box;
         margin: 0 auto;
