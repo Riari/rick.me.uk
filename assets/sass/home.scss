@@ -1,8 +1,11 @@
 .container--home {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 1em 0;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
 
     .recent-posts {
         ul {
@@ -64,6 +67,13 @@
                 min-width: 240px;
                 color: $color-muted-2;
             }
+        }
+    }
+
+    .about {
+        p {
+            color: $color-muted-2;
+            line-height: 1.5;
         }
     }
     

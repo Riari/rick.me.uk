@@ -323,6 +323,27 @@ ul.tags {
     }
 }
 
+.about-author {
+    padding: 2rem 0;
+    background: $color-background-light;
+    font-size: 1rem;
+    color: $color-muted-1;
+
+    .inner-container {
+        max-width: 800px;
+
+        a {
+            font-weight: bold;
+            color: $color-muted-1;
+            text-decoration: none;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
 .pagination {
     list-style: none;
     padding: 0;

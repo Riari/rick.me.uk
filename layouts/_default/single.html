@@ -1,9 +1,14 @@
 {{ partial "header.html" . }}
 
-<div class="container">
-    <h1>{{ .Title }}</h1>
-    <div>
-        {{ .Content }}
+<div class="container container--about">
+    <div class="inner-container">
+        <h1><span class="text--muted-1" style="padding-right: .2em;">&#8250;</span><span class="text--primary-1">riari</span><span class="text--muted-1">.</span><span class="text--primary-2">dev</span></h1>
+        
+        <h2>{{ .Title }}</h2>
+
+        <div>
+            {{ .Content }}
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,4 @@
+<a
+    href="{{ .Get "url" | safeURL }}"
+    {{ if or (strings.HasPrefix (.Get "url") "http") (strings.HasPrefix (.Get "url") "https") }} target="_blank"{{ end }}>
+    {{ .Get "text" | safeHTML }}</a>
