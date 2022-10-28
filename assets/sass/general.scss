@@ -9,7 +9,7 @@ body {
     background: $color-background;
     font-family: 'Lato', sans-serif;
     font-size: 18px;
-    color: $color-text;
+    color: $color-text-on-dark;
 }
 
 h1,
@@ -46,6 +46,15 @@ p.lead {
     font-size: 1.6em;
 }
 
+p {
+    color: $color-muted-2;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
 hr {
     margin: 2.4em 0;
     height: 2px;
@@ -71,6 +80,13 @@ hr {
 
 .text-center {
     text-align: center;
+}
+
+.container--centred {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .inner-container {
@@ -104,7 +120,7 @@ hr {
     padding: 1em;
     margin: .2em;
     background: rgba($color-muted-1, 0.3);
-    color: $color-text;
+    color: $color-text-on-dark;
     font-weight: bold;
     text-decoration: none;
     overflow: hidden;
@@ -211,7 +227,7 @@ ul.tags {
                 border-bottom-right-radius: .2em;
                 background: rgba(27, 27, 36, 0.6);
                 font-family: 'JetBrains Mono', monospace;
-                color: $color-text;
+                color: $color-text-on-dark;
                 text-decoration: none;
                 transition: background .1s, color .1s;
 
@@ -243,7 +259,6 @@ ul.tags {
         font-size: 1.1em;
         font-weight: 400;
         line-height: 1.6;
-        color: $color-background;
 
         .publish-date {
             margin-bottom: 2em;
@@ -253,16 +268,19 @@ ul.tags {
         }
 
         a {
-            color: $color-muted-1;
+            color: $color-link;
         }
 
         article {
+            color: $color-background;
+
             ul {
                 margin-left: 1em;
             }
     
             p {
                 margin-bottom: 1.2em;
+                color: $color-background;
             }
     
             & > pre {
@@ -272,7 +290,7 @@ ul.tags {
     
                 code {
                     font-family: "JetBrains Mono", monospace;
-                    color: $color-text;
+                    color: $color-text-on-dark;
                 }
             }
     
