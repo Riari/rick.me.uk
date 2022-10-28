@@ -17,6 +17,7 @@ h2,
 h3 {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
+    margin: 2rem 0;
 }
 
 h1 {
@@ -33,6 +34,15 @@ h2.subheading {
     color: $color-muted-2;
 }
 
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1em;
+    margin: 1rem 0;
+}
+
 .inline-heading {
     h1, h2 {
         display: inline-block;
@@ -42,21 +52,13 @@ h2.subheading {
     }
 }
 
-p.lead {
-    font-size: 1.6em;
-}
-
-p {
-    color: $color-muted-2;
-}
-
 a {
     color: #fff;
     text-decoration: none;
 }
 
 hr {
-    margin: 2.4em 0;
+    margin: 2em 0;
     height: 2px;
     border: 0;
     background: $color-muted-1;
@@ -80,21 +82,6 @@ hr {
 
 .text-center {
     text-align: center;
-}
-
-.container--centred {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.inner-container {
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 1em;
-    max-width: 1200px;
-    width: 100%;
 }
 
 .tags {
@@ -159,6 +146,7 @@ ul.tags {
             margin: .1em;
             color: $color-primary-1;
             text-decoration: none;
+            transition: color .1s;
 
             &::after {
                 content: "";
@@ -170,194 +158,23 @@ ul.tags {
                 left: 0;
                 z-index: 1;
                 transform: skew(-20deg);
-                background: #006eff;
-                opacity: .1;
+                background: $color-link;
+                opacity: .2;
                 transition: opacity .1s;
             }
 
-            &:hover::after {
-                opacity: .2;
+            &:hover {
+                color: $color-text-on-dark;
+
+                &::after {
+                    opacity: .3;
+                }
             }
 
             span {
                 position: relative;
                 z-index: 2;
             }
-        }
-    }
-}
-
-.page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-
-    .inner-container {
-        max-width: 800px;
-    }
-
-    .head {
-        margin: 0;
-        padding: 0 1em 4em 1em;
-        background-size: cover;
-        text-align: center;
-
-        &--slim {
-            padding: 0 1em;
-        }
-
-        .links {
-            display: flex;
-            padding: 0;
-            margin-bottom: 1.6em;
-
-            .primary {
-                flex: 1;
-                text-align: left;
-            }
-
-            .secondary {
-                text-align: right;
-            }
-
-            a {
-                display: inline-block;
-                padding: .4em .8em;
-                border-bottom-left-radius: .2em;
-                border-bottom-right-radius: .2em;
-                background: rgba(27, 27, 36, 0.6);
-                font-family: 'JetBrains Mono', monospace;
-                color: $color-text-on-dark;
-                text-decoration: none;
-                transition: background .1s, color .1s;
-
-                span {
-                    transition: color .1s;
-                }
-
-                &:hover {
-                    background: rgba(224, 235, 245, 0.8);
-                    color: $color-background;
-
-                    span {
-                        color: $color-background;
-                    }
-                }
-            }
-        }
-
-        h1 {
-            margin-bottom: .4em;
-        }
-    }
-
-    .body {
-        flex: 1;
-        padding: 1.6em 1em;
-        background: #fff;
-        font-family: 'Lora', serif;
-        font-size: 1.1em;
-        font-weight: 400;
-        line-height: 1.6;
-
-        .publish-date {
-            margin-bottom: 2em;
-            font-weight: bold;
-            color: $color-muted-1;
-            text-align: center;
-        }
-
-        a {
-            color: $color-link;
-        }
-
-        article {
-            color: $color-background;
-
-            ul {
-                margin-left: 1em;
-            }
-    
-            p {
-                margin-bottom: 1.2em;
-                color: $color-background;
-            }
-    
-            & > pre {
-                border-radius: .3em;
-                background: #282a36;
-                padding: .4em .8em;
-    
-                code {
-                    font-family: "JetBrains Mono", monospace;
-                    color: $color-text-on-dark;
-                }
-            }
-    
-            p > code,
-            ul > li > code,
-            ol > li > code {
-                padding: 0 .2em;
-                background: #d6ebfe;
-                color: #1400cc;
-            }
-
-            img {
-                max-width: 100%;
-            }
-        }
-
-        hr {
-            height: 1px;
-            border: 0;
-            background: lighten($color-muted-2, 20%);
-        }
-
-        .adjacent-post-links {
-            display: flex;
-
-            .next,
-            .previous {
-                flex: 50%;
-
-                a {
-                    text-decoration: none;
-
-                    .prefix {
-                        font-size: .8em;
-                        color: $color-muted-2;
-                    }
-
-                    .title {
-                        text-decoration: underline;
-                    }
-                }
-            }
-
-            .next {
-                text-align: right;
-            }
-        }
-    }
-}
-
-.about-author {
-    padding: 2rem 0;
-    background: $color-background-light;
-    font-size: 1rem;
-    color: $color-muted-1;
-
-    .inner-container {
-        max-width: 800px;
-
-        a {
-            font-weight: bold;
-            color: $color-muted-1;
-            text-decoration: none;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
         }
     }
 }
@@ -404,7 +221,93 @@ ul.tags {
     }
 }
 
-@media only screen and (max-width: 768px) {
+.container {
+    &--centred {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .inner-container {
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 1em;
+        max-width: 800px;
+        width: 100%;
+    
+        p {
+            line-height: 1.5;
+            color: $color-muted-2;
+
+            &.lead {
+                font-size: 1.6em;
+                color: $color-text-on-dark;
+            }
+        }
+    }
+
+    .head {
+        margin: 0;
+        padding: 0 1em 4em 1em;
+        background-size: cover;
+        text-align: center;
+
+        &--slim {
+            padding: 0;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        .links {
+            display: flex;
+            padding: 0 1em;
+            margin-bottom: 1.6em;
+
+            .primary {
+                flex: 1;
+                text-align: left;
+            }
+
+            .secondary {
+                text-align: right;
+            }
+
+            a {
+                display: inline-block;
+                padding: .4em .8em;
+                border-bottom-left-radius: .2em;
+                border-bottom-right-radius: .2em;
+                background: rgba(27, 27, 36, 0.6);
+                font-family: 'JetBrains Mono', monospace;
+                color: $color-text-on-dark;
+                text-decoration: none;
+                transition: background .1s, color .1s;
+
+                span {
+                    transition: color .1s;
+                }
+
+                &:hover {
+                    background: rgba(224, 235, 245, 0.8);
+                    color: $color-background;
+
+                    span {
+                        color: $color-background;
+                    }
+                }
+            }
+        }
+
+        h1 {
+            margin-bottom: .4em;
+        }
+    }
+}
+
+@media only screen and (max-width: $breakpoint--small) {
     h1 {
         font-size: 2.6em;
     }
@@ -415,22 +318,5 @@ ul.tags {
 
     hr {
         margin: 2em 0;
-    }
-
-    .page .body {
-        article {
-            font-size: .8em;
-        }
-
-        .adjacent-post-links {
-            flex-direction: column;
-            text-align: center;
-
-            .next,
-            .prev {
-                margin-bottom: .3em;
-                text-align: center;
-            }
-        }
     }
 }

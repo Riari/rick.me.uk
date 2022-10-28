@@ -10,7 +10,7 @@ $color-primary-7: #f1fa8c;
 $color-muted-1: #44475a;
 $color-muted-2: #aeb0c7;
 $color-text-on-dark: #f8f8f2;
-$color-link: #2666dd;
+$color-link: #4f66ff;
 
 $palette: (
     primary-1: $color-primary-1,
@@ -21,3 +21,5 @@ $palette: (
     primary-6: $color-primary-6,
     primary-7: $color-primary-7
 );
+
+$breakpoint--small: 768px;
