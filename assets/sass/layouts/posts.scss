@@ -47,10 +47,10 @@
                 display: inline-block;
                 padding: 0 .4em;
                 border-radius: 0.2em;
-                background: #eef4ff;
+                background: $color-inline-code-background;
                 font-size: 1rem;
                 font-family: 'JetBrains Mono', monospace;
-                color: #435981;
+                color: $color-inline-code-foreground;
             }
 
             img {
