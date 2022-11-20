@@ -3,7 +3,7 @@ title = "Raspberry Pi Thermal Camera Viewer"
 slug = "pi-thermal-camera-viewer"
 summary = "A Python solution for viewing MLX90640 thermal camera output on a Pi."
 date = "2022-11-20"
-tags = ["python", "opencv", "pi", "brief"]
+tags = ["python", "opencv", "pi"]
 image = "/images/post-headers/pixellated-code.png"
 +++
 
