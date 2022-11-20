@@ -11,9 +11,7 @@
 
     <div class="inner-container text-center">
         <ul class="tags">
-            {{ range .Pages }}
-                <li><a href="{{ .Permalink }}"><span>{{ .Title }}</span></a></li>
-            {{ end }}
+            {{ range .Pages }}<li><a href="{{ .Permalink }}"><span>{{ .Title }}</span></a></li>{{ end }}
         </ul>
     </div>
 </div>
