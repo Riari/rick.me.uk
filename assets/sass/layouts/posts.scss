@@ -89,6 +89,7 @@
 
                     .title {
                         text-decoration: underline;
+                        text-decoration-thickness: 1px;
                     }
                 }
             }
@@ -122,6 +123,7 @@
 
                 &:hover {
                     text-decoration: underline;
+                    text-decoration-thickness: 1px;
                 }
             }
         }

@@ -9,9 +9,7 @@
             <h2 class="subheading">{{ .Summary }}</h2>
 
             <ul class="tags">
-                {{ range (.GetTerms "tags") }}
-                    <li><a href="{{ .Permalink }}"><span>{{ .LinkTitle }}</span></a></li>
-                {{ end }}
+                {{ range (.GetTerms "tags") }}<li><a href="{{ .Permalink }}"><span>{{ .LinkTitle }}</span></a></li>{{ end }}
             </ul>
         </div>
     </div>
