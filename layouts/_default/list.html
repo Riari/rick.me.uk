@@ -18,11 +18,11 @@
                     <span class="post-card-header-publish-date">{{ .Date.Format "2 Jan 2006" }}</span>
                 </div>
                 <div class="post-card-body">
-                    <div class="post-card-body-summary">
-                        {{ .Summary }}
-                    </div>
-                    <div class="post-card-body-permalink">
-                        <a href="{{ .Permalink }}">Permalink</a>
+                    {{ .Summary }}
+                </div>
+                <div class="post-card-footer">
+                    <div class="post-card-footer-tags">
+                        {{ range (.GetTerms "tags") }}<a href="{{ .Permalink }}">{{ .LinkTitle }}</a>{{ end }}
                     </div>
                 </div>
             </div>

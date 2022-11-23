@@ -132,28 +132,48 @@
     }
 
     &-body {
+        padding: 1.2em 1.6em;
+        background: #fff;
+        font-family: 'Lora', serif;
+        color: $color-background;
+    }
+
+    &-footer {
+        display: flex;
+        flex-direction: row;
+        padding: 0 1.6em 1.2em 1.6em;
         border-bottom-left-radius: .3em;
         border-bottom-right-radius: .3em;
         background: #fff;
+        color: $color-background;
 
-        &-summary {
-            padding: 1.2em 1.6em;
-            font-family: 'Lora', serif;
-            color: $color-background;
-        }
-    
-        &-permalink {
-            padding: 0 1.6em 1.2em 1.6em;
-            text-align: right;
-    
-            a {
-                font-weight: bold;
+        a {
+            font-size: .9em;
+            transition: color .1s;
+            color: $color-muted-2;
+
+            &:hover {
                 color: $color-muted-1;
-                text-decoration: none;
-                transition: color .1s;
+            }
+        }
+
+        &-tags {
+            flex: 1;
+
+            a {
+                display: inline-block;
+                margin-right: .5rem;
             }
         }
     }
+}
+
+.medium-zoom-overlay {
+    z-index: 999;
+}
+
+.medium-zoom-image {
+    z-index: 1000;
 }
 
 @media only screen and (max-width: $breakpoint--small) {

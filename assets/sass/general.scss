@@ -29,11 +29,6 @@ h2 {
     font-size: 2.1em;
 }
 
-h2.subheading {
-    font-size: 1.4em;
-    color: $color-muted-2;
-}
-
 h3 {
     font-size: 1.2em;
 }
@@ -84,23 +79,6 @@ hr {
     text-align: center;
 }
 
-.tags {
-    .tag {
-        display: inline-block;
-        padding: .12em .6em;
-        margin: .1em;
-        border-radius: 2em;
-    }
-
-    @for $i from 1 through 7 {
-        &--primary-#{$i} .tag,
-        .tag--primary-#{$i} {
-            background: linear-gradient(145deg, rgba($color-muted-1, 0.2), rgba($color-muted-1, 0.3), rgba(map-get($palette, primary-#{$i}), 0.12));
-            color: map-get($palette, primary-#{$i});
-        }
-    }
-}
-
 .button {
     position: relative;
     display: inline-block;
@@ -144,7 +122,7 @@ ul.tags {
             display: inline-block;
             padding: .3em 1.2em;
             margin: .2em;
-            color: $color-primary-1;
+            color: $color-tag-foreground;
             text-decoration: none;
             transition: color .1s;
 
@@ -158,16 +136,15 @@ ul.tags {
                 left: 0;
                 z-index: 1;
                 transform: skew(-20deg);
-                background: $color-link;
-                opacity: .2;
-                transition: opacity .1s;
+                background: $color-tag-background;
+                transition: opacity .1s, background .1s;
             }
 
             &:hover {
-                color: $color-text-on-dark;
+                color: $color-background;
 
                 &::after {
-                    opacity: .3;
+                    background: $color-block-background-light;
                 }
             }
 
@@ -265,6 +242,16 @@ ul.tags {
             margin: 0;
         }
 
+        h1 {
+            margin-bottom: .4em;
+            font-size: 2.4em;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            color: $color-muted-2;
+        }
+
         .links {
             display: flex;
             padding: 0 1em;
@@ -295,7 +282,7 @@ ul.tags {
                 }
 
                 &:hover {
-                    background: rgba(224, 235, 245, 0.8);
+                    background: $color-block-background-light;
                     color: $color-background;
 
                     span {
@@ -303,10 +290,6 @@ ul.tags {
                     }
                 }
             }
-        }
-
-        h1 {
-            margin-bottom: .4em;
         }
     }
 }

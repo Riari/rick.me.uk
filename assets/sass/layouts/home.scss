@@ -63,6 +63,23 @@
                 min-width: 240px;
                 color: $color-muted-2;
             }
+
+            .pills {
+                span {
+                    display: inline-block;
+                    padding: .12em .6em;
+                    margin: .1em;
+                    border-radius: 2em;
+                }
+            
+                @for $i from 1 through 7 {
+                    &--primary-#{$i} span,
+                    .pill--primary-#{$i} {
+                        background: linear-gradient(145deg, rgba($color-muted-1, 0.2), rgba($color-muted-1, 0.3), rgba(map-get($palette, primary-#{$i}), 0.12));
+                        color: map-get($palette, primary-#{$i});
+                    }
+                }
+            }
         }
     }
 
