@@ -64,6 +64,16 @@
                 font-style: italic;
                 color: $color-muted-1;
             }
+
+            blockquote {
+                margin-left: 1em;
+                padding-left: 1em;
+                border-left: 4px solid lighten($color-muted-2, 20%);
+
+                p {
+                    font-style: italic;
+                }
+            }
         }
 
         hr {
