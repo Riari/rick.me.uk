@@ -46,6 +46,7 @@ For everything else, I eventually had to implement my own grid logic, which was 
 The next thing I tackled was dynamic track placement. Since the player has to be able to place new track segments during gameplay, the game can't predetermine the path of the track. My initial attempt to solve that was direct and lazy; I had two scenes, one for each type of track (straight and curved), and added a [Path](https://docs.godotengine.org/en/stable/classes/class_path.html) (with enclosed [PathFollow](https://docs.godotengine.org/en/stable/classes/class_pathfollow.html#class-pathfollow)) to each. The idea was to place a train car in the PathFollow node, move it along the segment at a given speed, then pass it to the next segment and repeat the process until the train car reaches the end. This came with some obvious drawbacks:
 
 * Baking the path into each track piece meant it wouldn't necessarily go in the correct direction, which was awkward to account for in scripting.
+* It would throw away CPU time since the engine would dutifully set the paths up to be used as they are (only to then be remade into a single continuous path).
 * Seamless transitions between segments would be difficult.
 
 I went back to the drawing board and decided to write a system that would instead generate a path at runtime. To do this, I replaced the paths in the track segment scenes with [Spatial](https://docs.godotengine.org/en/stable/classes/class_spatial.html) nodes representing the points to construct a path with:
