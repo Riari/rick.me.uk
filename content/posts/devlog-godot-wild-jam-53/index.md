@@ -102,7 +102,7 @@ For the projectile, I created a missile in Asset Forge (as seen earlier in the p
 
 {{<video url="./video-missile-shader.mp4" type="video/mp4" loop="1">}}
 
-For the firing logic itself, I used Spatial nodes placed in the turret scene to represent the points at which projectiles should be spawned (which I referred to as "muzzle points"), similar to how I approached path generation for the tracks. When a projectile is spawned, it inherits both the position and rotation of the muzzle point, but it's added to the root of the scene tree so that it can move independently of the turret.
+For the firing logic itself, I used Spatial nodes placed in the turret scene to represent the points at which projectiles should be spawned (which I named "muzzle points"), similar to how I approached path generation for the tracks. When a projectile is spawned, it inherits both the position and rotation of the muzzle point, but it's added to the root of the scene tree so that it can move independently of the turret.
 
 I went through a few iterations of that system over the course of the jam, and while it still has room for refinements, I was able to refactor it into something that could be applied to the player's train turrets as well.
 
