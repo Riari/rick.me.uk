@@ -87,6 +87,15 @@
                     max-height: 400px;
                 }
             }
+
+            .audio-container {
+                text-align: center;
+
+                audio {
+                    width: 100%;
+                    max-width: 400px;
+                }
+            }
         }
 
         hr {

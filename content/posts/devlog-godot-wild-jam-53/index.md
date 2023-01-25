@@ -101,7 +101,7 @@ For the projectile, I created a missile in Asset Forge (as seen earlier in the p
 
 {{<video url="./video-missile-shader.mp4" type="video/mp4" loop="1">}}
 
-For the firing logic itself, I used Spatial nodes placed in the turret scene to represent the points at which projectiles should be spawned (which I referred to as "muzzle points"), similar to how I approached path generation for the tracks. When a projectile is spawned, it inherits both the position and rotation of the muzzle point, but it's added to the topmost level of the scene tree so that it can move independently of the turret.
+For the firing logic itself, I used Spatial nodes placed in the turret scene to represent the points at which projectiles should be spawned (which I referred to as "muzzle points"), similar to how I approached path generation for the tracks. When a projectile is spawned, it inherits both the position and rotation of the muzzle point, but it's added to the root of the scene tree so that it can move independently of the turret.
 
 I went through a few iterations of that system over the course of the jam, and while it still has room for refinements, I was able to refactor it into something that could be applied to the player's train turrets as well.
 
@@ -112,8 +112,94 @@ To make the missiles explode on impact, I just used more of Godot's physics node
 
 {{<video url="./video-explosion-vfx.mp4" type="video/mp4" loop="1">}}
 
-TODO:
-* Track placement validation and updating the grid system to keep track of blocked cells
-* Audio work
-* HUD work and integration with game input/state
-* Menus
+With all of those pieces in place, all that was left to make combat work was to add some simple health/integrity values to both the enemy structures and terrain. To save time, I hard-coded damage handling—not ideal, but it was a quick and easy solution that I could easily balance. If I had more time to implement more structures and train cars, I probably would have refactored it into something more robust first.
+
+### Track placement & custom grid system
+
+Like I mentioned early in the post, I ended up writing my own grid logic to support the system that would determine where track segments could be placed. I essentially needed a way of querying all of the GridMap nodes and the set of enemy turret nodes to know where a given track segment (with a specified rotation) could legally be placed. To that end, I wrote a script to maintain two dictionaries (the closest thing to sets in GDScript)—one for occupied positions and another for terrain positions:
+
+{{<highlight gdscript "linenos=table">}}
+extends Spatial
+
+onready var grid_terrain = get_node("GridMaps/Terrain")
+onready var grid_scenery_small = get_node("GridMaps/ScenerySmall")
+onready var grid_scenery_large = get_node("GridMaps/SceneryLarge")
+
+var occupied_positions = {}
+var placeable_terrain_positions = {}
+
+func _ready():
+    for child in $Track.get_children():
+        add_node(child)
+
+    for child in $Enemy.get_children():
+        add_node(child)
+
+    # TODO: Find a better solution to dealing with the offset grid coordinates
+    for pos in grid_scenery_small.get_used_cells():
+        add_position(Vector3(pos.x + 1, 0, pos.z + 1))
+
+    for pos in grid_scenery_large.get_used_cells():
+        var vec3 = Vector3(pos.x + 1, 0, pos.z + 1)
+        add_position(vec3)
+
+    # Count centre terrain pieces only
+    for pos in grid_terrain.get_used_cells_by_item(0):
+        placeable_terrain_positions[Vector2(pos.x, pos.z)] = true
+
+func add_node(node: Node):
+    add_position(node.global_translation)
+
+func add_position(pos: Vector3):
+    occupied_positions[Vector2(pos.x, pos.z)] = true
+
+func remove_position(pos: Vector3):
+    occupied_positions[Vector2(pos.x, pos.z)] = false
+
+func is_position_valid(position: Vector3):
+    # position is expected to be in world space
+    var vec2 = Vector2(position.x, position.z)
+    return not occupied_positions.has(vec2) and placeable_terrain_positions.has(vec2)
+{{</highlight>}}
+
+I decided early on to make it so that newly placed track could only lead north, east, or west, which not only makes sense for the goal of the game (you need to go north, so why backtrack?), it also significantly simplified track validation because it's impossible to lay track that would enclose itself and trap the train.
+
+### Audio
+
+I invested very little time in audio—around thirty minutes at most—mainly because the game only needed a very limited set of sound effects. For the explosions, I used some effects from [zapsplat.com](https://www.zapsplat.com/), which is an excellent source of royalty-free sound effects in reasonably good quality.
+
+For the music, I used an old track I wrote a long time (almost ten years!) ago. I recalled some people commenting at the time that it sounded like it would go well in a video game, and it has a steadily increasing tempo, which seemed to fit the concept of this game n particular. If I decide to continue working on the game, I'd like to explore dynamic music that builds up based on game state, and perhaps have the speed of the train gradually increase alongside the tempo.
+
+Aside from the music, I created two sound effects myself: the missile launch sound and the UI click. For the missile launch, I blew against the edge of some card a dozen or so times, took the best samples, cleaned them up, and added some reverb. For the UI click, I recorded a click from a bed sheet strap and used a high pass filter to make it more crisp and subtle.
+
+{{<audio url="./audio-rocket-fire-2.wav" type="audio/wav">}}
+{{<caption>}}Audio sample - rocket fire{{</caption>}}
+
+{{<audio url="./audio-ui-click-1.wav" type="audio/wav">}}
+{{<caption>}}Audio sample - UI click{{</caption>}}
+
+### UI
+
+I worked on the UI throughout the project, adding to it in small increments as parts of the gameplay and features needed for user input came together. I think I could have done a much better job of the UI were it not for time constraints, but it could be much worse! For the font, I used Bebas Neue (see [Google Fonts](https://fonts.google.com/specimen/Bebas+Neue)), which was fine for some elements but the all-caps is a little too much for paragraphs of text. An expanded font family would certainly be an improvement.
+
+For the buttons, I opted to create some textures for the normal, hovered, and pressed states in Photoshop. I didn't use [9-slicing](https://en.wikipedia.org/wiki/9-slice_scaling), so the buttons all ended up being the same aspect ratio and scale, but that wasn't a problem since I only used buttons in the main menus and in-game pause menu.
+
+![Main menu](./screenshot-main-menu.png)
+{{<caption>}}The main menu{{</caption>}}
+
+For the HUD, I wanted to use icons for all of the track pieces and train cars. I'm pretty sure there's a way of rendering these in Godot, but Asset Forge has a straightforward sprite export feature, so I exported PNGs with that and spent some more time in Photoshop designing circular button textures with normal/hovered/pressed states.
+
+Aside from creating some textures for the health bars (one in the HUD for the train integrity and one drawn in world space above each enemy structure), the rest of the UI work was mostly a combination of layout adjustments in the editor and script work to hook things up. In terms of interactivity, the most important part of the HUD is the bottom section, which hosts the options for laying down track as well as buying additional train cars.
+
+![HUD - bottom section](./screenshot-hud-bottom.png)
+{{<caption>}}The bottom section of the HUD{{</caption>}}
+
+Like some other parts of the game, I used [signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) for both upwards and lateral communication in the scene tree and direct calls to script functions for downwards communication. For example, the HUD script receives signals for button presses, changes to the train's integrity value, (un)pausing the game, and win/loss conditions (to show the corresponding modal UI to the player).
+
+One of the biggest issues with the UI turned out to be its poor response to lower resolutions, since I developed the game on my 3440x1440 ultrawide and didn't test at lower resolutions as much as I should have. But just like everything else in a jam, that's something I might have addressed if I had more time!
+
+---
+
+That covers the more interesting (or perhaps not so interesting depending on your experience with Godot!) aspects of the game. If I decide to continue working on it, I'll consider redeveloping it in 2D and creating the artwork myself with [Aseprite](https://www.aseprite.org/). Some of the best submissions I played in this jam are polished 2D experiences with tightly defined scope and a nice pixel art style, so I could probably learn a thing or two from those.
+
+The game is [hosted on itch.io](https://riari89.itch.io/train-blazer) if you'd like to try it, and the source is available on GitHub at https://github.com/Riari/gwj-jan-2023. Thanks for reading!
