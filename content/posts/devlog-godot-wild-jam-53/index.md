@@ -171,7 +171,7 @@ I invested very little time in audio—around thirty minutes at most—mainly be
 
 For the music, I used an old track I wrote a long time (almost ten years!) ago. I recalled some people commenting at the time that it sounded like it would go well in a video game, and it has a steadily increasing tempo, which seemed to fit the concept of this game in particular. If I decide to continue working on the game, I'd like to explore dynamic music that builds up based on game state, and perhaps have the speed of the train gradually increase alongside the tempo.
 
-Aside from the music, I created two sound effects myself: the missile launch sound and the UI click. For the missile launch, I blew against the edge of some card a dozen or so times, took the best samples, cleaned them up, and added some reverb. For the UI click, I recorded a click from a bed sheet strap and used a high pass filter to make it more crisp and subtle.
+Aside from the music, I created two sound effects: the missile launch sound and the UI click. For the missile launch, I blew against the edge of some card a dozen or so times, took the best samples, cleaned them up, and added some reverb. For the UI click, I recorded a click from a bed sheet strap and used a high pass filter to make it more crisp and subtle.
 
 {{<audio url="./audio-rocket-fire-2.wav" type="audio/wav">}}
 {{<caption>}}Audio sample - rocket fire{{</caption>}}
