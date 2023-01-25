@@ -3,7 +3,7 @@ title = "Devlog: Godot Wild Jam #53"
 slug = "devlog-godot-wild-jam-53"
 summary = "A wild jam in Godot."
 date = "2023-01-25"
-tags = ["devlog", "game-jam"]
+tags = ["devlog", "game-jam", "godot"]
 image = "./header.jpg"
 +++
 
