@@ -91,9 +91,9 @@ To make spawning a little more interesting, I integrated the vertical dissolve s
 
 ### Weapons
 
-My original plan was to have a few different weapon types with some size variants of each. By the end of the jam, I was only able to implement missile-firing turrets, but that was enough to at least prove out the combat. To make turrets work, I needed three things: an aggro radius, an aiming/targeting system, and a projectile to fire. I started with enemy turrets.
+My original plan was to have a few different weapon types and create some size variants of each. By the end of the jam, I was only able to implement missile-firing turrets, but that was enough to at least prove out the combat. To make turrets work, I needed three things: an aggro radius, an aiming/targeting system, and a projectile to fire. I started with enemy turrets.
 
-For the aggro radius, I simply used an [Area](https://docs.godotengine.org/en/stable/classes/class_area.html) with a cylindrical [CollisionShape](https://docs.godotengine.org/en/stable/classes/class_collisionshape.html) to represent the aggro radius. All I needed to do was connect the `body_entered(node: Node)` and `body_exited(node: Node)` signals to a script and use [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) to skip any nodes I don't want the turret to react to.
+For the aggro radius, I simply used an [Area](https://docs.godotengine.org/en/stable/classes/class_area.html) with a cylindrical [CollisionShape](https://docs.godotengine.org/en/stable/classes/class_collisionshape.html) to represent the aggro radius. All I needed to do was connect the `body_entered(node: Node)` and `body_exited(node: Node)` [signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) to a script and use [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) to skip any nodes I don't want the turret to react to.
 
 For targeting, I kept track of relevant nodes entering the aggro radius and prioritised the oldest one as a target. As long as a target exists, the turret rotates towards it (with some linear interpolation) and initiates firing based on a given interval.
 
