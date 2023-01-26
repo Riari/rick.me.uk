@@ -135,21 +135,29 @@
 /* GenericUnderline */ .chroma .gl { text-decoration: underline }
 /* TextWhitespace */ .chroma .w {  }
 
+@mixin theme-light-syntax {
+    .highlight-label-container {
+        .highlight-label {
+            color: $color-inline-code-foreground-light;
+            background: $color-inline-code-background-light;
+        }
+    }
+
+    .chroma {
+        background: #2c2e3b;
+    }
+
+    .chroma .lnt {
+        color: $color-muted-2;
+    }
+}
+
+.theme--light {
+    @include theme-light-syntax;
+}
+
 @media (prefers-color-scheme: light) {
     .theme--system {
-        .highlight-label-container {
-            .highlight-label {
-                color: $color-inline-code-foreground-light;
-                background: $color-inline-code-background-light;
-            }
-        }
-
-        .chroma {
-            background: #282a36;
-        }
-
-        .chroma .lnt {
-            color: $color-muted-2;
-        }
+        @include theme-light-syntax;
     }
 }
