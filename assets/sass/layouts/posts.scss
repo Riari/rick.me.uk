@@ -134,15 +134,15 @@
 }
 
 .post-card {
-    margin-bottom: 1em;
+    margin-bottom: 1.2em;
     border-radius: .3em;
 
     &-header {
         display: flex;
         padding: 1em 1.6em;
-        border-top-left-radius: .3em;
-        border-top-right-radius: .3em;
-        background: $color-muted-1;
+        margin-bottom: .5em;
+        border-radius: .3em;
+        background: linear-gradient(95deg, $color-muted-1 0%, darken($color-muted-1, 7%) 100%);
 
         &-title {
             flex: 1;
@@ -166,7 +166,9 @@
     }
 
     &-body {
-        padding: 1em 1.6em;
+        padding: 1.2em 1.6em;
+        border-top-left-radius: .3em;
+        border-top-right-radius: .3em;
         background: $color-background-dark;
         font-family: 'Lora', serif;
         color: $color-foreground-dark;
@@ -250,8 +252,6 @@
 
     .post-card {
         &-header {
-            background: $color-muted-1;
-            
             &-publish-date {
                 color: $color-muted-3;
             }
