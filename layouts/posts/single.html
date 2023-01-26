@@ -1,9 +1,9 @@
-{{ partial "header.html" . }}
+{{ partial "doc-start.html" . }}
 
 <div class="container container--posts">
     <div class="head" style="background-image: url({{ .Params.Image }});">
         <div>
-            {{ partial "links.html" . }}
+            {{ partial "head-top-links.html" . }}
 
             <h1>{{ .Title }}</h1>
             <h2 class="subheading">{{ .Summary }}</h2>
@@ -11,6 +11,8 @@
             <ul class="tags">
                 {{ range (.GetTerms "tags") }}<li><a href="{{ .Permalink }}"><span>{{ .LinkTitle }}</span></a></li>{{ end }}
             </ul>
+
+            {{ partial "head-bottom-links.html" . }}
         </div>
     </div>
     
@@ -52,7 +54,10 @@
 </div>
 
 <script>
-mediumZoom('article p img')
+const prefersDark = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+mediumZoom('article p img', {
+    background: prefersDark ? '#21212b' : '#fff'
+});
 </script>
 
 <div class="container container--pre-footer">
@@ -67,4 +72,4 @@ mediumZoom('article p img')
     </div>
 </div>
 
-{{ partial "footer.html" . }}
+{{ partial "doc-end.html" . }}

@@ -1,5 +1,8 @@
-$color-background: #252530;
-$color-background-light: #e7ecf5;
+$color-background-main: #252530;
+$color-background-dark: #21212b;
+$color-foreground-dark: #e7ecf5;
+$color-background-light: #ffffff;
+$color-foreground-light: #252530;
 $color-primary-1: #8be9fd;
 $color-primary-2: #50fa7b;
 $color-primary-3: #ffb86c;
@@ -8,15 +11,19 @@ $color-primary-5: #bd93f9;
 $color-primary-6: #ff5555;
 $color-primary-7: #f1fa8c;
 $color-muted-1: #44475a;
-$color-muted-2: #aeb0c7;
+$color-muted-2: #9395a8;
+$color-muted-3: #aeb0c7;
 $color-code-comment: #6272a4;
 $color-text-on-dark: #f8f8f2;
-$color-inline-code-background: #eef4ff;
-$color-inline-code-foreground: #435981;
+$color-inline-code-background-dark: #3b426b;
+$color-inline-code-foreground-dark: #cdd4ff;
+$color-inline-code-background-light: #eef4ff;
+$color-inline-code-foreground-light: #435981;
 $color-tag-foreground: #cfd9ec;
 $color-tag-background: #515f7c;
 $color-block-background-light: rgba(224, 235, 245, 0.8);
-$color-link: #3a60db;
+$color-link-light: #3a60db;
+$color-link-dark: #4f78ff;
 
 $palette: (
     primary-1: $color-primary-1,

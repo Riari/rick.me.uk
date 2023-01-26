@@ -1,14 +1,16 @@
-{{ partial "header.html" . }}
+{{ partial "doc-start.html" . }}
 
 <div class="container container--posts">
     <div class="head head--slim">
-        {{ partial "links.html" . }}
+        {{ partial "head-top-links.html" . }}
 
         <h1>{{ .Title }}</h1>
         {{ if .Data.Singular }}<h2 class="subheading">{{ .Data.Singular }}</h2>{{ end }}
+
+        {{ partial "head-bottom-links.html" . }}
     </div>
 
-    <hr>
+    <hr style="margin-top: 0;">
 
     <div class="inner-container">
         {{ range .Paginator.Pages }}
@@ -32,4 +34,4 @@
     </div>
 </div>
 
-{{ partial "footer.html" . }}
+{{ partial "doc-end.html" . }}

@@ -1,7 +1,7 @@
 .container--posts {
     .body {
         padding: 1.6em 1em;
-        background: #fff;
+        background: $color-background-dark;
         font-family: 'Lora', serif;
         font-size: 1.1em;
         font-weight: 400;
@@ -10,16 +10,16 @@
         .publish-date {
             margin-bottom: 2em;
             font-weight: bold;
-            color: $color-muted-1;
+            color: $color-muted-2;
             text-align: center;
         }
 
         a {
-            color: $color-link;
+            color: $color-link-dark;
         }
 
         article {
-            color: $color-background;
+            color: $color-foreground-dark;
 
             ul {
                 margin-left: 1em;
@@ -27,7 +27,7 @@
     
             p {
                 margin-bottom: 1.2em;
-                color: $color-background;
+                color: $color-foreground-dark;
             }
     
             & > pre {
@@ -47,10 +47,10 @@
                 display: inline-block;
                 padding: 0 .4em;
                 border-radius: 0.2em;
-                background: $color-inline-code-background;
+                background: $color-inline-code-background-dark;
                 font-size: 1rem;
                 font-family: 'JetBrains Mono', monospace;
-                color: $color-inline-code-foreground;
+                color: $color-inline-code-foreground-dark;
             }
 
             img {
@@ -62,7 +62,7 @@
             blockquote {
                 margin-left: 1em;
                 padding-left: 1em;
-                border-left: 4px solid lighten($color-muted-2, 20%);
+                border-left: 4px solid $color-muted-1;
 
                 p {
                     font-style: italic;
@@ -74,7 +74,7 @@
                 text-align: center;
                 font-size: .9em;
                 font-style: italic;
-                color: $color-muted-1;
+                color: $color-muted-2;
             }
 
             .video-container {
@@ -101,7 +101,7 @@
         hr {
             height: 1px;
             border: 0;
-            background: lighten($color-muted-2, 20%);
+            background: $color-muted-1;
         }
 
         .adjacent-post-links {
@@ -116,7 +116,7 @@
 
                     .prefix {
                         font-size: .8em;
-                        color: $color-muted-2;
+                        color: $color-muted-3;
                     }
 
                     .title {
@@ -139,10 +139,10 @@
 
     &-header {
         display: flex;
-        padding: 1.2em 1.6em;
+        padding: 1em 1.6em;
         border-top-left-radius: .3em;
         border-top-right-radius: .3em;
-        background: saturate($color-muted-1, 5%);
+        background: $color-muted-1;
 
         &-title {
             flex: 1;
@@ -161,15 +161,15 @@
         }
         
         &-publish-date {
-            color: $color-muted-2;
+            color: $color-muted-3;
         }
     }
 
     &-body {
-        padding: 1.2em 1.6em;
-        background: #fff;
+        padding: 1em 1.6em;
+        background: $color-background-dark;
         font-family: 'Lora', serif;
-        color: $color-background;
+        color: $color-foreground-dark;
     }
 
     &-footer {
@@ -178,16 +178,16 @@
         padding: 0 1.6em 1.2em 1.6em;
         border-bottom-left-radius: .3em;
         border-bottom-right-radius: .3em;
-        background: #fff;
-        color: $color-background;
+        background: $color-background-dark;
+        color: $color-foreground-dark;
 
         a {
             font-size: .9em;
             transition: color .1s;
-            color: $color-muted-2;
+            color: $color-muted-3;
 
             &:hover {
-                color: $color-muted-1;
+                color: #fff;
             }
         }
 
@@ -208,6 +208,83 @@
 
 .medium-zoom-image {
     z-index: 1000;
+}
+
+@mixin theme-light {
+    .container--posts {
+        .body {
+            background: $color-background-light;
+
+            .publish-date {
+                color: $color-muted-1;
+            }
+    
+            a {
+                color: $color-link-light;
+            }
+    
+            article, article p {
+                color: $color-foreground-light;
+            }
+
+            p > code,
+            ul > li > code,
+            ol > li > code {
+                background: $color-inline-code-background-light;
+                color: $color-inline-code-foreground-light;
+            }
+
+            blockquote {
+                border-left: 4px solid lighten($color-muted-3, 10%);
+            }
+
+            .caption {
+                color: $color-muted-1;
+            }
+
+            hr {
+                background: lighten($color-muted-3, 10%);
+            }
+        }
+    }
+
+    .post-card {
+        &-header {
+            background: $color-muted-1;
+            
+            &-publish-date {
+                color: $color-muted-3;
+            }
+        }
+
+        &-body {
+            background: $color-background-light;
+            color: $color-foreground-light;
+        }
+    
+        &-footer {
+            background: $color-background-light;
+            color: $color-foreground-light;
+    
+            a {
+                color: $color-muted-3;
+    
+                &:hover {
+                    color: $color-muted-1;
+                }
+            }
+        }
+    }
+}
+
+.theme--light {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    .theme--system {
+        @include theme-light;
+    }
 }
 
 @media only screen and (max-width: $breakpoint--small) {

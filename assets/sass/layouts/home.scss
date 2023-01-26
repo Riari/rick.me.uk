@@ -13,7 +13,7 @@
                 display: flex;
                 padding: 0.4em 1em;
                 margin: .2em 0;
-                background: lighten($color-background, 3%);
+                background: lighten($color-background-main, 3%);
     
                 a.link {
                     flex: 1;
@@ -28,7 +28,7 @@
                 }
 
                 .publish-date {
-                    color: $color-muted-2;
+                    color: $color-muted-3;
                 }
             }
         }
@@ -39,8 +39,8 @@
             a {
                 display: inline-block;
                 padding: .2em .6em;
-                background: lighten($color-background, 3%);
-                color: $color-muted-2;
+                background: lighten($color-background-main, 3%);
+                color: $color-muted-3;
                 text-decoration: none;
                 transition: color .1s;
 
@@ -61,7 +61,7 @@
                 padding: 0.1em 0;
                 font-weight: bold;
                 min-width: 240px;
-                color: $color-muted-2;
+                color: $color-muted-3;
             }
 
             .pills {
@@ -85,7 +85,7 @@
 
     .about {
         p {
-            color: $color-muted-2;
+            color: $color-muted-3;
             line-height: 1.5;
         }
     }
