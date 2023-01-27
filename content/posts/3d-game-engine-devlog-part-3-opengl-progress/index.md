@@ -1,7 +1,7 @@
 +++
 title = "3D Game Engine Devlog, Part 3: OpenGL Progress"
 slug = "3d-game-engine-devlog-part-3-opengl-progress"
-summary = "Progress on implementing features for the OpenGL renderer."
+description = "Progress on implementing features for the OpenGL renderer."
 date = "2021-05-09"
 tags = ["devlog", "cpp", "game-engine", "ecs", "opengl"]
 image = "/images/post-headers/building-game-engine-generic.png"

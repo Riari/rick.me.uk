@@ -4,7 +4,7 @@ slug = "3d-game-engine-devlog-part-2-scene-improvements"
 aliases = [
     "/posts/2021/04/building-a-3d-game-engine-part-2-scene-improvements/"
 ]
-summary = "Improvements to build time and scene integration."
+description = "Improvements to build time and scene integration."
 date = "2021-04-18"
 tags = ["devlog", "cpp", "game-engine", "ecs"]
 image = "/images/post-headers/building-game-engine-generic.png"

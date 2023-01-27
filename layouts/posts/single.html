@@ -6,7 +6,7 @@
             {{ partial "head-top-links.html" . }}
 
             <h1>{{ .Title }}</h1>
-            <h2 class="subheading">{{ .Summary }}</h2>
+            <h2 class="subheading">{{ .Description }}</h2>
 
             <ul class="tags">
                 {{ range (.GetTerms "tags") }}<li><a href="{{ .Permalink }}"><span>{{ .LinkTitle }}</span></a></li>{{ end }}

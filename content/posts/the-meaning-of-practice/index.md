@@ -1,7 +1,7 @@
 +++
 title = "The Meaning of Practice"
 slug = "the-meaning-of-practice"
-summary = "Learning how to get better at learning."
+description = "Learning how to get better at learning."
 date = "2022-07-01"
 tags = ["contemplation"]
 image = "/images/post-headers/pixellated-code.png"

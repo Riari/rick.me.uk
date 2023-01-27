@@ -4,7 +4,7 @@ slug = "3d-game-engine-devlog-part-1-ecs"
 aliases = [
     "/posts/2021/03/building-a-3d-game-engine-part-1-ecs/"
 ]
-summary = "Progress on the Entity Component System."
+description = "Progress on the Entity Component System."
 date = "2021-03-13"
 tags = ["devlog", "cpp", "game-engine", "ecs"]
 image = "/images/post-headers/building-game-engine-generic.png"
