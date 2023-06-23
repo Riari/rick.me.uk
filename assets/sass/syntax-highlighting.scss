@@ -16,16 +16,19 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: .9em;
         }
+
+        .cl {
+            padding: 0 1em;
+        }
     }
 
-    .lntd {
-        .chroma {
-            margin: .5rem 0;
+    pre.chroma {
+        margin: 0;
+        padding: .6em 0;
 
-            .lnt {
-                margin: 0;
-                padding: 0 1rem;
-            }
+        .lnt {
+            margin: 0;
+            padding: 0 0 0 1rem;
         }
     }
 }
