@@ -36,10 +36,10 @@ In fairness, I don't think the problems I've described in this post are by any m
 One of the issues I mentioned above is the potential for conflicts between multiple bindings for the same parameter name. I encountered this exact problem in a package I maintain some months ago, and ultimately decided to replace all usages of route model binding with a [custom middleware solution](https://github.com/Team-Tea-Time/laravel-forum/pull/322). This makes a lot of sense for many reasons:
 
 * It leverages another existing feature of the framework
-* Middleware can be applied as granularly as required, so you get the ability to scope your bindings for free
-* It's barely any more effort to implement or maintain than explicit binding
 * It provides an intuitive place to contain all of your binding logic
 * It removes the responsibility of managing bindings from your router calls, so they can deal exclusively with defining routes and their groups
+* Middleware can be applied as granularly as required, so you get the ability to scope your bindings for free
+* It's barely any more effort to implement or maintain than explicit binding
 
 Here's an example of how a general-purpose implementation might look for resolving parameters in web routes:
 
