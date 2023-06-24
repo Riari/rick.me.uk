@@ -23,10 +23,11 @@ One way to mitigate that second issue is to choose very specific parameter names
 
 The route model binding feature could probably be improved through PRs. I'm not sure exactly what form improvements should take, but they would probably include a way of scoping bindings to a subset of routes by substring matching (e.g. "all routes beginning with /user") or matching route names using wildcards. Taking one of the explicit binding examples from the docs and imagining how the syntax might be improved, it could look like this:
 
-```php
+{{<highlight php "linenos=false">}}
 // Assuming all user routes are named with the `user.*` pattern
 Route::model('user', User::class)->on('users.*');
-```
+{{</highlight>}}
+
 But even that wouldn't be ideal, because it would require its own validation or error handling (what should happen if the route matching doesn't actually match any defined routes?) and adds complexity to an already complex router.
 
 In fairness, I don't think the problems I've described in this post are by any means common. I've used route model binding in numerous projects without trouble. But that doesn't eliminate the possibility of it leading to problems further down the line—potentially ones that aren't very easy to debug.
