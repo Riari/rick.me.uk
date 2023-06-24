@@ -22,7 +22,12 @@
             color: $color-foreground-dark;
 
             ul {
-                margin-left: 1em;
+                padding: .1em 0 .1em 1em;
+                margin: 0 0 0 1em;
+
+                li {
+                    margin: 1em 0;
+                }
             }
     
             p {
@@ -299,6 +304,10 @@
     .container--posts .body {
         article {
             font-size: .8em;
+
+            ul {
+                padding: 0;
+            }
         }
 
         .adjacent-post-links {
