@@ -25,7 +25,7 @@ The route model binding feature could probably be improved through PRs. I'm not 
 
 {{<highlight php "linenos=false">}}
 // Assuming all user routes are named with the `user.*` pattern
-Route::model('user', User::class)->on('users.*');
+Route::model('user', User::class)->on('user.*');
 {{</highlight>}}
 
 But even that wouldn't be ideal, because it would require its own validation or error handling (what should happen if the route matching doesn't actually match any defined routes?) and adds complexity to an already complex router.
