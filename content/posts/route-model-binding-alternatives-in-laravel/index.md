@@ -67,8 +67,8 @@ class ResolveUserParameters
         }
 
         if (array_key_exists('user_group', $parameters)) {
-            $profile = UserGroup::findOrFail($parameters['user_group']);
-            $request->route()->setParameter('user_group', $profile);
+            $group = UserGroup::findOrFail($parameters['user_group']);
+            $request->route()->setParameter('user_group', $group);
         }
 
         if (array_key_exists('user_profile', $parameters)) {
