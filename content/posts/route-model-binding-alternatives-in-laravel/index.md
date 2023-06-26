@@ -42,7 +42,7 @@ One of the issues I mentioned above is the potential for conflicts between multi
 * Middleware can be applied as granularly as required, so you get the ability to scope your bindings for free
 * It's barely any more effort to implement or maintain than explicit binding
 
-Here's an example of how a general-purpose implementation might look for resolving parameters in web routes:
+Here's an example of how an implementation might look for resolving user-related parameters:
 
 {{<highlight php "linenos=table">}}
 <?php
@@ -50,10 +50,12 @@ Here's an example of how a general-purpose implementation might look for resolvi
 namespace App\Http\Middleware;
 
 use App\Models\User;
+use App\Models\UserGroup;
+use App\Models\UserProfile;
 use Closure;
 use Illuminate\Http\Request;
 
-class ResolveWebParameters
+class ResolveUserParameters
 {
     public function handle(Request $request, Closure $next)
     {
@@ -64,6 +66,16 @@ class ResolveWebParameters
             $request->route()->setParameter('user', $user);
         }
 
+        if (array_key_exists('user_group', $parameters)) {
+            $profile = UserGroup::findOrFail($parameters['user_group']);
+            $request->route()->setParameter('user_group', $profile);
+        }
+
+        if (array_key_exists('user_profile', $parameters)) {
+            $profile = UserProfile::findOrFail($parameters['user_profile']);
+            $request->route()->setParameter('user_profile', $profile);
+        }
+
         // Resolve more parameters as needed
 
         return $next($request);
@@ -71,6 +83,12 @@ class ResolveWebParameters
 }
 {{</highlight>}}
 
-If that's too generalised for your case, or you simply don't want to define all of your bindings in one big list, you could divide the middleware up based on model, route group, or anything else that makes sense for your situation.
+In this example, the resolution logic is identical for all three parameters. This could be refactored into something a little less repetitive, but there may be cases where you need to do something with the query or result before setting the parameter value, such as [authorising an action](https://laravel.com/docs/10.x/authorization#authorizing-actions-via-gates) to determine if additional data (such as soft-deleted rows) should be included. If your application has a large number of route parameters that are all resolved in the same way, you may find it preferable to write a base class for this type of middleware with methods for resolving a map of keys to model class names (which would not be dissimilar to implicit route model binding, but at least the logic would be adjacent to the middleware in your application source).
+
+You can also divide the middleware up based on model, route group, or anything else that makes sense for your situation.
 
 It's also worth mentioning that if your project is simple enough to only need a handful of model lookups for a small set of routes, receiving the raw parameter values in your controller actions and manually performing the lookups in them is an acceptable solution, but the middleware approach is a scaleable alternative worth considering.
+
+---
+
+_Update (2023-06-26): previously, I used a more generic middleware example that didn't convey the intention very well. I've replaced it with a more specific example and elaborated on it._
