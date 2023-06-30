@@ -71,14 +71,14 @@
 /* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
 /* Keyword */ .chroma .k { color: $color-primary-4 }
 /* KeywordConstant */ .chroma .kc { color: $color-primary-4 }
-/* KeywordDeclaration */ .chroma .kd { color: $color-primary-1; font-style: italic }
+/* KeywordDeclaration */ .chroma .kd { color: $color-primary-1 }
 /* KeywordNamespace */ .chroma .kn { color: $color-primary-4 }
 /* KeywordPseudo */ .chroma .kp { color: $color-primary-4 }
 /* KeywordReserved */ .chroma .kr { color: $color-primary-4 }
 /* KeywordType */ .chroma .kt { color: $color-primary-1 }
 /* Name */ .chroma .n {  }
 /* NameAttribute */ .chroma .na { color: $color-primary-2 }
-/* NameBuiltin */ .chroma .nb { color: $color-primary-1; font-style: italic }
+/* NameBuiltin */ .chroma .nb { color: $color-primary-1 }
 /* NameBuiltinPseudo */ .chroma .bp {  }
 /* NameClass */ .chroma .nc { color: $color-primary-2 }
 /* NameConstant */ .chroma .no {  }
@@ -87,15 +87,15 @@
 /* NameException */ .chroma .ne {  }
 /* NameFunction */ .chroma .nf { color: $color-primary-2 }
 /* NameFunctionMagic */ .chroma .fm {  }
-/* NameLabel */ .chroma .nl { color: $color-primary-1; font-style: italic }
+/* NameLabel */ .chroma .nl { color: $color-primary-1 }
 /* NameNamespace */ .chroma .nn {  }
 /* NameOther */ .chroma .nx {  }
 /* NameProperty */ .chroma .py {  }
 /* NameTag */ .chroma .nt { color: $color-primary-4 }
-/* NameVariable */ .chroma .nv { color: $color-primary-1; font-style: italic }
-/* NameVariableClass */ .chroma .vc { color: $color-primary-1; font-style: italic }
-/* NameVariableGlobal */ .chroma .vg { color: $color-primary-1; font-style: italic }
-/* NameVariableInstance */ .chroma .vi { color: $color-primary-1; font-style: italic }
+/* NameVariable */ .chroma .nv { color: $color-primary-1 }
+/* NameVariableClass */ .chroma .vc { color: $color-primary-1 }
+/* NameVariableGlobal */ .chroma .vg { color: $color-primary-1 }
+/* NameVariableInstance */ .chroma .vi { color: $color-primary-1 }
 /* NameVariableMagic */ .chroma .vm {  }
 /* Literal */ .chroma .l {  }
 /* LiteralDate */ .chroma .ld {  }
