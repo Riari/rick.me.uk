@@ -3,6 +3,7 @@
 
     & > .chroma {
         border-radius: .2em;
+        background-color: #292937;
     
         .lntd:nth-child(1) {
             min-width: 30px;
@@ -60,14 +61,14 @@
     }
 }
 
-/* Background */ .chroma { color: #f8f8f2; background-color: darken($color-background-dark, 4%); }
+/* Background */ .chroma { color: #f8f8f2; }
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err {  }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
 /* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
 /* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #bdd6f029 }
-/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: $color-muted-1; }
-/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: lighten($color-muted-1, 4%); }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
 /* Keyword */ .chroma .k { color: $color-primary-4 }
 /* KeywordConstant */ .chroma .kc { color: $color-primary-4 }
 /* KeywordDeclaration */ .chroma .kd { color: $color-primary-1; font-style: italic }
@@ -135,7 +136,7 @@
 /* GenericError */ .chroma .gr {  }
 /* GenericHeading */ .chroma .gh { font-weight: bold }
 /* GenericInserted */ .chroma .gi { font-weight: bold }
-/* GenericOutput */ .chroma .go { color: #44475a }
+/* GenericOutput */ .chroma .go { color: $color-muted-1 }
 /* GenericPrompt */ .chroma .gp {  }
 /* GenericStrong */ .chroma .gs {  }
 /* GenericSubheading */ .chroma .gu { font-weight: bold }
@@ -149,10 +150,6 @@
             color: $color-inline-code-foreground-light;
             background: $color-inline-code-background-light;
         }
-    }
-
-    .chroma {
-        background: #2c2e3b;
     }
 
     .chroma .lnt {
