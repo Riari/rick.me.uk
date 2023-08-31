@@ -2,8 +2,7 @@
     .body {
         padding: 1.6em 1em;
         background: $color-background-dark;
-        font-family: 'Lora', serif;
-        font-size: 1.1em;
+        font-family: $font-family-sans-serif;
         font-weight: 400;
         line-height: 1.6;
 
@@ -16,17 +15,29 @@
 
         a {
             color: $color-link-dark;
+
+            &:hover {
+                color: #ffffff;
+            }
         }
 
         article {
+            font-size: 1.1em;
             color: $color-foreground-dark;
+
+            h1,
+            h2,
+            h3 {
+                font-family: $font-family-sans-serif;
+                font-weight: 700;
+            }
 
             ul {
                 padding: 0;
                 margin: 1.5em 0 1.5em 2em;
 
                 li {
-                    margin: 1em 0;
+                    margin: .25em 0;
                 }
             }
     
@@ -54,7 +65,7 @@
                 border-radius: 0.2em;
                 background: $color-inline-code-background-dark;
                 font-size: 1rem;
-                font-family: 'JetBrains Mono', monospace;
+                font-family: $font-family-monospace;
                 color: $color-inline-code-foreground-dark;
             }
 
@@ -117,10 +128,11 @@
                 flex: 50%;
 
                 a {
+                    font-weight: 500;
                     text-decoration: none;
 
                     .prefix {
-                        font-size: .8em;
+                        font-size: .9em;
                         color: $color-muted-3;
                     }
 
@@ -153,7 +165,7 @@
             flex: 1;
 
             a {
-                font-family: 'JetBrains Mono', monospace;
+                font-family: $font-family-monospace;
                 font-size: 1.1rem;
                 color: #fff;
                 text-decoration: none;
@@ -175,7 +187,7 @@
         border-top-left-radius: .3em;
         border-top-right-radius: .3em;
         background: $color-background-dark;
-        font-family: 'Lora', serif;
+        font-family: $font-family-sans-serif;
         color: $color-foreground-dark;
     }
 
@@ -228,6 +240,10 @@
     
             a {
                 color: $color-link-light;
+
+                &:hover {
+                    color: #000000;
+                }
             }
     
             article, article p {

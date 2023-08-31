@@ -17,7 +17,8 @@
     
                 a.link {
                     flex: 1;
-                    font-family: 'JetBrains Mono', monospace;
+                    font-family: $font-family-sans-serif;
+                    font-weight: 500;
                     color: $color-primary-5;
                     text-decoration: none;
                     transition: color .1s;
@@ -59,7 +60,7 @@
     
             &__label {
                 padding: 0.1em 0;
-                font-weight: bold;
+                font-weight: 700;
                 min-width: 240px;
                 color: $color-muted-3;
             }
@@ -70,6 +71,7 @@
                     padding: .12em .6em;
                     margin: .1em;
                     border-radius: 2em;
+                    font-weight: 500;
                 }
             
                 @for $i from 1 through 7 {
@@ -126,7 +128,7 @@
             }
     
             code {
-                font-family: 'JetBrains Mono', monospace;
+                font-family: $font-family-monospace;
             }
         }
     }

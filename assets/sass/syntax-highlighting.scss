@@ -14,7 +14,7 @@
         }
     
         code {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: $font-family-monospace;
             font-size: .9em;
         }
 
@@ -53,7 +53,7 @@
         padding: .1rem .8rem;
         border-top-left-radius: .2rem;
         border-top-right-radius: .2rem;
-        font-family: 'JetBrains Mono', monospace;
+        font-family: $font-family-monospace;
         font-size: .8em;
         font-weight: 600;
         color: $color-inline-code-foreground-dark;
