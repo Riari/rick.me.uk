@@ -30,7 +30,7 @@ h2 {
 }
 
 h3 {
-    font-size: 1.2em;
+    font-size: 1.5em;
 }
 
 h4 {
@@ -48,8 +48,12 @@ h4 {
 }
 
 a {
-    color: #fff;
+    color: $color-primary-1;
     text-decoration: none;
+
+    &:hover {
+        color: #fff;
+    }
 }
 
 hr {
@@ -241,7 +245,7 @@ ul.tags {
     .inner-container {
         box-sizing: border-box;
         margin: 0 auto;
-        padding: 1em;
+        padding: 2rem;
         max-width: 860px;
         width: 100%;
     
@@ -258,7 +262,7 @@ ul.tags {
 
     .head {
         margin: 0;
-        padding: 0 1em;
+        padding: 0;
         background-size: cover;
         text-align: center;
 
@@ -403,5 +407,11 @@ ul.tags {
 
     hr {
         margin: 2em 0;
+    }
+
+    .container {
+        .inner-container {
+            padding: 1rem;
+        }
     }
 }

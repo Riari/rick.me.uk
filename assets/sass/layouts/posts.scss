@@ -1,6 +1,6 @@
 .container--posts {
     .body {
-        padding: 1.6em 1em;
+        padding: 1.6rem 0;
         background: $color-background-dark;
         font-family: $font-family-sans-serif;
         font-weight: 400;
@@ -128,6 +128,7 @@
                 flex: 50%;
 
                 a {
+                    display: block;
                     font-weight: 500;
                     text-decoration: none;
 
@@ -136,9 +137,8 @@
                         color: $color-muted-3;
                     }
 
-                    .title {
-                        text-decoration: underline;
-                        text-decoration-thickness: 1px;
+                    &:hover .prefix {
+                        color: #fff;
                     }
                 }
             }
@@ -166,7 +166,6 @@
 
             a {
                 font-family: $font-family-monospace;
-                font-size: 1.1rem;
                 color: #fff;
                 text-decoration: none;
 
@@ -201,9 +200,8 @@
         color: $color-foreground-dark;
 
         a {
-            font-size: .9em;
             transition: color .1s;
-            color: $color-muted-3;
+            color: $color-primary-1;
 
             &:hover {
                 color: #fff;

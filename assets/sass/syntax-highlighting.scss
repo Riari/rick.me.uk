@@ -15,11 +15,11 @@
     
         code {
             font-family: $font-family-monospace;
-            font-size: .8em;
+            font-size: .9em;
         }
 
         .cl {
-            padding: 0 1em;
+            padding: 0 1rem;
         }
     }
 
@@ -67,7 +67,7 @@
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
 /* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
 /* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #bdd6f017 }
-/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: lighten($color-muted-1, 4%); }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: lighten($color-muted-1, 10%); }
 /* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
 /* Keyword */ .chroma .k { color: $color-primary-5 }
 /* KeywordConstant */ .chroma .kc { color: $color-primary-4 }
@@ -168,5 +168,15 @@
 @media (prefers-color-scheme: light) {
     .theme--system {
         @include theme-light-syntax;
+    }
+}
+
+@media only screen and (max-width: $breakpoint--small) {
+    .highlight {
+        margin: 1rem -1rem;
+
+        .chroma {
+            border-radius: 0;
+        }
     }
 }
