@@ -3,7 +3,7 @@
 
     & > .chroma {
         border-radius: .2em;
-        background-color: #292937;
+        background-color: $color-code-background-dark;
     
         .lntd:nth-child(1) {
             min-width: 30px;
@@ -61,7 +61,7 @@
     }
 }
 
-/* Background */ .chroma { color: #f8f8f2; }
+/* Background */ .chroma { color: $color-primary-8; }
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err {  }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
@@ -69,30 +69,30 @@
 /* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #bdd6f017 }
 /* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: lighten($color-muted-1, 4%); }
 /* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
-/* Keyword */ .chroma .k { color: $color-primary-4 }
+/* Keyword */ .chroma .k { color: $color-primary-5 }
 /* KeywordConstant */ .chroma .kc { color: $color-primary-4 }
 /* KeywordDeclaration */ .chroma .kd { color: $color-primary-1 }
 /* KeywordNamespace */ .chroma .kn { color: $color-primary-4 }
 /* KeywordPseudo */ .chroma .kp { color: $color-primary-4 }
 /* KeywordReserved */ .chroma .kr { color: $color-primary-4 }
-/* KeywordType */ .chroma .kt { color: $color-primary-1 }
-/* Name */ .chroma .n {  }
-/* NameAttribute */ .chroma .na { color: $color-primary-2 }
+/* KeywordType */ .chroma .kt { color: $color-primary-5 }
+/* Name */ .chroma .n { color: $color-primary-8; }
+/* NameAttribute */ .chroma .na { color: $color-primary-1 }
 /* NameBuiltin */ .chroma .nb { color: $color-primary-1 }
 /* NameBuiltinPseudo */ .chroma .bp {  }
-/* NameClass */ .chroma .nc { color: $color-primary-2 }
+/* NameClass */ .chroma .nc { color: $color-primary-7 }
 /* NameConstant */ .chroma .no {  }
 /* NameDecorator */ .chroma .nd {  }
 /* NameEntity */ .chroma .ni {  }
 /* NameException */ .chroma .ne {  }
-/* NameFunction */ .chroma .nf { color: $color-primary-2 }
+/* NameFunction */ .chroma .nf { color: $color-primary-1 }
 /* NameFunctionMagic */ .chroma .fm {  }
 /* NameLabel */ .chroma .nl { color: $color-primary-1 }
 /* NameNamespace */ .chroma .nn {  }
-/* NameOther */ .chroma .nx {  }
+/* NameOther */ .chroma .nx { color: $color-primary-7 }
 /* NameProperty */ .chroma .py {  }
 /* NameTag */ .chroma .nt { color: $color-primary-4 }
-/* NameVariable */ .chroma .nv { color: $color-primary-1 }
+/* NameVariable */ .chroma .nv { color: $color-primary-8 }
 /* NameVariableClass */ .chroma .vc { color: $color-primary-1 }
 /* NameVariableGlobal */ .chroma .vg { color: $color-primary-1 }
 /* NameVariableInstance */ .chroma .vi { color: $color-primary-1 }
@@ -111,7 +111,7 @@
 /* LiteralStringInterpol */ .chroma .si { color: $color-primary-7 }
 /* LiteralStringOther */ .chroma .sx { color: $color-primary-7 }
 /* LiteralStringRegex */ .chroma .sr { color: $color-primary-7 }
-/* LiteralStringSingle */ .chroma .s1 { color: $color-primary-7 }
+/* LiteralStringSingle */ .chroma .s1 { color: $color-primary-2 }
 /* LiteralStringSymbol */ .chroma .ss { color: $color-primary-7 }
 /* LiteralNumber */ .chroma .m { color: $color-primary-5 }
 /* LiteralNumberBin */ .chroma .mb { color: $color-primary-5 }
@@ -120,7 +120,7 @@
 /* LiteralNumberInteger */ .chroma .mi { color: $color-primary-5 }
 /* LiteralNumberIntegerLong */ .chroma .il { color: $color-primary-5 }
 /* LiteralNumberOct */ .chroma .mo { color: $color-primary-5 }
-/* Operator */ .chroma .o { color: $color-primary-4 }
+/* Operator */ .chroma .o { color: $color-primary-8 }
 /* OperatorWord */ .chroma .ow { color: $color-primary-4 }
 /* Punctuation */ .chroma .p {  }
 /* Comment */ .chroma .c { color: $color-code-comment }
@@ -128,8 +128,8 @@
 /* CommentMultiline */ .chroma .cm { color: $color-code-comment }
 /* CommentSingle */ .chroma .c1 { color: $color-code-comment }
 /* CommentSpecial */ .chroma .cs { color: $color-code-comment }
-/* CommentPreproc */ .chroma .cp { color: $color-primary-4 }
-/* CommentPreprocFile */ .chroma .cpf { color: $color-primary-4 }
+/* CommentPreproc */ .chroma .cp { color: $color-primary-5 }
+/* CommentPreprocFile */ .chroma .cpf { color: $color-primary-7 }
 /* Generic */ .chroma .g {  }
 /* GenericDeleted */ .chroma .gd { color: #8b080b }
 /* GenericEmph */ .chroma .ge { text-decoration: underline }
@@ -145,6 +145,10 @@
 /* TextWhitespace */ .chroma .w {  }
 
 @mixin theme-light-syntax {
+    .highlight > .chroma {
+        background-color: $color-code-background-light;
+    }
+
     .highlight-label-container {
         .highlight-label {
             color: $color-inline-code-foreground-light;
