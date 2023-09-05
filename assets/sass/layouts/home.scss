@@ -19,7 +19,6 @@
                     flex: 1;
                     font-family: $font-family-sans-serif;
                     font-weight: 500;
-                    font-size: 1.1em;
                     color: $color-primary-5;
                     text-decoration: none;
                     transition: color .1s;
@@ -62,7 +61,6 @@
             &__label {
                 padding: 0.1em 0;
                 font-weight: 700;
-                font-size: 1.1em;
                 min-width: 240px;
                 color: $color-muted-3;
             }
@@ -99,7 +97,6 @@
     
         .button {
             flex: 1;
-            font-size: 1.1em;
     
             img {
                 width: 32px;
