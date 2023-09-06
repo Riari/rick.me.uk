@@ -154,7 +154,7 @@
     padding: 1rem;
     margin: 0 0 1rem 0;
     border-radius: .5rem;
-    background: $color-background-dark;
+    background: lighten($color-background-main, 3%);
     color: $color-foreground-dark;
 
     &-header {
@@ -205,7 +205,11 @@
             a {
                 display: inline-block;
                 margin-right: .5rem;
-                color: $color-muted-2;
+                padding: 0 .4rem;
+                border-radius: .3em;
+                background: $color-background-main;
+                font-size: .9em;
+                color: $color-muted-3;
 
                 &:hover {
                     color: #fff;
