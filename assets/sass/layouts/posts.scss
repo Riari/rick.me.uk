@@ -151,22 +151,25 @@
 }
 
 .post-card {
-    margin-bottom: 1.2em;
-    border-radius: .3em;
+    padding: 1rem;
+    margin: 0 0 1rem 0;
+    border-radius: .5rem;
+    background: $color-background-dark;
+    color: $color-foreground-dark;
 
     &-header {
         display: flex;
-        padding: 1em 1.6em;
         margin-bottom: .5em;
-        border-radius: .3em;
-        background: linear-gradient(95deg, $color-muted-1 0%, darken($color-muted-1, 7%) 100%);
 
         &-title {
             flex: 1;
+            margin: 0;
+            font-family: $font-family-sans-serif;
+            font-weight: 700;
+            font-size: 1.2em;
 
             a {
-                font-family: $font-family-monospace;
-                color: #fff;
+                color: $color-foreground-dark;
                 text-decoration: none;
 
                 &:hover {
@@ -182,30 +185,18 @@
     }
 
     &-body {
-        padding: 1.2em 1.6em;
-        border-top-left-radius: .3em;
-        border-top-right-radius: .3em;
-        background: $color-background-dark;
+        margin-top: 1rem;
+        color: $color-muted-3;
         font-family: $font-family-sans-serif;
-        color: $color-foreground-dark;
     }
 
     &-footer {
         display: flex;
         flex-direction: row;
-        padding: 0 1.6em 1.2em 1.6em;
-        border-bottom-left-radius: .3em;
-        border-bottom-right-radius: .3em;
-        background: $color-background-dark;
-        color: $color-foreground-dark;
+        margin-top: 1rem;
 
         a {
             transition: color .1s;
-            color: $color-primary-1;
-
-            &:hover {
-                color: #fff;
-            }
         }
 
         &-tags {
@@ -214,6 +205,11 @@
             a {
                 display: inline-block;
                 margin-right: .5rem;
+                color: $color-muted-2;
+
+                &:hover {
+                    color: #fff;
+                }
             }
         }
     }
@@ -270,27 +266,28 @@
     }
 
     .post-card {
+        background: $color-background-light;
+        color: $color-foreground-light;
+
         &-header {
             &-publish-date {
-                color: $color-muted-3;
+                color: $color-muted-2;
+            }
+
+            a {
+                color: $color-foreground-light;
             }
         }
 
         &-body {
-            background: $color-background-light;
-            color: $color-foreground-light;
+            color: $color-muted-2;
         }
-    
-        &-footer {
-            background: $color-background-light;
-            color: $color-foreground-light;
-    
-            a {
-                color: $color-muted-3;
-    
-                &:hover {
-                    color: $color-muted-1;
-                }
+
+        &-footer a {
+            color: $color-muted-3;
+
+            &:hover {
+                color: #000;
             }
         }
     }

@@ -168,6 +168,7 @@ ul.tags {
                 left: 0;
                 z-index: 1;
                 transform: skew(-20deg);
+                border-radius: .3em;
                 background: $color-tag-background;
                 transition: opacity .1s, background .1s;
             }
