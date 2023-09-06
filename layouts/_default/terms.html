@@ -9,8 +9,6 @@
         {{ partial "head-bottom-links.html" . }}
     </div>
 
-    <hr style="margin-top: 0;">
-
     <div class="inner-container text-center">
         <ul class="tags">
             {{ range .Pages }}<li><a href="{{ .Permalink }}"><span>{{ .Title }}</span></a></li>{{ end }}

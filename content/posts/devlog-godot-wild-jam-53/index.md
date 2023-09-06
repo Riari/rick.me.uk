@@ -4,7 +4,7 @@ slug = "devlog-godot-wild-jam-53"
 description = "A wild jam in Godot."
 date = "2023-01-25"
 tags = ["devlog", "game-jam", "godot"]
-image = "./header.jpg"
+image = "/images/post-headers/godot-wild-jam-53.jpg"
 +++
 
 [Godot Wild Jam](https://godotwildjam.com/) is a monthly game jam centred around building games in the [Godot game engine](https://godotengine.org/). It starts on the second Friday of each month and lasts for nine days.

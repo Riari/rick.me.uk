@@ -265,6 +265,7 @@ ul.tags {
 
         &--slim {
             padding: 0;
+            background: $color-background-dark;
         }
 
         h1, h2, h3 {
@@ -272,7 +273,6 @@ ul.tags {
         }
 
         h1 {
-            margin-bottom: .4em;
             font-size: 2.4em;
         }
 
@@ -324,7 +324,7 @@ ul.tags {
 
         .bottom-links {
             text-align: right;
-            padding: 1em;
+            padding: 1rem;
 
             a {
                 display: inline-block;
