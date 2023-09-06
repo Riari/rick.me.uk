@@ -242,7 +242,7 @@ ul.tags {
     .inner-container {
         box-sizing: border-box;
         margin: 0 auto;
-        padding: 2rem;
+        padding: 1rem;
         max-width: 860px;
         width: 100%;
     
@@ -283,7 +283,7 @@ ul.tags {
 
         .top-links {
             display: flex;
-            padding: 0 1em;
+            padding: 0 1rem;
             margin-bottom: 1.6em;
             font-size: 1.1em;
 
@@ -404,11 +404,5 @@ ul.tags {
 
     hr {
         margin: 2em 0;
-    }
-
-    .container {
-        .inner-container {
-            padding: 1rem;
-        }
     }
 }
