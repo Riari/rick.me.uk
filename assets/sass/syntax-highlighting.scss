@@ -15,7 +15,8 @@
     
         code {
             font-family: $font-family-monospace;
-            font-size: .9em;
+            font-size: .85em;
+            line-height: 1.6rem;
         }
 
         .cl {
@@ -66,9 +67,10 @@
 /* Error */ .chroma .err {  }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
 /* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
-/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #bdd6f017 }
-/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: lighten($color-muted-1, 10%); }
-/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%; background-color: transparentize($color: $color-primary-2, $amount: 0.94) }
+.chroma .hl .lnt, .chroma .hl .cl * { color: $color-primary-2 }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0.3em 0.4em 0.3em 0.4em; color: lighten($color-muted-1, 10%); }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0.3em 0.4em 0.3em 0.4em; color: #7f7f7f }
 /* Keyword */ .chroma .k { color: $color-primary-5 }
 /* KeywordConstant */ .chroma .kc { color: $color-primary-4 }
 /* KeywordDeclaration */ .chroma .kd { color: $color-primary-1 }
