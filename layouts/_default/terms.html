@@ -9,10 +9,12 @@
         {{ partial "head-bottom-links.html" . }}
     </div>
 
-    <div class="inner-container text-center">
-        <ul class="tags">
-            {{ range .Pages }}<li><a href="{{ .Permalink }}"><span>{{ .Title }}</span></a></li>{{ end }}
-        </ul>
+    <div class="body">
+        <div class="inner-container text-center">
+            <ul class="tags">
+                {{ range .Pages }}<li><a href="{{ .Permalink }}"><span>{{ .Title }}</span></a></li>{{ end }}
+            </ul>
+        </div>
     </div>
 </div>
 
