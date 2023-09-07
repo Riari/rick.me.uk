@@ -122,7 +122,7 @@
         }
 
         .post-card {
-            background: #ebeef5;
+            background: $color-background-light-dimmed;
             color: $color-foreground-light;
     
             &-background {
@@ -171,27 +171,6 @@
     
             &-title {
                 margin-bottom: .3em;
-            }
-        }
-    }
-
-    .container--posts-list .body {
-        article {
-            font-size: 1em;
-
-            ul {
-                margin-left: 1em;
-            }
-        }
-
-        .adjacent-post-links {
-            flex-direction: column;
-            text-align: center;
-
-            .next,
-            .prev {
-                margin-bottom: .3em;
-                text-align: center;
             }
         }
     }

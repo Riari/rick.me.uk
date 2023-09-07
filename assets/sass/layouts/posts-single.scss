@@ -40,17 +40,6 @@
                 color: $color-foreground-dark;
             }
     
-            & > pre {
-                border-radius: .3em;
-                background: #282a36;
-                padding: .4em .8em;
-    
-                code {
-                    font-family: "JetBrains Mono", monospace;
-                    color: $color-text-on-dark;
-                }
-            }
-    
             p > code,
             ul > li > code,
             ol > li > code {
@@ -131,7 +120,7 @@
                         color: $color-muted-3;
                     }
     
-                    &:hover .prefix {
+                    &:hover span {
                         color: #fff;
                     }
                 }
@@ -182,6 +171,12 @@
 
             hr {
                 background: lighten($color-muted-3, 10%);
+            }
+
+            .adjacent-post-links {
+                a:hover span {
+                    color: #000;
+                }
             }
         }
     }

@@ -401,6 +401,24 @@ ul.tags {
     }
 }
 
+@mixin theme-light {
+    .container {
+        .body {
+            background: $color-background-light;
+        }
+    }
+}
+
+.theme--light {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    .theme--system {
+        @include theme-light;
+    }
+}
+
 @media only screen and (max-width: $breakpoint--small) {
     h1 {
         font-size: 2.6em;

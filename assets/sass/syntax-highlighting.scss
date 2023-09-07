@@ -149,6 +149,10 @@
 @mixin theme-light-syntax {
     .highlight > .chroma {
         background-color: $color-code-background-light;
+
+        code {
+            filter: brightness(50%) saturate(2.5);
+        }
     }
 
     .highlight-label-container {
