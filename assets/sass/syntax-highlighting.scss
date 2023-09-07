@@ -1,5 +1,7 @@
 .highlight {
     margin: 1rem 0;
+    font-size: .85em;
+    line-height: 1.6rem;
 
     & > .chroma {
         border-radius: .5em;
@@ -15,8 +17,6 @@
     
         code {
             font-family: $font-family-monospace;
-            font-size: .85em;
-            line-height: 1.6rem;
         }
 
         .cl {
