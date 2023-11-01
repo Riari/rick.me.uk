@@ -3,7 +3,7 @@ title = "Route Model Binding Alternatives in Laravel"
 slug = "route-model-binding-alternatives-in-laravel"
 description = "A middleware-based approach to route parameter resolution."
 date = "2023-06-23"
-tags = ["web", "php", "frameworks", "laravel"]
+tags = ["web", "php", "framework", "laravel"]
 image = "/images/post-headers/pixellated-code.png"
 +++
 

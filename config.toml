@@ -4,6 +4,9 @@ title = "riari.dev"
 pygmentsUseClasses = true
 paginate = 10
 
+[params]
+  OpenGraphIoApiKey = ""
+
 [permalinks]
   posts = "/posts/:year/:month/:slug/"
 
