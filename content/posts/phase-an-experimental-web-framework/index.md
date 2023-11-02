@@ -100,7 +100,7 @@ $data->value = "def";
 $state->set<SomeData>($data);
 {{</highlight>}}
 
-Unfortunately it doesn't, but this could be approximated by passing the class string as an argument instead, i.e. `$state->set(SomeData::class, $data);` and `$state->get(SomeData::class);`.
+Even without generics, this could be approximated by passing the class string as an argument instead, like `$state->set(SomeData::class, $data);`.
 
 ---
 
