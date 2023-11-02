@@ -13,7 +13,7 @@ In Laravel and many other frameworks, there is some interplay between those two 
 
 This idea got me thinking about the line drawn between the middleware and the controller. In a sense, they're both just pieces of logic chained together to respond to a request. They receive a request object and return a response, the only difference being that controllers don't have access to the next piece of middleware in the stack (if any). What if we were to merge them into a single concept?
 
-I decided to explore that by writing an experimental framework that replaces the "C" in MVC with _phases_, which are designed the handle the whole flow from request to response instead of just the "before" and "after". It also supports _pipelines_, which are the phase equivalent to Laravel's middleware groups. The basic idea is that you define a **route** which points to one or more **phases** (either via a **pipeline** or as a simple array of phases passed directly into the route definition).
+I decided to explore that by writing an experimental framework that replaces controllers and middleware with _phases_, which are designed the handle the whole flow from request to response instead of just the "before" and "after". It also supports _pipelines_, which are the phase equivalent to Laravel's middleware groups. The basic idea is that you define a **route** which points to one or more **phases** (either via a **pipeline** or as a simple array of phases passed directly into the route definition).
 
 For example, a route with just one phase associated with it looks like this:
 
