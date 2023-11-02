@@ -1,25 +1,37 @@
-{{- $api_key := "" -}}
-{{- $json := "" -}}
+{{/* Parameters */}}
+{{- $url := "" -}}
+{{- $filename := "" -}}
 
-{{/* Get API key from config.toml. */}}
+{{/* Other vars */}}
+{{- $apiKey := "" -}}
+{{- $json := "" -}}
+{{- $filepath := "" -}}
+
+{{- with .Get 0 -}}
+  {{- $url = . -}}
+{{- else -}}
+  {{- errorf "The '%s' shortcode expects two parameters: URL and a path to save the image to. See %s" .Name .Position -}}
+{{- end -}}
+
+{{- with .Get 1 -}}
+  {{- $filename = . -}}
+  {{- $filepath = printf "images/og/%s" $filename -}}
+{{- else -}}
+  {{- errorf "The '%s' shortcode expects two parameters: URL and a path to save the image to. See %s" .Name .Position -}}
+{{- end -}}
+
 {{- with .Site.Params.OpenGraphIoApiKey -}}
-  {{ $api_key = . }}
+  {{- $apiKey = . -}}
 {{- else -}}
   {{- errorf "The '%s' shortcode requires an API key for opengraph.io. Please set '[params] OpenGraphIoApiKey' in config.toml. See %s" .Name .Position -}}
 {{- end -}}
 
-{{/* Get JSON from OpenGraph.io. */}}
-{{- with .Get 0 -}}
-  {{- $url := replace . ":" "%3A" -}}
-  {{- $url = replace $url "/" "%2F" -}}
-  {{- $query := querify "accept_lang" "auto" "app_id" $api_key -}}
-  {{- $request := printf "https://opengraph.io/api/1.1/site/%s?%s" $url $query -}}
-  {{- $json = getJSON $request -}}
-{{- else -}}
-  {{- errorf "The '%s' shortcode requires a single positional parameter, a URL. See %s" .Name .Position -}}
-{{- end -}}
+{{- $url = replace $url ":" "%3A" -}}
+{{- $url = replace $url "/" "%2F" -}}
+{{- $query := querify "accept_lang" "auto" "app_id" $apiKey -}}
+{{- $request := printf "https://opengraph.io/api/1.1/site/%s?%s" $url $query -}}
+{{- $json = getJSON $request -}}
 
-{{/* Check status code returned by OpenGraph.io. */}}
 {{- if ne (string $json.requestInfo.responseCode) "200" -}}
   {{ $msg1 := "The '%s' shortcode was unable to retrieve Open Graph data for %s." .Name $json.requestInfo.url }}
   {{ $msg2 := "The opengraph.io server response code was %s." (string $json.requestInfo.responseCode) }}
@@ -27,10 +39,13 @@
   {{ errorf "%s %s %s" $msg1 $msg2 $msg3 }}
 {{- end -}}
 
-{{/* Output */}}
 <div class="og-summary">
     <a href="{{ $json.openGraph.url }}" target="_blank">
-        <img src="{{ $json.openGraph.image.url }}" alt="">
+      {{ with resources.GetRemote $json.openGraph.image.url }}
+        {{ with resources.Copy $filepath . }}
+          <img src="{{ .RelPermalink }}" alt="">
+        {{ end }}
+      {{ end }}
     </a>
     <div class="caption">
         <a href="{{ $json.openGraph.url }}" target="_blank">{{ $json.openGraph.title }}</a>

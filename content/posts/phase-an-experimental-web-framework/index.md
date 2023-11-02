@@ -104,6 +104,4 @@ Unfortunately it doesn't, but this could be approximated by passing the class st
 
 ---
 
-
-
-{{< og-summary "https://github.com/Riari/php-phase" >}}
+{{< og-summary "https://github.com/Riari/php-phase" "php-phase.png" >}}
