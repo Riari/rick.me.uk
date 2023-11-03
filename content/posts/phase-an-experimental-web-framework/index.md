@@ -137,7 +137,7 @@ That said, the phase concept is the only part that really differentiates it from
 
 ---
 
-Overall, I think the idea definitely has merit, but it's hard to say for sure without trying to build a real application with it. If I revisit this experiment, I'll probably try using the framework to build a basic application such as a blog.
+Overall, I think the idea definitely has merit, but it's hard to say for sure without trying to build a real application with it. If I revisit this experiment, I'll likely expand the framework and try using it to build a basic application such as a blog.
 
 Here's the repo if you're interested in seeing the implementation more closely:
 
