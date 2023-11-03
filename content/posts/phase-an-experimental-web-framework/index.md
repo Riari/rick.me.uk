@@ -7,9 +7,9 @@ tags = ["php", "experiment", "framework"]
 image = "/images/post-headers/pixellated-code.png"
 +++
 
-A few months ago, when I was working on a Laravel project, I started thinking about the design patterns it's built on and how ubiquitous those patterns are in other frameworks. At its core is the MVC pattern, which has its roots in the 1970s. Similarly, the concept of middleware has been around for roughly as long, although in web frameworks it tends to specifically refer to the "glue" between various stages of the request/response lifecycle.
+A few months ago, when I was working on a Laravel project, I started thinking about the MVC pattern (since that's what Laravel and many other frameworks are based on). This pattern has its roots in the 1970s—similarly, the concept of middleware has been around for roughly as long, although in web frameworks it tends to specifically refer to the "glue" between various stages of the request/response lifecycle.
 
-In Laravel and many other frameworks, there is some interplay between those two patterns: middleware comes before and after the controller. It wouldn't be inaccurate to call the combined pattern MVMC (Model-View-Middleware-Controller).
+There is some interplay between those two patterns when they're both implemented: middleware comes before and after the controller. It wouldn't be inaccurate to call the combined pattern MVMC (Model-View-Middleware-Controller).
 
 This idea got me thinking about the line drawn between the middleware and the controller. In a sense, they're both just pieces of logic chained together to respond to a request. They receive a request object and return a response, the only difference being that controllers don't have access to the next piece of middleware in the stack (if any). What if we were to merge them into a single concept?
 
@@ -21,7 +21,7 @@ For example, a route with just one phase associated with it looks like this:
 $r->addRoute('GET', '/example/{param}', [DoSomethingWithParam::class]);
 {{</highlight>}}
 
-Much like Laravel does with middleware, a complete version of this framework would ship with phases for handling things like authentication and input validation. You'd compose your business logic from these phases and custom ones.
+Much like Laravel does with middleware, a complete version of this framework would ship with phases for handling things like authentication checks and input validation. You'd compose your business logic using both shipped phases and custom ones.
 
 ### Phase anatomy
 
@@ -80,28 +80,65 @@ class DoThing extends Phase
 
 An obvious improvement that I didn't get around to implementing would be dependency injection. Having to implement the same `handle` interface method for every phase is also not a great experience, but equally, that rigidity encourages writing phases that roughly follow the single-responsibility principle. They're not unlike single action controllers.
 
-### Object-oriented state
+### Pipelines
+
+Pipelines are used to define a fixed list of phases to execute and are much simpler as a result:
+
+{{<highlight php "linenos=table">}}
+<?php
+
+namespace App\Pipelines;
+
+use App\Phases\ReadHelloWorld;
+use App\Phases\WriteHello;
+use App\Phases\WriteWorld;
+use Phase\Http\Pipeline\Pipeline;
+
+class HelloWorldPipeline extends Pipeline
+{
+    public function __construct()
+    {
+        $this->addAll([
+            WriteHello::class,
+            WriteWorld::class,
+            ReadHelloWorld::class
+        ]);
+    }
+}
+{{</highlight>}}
+
+Instead of passing an array of phases into a route definition, you can pass a pipeline instead. I've not explored this idea much and it's hard to say how useful it would really be, but I could imagine it being quite powerful.
+
+### Better state
 
 For the state object that carries state between phases, I integrated [adbario/php-dot-notation](https://github.com/adbario/php-dot-notation). This was a quick and easy way to get the idea across, but it probably wouldn't hold up well in a real project where you could be juggling lots of data on the lead-up to generating a response.
 
 One way to improve this would be to make it more object-oriented. If PHP had generics, the state object could act more like a container to typed instances of data, which could be read and written like so:
 
 {{<highlight php "linenos=table">}}
-// Write some data
+// Write
 $data = new SomeData;
 $data->value = "abc";
 $state->set<SomeData>($data);
 
-// Read data
+// Read
 $data = $state->get<SomeData>();
-
-// Modify and write it again
-$data->value = "def";
-$state->set<SomeData>($data);
 {{</highlight>}}
 
 Even without generics, this could be approximated by passing the class string as an argument instead, like `$state->set(SomeData::class, $data);`.
 
+It's perhaps not the best mechanism, but I imagine it would be quite serviceable for the vast majority of uses. Besides, in conventional MVC projects, complex business logic ideally lives in places other than controllers, like actions (otherwise more generally known as [commands](https://refactoring.guru/design-patterns/command)) or external APIs, where state is fairly self-contained. On that basis, controller methods generally only need to know if an operation succeeded and/or what to send back. Phases can be minimal in the same way, calling out to other APIs to get the work done without relying much (or at all) on state being carried from one phase to the next.
+
+### Other improvements
+
+The framework is quite a shallow exploration and doesn't include most of the features you'd expect in a modern web framework, so there are many ways in which it could be better. Some kind of service container would be very useful, for example.
+
+That said, the phase concept is the only part that really differentiates it from other frameworks, so for the sake of experimenting with that idea, there isn't much value in developing the other parts. If I were to develop it further, I'd likely end up integrating components from other frameworks to fill the gaps (which I already did with Laravel's Blade feature to provide templating).
+
 ---
+
+Overall, I think the idea definitely has merit, but it's hard to say for sure without trying to build a real application with it. If I revisit this experiment, I'll probably try using the framework to build a basic application such as a blog.
+
+Here's the repo if you're interested in seeing the implementation more closely:
 
 {{< og-summary "https://github.com/Riari/php-phase" "php-phase.png" >}}
