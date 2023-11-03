@@ -7,7 +7,7 @@ tags = ["web", "php", "experiment", "framework", "laravel"]
 image = "/images/post-headers/pixellated-code.png"
 +++
 
-A few months ago, when I was working on a Laravel project, I started thinking about the MVC pattern (since that's what Laravel and many other frameworks are based on). This pattern has its roots in the 1970s, and similarly, the concept of middleware has been around for roughly as long (although in web frameworks it tends to refer specifically to the "glue" between various stages of the request/response lifecycle).
+A few months ago, when I was working on a Laravel project, I started thinking about the MVC pattern (since that's what Laravel and many other frameworks are based on). This pattern has its roots in the 1970s, and similarly, the concept of middleware has been around for roughly as long (although in web frameworks it tends to refer specifically to the "glue" between the router, controller, and response).
 
 There is some interplay between those two patterns when they're both implemented: middleware comes before and after the controller. It wouldn't be inaccurate to call the combined pattern MVMC (Model-View-Middleware-Controller).
 
