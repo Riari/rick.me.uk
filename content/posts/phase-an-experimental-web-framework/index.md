@@ -2,7 +2,7 @@
 title = "Phase: An Experimental Web Framework"
 slug = "phase-an-experimental-web-framework"
 description = "Is there a better alternative to the classic web framework?"
-date = "2023-10-30"
+date = "2023-11-03"
 tags = ["php", "experiment", "framework"]
 image = "/images/post-headers/pixellated-code.png"
 +++
