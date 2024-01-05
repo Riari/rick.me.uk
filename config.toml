@@ -1,6 +1,6 @@
-baseURL = "https://www.riari.dev"
+baseURL = "https://www.rick.me.uk"
 languageCode = "en-gb"
-title = "riari.dev"
+title = "rick.me.uk"
 pygmentsUseClasses = true
 paginate = 10
 
