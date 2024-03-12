@@ -1,0 +1,219 @@
+---
+import DocStart from "../components/DocStart.astro";
+import DocEnd from "../components/DocEnd.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { loadAndFormatCollection } from "../util/collection";
+
+const posts = (await loadAndFormatCollection("posts"))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
+---
+
+<DocStart />
+    <body>
+        <div class="container container--centred container--home">
+            <div class="inner-container">
+                <h1>
+                    <span class="text--muted-1" style="padding-right: .2em;"
+                        >&#8250;</span
+                    ><span class="text--primary-1">rick</span><span
+                        class="text--muted-1">.</span
+                    ><span class="text--primary-7">me</span><span
+                        class="text--muted-1">.</span
+                    ><span class="text--primary-7">uk</span>
+                </h1>
+
+                <p class="lead">
+                    Hi. I'm Rick, a game developer with a background in
+                    full-stack web dev.
+                </p>
+
+                <hr />
+
+                <div class="recent-posts">
+                    <div class="inline-heading">
+                        <h2>Posts</h2>
+
+                        <span class="more-link">
+                            <a href="/posts/">See full list</a>
+                        </span>
+                    </div>
+
+                    <ul>
+                        {
+                            posts.map(post => (
+                                <li>
+                                    <a
+                                        href={`/posts/${post.slug}/`}
+                                        class="link"
+                                    >
+                                        {post.data.title}
+                                    </a>
+                                    <span class="publish-date">
+                                        <FormattedDate
+                                            date={post.data.pubDate}
+                                        />
+                                    </span>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+
+                <div class="proficiencies">
+                    <h2>Proficiencies</h2>
+
+                    <div class="proficiencies__row">
+                        <div class="proficiencies__row__label">Languages</div>
+                        <div
+                            class="proficiencies__row__pills pills pills--primary-1"
+                        >
+                            <span>C</span>
+                            <span>C++</span>
+                            <span>C#</span>
+                            <span>Java</span>
+                            <span>Rust</span>
+                            <span>Python</span>
+                            <span>PHP</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="proficiencies__row">
+                        <div class="proficiencies__row__label">Frameworks</div>
+                        <div
+                            class="proficiencies__row__pills pills pills--primary-2"
+                        >
+                            <span>.NET</span>
+                            <span>Laravel</span>
+                            <span>Express</span>
+                            <span>Vue.js</span>
+                            <span>React</span>
+                            <span>React Native</span>
+                        </div>
+                    </div>
+                    <div class="proficiencies__row">
+                        <div class="proficiencies__row__label">
+                            Game Engines
+                        </div>
+                        <div
+                            class="proficiencies__row__pills pills pills--primary-3"
+                        >
+                            <span>Unity</span>
+                            <span>Godot</span>
+                        </div>
+                    </div>
+                    <div class="proficiencies__row">
+                        <div class="proficiencies__row__label">Databases</div>
+                        <div
+                            class="proficiencies__row__pills pills pills--primary-4"
+                        >
+                            <span>MySQL</span>
+                            <span>PostgreSQL</span>
+                            <span>MongoDB</span>
+                            <span>Redis</span>
+                        </div>
+                    </div>
+                    <div class="proficiencies__row">
+                        <div class="proficiencies__row__label">Editors</div>
+                        <div
+                            class="proficiencies__row__pills pills pills--primary-5"
+                        >
+                            <span>VS Code</span>
+                            <span>Visual Studio</span>
+                            <span>JetBrains IDEs</span>
+                        </div>
+                    </div>
+                    <div class="proficiencies__row">
+                        <div class="proficiencies__row__label">Platforms</div>
+                        <div
+                            class="proficiencies__row__pills pills pills--primary-6"
+                        >
+                            <span>Web</span>
+                            <span>Desktop</span>
+                            <span>Mobile</span>
+                        </div>
+                    </div>
+                    <div class="proficiencies__row">
+                        <div class="proficiencies__row__label">
+                            Tools & Services
+                        </div>
+                        <div
+                            class="proficiencies__row__pills pills pills--primary-7"
+                        >
+                            <span>Git</span>
+                            <span>WSL</span>
+                            <span>Docker</span>
+                            <span>Kubernetes</span>
+                            <span>AWS</span>
+                            <span>Cloudflare</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Links</h2>
+
+                <div class="links">
+                    <a
+                        href="https://github.com/Riari"
+                        rel="noopener"
+                        target="_blank"
+                        class="button"
+                    >
+                        <img src="/icons/github.svg" /> GitHub
+                    </a>
+                    <a
+                        href="https://www.linkedin.com/in/rick-uk/"
+                        rel="noopener"
+                        target="_blank"
+                        class="button"
+                    >
+                        <img src="/icons/linkedin.svg" /> LinkedIn
+                    </a>
+                    <a
+                        href="https://twitter.com/rmann_89"
+                        rel="noopener"
+                        target="_blank"
+                        class="button"
+                    >
+                        <img src="/icons/twitter.svg" /> Twitter
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", (event) => {
+                document.addEventListener("mousemove", (event) => {
+                    if (
+                        event.target.classList == null ||
+                        !event.target.classList.contains("button")
+                    )
+                        return;
+
+                    const rect = event.target.getBoundingClientRect();
+                    const mouseX = event.clientX - rect.left;
+                    const mouseY = event.clientY - rect.top;
+
+                    const hoverSpan =
+                        event.target.querySelector(".button__hover");
+                    hoverSpan.style.opacity = "1.0";
+                    hoverSpan.style.left = `${mouseX - hoverSpan.offsetWidth / 2}px`;
+                    hoverSpan.style.top = `${mouseY - hoverSpan.offsetHeight / 2}px`;
+                });
+
+                const buttons = document.getElementsByClassName("button");
+                const hoverSpan = document.createElement("span");
+                hoverSpan.classList.add("button__hover");
+
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].appendChild(hoverSpan.cloneNode());
+                    buttons[i].addEventListener("mouseleave", (event) => {
+                        event.target.style.background = null;
+
+                        const hoverSpan =
+                            event.target.querySelector(".button__hover");
+                        hoverSpan.style.opacity = "0.0";
+                    });
+                }
+            });
+        </script>
+<DocEnd />

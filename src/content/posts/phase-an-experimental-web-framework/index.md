@@ -1,0 +1,143 @@
+---
+title: 'Phase: An Experimental Web Framework'
+description: 'Is there a better alternative to the classic web framework?'
+pubDate: 2023-11-03
+heroImage: '/images/post-headers/pixellated-code.png'
+tags: ["web", "php", "experiment", "framework", "laravel"]
+---
+
+A few months ago, when I was working on a Laravel project, I started thinking about the MVC pattern (since that's what Laravel and many other frameworks are based on). This pattern has its roots in the 1970s, and similarly, the concept of middleware has been around for roughly as long (although in web frameworks it tends to refer specifically to the "glue" between the router, controller, and response).
+
+There is some interplay between those two patterns when they're both implemented: middleware comes before and after the controller. It wouldn't be inaccurate to call the combined pattern MVMC (Model-View-Middleware-Controller).
+
+This idea got me thinking about the line drawn between the middleware and the controller. In a sense, they're both just pieces of logic chained together to respond to a request. They receive a request object and return a response, the only difference being that controllers don't have access to the next piece of middleware in the stack (if any). What if we were to merge them into a single concept?
+
+I decided to explore that by writing an experimental framework that replaces controllers and middleware with _phases_, which are designed the handle the whole flow from request to response instead of just the "before" and "after". It also supports _pipelines_, which are the phase equivalent to Laravel's middleware groups. The basic idea is that you define a **route** which points to one or more **phases** (either via a **pipeline** or as a simple array of phases passed directly into the route definition).
+
+For example, a route with just one phase associated with it looks like this:
+
+```php
+$r->addRoute('GET', '/example/{param}', [DoSomethingWithParam::class]);
+```
+
+Much like Laravel does with middleware, a complete version of this framework would ship with phases for handling things like authentication checks and input validation. You'd compose your business logic using both shipped phases and custom ones.
+
+### Phase anatomy
+
+The code below illustrates the anatomy of a phase, which can be broken down into roughly three parts:
+
+* Input (the request object and route parameters)
+* State (phases are stateful for the duration of the request)
+* Output (either a response or the next phase if one is expected)
+
+```php
+<?php
+
+namespace App\Phases;
+
+use Adbar\Dot;
+use Phase\Http\Phase\Phase;
+use Phase\Http\Response\ViewResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+class DoThing extends Phase
+{
+    public function handle(Dot $state): Response
+    {
+        // Here's where you do something with the request.
+        // Phase instances have three read-only properties as follows:
+
+        // 1. The closure for calling the next phase in the pipeline.
+        // There's a method of the same name that calls it with
+        // call_user_func.
+        $this->next; // Closure
+        $this->next($state); // Method
+
+        // 2. The current Symfony request object.
+        $this->request;
+
+        // 3. An array of resolved parameters from the route (if any).
+        $this->params;
+
+        // This method also receives one parameter - Dot $state.
+        // It's a collection of values you can pass between phases.
+        // In the first phase of a route, it's empty and ready to be
+        // written to.
+        $state->add('some.value', 1);
+        $someValue = $state->get('some.value'); // 1
+
+        // Phases ultimately return responses.
+        // If a phase is supposed to terminate, it can directly return
+        // a response like this:
+        return new ViewResponse('blade.view', ['someValue' => $someValue]);
+
+        // Otherwise, it can proceed to the next phase for the route:
+        return $this->next($state);
+    }
+}
+```
+
+An obvious improvement that I didn't get around to implementing would be dependency injection. Having to implement the same `handle` interface method for every phase is also not a great experience, but equally, that rigidity encourages writing phases that roughly follow the single-responsibility principle. They're not unlike single action controllers.
+
+### Pipelines
+
+Pipelines are used to define a fixed list of phases to execute and are much simpler as a result:
+
+```php
+<?php
+
+namespace App\Pipelines;
+
+use App\Phases\ReadHelloWorld;
+use App\Phases\WriteHello;
+use App\Phases\WriteWorld;
+use Phase\Http\Pipeline\Pipeline;
+
+class HelloWorldPipeline extends Pipeline
+{
+    public function __construct()
+    {
+        $this->addAll([
+            WriteHello::class,
+            WriteWorld::class,
+            ReadHelloWorld::class
+        ]);
+    }
+}
+```
+
+Instead of passing an array of phases into a route definition, you can pass a pipeline instead. I've not explored this idea much and it's hard to say how useful it would really be, but I could imagine it being quite powerful.
+
+### Better state
+
+For the state object that carries state between phases, I integrated [adbario/php-dot-notation](https://github.com/adbario/php-dot-notation). This was a quick and easy way to get the idea across, but it probably wouldn't hold up well in a real project where you could be juggling lots of data on the lead-up to generating a response.
+
+One way to improve this would be to make it more object-oriented. If PHP had generics, the state object could act more like a container to typed instances of data, which could be read and written like so:
+
+```php
+// Write
+$data = new SomeData;
+$data->value = "abc";
+$state->set<SomeData>($data);
+
+// Read
+$data = $state->get<SomeData>();
+```
+
+Even without generics, this could be approximated by passing the class string as an argument instead, like `$state->set(SomeData::class, $data);`.
+
+It's perhaps not the best mechanism, but I imagine it would be quite serviceable for the vast majority of uses. Besides, in conventional MVC projects, complex business logic ideally lives in places other than controllers, like actions (otherwise more generally known as [commands](https://refactoring.guru/design-patterns/command)) or external APIs, where state is fairly self-contained. On that basis, controller methods generally only need to know if an operation succeeded and/or what to send back. Phases can be minimal in the same way, calling out to other APIs to get the work done without relying much (or at all) on state being carried from one phase to the next.
+
+### Other improvements
+
+The framework is quite a shallow exploration and doesn't include most of the features you'd expect in a modern web framework, so there are many ways in which it could be better. Some kind of service container would be very useful, for example.
+
+That said, the phase concept is the only part that really differentiates it from other frameworks, so for the sake of experimenting with that idea, there isn't much value in developing the other parts. If I were to develop it further, I'd likely end up integrating components from other frameworks to fill the gaps (which I already did with Laravel's Blade feature to provide templating).
+
+---
+
+Overall, I think the idea definitely has merit, but it's hard to say for sure without trying to build a real application with it. If I revisit this experiment, I'll likely expand the framework and try using it to build a basic application such as a blog.
+
+Here's the repo if you're interested in seeing the implementation more closely:
+
+<!-- {{< og-summary "https://github.com/Riari/php-phase" "php-phase.png" >}} -->

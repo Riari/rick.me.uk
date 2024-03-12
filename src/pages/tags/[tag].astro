@@ -1,0 +1,51 @@
+---
+import DocStart from "../../components/DocStart.astro";
+import DocEnd from "../../components/DocEnd.astro";
+import HeadTopLinks from "../../components/HeadTopLinks.astro";
+import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
+import PostCard from "../../components/PostCard.astro";
+import { loadAndFormatCollection, getTags } from '../../util/collection';
+
+export async function getStaticPaths() {
+    const posts = await loadAndFormatCollection('posts');
+
+    const tags = await getTags(posts);
+
+    return [...tags]
+        .map(tag => {
+            return {
+                params: { tag }
+            }
+        });
+};
+
+const { tag } = Astro.params;
+
+const posts = (await loadAndFormatCollection("posts"))
+    .filter(post => post.tags.includes(tag))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<DocStart />
+    <body>
+        <div class="container container--posts-list">
+            <div class="head head--slim">
+                <HeadTopLinks />
+
+                <h1>{tag}</h1>
+                <h2 class="subheading">tag</h2>
+
+                <HeadBottomLinks />
+            </div>
+
+            <div class="body">
+                <div class="inner-container">
+                    {
+                        posts.map((post) => (
+                            <PostCard post={post} />
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+<DocEnd />

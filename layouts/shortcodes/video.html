@@ -1,6 +1,0 @@
-<div class="video-container">
-    <video controls autoplay {{ if .Get "loop" }}loop=""{{ end }}>
-        <source src="{{ .Get "url" | safeURL }}" type="{{ .Get "type" }}">
-        Video playback is not supported in your browser. :(
-    </video>
-</div>

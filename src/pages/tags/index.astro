@@ -1,0 +1,36 @@
+---
+import DocStart from "../../components/DocStart.astro";
+import DocEnd from "../../components/DocEnd.astro";
+import HeadTopLinks from "../../components/HeadTopLinks.astro";
+import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
+import { loadAndFormatCollection, getTags } from '../../util/collection';
+
+const posts = await loadAndFormatCollection('posts');
+
+const tags = await getTags(posts);
+---
+
+<DocStart />
+    <body>
+        <div class="container">
+            <div class="head head--slim">
+                <HeadTopLinks />
+
+                <h1>Tags</h1>
+
+                <HeadBottomLinks />
+            </div>
+
+            <div class="body">
+                <div class="inner-container text-center">
+                    <ul class="tags">
+                        {
+                            tags.map(tag => (
+                                <li><a href={`/tags/${tag}/`}><span>{tag}</span></a></li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+<DocEnd />
