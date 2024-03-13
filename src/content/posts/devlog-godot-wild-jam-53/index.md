@@ -6,15 +6,6 @@ heroImage: '/images/post-headers/godot-wild-jam-53.jpg'
 tags: ["devlog", "game-jam", "godot"]
 ---
 
-+++
-title = "Devlog: Godot Wild Jam #53"
-slug = "devlog-godot-wild-jam-53"
-description = "A wild jam in Godot."
-date = "2023-01-25"
-tags = ["devlog", "game-jam", "godot"]
-image = "/images/post-headers/godot-wild-jam-53.jpg"
-+++
-
 [Godot Wild Jam](https://godotwildjam.com/) is a monthly game jam centred around building games in the [Godot game engine](https://godotengine.org/). It starts on the second Friday of each month and lasts for nine days.
 
 Godot has been gaining a lot of traction in recent years. It's considerably newer than Unity and Unreal (its first release appeared back in 2014) and while it's not as popular for large, complex projects, [that's something the authors are actively working to improve](https://godotengine.org/article/whats-missing-in-godot-for-aaa/). Version 4 is in beta at the time of writing and the first stable release of it seems imminent.

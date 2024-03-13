@@ -6,15 +6,6 @@ heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine"]
 ---
 
-+++
-title = "Building a 3D Game Engine in C++: A Devlog (Preface)"
-slug = "building-a-game-engine-devlog-preface"
-description = "Chronicling my first attempt at building a 3D game engine on modern paradigms."
-date = "2021-02-25"
-tags = ["devlog", "cpp", "game-engine"]
-image = "/images/post-headers/building-game-engine-generic.png"
-+++
-
 This is the first post of what will hopefully become a comprehensive devlog detailing my work as I take a shot at creating my first "proper" 3D game engine. Needless to say I'm far, _far_ from the first to do something like this—especially in C++—but if I can share a few of my own ideas and learn a lot along the way, it'll be worthwhile!
 
 I've already done a lot of the groundwork for this project. It started out as an effort to follow [LearnOpenGL](https://learnopengl.com/), but I found myself wanting to refactor the code and build more than just a renderer, so it inevitably evolved into the rough beginnings of an engine (at which point I renamed the project to "Iris", after [a cat](./iris.jpg) I helped my parents adopt!). Through that process, I've decided on a rough set of goals to start with:

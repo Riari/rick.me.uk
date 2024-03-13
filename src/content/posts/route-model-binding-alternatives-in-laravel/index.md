@@ -6,15 +6,6 @@ heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["web", "php", "framework", "laravel"]
 ---
 
-+++
-title = "Route Model Binding Alternatives in Laravel"
-slug = "route-model-binding-alternatives-in-laravel"
-description = "A middleware-based approach to route parameter resolution."
-date = "2023-06-23"
-tags = ["web", "php", "framework", "laravel"]
-image = "/images/post-headers/pixellated-code.png"
-+++
-
 [Route model binding](https://laravel.com/docs/10.x/routing#route-model-binding) is a feature in the Laravel PHP framework that allows you to bind a route parameter to an Eloquent (ORM) model. It's a way of automatically injecting model instances into controller actions by resolving route parameter values in URIs. This allows a URI path like `/users/1` to map to a controller action receiving a model instance for user ID 1 without requiring any lookups for that user to be done in the controller.
 
 Binding can be achieved in one of two ways: implicitly or explicitly. Implicit binding works by automatically matching a parameter to a type-hinted parameter in a controller action, while explicit binding works by specifying how to map a parameter name to a model (using [`Route::model`](https://laravel.com/api/10.x/Illuminate/Routing/Router.html#method_model)) or providing custom resolution logic (using [`Route::bind`](https://laravel.com/api/10.x/Illuminate/Routing/Router.html#method_bind)). Examples of both approaches are given in [the docs](https://laravel.com/docs/10.x/routing#route-model-binding).

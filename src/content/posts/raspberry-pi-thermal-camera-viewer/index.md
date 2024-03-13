@@ -6,15 +6,6 @@ heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["python", "opencv", "pi"]
 ---
 
-+++
-title = "Raspberry Pi Thermal Camera Viewer"
-slug = "pi-thermal-camera-viewer"
-description = "A Python solution for viewing MLX90640 thermal camera output on a Pi."
-date = "2022-11-20"
-tags = ["python", "opencv", "pi"]
-image = "/images/post-headers/pixellated-code.png"
-+++
-
 My dad recently built a handheld thermal imaging camera consisting of a Raspberry Pi, touchscreen display, Adafruit MLX90640 far-infrared camera, and 3D-printed case:
 
 ![Photo of front - touchscreen](./photo-1.jpg)

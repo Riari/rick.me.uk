@@ -6,15 +6,6 @@ heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["contemplation"]
 ---
 
-+++
-title = "The Meaning of Practice"
-slug = "the-meaning-of-practice"
-description = "Learning how to get better at learning."
-date = "2022-07-01"
-tags = ["contemplation"]
-image = "/images/post-headers/pixellated-code.png"
-+++
-
 When I started building [Iris Engine](https://github.com/Riari/iris-engine) last year, I thought I had a pretty humble vision: I was going to build my first 3D game engine and it was almost certainly going to be awful, but I would develop it far enough to at least be able to create a game with it and learn a ton of stuff in the process. I should have seen it coming, but it didn't quite go to plan!
 
 Modern game engines are immensely complex considering the requirements they typically must satisfy—especially those designed to be genre-agnostic and robust enough to be reasonably useful for any type of game. It should be no surprise that my very first attempt to build something even remotely approaching that category was doomed to fail (something that I sort of hinted at at the end of [part 2 of the devlog series](/posts/2021/04/3d-game-engine-devlog-part-2-scene-improvements/) without realising quite how right I was).

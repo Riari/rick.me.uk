@@ -6,15 +6,6 @@ heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs", "opengl"]
 ---
 
-+++
-title = "3D Game Engine Devlog, Part 3: OpenGL Progress"
-slug = "3d-game-engine-devlog-part-3-opengl-progress"
-description = "Progress on implementing features for the OpenGL renderer."
-date = "2021-05-09"
-tags = ["devlog", "cpp", "game-engine", "ecs", "opengl"]
-image = "/images/post-headers/building-game-engine-generic.png"
-+++
-
 At this point, for the most part, I'm back to following [LearnOpenGL](https://learnopengl.com/)—and I'm not going to reiterate in detail any of the topics already covered there. If you want to know more about the topics mentioned in this post, I encourage you to read through the corresponding material on that site!
 
 Since the last post, the first thing I did was a small tweak to point light calculations. Whereas the fragment shader for the cubes in my scene previously depended on uniforms for both the point light position and camera (viewer) position, the vertex shader now takes in the light position, transforms it with the view matrix, and exports it to the fragment shader to achieve the same result, eliminating the need to supply the camera position:

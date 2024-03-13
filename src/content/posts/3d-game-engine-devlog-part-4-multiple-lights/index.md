@@ -6,15 +6,6 @@ heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs", "opengl"]
 ---
 
-+++
-title = "3D Game Engine Devlog, Part 4: Multiple Lights"
-slug = "3d-game-engine-devlog-part-4-multiple-lights"
-description = "Light types and multiple light support"
-date = "2021-07-12"
-tags = ["devlog", "cpp", "game-engine", "ecs", "opengl"]
-image = "/images/post-headers/building-game-engine-generic.png"
-+++
-
 Last time, I finished off with a scene of floating crates demonstrating some simple diffuse, specular, and emission maps with the help of a very basic point light implementation. With that, I had two main goals in mind:
 
 - Figure out how to support multiple sources of light at once.

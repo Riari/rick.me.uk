@@ -6,18 +6,6 @@ heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs"]
 ---
 
-<!-- +++
-title = "3D Game Engine Devlog, Part 2: Scene Improvements"
-slug = "3d-game-engine-devlog-part-2-scene-improvements"
-aliases = [
-    "/posts/2021/04/building-a-3d-game-engine-part-2-scene-improvements/"
-]
-description = "Improvements to build time and scene integration."
-date = "2021-04-18"
-tags = ["devlog", "cpp", "game-engine", "ecs"]
-image = "/images/post-headers/building-game-engine-generic.png"
-+++ -->
-
 Before I get into the main topic for this post, I want to briefly cover build time for the project. Up until now, on my desktop machine (AMD Ryzen 7 1700X) a full build would take approximately 1 minute 15 seconds, and an incremental one (small changes in first party sources) would take around 40 seconds. Not terrible, but it could get annoying during quick iterations of a feature or change.
 
 I wasn't sure there was much I could do to greatly improve it, and this is an area I'm not very familiar with, but I had a few ideas. The first was to remove unused includes—for this, I used CLion's built-in code inspection to aid in identifying and removing unused imports. I did that before realising that there's an "Optimize imports" feature that pretty much takes care of this automatically, but it wasn't a big deal since the project is still very small and there weren't many unused imports to deal with. This had no discernable impact, but it was worth a shot.
