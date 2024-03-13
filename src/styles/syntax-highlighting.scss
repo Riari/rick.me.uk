@@ -8,26 +8,20 @@
     }
 }
 
-.astro-code,
-.astro-code span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-}
-
-@mixin theme-light {
+@mixin theme($style) {
     .astro-code,
     .astro-code span {
-        color: var(--shiki-light) !important;
-        background-color: var(--shiki-light-bg) !important;
+        color: var(--shiki-#{$style}) !important;
+        background-color: var(--shiki-#{$style}-bg) !important;
     }
 }
 
-.theme--light {
-    @include theme-light;
+.theme--dark {
+    @include theme('dark');
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
     .theme--system {
-        @include theme-light;
+        @include theme('dark');
     }
 }
