@@ -1,0 +1,17 @@
+---
+const { src, type, isLoop, caption } = Astro.props;
+
+const properties = {
+    'controls': '',
+    'autoplay': '',
+    ...(isLoop && { 'loop': '' })
+};
+---
+
+<div class="video-container">
+    <video { ...properties }>
+        <source src={src} type={type}>
+        Video playback is not supported in your browser. :(
+    </video>
+    { caption && <div class="caption">{caption}</div> }
+</div>

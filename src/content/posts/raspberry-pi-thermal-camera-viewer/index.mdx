@@ -5,14 +5,17 @@ pubDate: 2022-11-20
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["python", "opencv", "pi"]
 ---
+import Image from '../../../components/Image.astro';
+import photo1Image from './photo-1.jpg';
+import photo2Image from './photo-2.jpg';
+import photo3Image from './photo-3.jpg';
+import snapshotImage from './snapshot.jpg';
 
 My dad recently built a handheld thermal imaging camera consisting of a Raspberry Pi, touchscreen display, Adafruit MLX90640 far-infrared camera, and 3D-printed case:
 
-![Photo of front - touchscreen](./photo-1.jpg)
-{{<caption>}}Front - touchscreen{{</caption>}}
+<Image src={photo1Image.src} alt="Photo of front - touchscreen" caption="Front - touchscreen" />
 
-![Photo of top - IR camera mounted in the top right](./photo-2.jpg)
-{{<caption>}}Top - IR camera mounted in the top right{{</caption>}}
+<Image src={photo2Image.src} alt="Photo of top - IR camera mounted in the top right" caption="Top - IR camera mounted in the top right" />
 
 On the software side, he started with https://github.com/tomshaffner/PiThermalCam, a Python package providing viewing capabilities on Pis with the MLX90640. It provides two modes of operation:
 
@@ -25,11 +28,9 @@ The problem was that my dad wanted to be able to control the feed without any co
 
 For on-screen controls, an obvious option was to use Qt since OpenCV has some high-level GUI functions that leverage Qt, including buttons—but I didn't like the idea of installing such a heavy library and recompiling OpenCV just for the sake of drawing some buttons. Instead, I wrote a crude solution for drawing buttons straight into the output image using OpenCV's rectangle and text drawing functions. The end result (pictured below) isn't pretty, but definitely functional!
 
-![Photo of display with camera feed](./photo-3.jpg)
-{{<caption>}}Display with camera feed{{</caption>}}
+<Image src={photo3Image.src} alt="Photo of display with camera feed" caption="Display with camera feed" />
 
-![Snapshot saved on device](./snapshot.jpg)
-{{<caption>}}Snapshot saved on the device{{</caption>}}
+<Image src={snapshotImage.src} alt="Snapshot saved on device" caption="Snapshot saved on the device" />
 
 You might notice from the image above that the frame rate isn't great—it averages around 2fps and occasionally drops a frame. Not that it matters much for the purposes of thermal imaging, but even so, there's definitely some wiggle room considering the MLX90640 is supposed to support frame rates up to 16 Hz.
 

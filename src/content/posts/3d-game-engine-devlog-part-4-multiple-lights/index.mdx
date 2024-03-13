@@ -5,6 +5,12 @@ pubDate: 2021-07-12
 heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs", "opengl"]
 ---
+import { Vimeo } from 'astro-embed';
+import Image from '../../../components/Image.astro';
+import combinedLights1Image from './combined-lights-1.jpg';
+import combinedLights2Image from './combined-lights-2.jpg';
+import dearImguiDemoImage from './dear-imgui-demo.jpg';
+import spotLightImage from './spot-light.jpg';
 
 Last time, I finished off with a scene of floating crates demonstrating some simple diffuse, specular, and emission maps with the help of a very basic point light implementation. With that, I had two main goals in mind:
 
@@ -51,7 +57,7 @@ for (auto const& id : m_entities)
 
 At this point I decided to keep the light I previously implemented, which was essentially a point light (i.e. a light at a specific position emitting in all directions), and see if I could get it working nicely alongside the directional light. My first attempt at this sort of worked, but was definitely not correct! With the data for each light available to the fragment shader, I calculated diffuse and specular factors for each light and factored them into the final diffuse and specular calculations. Take the specular calculations for example:
 
-{{<highlight glsl "linenos=table">}}
+```glsl
 // Point light specular
 vec3 pointLightReflectDir = reflect(-pointLightDir, norm);
 float pointLightSpec = pow(max(dot(viewDir, pointLightReflectDir), 0.0), material.shininess);
@@ -66,7 +72,7 @@ vec3 specular = (pointLight.specular * pointLightSpec) * (directionalLight.specu
 
 Here's how it looked (note the black cube, which represents the directional light, and the white one, which represents the original point light):
 
-![Combined lights](./combined-lights-1.jpg)
+<Image src={combinedLights1Image.src} alt="Combined lights" />
 
 It kind of worked, but the point light was significantly weaker despite being so close to one of the crates. Instead of handling it this way, what I needed to do instead was calculate the final `ambient + diffuse + specular` per light, sum the results, and add the material's emission colour to get the final fragment colour. More on this further down.
 
@@ -150,7 +156,7 @@ In order to test it in isolation, I replaced the lighting calculations in the fr
 
 Here's how it looked in-scene:
 
-![Spot light demo](./spot-light.jpg)
+<Image src={spotLightImage.src} alt="Spot light demo" />
 
 Good result!
 
@@ -160,7 +166,7 @@ Good result!
 
 The first step towards rendering the scene with multiple lights was to modify the fragment shader to accept arrays for spot lights and point lights (not directional lights, since there only needs to be one in existence at any given moment). I set a maximum size for the arrays (since we can't have an infinite number of lights and it's a good idea to keep the number of active lights below a certain threshold anyway, which I'll explore later) and also added uniforms for specifying the number of currently active lights for each type:
 
-{{<highlight glsl "linenos=table">}}
+```glsl
 #define MAX_POINT_LIGHTS 20
 #define MAX_SPOT_LIGHTS 20
 
@@ -174,7 +180,7 @@ uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 I then defined functions to take care of lighting calculations, similar to the examples given on LearnOpenGL. Here are their prototypes:
 
-{{<highlight glsl "linenos=table">}}
+```glsl
 vec3 CalcDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDirection);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDirection);
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDirection);
@@ -185,7 +191,7 @@ vec3 Sample(sampler2D sampler);
 
 With these in place, I could simply start with a fragment colour (black) and add the result of each light calculation to it:
 
-{{<highlight glsl "linenos=table">}}
+```glsl
 vec3 normal = normalize(Normal);
 vec3 viewDirection = normalize(viewPosition - FragPos);
 
@@ -230,7 +236,7 @@ auto materialShaderProgram = assetManager.GetShaderProgram("Material");
 
 Problem solved! After some tweaking of the light data and number of lights, here's how the scene looked:
 
-![All of the lights](./combined-lights-2.jpg)
+<Image src={combinedLights2Image.src} alt="All of the lights" />
 
 One directional light, numerous point lights, and a spot light attached to the camera (although it's not very noticeable here).
 
@@ -244,7 +250,7 @@ I started by grabbing the ImGui headers and source files and updating my CMake c
 
 Here's how the integration looked:
 
-![Dear ImGui demo](./dear-imgui-demo.jpg)
+<Image src={dearImguiDemoImage.src} alt="Dear ImGui demo" />
 
 I was happy with that progress, but before I could make any real use of it, I wanted to clean up the integration and make it more manageable. I spent a while thinking about this, at one point peeking at [TheCherno's Hazel engine](https://github.com/TheCherno/Hazel) (which uses Dear ImGui for its editor interface), and eventually settled on a basic concept consisting of two components:
 
@@ -306,7 +312,7 @@ With that groundwork in place, I created two `ImGuiPanel` implementations. The f
 
 Once the panels were attached to the layer, all that was left to do was play with it:
 
-{{<vimeo 574096404>}}
+<Vimeo id="https://vimeo.com/574096404" />
 
 Much better! This also helped me identify an issue in the fragment shader that was causing lighting to be slightly wrong from some angles, so having a debug UI is already paying off.
 

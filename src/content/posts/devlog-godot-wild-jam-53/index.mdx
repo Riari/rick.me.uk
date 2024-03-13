@@ -5,6 +5,22 @@ pubDate: 2023-01-25
 heroImage: '/images/post-headers/godot-wild-jam-53.jpg'
 tags: ["devlog", "game-jam", "godot"]
 ---
+import Image from '../../../components/Image.astro';
+import Audio from '../../../components/Audio.astro';
+import Video from '../../../components/Video.astro';
+import imageGWJ53Wildcards from './gwj-53-wildcards.png';
+import screenshotAssetForgeProjectile from './screenshot-asset-forge-projectile.png';
+import screenshotAssetForgeTrain from './screenshot-asset-forge-train.png';
+import screenshotGodotFirstScene from './screenshot-godot-first-scene.png';
+import screenshotGodotTrackPoints from './screenshot-godot-track-points.png';
+import screenshotHUDBottom from './screenshot-hud-bottom.png';
+import screenshotMainMenu from './screenshot-main-menu.png';
+import screenshotTurretScriptExports from './screenshot-turret-script-exports.png';
+import audioRocketFire from './audio-rocket-fire-2.wav';
+import audioUIClick from './audio-ui-click-1.wav';
+import videoExplosionVFX from './video-explosion-vfx.mp4';
+import videoMissileShader from './video-missile-shader.mp4';
+import videoTrainSpawnEffect from './video-train-spawn-effect.mp4';
 
 [Godot Wild Jam](https://godotwildjam.com/) is a monthly game jam centred around building games in the [Godot game engine](https://godotengine.org/). It starts on the second Friday of each month and lasts for nine days.
 
@@ -16,7 +32,7 @@ Like most jams, each GWJ follows a theme—a keyword or phrase (chosen by the or
 
 For the GWJ #53, the theme was **Assembly Required**, and though I decided not to use any, the wildcards were:
 
-!["Four Color Limit: Limit your palette to four colors", "Wait, What?: Include a plot twist in your story", "Thermometer: Use temperature as a game mechanic"](./gwj-53-wildcards.png)
+<Image src={imageGWJ53Wildcards.src} alt={`"Four Color Limit: Limit your palette to four colors", "Wait, What?: Include a plot twist in your story", "Thermometer: Use temperature as a game mechanic"`} />
 
 I had a few ideas in mind for my game and ultimately went with this:
 
@@ -28,13 +44,15 @@ In this post, I'll cover some of the key features of the game and how I implemen
 
 The first thing I wanted to do was get a feel for visuals. I opted to make the game in 3D (which in hindsight was probably not the best idea as the extra dimension made development more complicated than it was worth), and while I have some basic Blender skills, they weren't up to the task of creating all the models I'd need in a reasonable amount of time. Instead, I used [Asset Forge Deluxe](https://assetforge.io/) to quickly piece together the terrain, scenery, track, train cars, and enemy structures.
 
-![Train model](./screenshot-asset-forge-train.png)
-![Projectile model](./screenshot-asset-forge-projectile.png)
-{{<caption>}}Train and projectile models made in Asset Forge{{</caption>}}
+<Image src={screenshotAssetForgeTrain.src} alt="Train model" />
+
+<Image src={screenshotAssetForgeProjectile.src} alt="Projectile model" />
+
+<div class="caption">Train and projectile models made in Asset Forge</div>
 
 With most of the models exported, I mocked up the first scene in Godot to get an idea of how the first level might look. Using [GridMaps](https://docs.godotengine.org/en/stable/tutorials/3d/using_gridmaps.html), I laid out some terrain, scenery, track, and an enemy turret:
 
-![Godot - first scene](./screenshot-godot-first-scene.png)
+<Image src={screenshotGodotFirstScene.src} alt="Godot - first scene" />
 
 GridMaps definitely made that process quick and easy, but I realised soon after that they're quite limited in what they can do. They're designed for placing mesh instances rather than full nodes, so there's a limit to how much information you can embed in each cell of the grid. That, and not everything in this game is supposed to be confined to a grid, so I was only able to use GridMaps for the terrain and scenery.
 
@@ -50,7 +68,7 @@ The next thing I tackled was dynamic track placement. Since the player has to be
 
 I went back to the drawing board and decided to write a system that would instead generate a path at runtime. To do this, I replaced the paths in the track segment scenes with [Spatial](https://docs.godotengine.org/en/stable/classes/class_spatial.html) nodes representing the points to construct a path with:
 
-![Track curve points](./screenshot-godot-track-points.png)
+<Image src={screenshotGodotTrackPoints.src} alt="Track curve points" />
 
 The game needs to start with some existing track (otherwise the player would lose instantly), so the system works by traversing track nodes that already exist when the scene is loaded. Player-spawned track segments are added to the same node and the system extends the path (or more specifically, the path's [Curve3D](https://docs.godotengine.org/en/stable/classes/class_curve3d.html)) accordingly:
 
@@ -87,7 +105,7 @@ My first attempt was sloppy and involved spawning the car invisibly with the sam
 
 To make spawning a little more interesting, I integrated the vertical dissolve shader from [https://github.com/ceceppa/godot-shaders](https://github.com/ceceppa/godot-shaders), which unfortunately doesn't seem to work in HTML5 exports, but it's better than anything I could produce with my current shader skills. Here's how it looks in the editor:
 
-{{<video url="./video-train-spawn-effect.mp4" type="video/mp4" loop="1">}}
+<Video src={videoTrainSpawnEffect} type="video/mp4" isLoop={true} />
 
 ### Weapons
 
@@ -99,18 +117,17 @@ For targeting, I kept track of relevant nodes entering the aggro radius and prio
 
 For the projectile, I created a missile in Asset Forge (as seen earlier in the post) and used the engine flame shader from [https://github.com/miskatonicstudio/godot-experiments](https://github.com/miskatonicstudio/godot-experiments) for the exhaust effect:
 
-{{<video url="./video-missile-shader.mp4" type="video/mp4" loop="1">}}
+<Video src={videoMissileShader} type="video/mp4" isLoop={true} />
 
 For the firing logic itself, I used Spatial nodes placed in the turret scene to represent the points at which projectiles should be spawned (which I named "muzzle points"), similar to how I approached path generation for the tracks. When a projectile is spawned, it inherits both the position and rotation of the muzzle point, but it's added to the root of the scene tree so that it can move independently of the turret.
 
 I went through a few iterations of that system over the course of the jam, and while it still has room for refinements, I was able to refactor it into something that could be applied to the player's train turrets as well.
 
-![Turret script exports](./screenshot-turret-script-exports.png)
-{{<caption>}}Configuration exposed by the turret script{{</caption>}}
+<Image src={screenshotTurretScriptExports.src} alt="Turret script exports" caption="Configuration exposed by the turret script" />
 
 To make the missiles explode on impact, I just used more of Godot's physics nodes: a [StaticBody](https://docs.godotengine.org/en/stable/classes/class_staticbody.html) on the missile itself and [Area](https://docs.godotengine.org/en/stable/classes/class_area.html) nodes on anything missiles should be able to hit (the terrain and the train cars). To make the impact more visually appealing, I integrated the explosion effect from [https://github.com/drcd1/GodotSimpleExplosionVFX](https://github.com/drcd1/GodotSimpleExplosionVFX):
 
-{{<video url="./video-explosion-vfx.mp4" type="video/mp4" loop="1">}}
+<Video src={videoExplosionVFX} type="video/mp4" isLoop={true} />
 
 With all of those pieces in place, all that was left to make combat work was to add some simple health/integrity values to both the enemy structures and terrain. To save time, I hard-coded damage handling—not ideal, but it was a quick and easy solution that I could easily balance. If I had more time to implement more structures and train cars, I probably would have refactored it into something more robust first.
 
@@ -172,11 +189,9 @@ For the music, I used an old track I wrote a long time (almost ten years!) ago. 
 
 Aside from the music, I created two sound effects: the missile launch sound and the UI click. For the missile launch, I blew against the edge of some card a dozen or so times, took the best samples, cleaned them up, and added some reverb. For the UI click, I recorded a click from a bed sheet strap and used a high pass filter to make it more crisp and subtle.
 
-{{<audio url="./audio-rocket-fire-2.wav" type="audio/wav">}}
-{{<caption>}}Audio sample - rocket fire{{</caption>}}
+<Audio src={audioRocketFire} type="audio/wav" caption="Audio sample - rocket fire" />
 
-{{<audio url="./audio-ui-click-1.wav" type="audio/wav">}}
-{{<caption>}}Audio sample - UI click{{</caption>}}
+<Audio src={audioUIClick} type="audio/wav" caption="Audio sample - UI click" />
 
 ### UI
 
@@ -184,15 +199,13 @@ I worked on the UI throughout the project, adding to it in small increments as p
 
 For the buttons, I opted to create some textures for the normal, hovered, and pressed states in Photoshop. I didn't use [9-slicing](https://en.wikipedia.org/wiki/9-slice_scaling), so the buttons all ended up being the same aspect ratio and scale, but that wasn't a problem since I only used buttons in the main menus and in-game pause menu.
 
-![Main menu](./screenshot-main-menu.png)
-{{<caption>}}The main menu{{</caption>}}
+<Image src={screenshotMainMenu.src} alt="Main menu" caption="The main menu" />
 
 For the HUD, I wanted to use icons for all of the track pieces and train cars. I'm pretty sure there's a way of rendering these in Godot, but Asset Forge has a straightforward sprite export feature, so I exported PNGs with that and spent some more time in Photoshop designing circular button textures with normal/hovered/pressed states.
 
 Aside from creating some textures for the health bars (one in the HUD for the train integrity and one drawn in world space above each enemy structure), the rest of the UI work was mostly a combination of layout adjustments in the editor and script work to hook things up. In terms of interactivity, the most important part of the HUD is the bottom section, which hosts the options for laying down track as well as buying additional train cars.
 
-![HUD - bottom section](./screenshot-hud-bottom.png)
-{{<caption>}}The bottom section of the HUD{{</caption>}}
+<Image src={screenshotHUDBottom.src} alt="HUD - bottom section" caption="The bottom section of the HUD" />
 
 Like some other parts of the game, I used [signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) for both upwards and lateral communication in the scene tree and direct calls to script functions for downwards communication. For example, the HUD script receives signals for button presses, changes to the train's integrity value, (un)pausing the game, and win/loss conditions (to show the corresponding modal UI to the player).
 

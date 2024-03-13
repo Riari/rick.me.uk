@@ -1,5 +1,8 @@
 ---
-const { src, alt } = Astro.props;
+const { src, alt, caption } = Astro.props;
 ---
 
-<img src={src} alt={alt} data-zoomable />
+<div class="image-container">
+    <img src={src} alt={alt} data-zoomable />
+    { caption && <div class="caption">{caption}</div> }
+</div>

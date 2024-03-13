@@ -1,0 +1,19 @@
+---
+import ogs from 'open-graph-scraper';
+
+const { url, saveImageAs } = Astro.props;
+
+const properties = await ogs({ url }).then((data: any) => {
+    const { result } = data;
+    return result;
+});
+---
+
+<div class="og-summary">
+    <a href={url} target="_blank">
+        <img src={properties.ogImage[0].url} alt={properties.ogImage[0].alt}>
+    </a>
+    <div class="caption">
+        <a href={url} target="_blank">{properties.ogTitle}</a>
+    </div>
+</div>

@@ -5,6 +5,9 @@ pubDate: 2022-07-01
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["contemplation"]
 ---
+import Image from '../../../components/Image.astro';
+import brokenModel1Image from './broken_model_1.jpg';
+import brokenModel2Image from './broken_model_2.jpg';
 
 When I started building [Iris Engine](https://github.com/Riari/iris-engine) last year, I thought I had a pretty humble vision: I was going to build my first 3D game engine and it was almost certainly going to be awful, but I would develop it far enough to at least be able to create a game with it and learn a ton of stuff in the process. I should have seen it coming, but it didn't quite go to plan!
 
@@ -12,9 +15,9 @@ Modern game engines are immensely complex considering the requirements they typi
 
 The last big feature I attempted to work on was model loading. I wanted to integrate [assimp](https://github.com/assimp/assimp) so I could load common 3D model formats and render them. That's when I started having issues. I should point out that they were no fault of assimp's—it was doing its part just fine, but somewhere along the way I was handling the resulting data incorrectly. While model files were being loaded without errors, they were being rendered with obvious texture and lighting issues:
 
-![Broken model #1](./broken_model_1.jpg)
+<Image src={brokenModel1Image.src} alt="Broken model #1" />
 
-![Broken model #2](./broken_model_2.jpg)
+<Image src={brokenModel2Image.src} alt="Broken model #2" />
 
 I was able to correct the texture issues (which turned out to be a simple case of telling assimp not to flip UVs on import), but the lighting issues remained. I went back to it at several points to attempt various fixes, none of which worked. This wasn't helped by the sloppy architecture I had already established, which was compounded by the momentum of adding new features (especially as I had already started building up some long term plans).
 

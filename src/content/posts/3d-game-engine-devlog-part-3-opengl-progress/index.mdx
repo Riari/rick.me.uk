@@ -5,6 +5,10 @@ pubDate: 2021-05-09
 heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs", "opengl"]
 ---
+import { Vimeo } from 'astro-embed';
+import Image from '../../../components/Image.astro';
+import basicMaterialsImage from './basic-materials.png';
+import textureMapsImage from './texture-maps.jpg';
 
 At this point, for the most part, I'm back to following [LearnOpenGL](https://learnopengl.com/)—and I'm not going to reiterate in detail any of the topics already covered there. If you want to know more about the topics mentioned in this post, I encourage you to read through the corresponding material on that site!
 
@@ -50,7 +54,7 @@ I created a basic implementation of this system by following [LearnOpenGL's chap
 
 Combined with *ambient*, *diffuse*, and *specular* properties for the `PointLight` component, these are sufficient for creating smooth surfaces that mimic real materials. I applied them to the cuboid entities in my scene and randomised their values to get this result:
 
-![Basic materials](./basic-materials.png)
+<Image src={basicMaterialsImage.src} alt="Basic materials" />
 
 Notice how some of them are vaguely metallic, and the green one in the top left looks more like a plastic or rubber. It works! But it's obviously not good enough for more complex shapes consisting of multiple materials, since the properties are applied to the entire surface of the object rather than specific areas or pixels. That's where texture mapping comes in.
 
@@ -169,12 +173,11 @@ I also updated my `MeshRenderer` system—which renders the cuboid entities in m
 
 I then set up the following texture maps for the entities' `Material` components:
 
-![Texture maps](./texture-maps.jpg)
-*(Left to right: Diffuse, Specular, Emission)*
+<Image src={textureMapsImage.src} alt="Texture maps" caption="Left to right: Diffuse, Specular, Emission" />
 
 The final result looks like this:
 
-<!-- {{<vimeo 546851729>}} -->
+<Vimeo id="https://vimeo.com/546851729" />
 
 Still a ton of work to do in this area, but the progress is clear! It'll start to get much more interesting when I get around to implementing model loading (at which point I can finally stop using hard-coded vertex data!).
 

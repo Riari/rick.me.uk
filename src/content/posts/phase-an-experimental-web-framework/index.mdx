@@ -5,6 +5,7 @@ pubDate: 2023-11-03
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["web", "php", "experiment", "framework", "laravel"]
 ---
+import OpenGraphSummary from '../../../components/OpenGraphSummary.astro';
 
 A few months ago, when I was working on a Laravel project, I started thinking about the MVC pattern (since that's what Laravel and many other frameworks are based on). This pattern has its roots in the 1970s, and similarly, the concept of middleware has been around for roughly as long (although in web frameworks it tends to refer specifically to the "glue" between the router, controller, and response).
 
@@ -140,4 +141,4 @@ Overall, I think the idea definitely has merit, but it's hard to say for sure wi
 
 Here's the repo if you're interested in seeing the implementation more closely:
 
-<!-- {{< og-summary "https://github.com/Riari/php-phase" "php-phase.png" >}} -->
+<OpenGraphSummary url="https://github.com/Riari/php-phase" saveImageAs="./php-phase.png" />

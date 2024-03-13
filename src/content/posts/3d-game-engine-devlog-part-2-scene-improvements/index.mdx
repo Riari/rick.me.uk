@@ -5,6 +5,9 @@ pubDate: 2021-04-18
 heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs"]
 ---
+import Image from '../../../components/Image.astro';
+import engineStructureImage from './engine-structure.jpg';
+import multiWindowTestImage from './multi-window-test.jpg';
 
 Before I get into the main topic for this post, I want to briefly cover build time for the project. Up until now, on my desktop machine (AMD Ryzen 7 1700X) a full build would take approximately 1 minute 15 seconds, and an incremental one (small changes in first party sources) would take around 40 seconds. Not terrible, but it could get annoying during quick iterations of a feature or change.
 
@@ -166,11 +169,12 @@ With all of those changes in place, the program flow now looks like this:
         - Update registered systems with state: `Update` -> `PreRender` -> `Render` -> `PostRender`
 
 Here's a rough overview of how the ECS, Window, Scene, and App fit together (some elements outside the scope of this post, such as InputManager and AssetManager, are not pictured):
-![Iris engine ECS/Scene/App structure](./engine-structure.jpg)
+
+<Image src={engineStructureImage.src} alt="Iris engine ECS/Scene/App structure" />
 
 Lastly, here's a screenshot of it in action with two windows and scenes:
 
-![Multiple-window test](./multi-window-test.jpg)
+<Image src={multiWindowTestImage.src} alt="Multiple-window test" />
 
 It works well—the only issue visible above is the lack of any entities being drawn in the second scene/window. I think this is because I re-used the entities from the main scene and there are some OS/driver level limitations in terms of what GPU resources can be shared between windows. To fix that, I tried sharing the main window context's objects with the second window context via GLFW's built-in support for [context object sharing](https://www.glfw.org/docs/3.3/context_guide.html#context_sharing), but that unfortunately made no difference. It probably comes down to the fact that certain GL resources can't be shared and need to be created for each context, but I'm not too concerned about it because having multiple windows is an extremely rare requirement for a game—the main thing is this is a step closer to having data-driven scenes that I can easily switch between for a given render target.
 

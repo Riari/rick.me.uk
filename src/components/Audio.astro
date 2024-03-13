@@ -1,0 +1,11 @@
+---
+const { src, type, caption } = Astro.props;
+---
+
+<div class="audio-container">
+    <audio controls>
+        <source src={src} type={type}>
+        Audio playback is not supported in your browser. :(
+    </audio>
+    { caption && <div class="caption">{caption}</div> }
+</div>
