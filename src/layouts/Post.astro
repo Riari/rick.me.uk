@@ -4,10 +4,40 @@ import BaseHead from "../components/BaseHead.astro";
 import DocEnd from "../components/DocEnd.astro";
 import HeadTopLinks from "../components/HeadTopLinks.astro";
 import HeadBottomLinks from "../components/HeadBottomLinks.astro";
+import { loadAndFormatCollection } from "../util/collection";
+import { truncate } from "../util/string";
 
 type Props = CollectionEntry<"posts">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+
+const posts = (await loadAndFormatCollection("posts"))
+    .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+
+let prevPost = null;
+let nextPost = null;
+
+for (let i = 0; i < posts.length; ++i)
+{
+    if (posts[i].data.title == title)
+    {
+        if (i > 0) prevPost = posts[i - 1];
+        if (i + 1 < posts.length) nextPost = posts[i + 1];
+        break;
+    }
+}
+
+if (prevPost != null)
+{
+    prevPost.data.title = truncate(prevPost.data.title);
+    console.log(`Previous post: ${prevPost.data.title}`);
+}
+
+if (nextPost != null)
+{
+    nextPost.data.title = truncate(nextPost.data.title);
+    console.log(`Next post: ${nextPost.data.title}`);
+}
 ---
 
 <html lang="en">
@@ -53,25 +83,25 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
                     <hr>
         
                     <div class="adjacent-post-links">
-                        <!-- <div class="previous">
-                            {{ if .PrevPage }}
-                                <a href="{{ .PrevPage.Permalink }}">
+                        <div class="previous">
+                            { prevPost != null &&
+                                <a href={`/posts/${prevPost.slug}/`}>
                                     <span class="prefix">‹ Previous post</span>
-                                    <br>
-                                    <span class="title">{{ .PrevPage.Title | truncate 50 "..."}}</span>
+                                    <br />
+                                    <span class="title">{prevPost.data.title}</span>
                                 </a>
-                            {{ end }}
+                            }
                         </div>
-        
+
                         <div class="next">
-                            {{ if .NextPage }}
-                                <a href="{{ .NextPage.Permalink }}">
+                            { nextPost != null &&
+                                <a href={`/posts/${nextPost.slug}/`}>
                                     <span class="prefix">Next post ›</span>
-                                    <br>
-                                    <span class="title">{{ .NextPage.Title | truncate 50 "..." }}</span>
+                                    <br />
+                                    <span class="title">{nextPost.data.title}</span>
                                 </a>
-                            {{ end }}
-                        </div> -->
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
