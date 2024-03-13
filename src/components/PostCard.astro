@@ -30,7 +30,7 @@ const { post } = Astro.props;
     </div>
     <div class="post-card-footer">
         <div class="post-card-footer-tags">
-            {post.data.tags.map((tag) => (
+            {post.data.tags.map((tag: string) => (
                 <a href={`/tags/${tag}/`}>{tag}</a>
             ))}
         </div>

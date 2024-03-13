@@ -1,10 +1,12 @@
 ---
 title: '3D Game Engine Devlog, Part 1: The ECS'
-description: 'Lorem ipsum dolor sit amet'
+description: 'Progress on the Entity Component System.'
 pubDate: 2021-03-13
 heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs"]
 ---
+import Image from '../../../components/Image.astro';
+import processFlowImage from './process-flow.jpg';
 
 In this post, I'll cover some of the work I've done on the initial version of the ECS for [Iris Engine](https://github.com/Riari/iris-engine). Before I get into that, I'll summarise the other work I've done prior to implementing the ECS.
 
@@ -93,7 +95,7 @@ Similarly, `ComponentManager` notifies components when an entity is destroyed, a
 
 With the ECS factored in, the overall process looks something like this:
 
-![Iris engine process flow](./process-flow.jpg)
+<Image src={processFlowImage.src} alt="Iris engine process flow" />
 
 Still a bit primitive, but better than it was without the ECS, where I used classic game objects with inheritance.
 

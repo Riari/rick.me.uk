@@ -9,10 +9,10 @@ import { truncate } from "../util/string";
 
 type Props = CollectionEntry<"posts">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+const { title, description, pubDate, heroImage, tags } = Astro.props;
 
-const posts = (await loadAndFormatCollection("posts"))
-    .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+const posts: any[] = (await loadAndFormatCollection("posts"))
+    .sort((a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 
 let prevPost = null;
 let nextPost = null;

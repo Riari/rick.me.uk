@@ -5,7 +5,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 import { loadAndFormatCollection } from "../util/collection";
 
 const posts = (await loadAndFormatCollection("posts"))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 3);
 ---
 
@@ -41,7 +41,7 @@ const posts = (await loadAndFormatCollection("posts"))
 
                     <ul>
                         {
-                            posts.map(post => (
+                            posts.map((post: any) => (
                                 <li>
                                     <a
                                         href={`/posts/${post.slug}/`}
@@ -181,20 +181,19 @@ const posts = (await loadAndFormatCollection("posts"))
             </div>
         </div>
         <script>
-            document.addEventListener("DOMContentLoaded", (event) => {
-                document.addEventListener("mousemove", (event) => {
+            document.addEventListener("DOMContentLoaded", function (_: Event) {
+                document.addEventListener("mousemove", function (this: HTMLElement, event: any) {
                     if (
-                        event.target.classList == null ||
-                        !event.target.classList.contains("button")
+                        this.classList == null ||
+                        !this.classList.contains("button")
                     )
                         return;
 
-                    const rect = event.target.getBoundingClientRect();
+                    const rect = this.getBoundingClientRect();
                     const mouseX = event.clientX - rect.left;
                     const mouseY = event.clientY - rect.top;
 
-                    const hoverSpan =
-                        event.target.querySelector(".button__hover");
+                    const hoverSpan = this.querySelector<HTMLElement>(".button__hover")!;
                     hoverSpan.style.opacity = "1.0";
                     hoverSpan.style.left = `${mouseX - hoverSpan.offsetWidth / 2}px`;
                     hoverSpan.style.top = `${mouseY - hoverSpan.offsetHeight / 2}px`;
@@ -206,11 +205,10 @@ const posts = (await loadAndFormatCollection("posts"))
 
                 for (var i = 0; i < buttons.length; i++) {
                     buttons[i].appendChild(hoverSpan.cloneNode());
-                    buttons[i].addEventListener("mouseleave", (event) => {
-                        event.target.style.background = null;
+                    buttons[i].addEventListener("mouseleave", function (this: HTMLElement, event: any) {
+                        this.style.background = '';
 
-                        const hoverSpan =
-                            event.target.querySelector(".button__hover");
+                        const hoverSpan = event.target.querySelector(".button__hover");
                         hoverSpan.style.opacity = "0.0";
                     });
                 }

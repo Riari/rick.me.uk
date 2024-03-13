@@ -1,9 +1,9 @@
 import { getCollection } from 'astro:content';
 
-export async function loadAndFormatCollection(name) {
+export async function loadAndFormatCollection(name: any) {
 	const posts = await getCollection(name);
 
-    posts.forEach(post => {
+    posts.forEach((post: any) => {
         const date = new Date(post.data.pubDate);
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
@@ -16,7 +16,7 @@ export async function loadAndFormatCollection(name) {
     return posts;
 };
 
-export async function getTags(posts) {
+export async function getTags(posts: any[]) {
     const tags = posts.map(post => post.data.tags).flat();
     return Array.from(new Set(tags)).sort();
 }

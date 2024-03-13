@@ -32,71 +32,73 @@
 </body>
 
 <script>
-    const modalOverlay = document.querySelector('.modal-overlay');
-    const themeRadios = document.querySelectorAll('input[type=radio][name=theme]');
+    import mediumZoom, { type Zoom } from 'medium-zoom';
+    import CookieUtil from '../js/cookie-util';
+
+    const modalOverlay: HTMLDivElement = document.querySelector('.modal-overlay')!;
+    const themeRadios: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type=radio][name=theme]');
     const mediumZoomBackgroundLight = '#fff';
     const mediumZoomBackgroundDark = '#21212b';
-    var zoom;
+    var zoom: Zoom;
 
-    const themeIndexMap = {
-        'system': 0,
-        'dark': 1,
-        'light': 2
-    };
+    const themeIndexMap: Map<string, number> = new Map();
+    themeIndexMap.set('system', 0);
+    themeIndexMap.set('dark', 1);
+    themeIndexMap.set('light', 2);
 
-    const themeClasses = [
+    const themeClasses: Array<string> = [
         'theme--system',
         'theme--dark',
         'theme--light'
     ];
 
-    function setTheme(name) {
-        for (var i = 0; i < themeClasses.length; i++) {
+    function setTheme(name: string) {
+        for (var i = 0; i < themeClasses.length; ++i) {
             document.body.classList.remove(themeClasses[i]);
         }
 
-        document.body.classList.add(themeClasses[themeIndexMap[name]]);
+        document.body.classList.add(themeClasses[themeIndexMap.get(name)!]);
 
         const prefersDark = name == 'system' && (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || name == 'dark';
 
         zoom.update({ background: prefersDark ? mediumZoomBackgroundDark : mediumZoomBackgroundLight });
     }
 
-    function onChangeTheme() {
-        CookieUtil.set('theme', this.value, new Date((new Date()).getTime() + (10 * 365 * 24 * 60 * 60)));
-        setTheme(this.value);
+    for (var i = 0; i < themeRadios.length; ++i) {
+        themeRadios[i].addEventListener('change', function (this: HTMLInputElement, _: Event) {
+            const expireAt = new Date();
+            expireAt.setDate(expireAt.getDate() + 30);
+            CookieUtil.set('theme', this.value, expireAt);
+            setTheme(this.value);
+        });
     }
 
-    for (var i = 0; i < themeRadios.length; i++) {
-        themeRadios[i].addEventListener('change', onChangeTheme);
-    }
 
-    (function() {
+    document.addEventListener("DOMContentLoaded", function (_: Event) {
         var theme = CookieUtil.get('theme');
         if (!theme) theme = 'system';
 
-        themeRadios[themeIndexMap[theme]].checked = true;
+        themeRadios[themeIndexMap.get(theme)!].checked = true;
 
-        // MediumZoom - https://github.com/francoischalifour/medium-zoom
-        zoom = mediumZoom('article p img');
+        zoom = mediumZoom(document.querySelectorAll('[data-zoomable]'));
 
         setTheme(theme);
-    })();
-
-    document.querySelector('a[data-open-modal]').addEventListener('click', function (event) {
-        event.preventDefault();
-        modalOverlay.style.display = 'block';
-        modalOverlay.querySelector(this.dataset.openModal).style.display = 'block';
     });
 
-    document.querySelector('a[data-close-modal]').addEventListener('click', function (event) {
+    document.querySelector<HTMLAnchorElement>('a[data-open-modal]')!.addEventListener('click', function (this: HTMLAnchorElement, event: Event) {
+        event.preventDefault();
+        modalOverlay.style.display = 'block';
+        modalOverlay.querySelector<HTMLElement>(this.dataset.openModal!)!.style.display = 'block';
+    });
+
+    document.querySelector<HTMLAnchorElement>('a[data-close-modal]')!.addEventListener('click', function (this: HTMLAnchorElement, event: Event) {
         event.preventDefault();
         modalOverlay.style.display = 'none';
-        modalOverlay.querySelector(this.dataset.closeModal).style.display = 'none';
+        modalOverlay.querySelector<HTMLElement>(this.dataset.closeModal!)!.style.display = 'none';
     });
 
     function closeModals() {
-        const modals = document.querySelectorAll('.modal');
+        const modals = document.querySelectorAll<HTMLElement>('.modal');
         for (var i = 0; i < modals.length; i++) {
             modals[i].style.display = 'none';
         }
@@ -105,8 +107,7 @@
     }
     
     document.onkeydown = function(event) {
-        // Escape key
-        if (event.keyCode == 27) closeModals();
+        if (event.key == 'Escape') closeModals();
     }
 
     modalOverlay.addEventListener('click', function (event) {
