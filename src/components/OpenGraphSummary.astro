@@ -1,7 +1,7 @@
 ---
 import ogs from 'open-graph-scraper';
 
-const { url, saveImageAs } = Astro.props;
+const { url } = Astro.props;
 
 const properties = await ogs({ url }).then((data: any) => {
     const { result } = data;
