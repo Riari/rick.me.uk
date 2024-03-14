@@ -1,0 +1,51 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+import { statusToBadgeClass } from "../util/frontmatter";
+
+const { item, hasPublishDate, hasStatus } = Astro.props;
+
+let statusClass = '';
+if (hasStatus) {
+    statusClass = statusToBadgeClass(item.data.status);
+}
+---
+
+<div class="item-card">
+    <div
+        class="item-card-background"
+        style={`background-image: url(${item.data.heroImage});`}
+    />
+    <div class="item-card-header">
+        <h3 class="item-card-header-title">
+            <a href={item.absoluteURL}>
+                {item.data.title}
+            </a>
+        </h3>
+        { hasPublishDate &&
+            <span class="item-card-header-publish-date">
+                <a href={item.absoluteURL}>
+                    <FormattedDate
+                        date={item.data.publishDate}
+                    />
+                </a>
+            </span>
+        }
+        { hasStatus &&
+            <span class:list={['item-card-header-status', statusClass]}>
+                {item.data.status}
+            </span>
+        }
+    </div>
+    <div class="item-card-body">
+        <a href={item.absoluteURL}>
+            {item.data.description}
+        </a>
+    </div>
+    <div class="item-card-footer">
+        <div class="item-card-footer-tags">
+            {item.data.tags.map((tag: string) => (
+                <a href={`/tags/${tag}/`}>{tag}</a>
+            ))}
+        </div>
+    </div>
+</div>

@@ -3,23 +3,27 @@
         max-width: 900px;
     }
 
-    .recent-posts {
-        ul {
-            list-style: none;
-            margin: 0 0 1em 0;
-            padding: 0;
-    
-            li {
-                display: flex;
-                padding: 0.4em 1em;
-                margin: .2em 0;
-                background: lighten($color-background-main, 3%);
-    
-                a.link {
-                    flex: 1;
+    .featured-cards {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+        margin: 0 0 2em;
+
+        &__card {
+            flex: 1;
+            
+            &__inner {
+                position: relative;
+                height: 100%;
+                box-sizing: border-box;
+                padding: 1em;
+                background: $color-background-main-2;
+
+                a {
                     font-family: $font-family-sans-serif;
                     font-weight: 500;
-                    color: $color-primary-5;
+                    color: $color-primary-1;
                     text-decoration: none;
                     transition: color .1s;
 
@@ -28,25 +32,38 @@
                     }
                 }
 
-                .publish-date {
+                .badge {
+                    position: absolute;
+                    top: 1em;
+                    right: 1em;
+                }
+
+                .description {
                     color: $color-muted-3;
                 }
             }
         }
+    }
 
-        .more-link {
-            text-align: right;
+    .recent-posts {
+        .featured-cards {
+            flex-direction: column;
+            gap: .2em;
 
-            a {
-                display: inline-block;
-                padding: .2em .6em;
-                background: lighten($color-background-main, 3%);
-                color: $color-muted-3;
-                text-decoration: none;
-                transition: color .1s;
+            &__card__inner {
+                padding: .4em 1em;
+            }
 
-                &:hover {
-                    color: #fff;
+            .post-row {
+                display: flex;
+
+                a {
+                    flex: 1;
+                    color: $color-primary-5;
+
+                    &:hover {
+                        color: #fff;
+                    }
                 }
             }
         }

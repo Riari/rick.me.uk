@@ -3,9 +3,14 @@ import DocStart from "../components/DocStart.astro";
 import DocEnd from "../components/DocEnd.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { loadAndFormatCollection } from "../util/collection";
+import { statusToBadgeClass } from "../util/frontmatter";
 
-const posts = (await loadAndFormatCollection("posts"))
-    .sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+const posts = (await loadAndFormatCollection('posts'))
+    .sort((a: any, b: any) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+    .slice(0, 3);
+
+const projects = (await loadAndFormatCollection('projects', false))
+    .sort((a: any, b: any) => a.data.weight - b.data.weight)
     .slice(0, 3);
 ---
 
@@ -38,25 +43,62 @@ const posts = (await loadAndFormatCollection("posts"))
                 </span>
             </div>
 
-            <ul>
+            <div class="featured-cards">
                 {
                     posts.map((post: any) => (
-                        <li>
-                            <a
-                                href={post.absoluteURL}
-                                class="link"
-                            >
-                                {post.data.title}
-                            </a>
-                            <span class="publish-date">
-                                <FormattedDate
-                                    date={post.data.pubDate}
-                                />
-                            </span>
-                        </li>
+                        <div class="featured-cards__card">
+                            <div class="featured-cards__card__inner">
+                                <div class="post-row">
+                                    <a
+                                        href={post.absoluteURL}
+                                        class="link"
+                                    >
+                                        {post.data.title}
+                                    </a>
+                                    <span class="text--muted-3">
+                                        <FormattedDate
+                                            date={post.data.publishDate}
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     ))
                 }
-            </ul>
+            </div>
+        </div>
+
+        <div class="projects">
+            <div class="inline-heading">
+                <h2>Projects</h2>
+
+                <span class="more-link">
+                    <a href="/projects/">See full list</a>
+                </span>
+            </div>
+
+            <div class="featured-cards">
+                {
+                    projects.map((project: any) => (
+                        <div class="featured-cards__card">
+                            <div class="featured-cards__card__inner">
+                                <span class={statusToBadgeClass(project.data.status)}>
+                                    {project.data.status}
+                                </span>
+                                <a
+                                    href={project.absoluteURL}
+                                    class="link"
+                                >
+                                    {project.data.title}
+                                </a>
+                                <div class="description">
+                                    {project.data.description}
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
 
         <div class="proficiencies">

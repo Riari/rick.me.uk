@@ -1,4 +1,7 @@
-$color-background-main: #252530;
+$color-background-main-1: #252530;
+$color-background-main-2: lighten($color-background-main-1, 3%);
+$color-background-main-3: lighten($color-background-main-1, 7%);
+$color-background-main-4: lighten($color-background-main-1, 15%);
 $color-background-dark: #21212b;
 $color-foreground-dark: #d6dde7;
 $color-background-light: #ffffff;

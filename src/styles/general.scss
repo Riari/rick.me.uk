@@ -6,7 +6,7 @@ body {
 }
 
 body {
-    background: $color-background-main;
+    background: $color-background-main-1;
     font-family: $font-family-sans-serif;
     font-size: 18px;
     color: $color-text-on-dark;
@@ -44,6 +44,23 @@ h4 {
         margin-top: 0;
         margin-right: .4em;
         vertical-align: -0.1em;
+    }
+
+    .more-link {
+        text-align: right;
+
+        a {
+            display: inline-block;
+            padding: .2em .6em;
+            background: $color-background-main-2;
+            color: $color-muted-3;
+            text-decoration: none;
+            transition: color .1s;
+
+            &:hover {
+                color: #fff;
+            }
+        }
     }
 }
 
@@ -111,6 +128,73 @@ hr {
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
+.badge {
+    display: inline-block;
+    padding: .1rem .6rem;
+    border-radius: 2em;
+    font-size: 1rem;
+    font-weight: 500;
+
+    &--primary-1 {
+        background: transparentize($color-primary-1, 0.95);
+        color: $color-primary-1;
+    }
+
+    &--primary-2 {
+        background: transparentize($color-primary-2, 0.95);
+        color: $color-primary-2;
+    }
+
+    &--primary-3 {
+        background: transparentize($color-primary-3, 0.95);
+        color: $color-primary-3;
+    }
+
+    &--primary-4 {
+        background: transparentize($color-primary-4, 0.95);
+        color: $color-primary-4;
+    }
+
+    &--primary-5 {
+        background: transparentize($color-primary-5, 0.95);
+        color: $color-primary-5;
+    }
+
+    &--primary-6 {
+        background: transparentize($color-primary-6, 0.95);
+        color: $color-primary-6;
+    }
+
+    &--primary-7 {
+        background: transparentize($color-primary-7, 0.95);
+        color: $color-primary-7;
+    }
+
+    &--primary-8 {
+        background: transparentize($color-primary-8, 0.95);
+        color: $color-primary-8;
+    }
+
+    &--muted-1 {
+        background: $color-background-main-3;
+        color: $color-muted-1;
+    }
+
+    &--muted-2 {
+        background: $color-background-main-3;
+        color: $color-muted-2;
+    }
+
+    &--muted-3 {
+        background: $color-background-main-3;
+        color: $color-muted-3;
+    }
+}
+
 .button {
     position: relative;
     display: inline-block;
@@ -174,7 +258,7 @@ ul.tags {
             }
 
             &:hover {
-                color: $color-background-main;
+                color: $color-background-main-1;
 
                 &::after {
                     background: $color-block-background-light;
@@ -212,7 +296,7 @@ ul.tags {
 
         &:hover {
             background: rgba(224, 235, 245, 0.8);
-            color: $color-background-main;
+            color: $color-background-main-1;
         }
 
         &.active {
@@ -264,7 +348,7 @@ ul.tags {
         margin: 0;
         padding: 0;
         background-size: cover;
-        background-color: $color-background-main;
+        background-color: $color-background-main-1;
         text-align: center;
 
         &--slim {
@@ -293,6 +377,10 @@ ul.tags {
             .primary {
                 flex: 1;
                 text-align: left;
+
+                .compact {
+                    display: none;
+                }
             }
 
             .secondary {
@@ -316,10 +404,10 @@ ul.tags {
 
                 &:hover {
                     background: $color-block-background-light;
-                    color: $color-background-main;
+                    color: $color-background-main-1;
 
                     span {
-                        color: $color-background-main;
+                        color: $color-background-main-1;
                     }
                 }
             }
@@ -361,7 +449,7 @@ ul.tags {
     right: 0;
     bottom: 0;
     left: 0;
-    background: transparentize($color-background-main, 0.5);
+    background: transparentize($color-background-main-1, 0.5);
 
     .modal {
         display: none;
@@ -374,7 +462,7 @@ ul.tags {
         padding: 2em;
         box-sizing: border-box;
         border-radius: .3em;
-        background: $color-background-main;
+        background: $color-background-main-1;
         box-shadow: 0 10px 1em rgba(0, 0, 0, 0.3);
 
         a.modal-close {
@@ -430,5 +518,21 @@ ul.tags {
 
     hr {
         margin: 2em 0;
+    }
+
+    .container .head .top-links {
+        a {
+            font-size: 1.1rem;
+        }
+
+        .primary {
+            .full {
+                display: none;
+            }
+    
+            .compact {
+                display: inline-block;
+            }
+        }
     }
 }

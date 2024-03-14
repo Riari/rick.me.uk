@@ -15,6 +15,6 @@ export default defineConfig({
             },
             defaultColor: 'light',
             wrap: false,
-        },
+        }
     },
 });

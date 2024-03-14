@@ -1,0 +1,70 @@
+---
+import type { CollectionEntry } from "astro:content";
+import DocStart from "../components/DocStart.astro";
+import DocEnd from "../components/DocEnd.astro";
+import HeadTopLinks from "../components/HeadTopLinks.astro";
+import HeadBottomLinks from "../components/HeadBottomLinks.astro";
+import ContentFooter from "../components/ContentFooter.astro";
+import ProjectLink from "../components/ProjectLink.astro";
+import { statusToBadgeClass } from "../util/frontmatter";
+
+type Props = CollectionEntry<"projects">["data"];
+
+const { title, description, type, status, heroImage, url, tags } = Astro.props;
+
+const statusClass = statusToBadgeClass(status);
+const linkLabel = new URL(url).hostname;
+---
+
+<DocStart title={title} description={description} />
+<div class="container container--project">
+    <div class="head" style={`background-image: url(${heroImage})`}>
+        <div>
+            <HeadTopLinks />
+
+            <div style="margin: 0 1rem;">
+                <h1>{title}</h1>
+                <h2 class="subheading">Project</h2>
+    
+                <ul class="tags">
+                    {
+                        tags.map(tag => (
+                            <li><a href={`/tags/${tag}/`}><span>{tag}</span></a></li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <HeadBottomLinks />
+        </div>
+    </div>
+    
+    <div class="body">
+        <div class="inner-container">
+            <div class="project-details">
+                <main>
+                    <slot />
+                </main>
+                <aside>
+                    <table>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td><span class={statusClass}>{status}</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Type</strong></td>
+                            <td><span class="badge badge--muted-3">{type}</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Link</strong></td>
+                            <td><ProjectLink url={url} label={linkLabel} /></td>
+                        </tr>
+                    </table>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <ContentFooter />
+</div>
+<DocEnd />
