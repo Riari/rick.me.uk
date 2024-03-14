@@ -85,13 +85,13 @@
         setTheme(theme);
     });
 
-    document.querySelector<HTMLAnchorElement>('a[data-open-modal]')!.addEventListener('click', function (this: HTMLAnchorElement, event: Event) {
+    document.querySelector<HTMLAnchorElement>('a[data-open-modal]')?.addEventListener('click', function (this: HTMLAnchorElement, event: Event) {
         event.preventDefault();
         modalOverlay.style.display = 'block';
         modalOverlay.querySelector<HTMLElement>(this.dataset.openModal!)!.style.display = 'block';
     });
 
-    document.querySelector<HTMLAnchorElement>('a[data-close-modal]')!.addEventListener('click', function (this: HTMLAnchorElement, event: Event) {
+    document.querySelector<HTMLAnchorElement>('a[data-close-modal]')?.addEventListener('click', function (this: HTMLAnchorElement, event: Event) {
         event.preventDefault();
         modalOverlay.style.display = 'none';
         modalOverlay.querySelector<HTMLElement>(this.dataset.closeModal!)!.style.display = 'none';

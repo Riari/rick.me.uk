@@ -179,38 +179,35 @@ const posts = (await loadAndFormatCollection("posts"))
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function (_: Event) {
-        document.addEventListener("mousemove", function (this: HTMLElement, event: any) {
-            if (
-                this.classList == null ||
-                !this.classList.contains("button")
-            )
-                return;
 
+<script>
+    const hoverSpan = document.createElement('span');
+    hoverSpan.classList.add('button__hover');
+
+    document.querySelectorAll('.button').forEach(function (element: Element) {
+        element.appendChild(hoverSpan.cloneNode());
+
+        element.addEventListener('mouseleave', function (this: HTMLElement, event: any) {
+            this.style.background = '';
+
+            const hoverSpan = event.target.querySelector('.button__hover');
+            hoverSpan.style.opacity = "0.0";
+        });
+
+        element.addEventListener('mousemove', function (this: HTMLElement, event: any) {
             const rect = this.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
 
-            const hoverSpan = this.querySelector<HTMLElement>(".button__hover")!;
+            const hoverSpan = this.querySelector<HTMLElement>(".button__hover");
+
+            if (!hoverSpan)
+                return;
+
             hoverSpan.style.opacity = "1.0";
             hoverSpan.style.left = `${mouseX - hoverSpan.offsetWidth / 2}px`;
             hoverSpan.style.top = `${mouseY - hoverSpan.offsetHeight / 2}px`;
         });
-
-        const buttons = document.getElementsByClassName("button");
-        const hoverSpan = document.createElement("span");
-        hoverSpan.classList.add("button__hover");
-
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].appendChild(hoverSpan.cloneNode());
-            buttons[i].addEventListener("mouseleave", function (this: HTMLElement, event: any) {
-                this.style.background = '';
-
-                const hoverSpan = event.target.querySelector(".button__hover");
-                hoverSpan.style.opacity = "0.0";
-            });
-        }
     });
 </script>
 <DocEnd />
