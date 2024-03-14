@@ -44,7 +44,7 @@ const posts = (await loadAndFormatCollection("posts"))
                             posts.map((post: any) => (
                                 <li>
                                     <a
-                                        href={`/posts/${post.slug}/`}
+                                        href={post.absoluteURL}
                                         class="link"
                                     >
                                         {post.data.title}

@@ -9,7 +9,8 @@ export async function loadAndFormatCollection(name: any) {
         const month = date.getMonth() + 1;
         const monthZerofilled = (month < 10 ? '0' : '') + month;
 
-        post.slug = `${year}/${monthZerofilled}/${post.slug}`;
+        post.relativeURL = `${year}/${monthZerofilled}/${post.slug}/`;
+        post.absoluteURL = `/posts/${post.relativeURL}`;
         post.tags = post.data.tags;
     });
 
