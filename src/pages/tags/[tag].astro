@@ -27,25 +27,24 @@ const posts = (await loadAndFormatCollection("posts"))
 ---
 
 <DocStart />
-    <body>
-        <div class="container container--posts-list">
-            <div class="head head--slim">
-                <HeadTopLinks />
+<div class="container container--posts-list">
+    <div class="head head--slim">
+        <HeadTopLinks />
 
-                <h1>{tag}</h1>
-                <h2 class="subheading">tag</h2>
+        <h1>{tag}</h1>
+        <h2 class="subheading">tag</h2>
 
-                <HeadBottomLinks />
-            </div>
+        <HeadBottomLinks />
+    </div>
 
-            <div class="body">
-                <div class="inner-container">
-                    {
-                        posts.map((post) => (
-                            <PostCard post={post} />
-                        ))
-                    }
-                </div>
-            </div>
+    <div class="body">
+        <div class="inner-container">
+            {
+                posts.map((post) => (
+                    <PostCard post={post} />
+                ))
+            }
         </div>
+    </div>
+</div>
 <DocEnd />

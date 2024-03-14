@@ -11,26 +11,25 @@ const tags = await getTags(posts);
 ---
 
 <DocStart />
-    <body>
-        <div class="container">
-            <div class="head head--slim">
-                <HeadTopLinks />
+<div class="container">
+    <div class="head head--slim">
+        <HeadTopLinks />
 
-                <h1>Tags</h1>
+        <h1>Tags</h1>
 
-                <HeadBottomLinks />
-            </div>
+        <HeadBottomLinks />
+    </div>
 
-            <div class="body">
-                <div class="inner-container text-center">
-                    <ul class="tags">
-                        {
-                            tags.map(tag => (
-                                <li><a href={`/tags/${tag}/`}><span>{tag}</span></a></li>
-                            ))
-                        }
-                    </ul>
-                </div>
-            </div>
+    <div class="body">
+        <div class="inner-container text-center">
+            <ul class="tags">
+                {
+                    tags.map(tag => (
+                        <li><a href={`/tags/${tag}/`}><span>{tag}</span></a></li>
+                    ))
+                }
+            </ul>
         </div>
+    </div>
+</div>
 <DocEnd />
