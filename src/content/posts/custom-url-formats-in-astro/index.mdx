@@ -19,7 +19,7 @@ Unfortunately after implementing the changes suggested there, an `npm run build`
 
 I'm not completely sure why that was happening, but I suspect it had something to do with the slug being modified directly. Maybe there were some changes to the way Astro processes static path parameters since the abovementioned post.
 
-The way I fixed it was to leave the slug unmodified and specify both the relative and absolute URLs on each post, allowing post routes to be generated cleanly with no side effects:
+The way I fixed it was to leave the slug unmodified and specify both the relative and absolute paths on each post, allowing post routes to be generated cleanly with no side effects:
 
 **src/util/collection.js**
 ```js
