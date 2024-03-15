@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content';
 
 export async function loadAndFormatCollection(name: any) {
-	const posts = await getCollection(name);
+    const posts = await getCollection(name);
 
     posts.forEach((post: any) => {
         const date = new Date(post.data.pubDate);
