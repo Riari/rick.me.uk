@@ -6,7 +6,7 @@ body {
 }
 
 body {
-    background: $color-background-main;
+    background: $color-background-main-1;
     font-family: $font-family-sans-serif;
     font-size: 18px;
     color: $color-text-on-dark;
@@ -130,14 +130,19 @@ hr {
         top: 0;
         left: 0;
         background: radial-gradient(circle, rgba($color-muted-1, 0.5), rgba($color-muted-1, 0), rgba($color-muted-1, 0));
-        z-index: -1;
+        z-index: 10;
         opacity: 0;
         transition: opacity 0.2s ease-out;
     }
 
+    &__inner {
+        position: relative;
+        z-index: 100;
+    }
+
     &:hover {
         background: rgba($color-muted-1, 0.4);
-        box-shadow: inset 0 0 0 2px $color-muted-1;
+        box-shadow: inset 0 0 0 2px rgba($color-muted-1, 0.6);
     }
 }
 
@@ -174,7 +179,7 @@ ul.tags {
             }
 
             &:hover {
-                color: $color-background-main;
+                color: $color-background-main-1;
 
                 &::after {
                     background: $color-block-background-light;
@@ -212,7 +217,7 @@ ul.tags {
 
         &:hover {
             background: rgba(224, 235, 245, 0.8);
-            color: $color-background-main;
+            color: $color-background-main-1;
         }
 
         &.active {
@@ -264,7 +269,7 @@ ul.tags {
         margin: 0;
         padding: 0;
         background-size: cover;
-        background-color: $color-background-main;
+        background-color: $color-background-main-1;
         text-align: center;
 
         &--slim {
@@ -316,10 +321,10 @@ ul.tags {
 
                 &:hover {
                     background: $color-block-background-light;
-                    color: $color-background-main;
+                    color: $color-background-main-1;
 
                     span {
-                        color: $color-background-main;
+                        color: $color-background-main-1;
                     }
                 }
             }
@@ -328,28 +333,26 @@ ul.tags {
         .bottom-links {
             text-align: right;
             padding: 1rem;
-
-            a {
-                display: inline-block;
-                opacity: 0.65;
-                transition: opacity .1s;
-
-                &:hover {
-                    opacity: 1.0;
-                }
-
-                img {
-                    display: inline-block;
-                    width: 28px;
-                    height: 28px;
-                }
-            }
         }
     }
 
     .body {
         flex: 1;
         background: $color-background-dark;
+    }
+}
+
+a.link-settings {
+    display: inline-block;
+    opacity: 0.65;
+    transition: opacity .3s;
+
+    &:hover {
+        opacity: 1.0;
+    }
+
+    svg {
+        color: #fff;
     }
 }
 
@@ -361,7 +364,7 @@ ul.tags {
     right: 0;
     bottom: 0;
     left: 0;
-    background: transparentize($color-background-main, 0.5);
+    background: transparentize($color-background-main-1, 0.5);
 
     .modal {
         display: none;
@@ -374,7 +377,7 @@ ul.tags {
         padding: 2em;
         box-sizing: border-box;
         border-radius: .3em;
-        background: $color-background-main;
+        background: $color-background-main-1;
         box-shadow: 0 10px 1em rgba(0, 0, 0, 0.3);
 
         a.modal-close {
@@ -382,7 +385,11 @@ ul.tags {
             top: 1.9em;
             right: 1.8em;
             opacity: 0.65;
-            transition: opacity .1s;
+            transition: opacity .3s;
+
+            svg {
+                color: #fff;
+            }
 
             &:hover {
                 opacity: 1.0;
@@ -405,6 +412,29 @@ ul.tags {
     .container {
         .body {
             background: $color-background-light;
+        }
+
+        .button {
+            background: $color-muted-4;
+            color: $color-muted-1;
+
+            &__hover {
+                background: radial-gradient(circle, rgba($color-background-light-dimmed, 1), rgba($color-background-light-dimmed, 0), rgba($color-background-light-dimmed, 0));
+            }
+        
+            &:hover {
+                background: rgba($color-muted-3, 0.4);
+                box-shadow: inset 0 0 0 2px $color-muted-3;
+            }
+        }
+    }
+
+    .modal-overlay .modal {
+        background: $color-background-light;
+        color: $color-foreground-light;
+
+        .modal-close svg {
+            color: $color-foreground-light;
         }
     }
 }

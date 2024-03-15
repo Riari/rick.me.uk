@@ -1,11 +1,11 @@
 ---
-
+import CloseIcon from "./Icons/CloseIcon.astro";
 ---
 
 <div class="modal-overlay">
     <div class="modal modal--settings">
         <a href="#" class="modal-close" data-close-modal=".modal--settings">
-            <img src="/icons/close.svg" alt="Close" />
+            <CloseIcon width="32px" height="32px" />
         </a>
 
         <h3>Settings</h3>
@@ -29,6 +29,7 @@
         </label>
     </div>
 </div>
+
 </body>
 
 <script>
@@ -73,10 +74,8 @@
         });
     }
 
-
     document.addEventListener("DOMContentLoaded", function (_: Event) {
-        var theme = CookieUtil.get('theme');
-        if (!theme) theme = 'system';
+        var theme: string = CookieUtil.get('theme') ?? 'system';
 
         themeRadios[themeIndexMap.get(theme)!].checked = true;
 
@@ -114,6 +113,33 @@
         if (this != event.target) return;
         closeModals();
     });
-</script>
 
-</html>
+    const hoverSpan = document.createElement('span');
+    hoverSpan.classList.add('button__hover');
+
+    document.querySelectorAll('.button').forEach(function (element: Element) {
+        element.appendChild(hoverSpan.cloneNode());
+
+        element.addEventListener('mouseleave', function (this: HTMLElement, event: any) {
+            this.style.background = '';
+
+            const hoverSpan = event.target.querySelector('.button__hover');
+            hoverSpan.style.opacity = "0.0";
+        });
+
+        element.addEventListener('mousemove', function (this: HTMLElement, event: any) {
+            const rect = this.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+
+            const hoverSpan = this.querySelector<HTMLElement>(".button__hover");
+
+            if (!hoverSpan)
+                return;
+
+            hoverSpan.style.opacity = "1.0";
+            hoverSpan.style.left = `${mouseX - hoverSpan.offsetWidth / 2}px`;
+            hoverSpan.style.top = `${mouseY - hoverSpan.offsetHeight / 2}px`;
+        });
+    });
+</script>

@@ -2,6 +2,11 @@
 import DocStart from "../components/DocStart.astro";
 import DocEnd from "../components/DocEnd.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import Button from "../components/Button.astro";
+import GitHubIcon from "../components/Icons/GitHubIcon.astro";
+import LinkedInIcon from "../components/Icons/LinkedInIcon.astro";
+import MediumIcon from "../components/Icons/MediumIcon.astro";
+import SettingsIcon from "../components/Icons/SettingsIcon.astro";
 import { loadAndFormatCollection } from "../util/collection";
 
 const posts = (await loadAndFormatCollection("posts"))
@@ -12,15 +17,23 @@ const posts = (await loadAndFormatCollection("posts"))
 <DocStart />
 <div class="container container--centred container--home">
     <div class="inner-container">
-        <h1>
-            <span class="text--muted-1" style="padding-right: .2em;"
-                >&#8250;</span
-            ><span class="text--primary-1">rick</span><span
-                class="text--muted-1">.</span
-            ><span class="text--primary-7">me</span><span
-                class="text--muted-1">.</span
-            ><span class="text--primary-7">uk</span>
-        </h1>
+        <div class="site-title">
+            <h1>
+                <span class="text--muted-1" style="padding-right: .2em;"
+                    >&#8250;</span
+                ><span class="text--primary-1">rick</span><span
+                    class="text--muted-1">.</span
+                ><span class="text--primary-7">me</span><span
+                    class="text--muted-1">.</span
+                ><span class="text--primary-7">uk</span>
+            </h1>
+
+            <div class="link-settings-container">
+                <a href="#" class="link-settings" data-open-modal=".modal--settings" title="Change settings">
+                    <SettingsIcon width="28px" height="28px" />
+                </a>
+            </div>
+        </div>
 
         <p class="lead">
             Hi. I'm Rick, a game developer with a background in
@@ -152,62 +165,17 @@ const posts = (await loadAndFormatCollection("posts"))
         <h2>Links</h2>
 
         <div class="links">
-            <a
-                href="https://github.com/Riari"
-                rel="noopener"
-                target="_blank"
-                class="button"
-            >
-                <img src="/icons/github.svg" /> GitHub
-            </a>
-            <a
-                href="https://www.linkedin.com/in/rick-uk/"
-                rel="noopener"
-                target="_blank"
-                class="button"
-            >
-                <img src="/icons/linkedin.svg" /> LinkedIn
-            </a>
-            <a
-                href="https://twitter.com/rmann_89"
-                rel="noopener"
-                target="_blank"
-                class="button"
-            >
-                <img src="/icons/twitter.svg" /> Twitter
-            </a>
+            <Button href="https://github.com/Riari">
+                <GitHubIcon width="32px" height="32px" style="vertical-align: middle;" /> GitHub
+            </Button>
+            <Button href="https://www.linkedin.com/in/rick-uk/">
+                <LinkedInIcon width="32px" height="32px" style="vertical-align: middle;" /> LinkedIn
+            </Button>
+            <Button href="https://medium.com/@rickhmann">
+                <MediumIcon width="32px" height="32px" style="vertical-align: middle;" /> Medium
+            </Button>
         </div>
     </div>
 </div>
 
-<script>
-    const hoverSpan = document.createElement('span');
-    hoverSpan.classList.add('button__hover');
-
-    document.querySelectorAll('.button').forEach(function (element: Element) {
-        element.appendChild(hoverSpan.cloneNode());
-
-        element.addEventListener('mouseleave', function (this: HTMLElement, event: any) {
-            this.style.background = '';
-
-            const hoverSpan = event.target.querySelector('.button__hover');
-            hoverSpan.style.opacity = "0.0";
-        });
-
-        element.addEventListener('mousemove', function (this: HTMLElement, event: any) {
-            const rect = this.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
-
-            const hoverSpan = this.querySelector<HTMLElement>(".button__hover");
-
-            if (!hoverSpan)
-                return;
-
-            hoverSpan.style.opacity = "1.0";
-            hoverSpan.style.left = `${mouseX - hoverSpan.offsetWidth / 2}px`;
-            hoverSpan.style.top = `${mouseY - hoverSpan.offsetHeight / 2}px`;
-        });
-    });
-</script>
 <DocEnd />
