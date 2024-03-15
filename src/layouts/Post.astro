@@ -78,7 +78,7 @@ if (nextPost != null)
                 <div class="adjacent-post-links">
                     <div class="previous">
                         { prevPost != null &&
-                            <a href={prevPost.absoluteURL}>
+                            <a href={prevPost.absolutePath}>
                                 <span class="prefix">‹ Previous post</span>
                                 <br />
                                 <span class="title">{prevPost.data.title}</span>
@@ -88,7 +88,7 @@ if (nextPost != null)
 
                     <div class="next">
                         { nextPost != null &&
-                            <a href={nextPost.absoluteURL}>
+                            <a href={nextPost.absolutePath}>
                                 <span class="prefix">Next post ›</span>
                                 <br />
                                 <span class="title">{nextPost.data.title}</span>

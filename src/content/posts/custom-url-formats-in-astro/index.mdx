@@ -34,8 +34,8 @@ export async function loadAndFormatCollection(name) {
         const month = date.getMonth() + 1;
         const monthZerofilled = (month < 10 ? '0' : '') + month;
 
-        post.relativeURL = `${year}/${monthZerofilled}/${post.slug}/`;
-        post.absoluteURL = `/posts/${post.relativeURL}`;
+        post.relativePath = `${year}/${monthZerofilled}/${post.slug}/`;
+        post.absolutePath = `/posts/${post.relativePath}`;
     });
 
     return posts;
@@ -55,7 +55,7 @@ export async function getStaticPaths() {
     return posts
         .map(post => {
             return {
-                params: { slug: post.relativeURL },
+                params: { slug: post.relativePath },
                 props: post
             }
         });
@@ -72,7 +72,7 @@ const { Content } = await post.render();
 </Post>
 ```
 
-Conveniently, the properties also make link generation a little cleaner—instead of doing ``<a href={`/blog/${post.slug}/`}>`` (which is how it's done in the official Astro blog template), you can simply do `<a href={post.absoluteURL}>`. Much better!
+Conveniently, the properties also make link generation a little cleaner—instead of doing ``<a href={`/blog/${post.slug}/`}>`` (which is how it's done in the official Astro blog template), you can simply do `<a href={post.absolutePath}>`. Much better!
 
 Obviously, you can use this approach to generate just about any kind of URL structure you need. In this case I just pulled the year and month from the date specified in frontmatter, but you can use anything to build the parameters.
 
