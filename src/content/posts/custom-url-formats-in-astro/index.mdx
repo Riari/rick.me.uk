@@ -23,6 +23,8 @@ The way I fixed it was to leave the slug unmodified and specify both the relativ
 
 **src/util/collection.js**
 ```js
+import { getCollection } from 'astro:content';
+
 export async function loadAndFormatCollection(name) {
     const posts = await getCollection(name);
 
