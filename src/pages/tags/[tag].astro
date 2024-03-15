@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 
 const posts = (await loadAndFormatCollection("posts"))
-    .filter((post: any) => post.tags.includes(tag))
+    .filter((post: any) => post.data.tags.includes(tag))
     .sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 

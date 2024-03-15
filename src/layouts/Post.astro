@@ -50,9 +50,9 @@ if (nextPost != null)
         
                     <ul class="tags">
                         {
-                            tags.map(tag => {
+                            tags.map(tag => (
                                 <li><a href={`/tags/${tag}/`}><span>{tag}</span></a></li>
-                            })
+                            ))
                         }
                     </ul>
                 </div>

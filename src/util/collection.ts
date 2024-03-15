@@ -11,7 +11,6 @@ export async function loadAndFormatCollection(name: any) {
 
         post.relativeURL = `${year}/${monthZerofilled}/${post.slug}/`;
         post.absoluteURL = `/posts/${post.relativeURL}`;
-        post.tags = post.data.tags;
     });
 
     return posts;

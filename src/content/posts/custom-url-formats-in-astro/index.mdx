@@ -3,7 +3,7 @@ title: "Custom URL formats in Astro"
 description: "How to construct static URLs with dynamic parameters"
 pubDate: 2024-03-15
 heroImage: '/images/post-headers/pixellated-code.png'
-tags: ["web", "php", "framework", "laravel"]
+tags: ["web", "js", "framework", "static-site-generation"]
 ---
 import OpenGraphSummary from '../../../components/OpenGraphSummary.astro';
 
@@ -34,7 +34,6 @@ export async function loadAndFormatCollection(name) {
 
         post.relativeURL = `${year}/${monthZerofilled}/${post.slug}/`;
         post.absoluteURL = `/posts/${post.relativeURL}`;
-        post.tags = post.data.tags;
     });
 
     return posts;
