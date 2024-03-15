@@ -3,7 +3,7 @@
 
 @import "general.scss";
 @import "input.scss";
-@import "layouts/home.scss";
-@import "layouts/posts-list.scss";
-@import "layouts/posts-single.scss";
+@import "layouts/container--home.scss";
+@import "layouts/container--post.scss";
+@import "layouts/container--posts-list.scss";
 @import "syntax-highlighting.scss";

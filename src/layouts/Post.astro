@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
+import DocStart from "../components/DocStart.astro";
 import DocEnd from "../components/DocEnd.astro";
 import HeadTopLinks from "../components/HeadTopLinks.astro";
 import HeadBottomLinks from "../components/HeadBottomLinks.astro";
@@ -38,82 +38,77 @@ if (nextPost != null)
 }
 ---
 
-<html lang="en">
-    <head>
-        <BaseHead title={title} description={description} />
-    </head>
+<DocStart title={title} description={description} />
+    <div class="container container--post">
+        <div class="head" style={`background-image: url(${heroImage})`}>
+            <div>
+                <HeadTopLinks />
 
-    <body>
-        <div class="container container--posts-single">
-            <div class="head" style={`background-image: url(${heroImage})`}>
-                <div>
-                    <HeadTopLinks />
+                <div style="margin: 0 1rem;">
+                    <h1>{title}</h1>
+                    <h2 class="subheading">{description}</h2>
         
-                    <div style="margin: 0 1rem;">
-                        <h1>{title}</h1>
-                        <h2 class="subheading">{description}</h2>
-            
-                        <ul class="tags">
-                            {
-                                tags.map(tag => {
-                                    <li><a href={`/tags/${tag}/`}><span>{tag}</span></a></li>
-                                })
-                            }
-                        </ul>
-                    </div>
-
-                    <HeadBottomLinks />
+                    <ul class="tags">
+                        {
+                            tags.map(tag => {
+                                <li><a href={`/tags/${tag}/`}><span>{tag}</span></a></li>
+                            })
+                        }
+                    </ul>
                 </div>
-            </div>
-            
-            <div class="body">
-                <div class="inner-container">
-                    <div class="publish-date">
-                        <div>
-                        	{pubDate.toLocaleString('default', { month: 'long' })} {pubDate.getDate()}, {pubDate.getFullYear()}
-                        </div>
-                    </div>
-        
-                    <article>
-                        <slot />
-                    </article>
-        
-                    <hr>
-        
-                    <div class="adjacent-post-links">
-                        <div class="previous">
-                            { prevPost != null &&
-                                <a href={prevPost.absoluteURL}>
-                                    <span class="prefix">‹ Previous post</span>
-                                    <br />
-                                    <span class="title">{prevPost.data.title}</span>
-                                </a>
-                            }
-                        </div>
 
-                        <div class="next">
-                            { nextPost != null &&
-                                <a href={nextPost.absoluteURL}>
-                                    <span class="prefix">Next post ›</span>
-                                    <br />
-                                    <span class="title">{nextPost.data.title}</span>
-                                </a>
-                            }
-                        </div>
+                <HeadBottomLinks />
+            </div>
+        </div>
+        
+        <div class="body">
+            <div class="inner-container">
+                <div class="publish-date">
+                    <div>
+                        {pubDate.toLocaleString('default', { month: 'long' })} {pubDate.getDate()}, {pubDate.getFullYear()}
                     </div>
                 </div>
-            </div>
-        
-            <div class="footer">
-                <div class="inner-container">
-                    <h4>Who is this?!</h4>
-            
-                    <p>I'm Rick, a UK-based developer whose professional experience began with full-stack web development in the late 2000s. I grew up in a household of nerds, which exposed me to computers, consoles, and games from a very early age. I was always curious about how game development works and eventually found my way into the games industry in 2019, where I currently work as a full time software engineer.</p>
-            
-                    <p>Since 2019, I've spent much of my leisure time learning more about all facets of game development as well as programming in general. I occasionally post about those topics here.</p>
-            
-                    <p><a href="#">▴ Back to top</a></p>
+
+                <article>
+                    <slot />
+                </article>
+
+                <hr>
+
+                <div class="adjacent-post-links">
+                    <div class="previous">
+                        { prevPost != null &&
+                            <a href={prevPost.absoluteURL}>
+                                <span class="prefix">‹ Previous post</span>
+                                <br />
+                                <span class="title">{prevPost.data.title}</span>
+                            </a>
+                        }
+                    </div>
+
+                    <div class="next">
+                        { nextPost != null &&
+                            <a href={nextPost.absoluteURL}>
+                                <span class="prefix">Next post ›</span>
+                                <br />
+                                <span class="title">{nextPost.data.title}</span>
+                            </a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="footer">
+            <div class="inner-container">
+                <h4>Who is this?!</h4>
+        
+                <p>I'm Rick, a UK-based developer whose professional experience began with full-stack web development in the late 2000s. I grew up in a household of nerds, which exposed me to computers, consoles, and games from a very early age. I was always curious about how game development works and eventually found my way into the games industry in 2019, where I currently work as a full time software engineer.</p>
+        
+                <p>Since 2019, I've spent much of my leisure time learning more about all facets of game development as well as programming in general. I occasionally post about those topics here.</p>
+        
+                <p><a href="#">▴ Back to top</a></p>
+            </div>
+        </div>
+    </div>
 <DocEnd />
