@@ -5,13 +5,17 @@
 
     .site-title {
         display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
 
         h1 {
             flex: 1;
+            margin: 0;
         }
 
         .link-settings-container {
-            padding: 1rem 0 0 0;
+            width: 28px;
+            height: 28px;
         }
     }
 
@@ -231,10 +235,6 @@
         .site-title {
             h1 {
                 font-size: 2.4rem;
-            }
-
-            .link-settings-container {
-                padding: .7rem 0 0 0;
             }
         }
 
