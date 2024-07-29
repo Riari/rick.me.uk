@@ -1,22 +1,27 @@
 import { getCollection } from 'astro:content';
 
-export async function loadAndFormatCollection(name: any) {
-    const posts = await getCollection(name);
+export async function loadAndFormatCollection(name: any, withDate = true) {
+	const collection = await getCollection(name);
 
-    posts.forEach((post: any) => {
-        const date = new Date(post.data.publishDate);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const monthZerofilled = (month < 10 ? '0' : '') + month;
+    collection.forEach((item: any) => {
+        if (withDate) {
+            const date = new Date(item.data.publishDate);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const monthZerofilled = (month < 10 ? '0' : '') + month;
+    
+            item.relativeURL = `${year}/${monthZerofilled}/${item.slug}/`;
+        } else {
+            item.relativeURL = `${item.slug}/`;
+        }
 
-        post.relativePath = `${year}/${monthZerofilled}/${post.slug}/`;
-        post.absolutePath = `/posts/${post.relativePath}`;
+        item.absoluteURL = `/${name}/${item.relativeURL}`;
     });
 
-    return posts;
+    return collection;
 };
 
-export async function getTags(posts: any[]) {
-    const tags = posts.map(post => post.data.tags).flat();
+export async function getTags(collection: any[]) {
+    const tags = collection.map(item => item.data.tags).flat();
     return Array.from(new Set(tags)).sort();
 }

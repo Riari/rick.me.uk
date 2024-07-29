@@ -6,8 +6,8 @@ import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
 import ItemCard from "../../components/ItemCard.astro";
 import { loadAndFormatCollection } from '../../util/collection';
 
-const posts = (await loadAndFormatCollection("posts"))
-    .sort((a: any, b: any) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+const projects = (await loadAndFormatCollection('projects', false))
+    .sort((a: any, b: any) => a.data.weight - b.data.weight);
 ---
 
 <DocStart />
@@ -15,18 +15,20 @@ const posts = (await loadAndFormatCollection("posts"))
     <div class="head head--slim">
         <HeadTopLinks />
 
-        <h1>Posts</h1>
+        <h1>Projects</h1>
 
         <HeadBottomLinks />
     </div>
 
     <div class="body">
         <div class="inner-container">
-            {
-                posts.map(post => (
-                    <ItemCard item={post} hasPublishDate={true} hasStatus={false} />
-                ))
-            }
+            <div class="card-grid">
+                {
+                    projects.map((project: any) => (
+                        <ItemCard item={project} hasPublishDate={false} hasStatus={true} />
+                    ))
+                }
+            </div>
         </div>
     </div>
 </div>

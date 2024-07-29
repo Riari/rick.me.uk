@@ -3,13 +3,14 @@ import DocStart from "../../components/DocStart.astro";
 import DocEnd from "../../components/DocEnd.astro";
 import HeadTopLinks from "../../components/HeadTopLinks.astro";
 import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
-import PostCard from "../../components/PostCard.astro";
+import ItemCard from "../../components/ItemCard.astro";
 import { loadAndFormatCollection, getTags } from '../../util/collection';
 
 export async function getStaticPaths() {
     const posts = await loadAndFormatCollection('posts');
+    const projects = await loadAndFormatCollection('projects', false);
 
-    const tags = await getTags(posts);
+    const tags = new Set([...await getTags(posts), ...await getTags(projects)]);
 
     return [...tags]
         .map(tag => {
@@ -21,13 +22,17 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 
-const posts = (await loadAndFormatCollection("posts"))
+const posts = (await loadAndFormatCollection('posts'))
     .filter((post: any) => post.data.tags.includes(tag))
     .sort((a: any, b: any) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const projects = (await loadAndFormatCollection('projects', false))
+    .filter((post: any) => post.data.tags.includes(tag))
+    .sort((a: any, b: any) => a.data.weight - b.data.weight);
 ---
 
 <DocStart />
-<div class="container container--posts-list">
+<div class="container container--cards">
     <div class="head head--slim">
         <HeadTopLinks />
 
@@ -39,11 +44,26 @@ const posts = (await loadAndFormatCollection("posts"))
 
     <div class="body">
         <div class="inner-container">
+            <h3 class="text-center" style="margin-top:0;">Posts</h3>
             {
                 posts.map((post) => (
-                    <PostCard post={post} />
+                    <ItemCard item={post} hasPublishDate={true} />
                 ))
             }
+
+            { posts.length == 0 && <div class="text-center text--muted-2">No posts match this tag</div>}
+
+            <h3 class="text-center">Projects</h3>
+
+            <div class="card-grid">
+                {
+                    projects.map((project) => (
+                        <ItemCard item={project} hasPublishDate={false} hasStatus={true} />
+                    ))
+                }
+            </div>
+
+            { projects.length == 0 && <div class="text-center text--muted-2">No projects match this tag</div>}
         </div>
     </div>
 </div>

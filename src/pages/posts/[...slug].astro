@@ -9,7 +9,7 @@ export async function getStaticPaths() {
     return posts
         .map((post: any) => {
             return {
-                params: { slug: post.relativePath },
+                params: { slug: post.relativeURL },
                 props: post
             }
         });

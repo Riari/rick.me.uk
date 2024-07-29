@@ -1,0 +1,48 @@
+.container--project {
+    .project-details {
+        display: flex;
+        align-items: flex-start;
+        gap: 1em;
+
+        main {
+            flex: 1;
+
+            p {
+                font-size: 1.1em;
+                color: #fff;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        aside {
+            box-sizing: border-box;
+            min-width: 220px;
+            margin-top: 1em;
+            padding: 1em;
+            background: $color-background-main-2;
+
+            table {
+                width: 100%;
+
+                td:nth-of-type(2) {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $breakpoint--small) {
+    .container--project {
+        .project-details {
+            flex-direction: column-reverse;
+
+            aside {
+                width: 100%;
+            }
+        }
+    }
+}

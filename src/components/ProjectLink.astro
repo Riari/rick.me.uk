@@ -1,0 +1,11 @@
+---
+// This is a temporary component to work around a weird bug when this markup is placed directly in layouts/Project.astro
+import ExternalLinkIcon from "./Icons/ExternalLinkIcon.astro";
+
+const { url, label } = Astro.props;
+---
+
+<a href={url} target="_blank" title={url}>
+    {label}
+    <ExternalLinkIcon />
+</a>

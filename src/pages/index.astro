@@ -8,9 +8,14 @@ import LinkedInIcon from "../components/Icons/LinkedInIcon.astro";
 import MediumIcon from "../components/Icons/MediumIcon.astro";
 import SettingsIcon from "../components/Icons/SettingsIcon.astro";
 import { loadAndFormatCollection } from "../util/collection";
+import { statusToBadgeClass } from "../util/frontmatter";
 
 const posts = (await loadAndFormatCollection("posts"))
     .sort((a: any, b: any) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+    .slice(0, 3);
+
+const projects = (await loadAndFormatCollection('projects', false))
+    .sort((a: any, b: any) => a.data.weight - b.data.weight)
     .slice(0, 3);
 ---
 
@@ -36,18 +41,15 @@ const posts = (await loadAndFormatCollection("posts"))
         </div>
 
         <p class="lead">
-            Hi. I'm Rick, a game developer with a background in
-            full-stack web dev.
+            Hi. I'm Rick, a game developer with a background in full-stack web dev.
         </p>
 
-        <hr />
-
-        <div class="recent-posts">
+        <div class="section recent-posts">
             <div class="inline-heading">
                 <h2>Posts</h2>
 
                 <span class="more-link">
-                    <a href="/posts/">See all</a>
+                    <a href="/posts/">See full list</a>
                 </span>
             </div>
 
@@ -72,7 +74,40 @@ const posts = (await loadAndFormatCollection("posts"))
             </ul>
         </div>
 
-        <div class="proficiencies">
+        <div class="section projects">
+            <div class="inline-heading">
+                <h2>Projects</h2>
+
+                <span class="more-link">
+                    <a href="/projects/">See full list</a>
+                </span>
+            </div>
+
+            <div class="featured-cards">
+                {
+                    projects.map((project: any) => (
+                        <div class="featured-cards__card">
+                            <div class="featured-cards__card__inner">
+                                <span class={statusToBadgeClass(project.data.status)}>
+                                    {project.data.status}
+                                </span>
+                                <a
+                                    href={project.absoluteURL}
+                                    class="link"
+                                >
+                                    {project.data.title}
+                                </a>
+                                <div class="description">
+                                    {project.data.description}
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+
+        <div class="section proficiencies">
             <h2>Proficiencies</h2>
 
             <div class="proficiencies__row">
@@ -163,9 +198,7 @@ const posts = (await loadAndFormatCollection("posts"))
             </div>
         </div>
 
-        <h2>Links</h2>
-
-        <div class="links">
+        <div class="section links">
             <Button href="https://github.com/Riari">
                 <GitHubIcon width="32px" height="32px" style="vertical-align: -10px;" /> GitHub
             </Button>

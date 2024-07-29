@@ -17,7 +17,7 @@ const projects = defineCollection({
         title: z.string(),
         description: z.string(),
         type: z.enum(['Package', 'Library', 'App', 'Exercise']),
-        status: z.enum(['Active', 'Archived']),
+        status: z.enum(['Active', 'Inactive']),
 		weight: z.number(),
 		heroImage: z.string(),
         url: z.string().url(),
