@@ -9,10 +9,10 @@ import { truncate } from "../util/string";
 
 type Props = CollectionEntry<"posts">["data"];
 
-const { title, description, pubDate, heroImage, tags } = Astro.props;
+const { title, description, publishDate, heroImage, tags } = Astro.props;
 
 const posts: any[] = (await loadAndFormatCollection("posts"))
-    .sort((a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+    .sort((a: any, b: any) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
 
 let prevPost = null;
 let nextPost = null;
@@ -65,7 +65,7 @@ if (nextPost != null)
             <div class="inner-container">
                 <div class="publish-date">
                     <div>
-                        {pubDate.toLocaleString('default', { month: 'long' })} {pubDate.getDate()}, {pubDate.getFullYear()}
+                        {publishDate.toLocaleString('default', { month: 'long' })} {publishDate.getDate()}, {publishDate.getFullYear()}
                     </div>
                 </div>
 

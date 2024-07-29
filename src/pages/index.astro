@@ -10,7 +10,7 @@ import SettingsIcon from "../components/Icons/SettingsIcon.astro";
 import { loadAndFormatCollection } from "../util/collection";
 
 const posts = (await loadAndFormatCollection("posts"))
-    .sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .sort((a: any, b: any) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
     .slice(0, 3);
 ---
 
@@ -47,7 +47,7 @@ const posts = (await loadAndFormatCollection("posts"))
                 <h2>Posts</h2>
 
                 <span class="more-link">
-                    <a href="/posts/">See full list</a>
+                    <a href="/posts/">See all</a>
                 </span>
             </div>
 
@@ -63,7 +63,7 @@ const posts = (await loadAndFormatCollection("posts"))
                             </a>
                             <span class="publish-date">
                                 <FormattedDate
-                                    date={post.data.pubDate}
+                                    date={post.data.publishDate}
                                 />
                             </span>
                         </li>
@@ -110,6 +110,7 @@ const posts = (await loadAndFormatCollection("posts"))
                 <div
                     class="proficiencies__row__pills pills pills--primary-3"
                 >
+                    <span>Unreal</span>
                     <span>Unity</span>
                     <span>Godot</span>
                 </div>

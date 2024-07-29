@@ -1,7 +1,7 @@
 ---
 title: "Custom URL formats in Astro"
 description: "How to construct static URLs with multiple parameters"
-pubDate: 2024-03-15
+publishDate: 2024-03-15
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["web", "js", "framework", "static-site-generation"]
 ---
@@ -29,7 +29,7 @@ export async function loadAndFormatCollection(name) {
     const posts = await getCollection(name);
 
     posts.forEach(post => {
-        const date = new Date(post.data.pubDate);
+        const date = new Date(post.data.publishDate);
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
         const monthZerofilled = (month < 10 ? '0' : '') + month;

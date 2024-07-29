@@ -7,7 +7,7 @@ import PostCard from "../../components/PostCard.astro";
 import { loadAndFormatCollection } from '../../util/collection';
 
 const posts = (await loadAndFormatCollection("posts"))
-    .sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    .sort((a: any, b: any) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
 
 <DocStart />

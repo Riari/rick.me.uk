@@ -4,7 +4,7 @@ export async function loadAndFormatCollection(name: any) {
     const posts = await getCollection(name);
 
     posts.forEach((post: any) => {
-        const date = new Date(post.data.pubDate);
+        const date = new Date(post.data.publishDate);
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
         const monthZerofilled = (month < 10 ? '0' : '') + month;

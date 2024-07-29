@@ -1,7 +1,7 @@
 ---
 title: 'Route Model Binding Alternatives in Laravel'
 description: 'A middleware-based approach to route parameter resolution.'
-pubDate: 2023-06-23
+publishDate: 2023-06-23
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["web", "php", "framework", "laravel"]
 ---
