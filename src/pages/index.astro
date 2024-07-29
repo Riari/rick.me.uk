@@ -11,7 +11,7 @@ import { loadAndFormatCollection } from "../util/collection";
 import { statusToBadgeClass } from "../util/frontmatter";
 
 const posts = (await loadAndFormatCollection("posts"))
-    .sort((a: any, b: any) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+    .sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 3);
 
 const projects = (await loadAndFormatCollection('projects', false))
@@ -65,7 +65,7 @@ const projects = (await loadAndFormatCollection('projects', false))
                             </a>
                             <span class="publish-date">
                                 <FormattedDate
-                                    date={post.data.publishDate}
+                                    date={post.data.pubDate}
                                 />
                             </span>
                         </li>

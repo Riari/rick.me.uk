@@ -5,7 +5,7 @@ export async function loadAndFormatCollection(name: any, withDate = true) {
 
     collection.forEach((item: any) => {
         if (withDate) {
-            const date = new Date(item.data.publishDate);
+            const date = new Date(item.data.pubDate);
             const year = date.getFullYear();
             const month = date.getMonth() + 1;
             const monthZerofilled = (month < 10 ? '0' : '') + month;

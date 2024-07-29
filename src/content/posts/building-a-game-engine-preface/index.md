@@ -1,7 +1,7 @@
 ---
 title: 'Building a 3D Game Engine in C++: A Devlog (Preface)'
 description: 'Chronicling my first attempt at building a 3D game engine on modern paradigms.'
-publishDate: 2021-02-25
+pubDate: 2021-02-25
 heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine"]
 ---
