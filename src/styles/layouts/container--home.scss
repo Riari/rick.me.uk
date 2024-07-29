@@ -233,15 +233,6 @@
         }
 
         .recent-posts {
-            .more-link a {
-                background: $color-muted-4;
-                color: $color-foreground-light;
-
-                &:hover {
-                    color: #000;
-                }
-            }
-
             ul li {
                 background: $color-muted-4;
 
@@ -256,6 +247,22 @@
                 .publish-date {
                     color: $color-muted-1;
                 }
+            }
+        }
+
+        .featured-cards__card__inner {
+            background: $color-muted-4;
+
+            a {
+                color: $color-link-light;
+
+                &:hover {
+                    color: #000;
+                }
+            }
+
+            .description {
+                color: $color-muted-1;
             }
         }
 

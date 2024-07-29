@@ -35,6 +35,39 @@
     }
 }
 
+@mixin theme-light {
+    .container--project {
+        .project-details {
+            main p {
+                color: $color-foreground-light;
+            }
+
+            aside {
+                background: $color-background-light-dimmed;
+                color: $color-foreground-light;
+            }
+
+            a {
+                color: $color-link-light;
+
+                &:hover {
+                    color: #000000;
+                }
+            }
+        }
+    }
+}
+
+.theme--light {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    .theme--system {
+        @include theme-light;
+    }
+}
+
 @media only screen and (max-width: $breakpoint--small) {
     .container--project {
         .project-details {

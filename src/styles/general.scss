@@ -498,6 +498,22 @@ a.link-settings {
 }
 
 @mixin theme-light {
+    .inline-heading {
+        .more-link a {
+            background: $color-muted-4;
+            color: $color-foreground-light;
+
+            &:hover {
+                color: #000;
+            }
+        }
+    }
+
+    .badge {
+        background: $color-muted-3;
+        color: $color-muted-1;
+    }
+
     .container {
         .body {
             background: $color-background-light;
