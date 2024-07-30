@@ -1,18 +1,18 @@
 ---
 title: "Glint Renderer"
-type: 'Exercise'
 description: "An OpenGL-based renderer written in C++"
-weight: 2
-status: 'Inactive'
-heroImage: '/images/project-headers/glint-renderer.png'
+status: "Inactive"
+weight: 30
+heroImage: "/images/project-headers/glint-renderer.png"
 url: "https://github.com/Riari/glint-renderer"
 tags: ["cpp", "opengl"]
 ---
+import ExternalLink from '../../../components/ExternalLink.astro';
 import Image from '../../../components/Image.astro';
 import screenshotImage from './screenshot.jpg';
 
-Glint is my second attempt at writing an OpenGL renderer in C++. I built it while following the Udemy course _[Computer Graphics with Modern OpenGL and C++](https://www.udemy.com/course/graphics-with-modern-opengl/)_, developing a rudimentary JSON-based asset system along the way.
+Glint is my second attempt at writing an OpenGL renderer in C++. I built it while following the Udemy course _<ExternalLink url="https://www.udemy.com/course/graphics-with-modern-opengl/" label="Computer Graphics with Modern OpenGL and C++" />_, developing a rudimentary JSON-based asset system along the way.
 
-It uses [assimp](https://github.com/assimp/assimp) for model and material import and supports basic [Phong](https://en.wikipedia.org/wiki/Bui_Tuong_Phong) lighting as well as shadowmapping.
+It uses <ExternalLink url="https://github.com/assimp/assimp" label="assimp" /> for model and material import and supports basic <ExternalLink url="https://en.wikipedia.org/wiki/Bui_Tuong_Phong" label="Phong" /> lighting as well as shadowmapping.
 
 <Image src={screenshotImage.src} alt="Screenshot" caption="Screenshot" />

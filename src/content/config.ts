@@ -16,7 +16,6 @@ const projects = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string(),
-        type: z.enum(['Package', 'Library', 'App', 'Exercise']),
         status: z.enum(['Active', 'Inactive']),
 		weight: z.number(),
 		heroImage: z.string(),
