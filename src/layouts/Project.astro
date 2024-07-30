@@ -12,7 +12,7 @@ import { truncate } from "../util/string";
 
 type Props = CollectionEntry<"projects">["data"];
 
-const { title, description, type, status, heroImage, url, tags } = Astro.props;
+const { title, description, status, heroImage, url, tags } = Astro.props;
 
 const statusClass = statusToBadgeClass(status);
 const linkLabel = new URL(url).hostname;
