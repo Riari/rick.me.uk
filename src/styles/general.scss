@@ -485,7 +485,7 @@ ul.tags {
             font-weight: 700;
         }
 
-        ul {
+        ul:not(.tags) {
             padding: 0;
             margin: 1.2em 0 1.2em 2em;
 
