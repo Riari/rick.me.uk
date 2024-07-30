@@ -130,7 +130,7 @@ hr {
 
 .badge {
     display: inline-block;
-    padding: .1rem .6rem;
+    padding: .1rem .7rem;
     border-radius: 2em;
     font-size: 1rem;
     font-weight: 500;
@@ -188,6 +188,27 @@ hr {
     &--muted-3 {
         background: $color-background-main-3;
         color: $color-muted-3;
+    }
+
+    &--muted-4 {
+        background: $color-background-main-4;
+        color: $color-muted-4;
+    }
+}
+
+.badge-joined {
+    display: inline-block;
+    white-space: nowrap;
+
+    .badge:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .badge:last-child {
+        margin-left: 2px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 }
 
@@ -313,6 +334,34 @@ ul.tags {
                 color: inherit;
             }
         }
+    }
+}
+    
+.adjacent-content-links {
+    display: flex;
+
+    .next,
+    .previous {
+        flex: 50%;
+
+        a {
+            display: block;
+            font-weight: 500;
+            text-decoration: none;
+
+            .prefix {
+                font-size: .9em;
+                color: $color-muted-3;
+            }
+
+            &:hover span {
+                color: #fff;
+            }
+        }
+    }
+
+    .next {
+        text-align: right;
     }
 }
 
@@ -514,6 +563,12 @@ a.link-settings {
         color: $color-muted-1;
     }
 
+    .adjacent-content-links {
+        a:hover span {
+            color: #000;
+        }
+    }
+
     .container {
         .body {
             background: $color-background-light;
@@ -565,5 +620,11 @@ a.link-settings {
 
     hr {
         margin: 2em 0;
+    }
+}
+
+@media only screen and (max-width: $breakpoint--x-small) {
+    .container .head .top-links {
+        font-size: 0.95rem;
     }
 }

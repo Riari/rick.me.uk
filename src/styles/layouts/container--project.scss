@@ -1,58 +1,45 @@
 .container--project {
-    .project-details {
-        display: flex;
-        align-items: flex-start;
-        gap: 1em;
+    .head {
+        h1 {
+            margin-bottom: 1rem;
+        }
+    }
 
-        main {
-            flex: 1;
+    .body {
+        padding: 1.6rem 0;
 
+        .project-fields {
+            text-align: center;
+    
+            .badge-joined {
+                margin: 0.2rem 0.1rem;
+            }
+        }
+    
+        .project-details {
             p {
                 font-size: 1.1em;
                 color: #fff;
             }
-
+    
             img {
                 max-width: 100%;
-            }
-        }
-
-        aside {
-            box-sizing: border-box;
-            min-width: 220px;
-            margin-top: 1em;
-            padding: 1em;
-            background: $color-background-main-2;
-
-            table {
-                width: 100%;
-
-                td:nth-of-type(2) {
-                    text-align: right;
-                }
             }
         }
     }
 }
 
 @mixin theme-light {
-    .container--project {
-        .project-details {
-            main p {
-                color: $color-foreground-light;
-            }
+    .container--project .body {
+        p {
+            color: $color-foreground-light;
+        }
 
-            aside {
-                background: $color-background-light-dimmed;
-                color: $color-foreground-light;
-            }
+        a {
+            color: $color-link-light;
 
-            a {
-                color: $color-link-light;
-
-                &:hover {
-                    color: #000000;
-                }
+            &:hover {
+                color: #000000;
             }
         }
     }
