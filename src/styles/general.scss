@@ -412,6 +412,7 @@ ul.tags {
 
         h1 {
             font-size: 2.4em;
+            margin-bottom: 1rem;
         }
 
         h2 {
@@ -468,7 +469,114 @@ ul.tags {
 
     .body {
         flex: 1;
+        padding: 1.6rem 0;
         background: $color-background-dark;
+        color: $color-foreground-dark;
+
+        article {
+            font-size: 1.1em;
+            color: $color-foreground-dark;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: $font-family-sans-serif;
+            font-weight: 700;
+        }
+
+        ul {
+            padding: 0;
+            margin: 1.2em 0 1.2em 2em;
+
+            li {
+                margin: .25em 0;
+            }
+        }
+
+        p {
+            margin-bottom: 1.2em;
+            color: $color-foreground-dark;
+        }
+
+        p > code,
+        ul > li > code,
+        ol > li > code {
+            display: inline-block;
+            padding: 0 .4em;
+            border-radius: 0.2em;
+            background: $color-inline-code-background-dark;
+            font-size: 1rem;
+            font-family: $font-family-monospace;
+            color: $color-inline-code-foreground-dark;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        blockquote {
+            margin-left: 1em;
+            padding-left: 1em;
+            border-left: 4px solid $color-muted-1;
+
+            p {
+                font-style: italic;
+            }
+        }
+
+        .image-container {
+            margin: 1rem 0;
+        }
+
+        .video-container {
+            text-align: center;
+
+            video {
+                width: 100%;
+                height: auto;
+                max-width: 800px;
+                max-height: 400px;
+            }
+        }
+
+        .audio-container {
+            text-align: center;
+
+            audio {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        .og-summary {
+            text-align: center;
+            margin-top: 2em;
+
+            img {
+                display: inline-block;
+                max-width: 500px;
+                border-radius: .3em;
+                opacity: .9;
+                transition: opacity .1s;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .caption {
+                margin-top: .65em;
+            }
+        }
+    
+        hr {
+            height: 1px;
+            border: 0;
+            background: $color-muted-1;
+        }
     }
 }
     
@@ -572,6 +680,37 @@ a.link-settings {
     .container {
         .body {
             background: $color-background-light;
+
+            .publish-date {
+                color: $color-muted-1;
+            }
+    
+            a {
+                color: $color-link-light;
+
+                &:hover {
+                    color: #000000;
+                }
+            }
+    
+            article, p, ul, ol {
+                color: $color-foreground-light;
+            }
+
+            p > code,
+            ul > li > code,
+            ol > li > code {
+                background: $color-inline-code-background-light;
+                color: $color-inline-code-foreground-light;
+            }
+
+            blockquote {
+                border-left: 4px solid lighten($color-muted-3, 10%);
+            }
+
+            .caption {
+                color: $color-muted-1;
+            }
         }
 
         .button {
@@ -586,6 +725,10 @@ a.link-settings {
                 background: rgba($color-muted-3, 0.4);
                 box-shadow: inset 0 0 0 2px $color-muted-3;
             }
+        }
+
+        hr {
+            background: lighten($color-muted-3, 10%);
         }
     }
 

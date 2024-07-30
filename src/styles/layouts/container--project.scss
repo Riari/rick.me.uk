@@ -1,13 +1,5 @@
 .container--project {
-    .head {
-        h1 {
-            margin-bottom: 1rem;
-        }
-    }
-
     .body {
-        padding: 1.6rem 0;
-
         .project-fields {
             text-align: center;
     
@@ -15,43 +7,6 @@
                 margin: 0.2rem 0.1rem;
             }
         }
-    
-        .project-details {
-            p {
-                font-size: 1.1em;
-                color: #fff;
-            }
-    
-            img {
-                max-width: 100%;
-            }
-        }
-    }
-}
-
-@mixin theme-light {
-    .container--project .body {
-        p {
-            color: $color-foreground-light;
-        }
-
-        a {
-            color: $color-link-light;
-
-            &:hover {
-                color: #000000;
-            }
-        }
-    }
-}
-
-.theme--light {
-    @include theme-light;
-}
-
-@media (prefers-color-scheme: light) {
-    .theme--system {
-        @include theme-light;
     }
 }
 

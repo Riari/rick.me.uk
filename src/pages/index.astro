@@ -58,7 +58,7 @@ const projects = (await loadAndFormatCollection('projects', false))
                     posts.map((post: any) => (
                         <li>
                             <a
-                                href={post.absolutePath}
+                                href={post.absoluteURL}
                                 class="link"
                             >
                                 {post.data.title}
