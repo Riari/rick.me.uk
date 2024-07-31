@@ -1,8 +1,8 @@
 ---
-const { src, alt, caption } = Astro.props;
+const { src, alt, caption, maxWidth = "auto" } = Astro.props;
 ---
 
 <div class="image-container">
-    <img src={src} alt={alt} data-zoomable />
+    <img src={src} alt={alt} style={{ maxWidth }} data-zoomable />
     { caption && <div class="caption">{caption}</div> }
 </div>

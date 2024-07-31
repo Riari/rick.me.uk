@@ -8,6 +8,12 @@ url: "https://hytale.com/"
 tags: ["cpp", "flecs", "game-engine", "game-dev"]
 ---
 import ExternalLink from '../../../components/ExternalLink.astro';
+import Image from '../../../components/Image.astro';
+import logoImage from './hytale-logo.webp';
+
+<div style="margin: 2rem 0;">
+    <Image src={logoImage.src} alt="Logo" caption="" maxWidth="400px" />
+</div>
 
 Hytale is a sandbox game under development at <ExternalLink url="https://hypixelstudios.com/" label="Hypixel Studios" />, where I'm currently employed as a software engineer working primarily on the technology we use to create and drive NPCs in the game. You can read more about the game on the <ExternalLink url="https://hytale.com/news" label="official blog" />.
 
