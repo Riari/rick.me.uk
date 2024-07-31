@@ -10,7 +10,7 @@ const posts = (await loadAndFormatCollection("posts"))
     .sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<DocStart />
+<DocStart title="Posts" />
 <div class="container container--cards">
     <div class="head head--slim">
         <HeadTopLinks />

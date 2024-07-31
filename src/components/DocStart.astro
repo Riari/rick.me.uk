@@ -2,12 +2,14 @@
 import BaseHead from "./BaseHead.astro"
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
-const { title, description } = Astro.props;
+const { title, description = SITE_DESCRIPTION } = Astro.props;
+
+let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title={title ? title : SITE_TITLE} description={description ? description : SITE_DESCRIPTION} />
+        <BaseHead title={pageTitle} description={description} />
     </head>
     <body>
