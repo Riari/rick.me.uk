@@ -6,8 +6,9 @@ import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
 import { loadAndFormatCollection, getTags } from '../../util/collection';
 
 const posts = await loadAndFormatCollection('posts');
+const projects = await loadAndFormatCollection('projects', false);
 
-const tags = await getTags(posts);
+const tags = await getTags(posts.concat(projects));
 ---
 
 <DocStart />
