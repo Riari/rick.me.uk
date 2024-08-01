@@ -580,6 +580,13 @@ hr {
             }
         }
     }
+
+    .footer {
+        strong {
+            display: block;
+            margin-top: 1rem;
+        }
+    }
 }
     
 .caption {
@@ -670,6 +677,20 @@ a.link-settings {
 
     .badge {
         filter: brightness(60%) saturate(150%);
+
+        &--muted-1,
+        &--muted-2,
+        &--muted-3 {
+            background: $color-muted-4;
+            color: $color-muted-1;
+            filter: none;
+        }
+
+        &--muted-4 {
+            background: $color-muted-3;
+            color: $color-foreground-light;
+            filter: none;
+        }
     }
 
     .adjacent-content-links {
@@ -715,6 +736,23 @@ a.link-settings {
 
             .caption {
                 color: $color-muted-1;
+            }
+        }
+
+        .footer {
+            background: $color-background-light-dimmed;
+            color: $color-muted-2;
+
+            p {
+                color: $color-muted-2;
+            }
+
+            a {
+                color: $color-link-light;
+
+                &:hover {
+                    color: $color-foreground-light;
+                }
             }
         }
 
