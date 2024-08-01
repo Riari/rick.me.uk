@@ -21,6 +21,14 @@
             background: $color-background-main-2;
             color: $color-foreground-dark;
 
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
             &-link {
                 display: block;
                 position: absolute;
