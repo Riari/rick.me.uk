@@ -20,6 +20,23 @@
             border-radius: .5rem;
             background: $color-background-main-2;
             color: $color-foreground-dark;
+
+            &-link {
+                display: block;
+                position: absolute;
+                z-index: 100;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                border-radius: .5rem;
+                background: #ffffff00;
+                transition: background 0.1s;
+
+                &:hover {
+                    background: #cddef10c;
+                }
+            }
         
             &-background {
                 position: absolute;
@@ -33,77 +50,84 @@
                 opacity: .4;
                 filter: saturate(1.5);
             }
-        
-            &-header {
-                position: relative;
-                z-index: 10;
+
+            &-inner {
+                height: 100%;
                 display: flex;
-                align-items: start;
-                margin-bottom: .5em;
-        
-                &-title {
-                    flex: 1;
-                    margin: 0;
-                    font-family: $font-family-sans-serif;
-                    font-weight: 700;
-                    font-size: 1.2em;
-        
-                    a {
-                        color: $color-foreground-dark;
-                        text-decoration: none;
-        
-                        &:hover {
-                            text-decoration: underline;
-                            text-decoration-thickness: 1px;
+                flex-direction: column;
+
+                &-header {
+                    position: relative;
+                    z-index: 10;
+                    display: flex;
+                    align-items: start;
+                    margin-bottom: 1rem;
+            
+                    &-title {
+                        flex: 1;
+                        margin: 0;
+                        font-family: $font-family-sans-serif;
+                        font-weight: 700;
+                        font-size: 1.2em;
+            
+                        a {
+                            color: $color-foreground-dark;
+                            text-decoration: none;
+            
+                            &:hover {
+                                text-decoration: underline;
+                                text-decoration-thickness: 1px;
+                            }
                         }
                     }
+                    
+                    &-publish-date {
+                        color: $color-muted-2;
+                    }
+    
+                    &-status .badge {
+                        font-size: 1.3rem;
+                    }
                 }
-                
-                &-publish-date a {
-                    color: $color-muted-2;
-                }
-
-                &-status .badge {
-                    font-size: 1.3rem;
-                }
-            }
-        
-            &-body {
-                position: relative;
-                z-index: 10;
-                margin-top: 1rem;
-                font-family: $font-family-sans-serif;
-        
-                a {
-                    color: $color-foreground-dark;
-                }
-            }
-        
-            &-footer {
-                position: relative;
-                z-index: 10;
-                display: flex;
-                flex-direction: row;
-                margin-top: 1rem;
-        
-                a {
-                    transition: color .1s;
-                }
-        
-                &-tags {
+            
+                &-body {
                     flex: 1;
-        
+                    position: relative;
+                    z-index: 10;
+                    font-family: $font-family-sans-serif;
+            
                     a {
-                        display: inline-block;
-                        margin-right: .5rem;
-                        padding: 0 .4rem;
-                        border-radius: .3em;
-                        background: $color-background-main-1;
-                        font-size: .9em;
-                        color: $color-muted-3;
-        
-                        &:hover {
-                            color: #fff;
+                        color: $color-foreground-dark;
+                    }
+                }
+            
+                &-footer {
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 1rem;
+            
+                    a {
+                        transition: color .1s;
+                    }
+            
+                    &-tags {
+                        position: relative;
+                        z-index: 200;
+                        flex: 1;
+            
+                        a {
+                            display: inline-block;
+                            margin-right: .5rem;
+                            padding: 0 .4rem;
+                            border-radius: .3em;
+                            background: $color-background-main-1;
+                            font-size: .9em;
+                            color: $color-muted-3;
+            
+                            &:hover {
+                                color: #fff;
+                            }
                         }
                     }
                 }
@@ -140,27 +164,39 @@
         .item-card {
             background: $color-background-light-dimmed;
             color: $color-foreground-light;
+
+            &-link {
+                background: #191c2000;
+
+                &:hover {
+                    background: #191c200e;
+                }
+            }
     
             &-background {
                 display: none;
             }
-    
-            &-header {
-                a {
+
+            &-inner {
+                &-header {
+                    color: $color-foreground-light;
+
+                    &-publish-date {
+                        color: $color-muted-1;
+                    }
+                }
+        
+                &-body {
                     color: $color-foreground-light;
                 }
-            }
-    
-            &-body a {
-                color: $color-foreground-light;
-            }
-    
-            &-footer a {
-                background: $color-foreground-dark;
-                color: $color-muted-2;
-    
-                &:hover {
-                    color: #000;
+        
+                &-footer a {
+                    background: $color-foreground-dark;
+                    color: $color-muted-1;
+        
+                    &:hover {
+                        color: #000;
+                    }
                 }
             }
         }
@@ -183,7 +219,7 @@
             padding: 1rem;
             text-align: center;
     
-            &-header {
+            &-inner-header {
                 flex-direction: column;
                 align-items: center;
         

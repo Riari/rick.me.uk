@@ -11,41 +11,38 @@ if (hasStatus) {
 ---
 
 <div class="item-card">
+    <a class="item-card-link" href={item.absoluteURL}></a>
     <div
         class="item-card-background"
         style={`background-image: url(${item.data.heroImage});`}
     />
-    <div class="item-card-header">
-        <h3 class="item-card-header-title">
-            <a href={item.absoluteURL}>
+    <div class="item-card-inner">
+        <div class="item-card-inner-header">
+            <h3 class="item-card-inner-header-title">
                 {item.data.title}
-            </a>
-        </h3>
-        { hasPublishDate &&
-            <span class="item-card-header-publish-date">
-                <a href={item.absoluteURL}>
+            </h3>
+            { hasPublishDate &&
+                <span class="item-card-inner-header-publish-date">
                     <FormattedDate
                         date={item.data.pubDate}
                     />
-                </a>
-            </span>
-        }
-        { hasStatus &&
-            <span class:list={['item-card-header-status', statusClass]}>
-                {item.data.status}
-            </span>
-        }
-    </div>
-    <div class="item-card-body">
-        <a href={item.absoluteURL}>
+                </span>
+            }
+            { hasStatus &&
+                <span class:list={['item-card-inner-header-status', statusClass]}>
+                    {item.data.status}
+                </span>
+            }
+        </div>
+        <div class="item-card-inner-body">
             {item.data.description}
-        </a>
-    </div>
-    <div class="item-card-footer">
-        <div class="item-card-footer-tags">
-            {item.data.tags.map((tag: string) => (
-                <a href={`/tags/${tag}/`}>{tag}</a>
-            ))}
+        </div>
+        <div class="item-card-inner-footer">
+            <div class="item-card-inner-footer-tags">
+                {item.data.tags.map((tag: string) => (
+                    <a href={`/tags/${tag}/`}>{tag}</a>
+                ))}
+            </div>
         </div>
     </div>
 </div>

@@ -97,16 +97,16 @@
 }
 
 .b-contain input:focus~.b-input {
-    box-shadow: 0 0 0 2px rgb(189, 147, 249);
+    box-shadow: 0 0 0 2px lighten($color-primary-1, 2%);
 }
 
 .b-contain input[type="checkbox"]:checked~.b-input {
-    background: rgb(176, 125, 247);
+    background: $color-primary-1;
     border-color: rgba(0, 0, 0, 0);
 }
 
 .b-contain input[type="radio"]:checked~.b-input {
-    background: rgb(176, 125, 247);
+    background: $color-primary-1;
     border-color: rgba(0, 0, 0, 0);
 }
 
@@ -122,12 +122,12 @@
 
 .b-contain:hover input[type="checkbox"]:not([disabled]):checked~.b-input,
 .b-contain input[type="checkbox"]:checked:focus~.b-input {
-    background: rgb(164, 102, 245);
+    background: $color-primary-1;
     border-color: rgba(0, 0, 0, 0);
 }
 
 .b-contain:hover input[type="radio"]:not([disabled]):checked~.b-input,
 .b-contain input[type="radio"]:checked:focus~.b-input {
-    background: rgb(164, 102, 245);
+    background: $color-primary-1;
     border-color: rgba(0, 0, 0, 0);
 }

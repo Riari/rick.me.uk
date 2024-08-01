@@ -247,54 +247,6 @@ hr {
     }
 }
 
-ul.tags {
-    list-style: none;
-    margin: 1.2em 0 0 0;
-    padding: 0;
-
-    li {
-        display: inline-block;
-
-        a {
-            position: relative;
-            display: inline-block;
-            padding: .3em 1.2em;
-            margin: .2em;
-            color: $color-tag-foreground;
-            text-decoration: none;
-            transition: color .1s;
-
-            &::after {
-                content: "";
-                display: block;
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                z-index: 1;
-                transform: skew(-20deg);
-                border-radius: .3em;
-                background: $color-tag-background;
-                transition: opacity .1s, background .1s;
-            }
-
-            &:hover {
-                color: $color-background-main-1;
-
-                &::after {
-                    background: $color-block-background-light;
-                }
-            }
-
-            span {
-                position: relative;
-                z-index: 2;
-            }
-        }
-    }
-}
-
 .pagination {
     list-style: none;
     padding: 0;
@@ -579,6 +531,55 @@ ul.tags {
             background: $color-muted-1;
         }
     }
+
+    .head ul.tags,
+    .body ul.tags {
+        list-style: none;
+        margin: 1.2em 0 0 0;
+        padding: 0;
+    
+        li {
+            display: inline-block;
+    
+            a {
+                position: relative;
+                display: inline-block;
+                padding: .3em 1.2em;
+                margin: .2em;
+                color: $color-tag-foreground;
+                text-decoration: none;
+                transition: color .1s;
+    
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 1;
+                    transform: skew(-20deg);
+                    border-radius: .3em;
+                    background: $color-tag-background;
+                    transition: opacity .1s, background .1s;
+                }
+    
+                &:hover {
+                    color: $color-background-main-1;
+    
+                    &::after {
+                        background: $color-block-background-light;
+                    }
+                }
+    
+                span {
+                    position: relative;
+                    z-index: 2;
+                }
+            }
+        }
+    }
 }
     
 .caption {
@@ -668,8 +669,7 @@ a.link-settings {
     }
 
     .badge {
-        background: $color-muted-3;
-        color: $color-muted-1;
+        filter: brightness(60%) saturate(150%);
     }
 
     .adjacent-content-links {
@@ -679,6 +679,10 @@ a.link-settings {
     }
 
     .container {
+        .head {
+            background: $color-background-main-4;
+        }
+
         .body {
             background: $color-background-light;
 
