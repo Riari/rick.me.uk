@@ -5,7 +5,7 @@ import DocEnd from "./DocEnd.astro";
 import ExternalLink from "./ExternalLink.astro";
 import HeadTopLinks from "./HeadTopLinks.astro";
 import HeadBottomLinks from "./HeadBottomLinks.astro";
-import ItemCard from "./ItemCard.astro";
+import ProjectCard from "./ProjectCard.astro";
 import { statusToBadgeClass } from "../util/frontmatter";
 
 const { projects, statusFilter = null } = Astro.props;
@@ -52,7 +52,9 @@ const { projects, statusFilter = null } = Astro.props;
 
                     {
                         statusFilter ? (
-                            <span>(<a href="/projects/">Clear filter</a>)</span>
+                            <span>
+                                (<a href="/projects/">Clear filter</a>)
+                            </span>
                         ) : null
                     }
                 </p>
@@ -61,12 +63,7 @@ const { projects, statusFilter = null } = Astro.props;
             <div class="card-grid">
                 {
                     projects.map((project: any) => (
-                        <ItemCard
-                            item={project}
-                            tagUrlPrefix="projects"
-                            hasPublishDate={false}
-                            hasStatus={true}
-                        />
+                        <ProjectCard project={project} />
                     ))
                 }
             </div>

@@ -1,0 +1,19 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+import ItemCard from "./ItemCard.astro";
+
+const { post } = Astro.props;
+---
+
+<ItemCard item={post}>
+    <span class="item-card-inner-header-publish-date" slot="after-title">
+        <FormattedDate date={post.data.pubDate} />
+    </span>
+    <div class="item-card-inner-footer-tags" slot="footer">
+        {
+            post.data.tags.map((tag: string) => (
+                <a href={`/posts/tag/${tag}/1`}>{tag}</a>
+            ))
+        }
+    </div>
+</ItemCard>

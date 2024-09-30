@@ -4,8 +4,8 @@ import DocStart from "../../components/DocStart.astro";
 import DocEnd from "../../components/DocEnd.astro";
 import HeadTopLinks from "../../components/HeadTopLinks.astro";
 import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
-import ItemCard from "../../components/ItemCard.astro";
 import Pagination from "../../components/Pagination.astro";
+import PostCard from "../../components/PostCard.astro";
 import { loadAndFormatCollection } from "../../util/collection";
 
 export async function getStaticPaths(options: GetStaticPathsOptions) {
@@ -33,12 +33,7 @@ const { page } = Astro.props;
         <div class="inner-container">
             {
                 page.data.map((post) => (
-                    <ItemCard
-                        item={post}
-                        tagUrlPrefix="posts"
-                        hasPublishDate={true}
-                        hasStatus={false}
-                    />
+                    <PostCard post={post} />
                 ))
             }
 

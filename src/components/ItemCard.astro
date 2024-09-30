@@ -1,13 +1,5 @@
 ---
-import FormattedDate from "./FormattedDate.astro";
-import { statusToBadgeClass } from "../util/frontmatter";
-
-const { item, tagUrlPrefix, hasPublishDate, hasStatus } = Astro.props;
-
-let statusClass = "";
-if (hasStatus) {
-    statusClass = statusToBadgeClass(item.data.status);
-}
+const { item } = Astro.props;
 ---
 
 <div class="item-card">
@@ -22,37 +14,13 @@ if (hasStatus) {
             <h3 class="item-card-inner-header-title">
                 {item.data.title}
             </h3>
-            {
-                hasPublishDate && (
-                    <span class="item-card-inner-header-publish-date">
-                        <FormattedDate date={item.data.pubDate} />
-                    </span>
-                )
-            }
-            {
-                hasStatus && (
-                    <span
-                        class:list={[
-                            "item-card-inner-header-status",
-                            statusClass,
-                        ]}
-                    >
-                        {item.data.status}
-                    </span>
-                )
-            }
+            <slot name="after-title" />
         </div>
         <div class="item-card-inner-body">
             {item.data.description}
         </div>
         <div class="item-card-inner-footer">
-            <div class="item-card-inner-footer-tags">
-                {
-                    item.data.tags.map((tag: string) => (
-                        <a href={`/${tagUrlPrefix}/tag/${tag}`}>{tag}</a>
-                    ))
-                }
-            </div>
+            <slot name="footer" />
         </div>
     </div>
 </div>

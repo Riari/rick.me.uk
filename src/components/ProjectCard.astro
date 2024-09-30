@@ -1,0 +1,24 @@
+---
+import ItemCard from "./ItemCard.astro";
+import { statusToBadgeClass } from "../util/frontmatter";
+
+const { project } = Astro.props;
+
+const statusClass = statusToBadgeClass(project.data.status);
+---
+
+<ItemCard item={project}>
+    <span
+        class:list={["item-card-inner-header-status", statusClass]}
+        slot="after-title"
+    >
+        {project.data.status}
+    </span>
+    <div class="item-card-inner-footer-tags" slot="footer">
+        {
+            project.data.tags.map((tag: string) => (
+                <a href={`/projects/tag/${tag}`}>{tag}</a>
+            ))
+        }
+    </div>
+</ItemCard>

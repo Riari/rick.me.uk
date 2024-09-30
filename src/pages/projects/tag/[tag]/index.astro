@@ -3,7 +3,7 @@ import DocStart from "../../../../components/DocStart.astro";
 import DocEnd from "../../../../components/DocEnd.astro";
 import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
 import HeadBottomLinks from "../../../../components/HeadBottomLinks.astro";
-import ItemCard from "../../../../components/ItemCard.astro";
+import ProjectCard from "../../../../components/ProjectCard.astro";
 import { loadAndFormatCollection, getTags } from "../../../../util/collection";
 
 export async function getStaticPaths() {
@@ -53,12 +53,7 @@ const tagHasPosts =
             <div class="card-grid">
                 {
                     projects.map((project) => (
-                        <ItemCard
-                            item={project}
-                            tagUrlPrefix="projects"
-                            hasPublishDate={false}
-                            hasStatus={true}
-                        />
+                        <ProjectCard project={project} />
                     ))
                 }
             </div>
