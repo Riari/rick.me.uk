@@ -1,0 +1,18 @@
+---
+import { loadAndFormatCollection, getTags } from "../../../util/collection";
+
+export async function getStaticPaths() {
+    const posts = await loadAndFormatCollection("posts");
+    const tags = await getTags(posts);
+
+    return [...tags].map((tag) => {
+        return {
+            params: { tag },
+        };
+    });
+}
+
+const { tag } = Astro.params;
+
+return Astro.redirect(`/posts/tag/${tag}/1`);
+---

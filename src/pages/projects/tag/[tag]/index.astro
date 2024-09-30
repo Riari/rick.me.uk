@@ -1,0 +1,68 @@
+---
+import DocStart from "../../../../components/DocStart.astro";
+import DocEnd from "../../../../components/DocEnd.astro";
+import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
+import HeadBottomLinks from "../../../../components/HeadBottomLinks.astro";
+import ItemCard from "../../../../components/ItemCard.astro";
+import { loadAndFormatCollection, getTags } from "../../../../util/collection";
+
+export async function getStaticPaths() {
+    const projects = await loadAndFormatCollection("projects", false);
+    const tags = await getTags(projects);
+
+    return tags.map((tag) => {
+        return {
+            params: { tag },
+        };
+    });
+}
+
+const { tag } = Astro.params;
+
+const projects = (await loadAndFormatCollection("projects", false))
+    .filter((post: any) => post.data.tags.includes(tag))
+    .sort((a: any, b: any) => a.data.weight - b.data.weight);
+
+const posts = await loadAndFormatCollection("posts");
+const tagHasPosts =
+    posts.filter((post: any) => post.data.tags.includes(tag)).length > 0;
+---
+
+<DocStart />
+<div class="container container--cards">
+    <div class="head head--slim">
+        <HeadTopLinks />
+
+        <h1>Projects</h1>
+        <h2 class="subheading">Tagged with '{tag}'</h2>
+
+        <HeadBottomLinks />
+    </div>
+
+    <div class="body">
+        <div class="inner-container">
+            {
+                tagHasPosts ? (
+                    <p class="text-center text--muted-3" style="margin-top: 0;">
+                        There are also
+                        <a href={`/posts/tag/${tag}/1`}>posts with this tag</a>
+                    </p>
+                ) : null
+            }
+
+            <div class="card-grid">
+                {
+                    projects.map((project) => (
+                        <ItemCard
+                            item={project}
+                            tagUrlPrefix="projects"
+                            hasPublishDate={false}
+                            hasStatus={true}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<DocEnd />

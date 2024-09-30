@@ -63,6 +63,7 @@ const { projects, statusFilter = null } = Astro.props;
                     projects.map((project: any) => (
                         <ItemCard
                             item={project}
+                            tagUrlPrefix="projects"
                             hasPublishDate={false}
                             hasStatus={true}
                         />

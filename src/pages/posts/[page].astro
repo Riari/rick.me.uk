@@ -1,0 +1,49 @@
+---
+import type { GetStaticPathsOptions } from "astro";
+import DocStart from "../../components/DocStart.astro";
+import DocEnd from "../../components/DocEnd.astro";
+import HeadTopLinks from "../../components/HeadTopLinks.astro";
+import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
+import ItemCard from "../../components/ItemCard.astro";
+import Pagination from "../../components/Pagination.astro";
+import { loadAndFormatCollection } from "../../util/collection";
+
+export async function getStaticPaths(options: GetStaticPathsOptions) {
+    const posts = (await loadAndFormatCollection("posts")).sort(
+        (a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    );
+
+    return options.paginate(posts, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+---
+
+<DocStart title="Posts" />
+<div class="container container--cards">
+    <div class="head head--slim">
+        <HeadTopLinks />
+
+        <h1>Posts</h1>
+
+        <HeadBottomLinks />
+    </div>
+
+    <div class="body">
+        <div class="inner-container">
+            {
+                page.data.map((post) => (
+                    <ItemCard
+                        item={post}
+                        tagUrlPrefix="posts"
+                        hasPublishDate={true}
+                        hasStatus={false}
+                    />
+                ))
+            }
+
+            <Pagination page={page} />
+        </div>
+    </div>
+</div>
+<DocEnd />

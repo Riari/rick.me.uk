@@ -1,0 +1,74 @@
+---
+import type { GetStaticPathsOptions } from "astro";
+import DocStart from "../../../../components/DocStart.astro";
+import DocEnd from "../../../../components/DocEnd.astro";
+import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
+import HeadBottomLinks from "../../../../components/HeadBottomLinks.astro";
+import ItemCard from "../../../../components/ItemCard.astro";
+import Pagination from "../../../../components/Pagination.astro";
+import { loadAndFormatCollection, getTags } from "../../../../util/collection";
+
+export async function getStaticPaths(options: GetStaticPathsOptions) {
+    const posts = await loadAndFormatCollection("posts");
+    const tags = await getTags(posts);
+
+    return tags.flatMap((tag) => {
+        const filteredPosts = posts
+            .filter((post: any) => post.data.tags.includes(tag))
+            .sort(
+                (a: any, b: any) =>
+                    b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+            );
+
+        return options.paginate(filteredPosts, {
+            params: { tag },
+            pageSize: 10,
+        });
+    });
+}
+
+const { page } = Astro.props;
+const { tag } = Astro.params;
+
+const projects = await loadAndFormatCollection("projects", false);
+const tagHasProjects =
+    projects.filter((project: any) => project.data.tags.includes(tag)).length >
+    0;
+---
+
+<DocStart />
+<div class="container container--cards">
+    <div class="head head--slim">
+        <HeadTopLinks />
+
+        <h1>Posts</h1>
+        <h2 class="subheading">Tagged with '{tag}'</h2>
+
+        <HeadBottomLinks />
+    </div>
+
+    <div class="body">
+        <div class="inner-container">
+            {
+                tagHasProjects ? (
+                    <p class="text-center text--muted-3" style="margin-top: 0;">
+                        There are also <a href={`/projects/tag/${tag}`}>projects with this tag</a>
+                    </p>
+                ) : null
+            }
+
+            {
+                page.data.map((post) => (
+                    <ItemCard
+                        item={post}
+                        tagUrlPrefix="posts"
+                        hasPublishDate={true}
+                    />
+                ))
+            }
+
+            <Pagination page={page} />
+        </div>
+    </div>
+</div>
+<DocEnd />

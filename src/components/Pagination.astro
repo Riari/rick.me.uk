@@ -1,0 +1,35 @@
+---
+const { page } = Astro.props;
+---
+
+{
+    page.total > page.size ? (
+        <nav class="pagination">
+            {page.url.first ? (
+                <a href={page.url.first}>« First</a>
+            ) : (
+                <span class="pagination-item-disabled">« First</span>
+            )}
+            {page.url.prev ? (
+                <a href={page.url.prev}>‹ Previous</a>
+            ) : (
+                <span class="pagination-item-disabled">‹ Previous</span>
+            )}
+
+            <span class="pagination-page-number">
+                Page {page.currentPage} of {page.lastPage}
+            </span>
+
+            {page.url.next ? (
+                <a href={page.url.next}>Next ›</a>
+            ) : (
+                <span class="pagination-item-disabled">Next ›</span>
+            )}
+            {page.url.last ? (
+                <a href={page.url.last}>Last »</a>
+            ) : (
+                <span class="pagination-item-disabled">Last »</span>
+            )}
+        </nav>
+    ) : null
+}

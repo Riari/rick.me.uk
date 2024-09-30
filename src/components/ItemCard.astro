@@ -2,9 +2,9 @@
 import FormattedDate from "./FormattedDate.astro";
 import { statusToBadgeClass } from "../util/frontmatter";
 
-const { item, hasPublishDate, hasStatus } = Astro.props;
+const { item, tagUrlPrefix, hasPublishDate, hasStatus } = Astro.props;
 
-let statusClass = '';
+let statusClass = "";
 if (hasStatus) {
     statusClass = statusToBadgeClass(item.data.status);
 }
@@ -15,23 +15,31 @@ if (hasStatus) {
     <div
         class="item-card-background"
         style={`background-image: url(${item.data.heroImage});`}
-    />
+    >
+    </div>
     <div class="item-card-inner">
         <div class="item-card-inner-header">
             <h3 class="item-card-inner-header-title">
                 {item.data.title}
             </h3>
-            { hasPublishDate &&
-                <span class="item-card-inner-header-publish-date">
-                    <FormattedDate
-                        date={item.data.pubDate}
-                    />
-                </span>
+            {
+                hasPublishDate && (
+                    <span class="item-card-inner-header-publish-date">
+                        <FormattedDate date={item.data.pubDate} />
+                    </span>
+                )
             }
-            { hasStatus &&
-                <span class:list={['item-card-inner-header-status', statusClass]}>
-                    {item.data.status}
-                </span>
+            {
+                hasStatus && (
+                    <span
+                        class:list={[
+                            "item-card-inner-header-status",
+                            statusClass,
+                        ]}
+                    >
+                        {item.data.status}
+                    </span>
+                )
             }
         </div>
         <div class="item-card-inner-body">
@@ -39,9 +47,11 @@ if (hasStatus) {
         </div>
         <div class="item-card-inner-footer">
             <div class="item-card-inner-footer-tags">
-                {item.data.tags.map((tag: string) => (
-                    <a href={`/tags/${tag}/`}>{tag}</a>
-                ))}
+                {
+                    item.data.tags.map((tag: string) => (
+                        <a href={`/${tagUrlPrefix}/tag/${tag}`}>{tag}</a>
+                    ))
+                }
             </div>
         </div>
     </div>

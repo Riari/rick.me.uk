@@ -84,6 +84,7 @@ hr {
     background: $color-muted-1;
 }
 
+.container .body p.text,
 .text {
     &--primary-1 {
         color: $color-primary-1;
@@ -284,44 +285,31 @@ a.badge {
 }
 
 .pagination {
-    list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 1.8rem 0;
     text-align: center;
 
-    li {
+    span.pagination-item-disabled,
+    a {
         display: inline-block;
-        border-radius: .3em;
-        background: rgba(27, 27, 36, 0.6);
-        transition: background .1s, color .1s;
+        padding: .3rem 1rem;
+        margin: .2rem;
+        border-radius: .3rem;
+    }
+    
+    span.pagination-item-disabled {
+        background: $color-background-main-1;
+        color: $color-muted-2;
+    }
 
-        a {
-            display: block;
-            padding: .4em .8em;
-            font-family: $font-family-sans-serif;
-            font-size: .8em;
-            color: inherit;
-            text-decoration: none;
-        }
+    a {
+        background: $color-background-main-1;
+    }
 
-        &:hover {
-            background: rgba(224, 235, 245, 0.8);
-            color: $color-background-main-1;
-        }
-
-        &.active {
-            font-weight: bold;
-        }
-
-        &.disabled {
-            cursor: default;
-            opacity: .5;
-
-            &:hover {
-                background: rgba(27, 27, 36, 0.6);
-                color: inherit;
-            }
-        }
+    span.pagination-page-number {
+        display: inline-block;
+        margin: .2rem 1rem;
+        color: $color-muted-2;
     }
 }
     
@@ -856,6 +844,13 @@ a.link-settings {
         }
     }
 
+    .pagination {
+        span.pagination-item-disabled,
+        a {
+            background: $color-background-light-dimmed;
+        }
+    }
+
     .modal-overlay .modal {
         background: $color-background-light;
         color: $color-foreground-light;
@@ -897,6 +892,11 @@ a.link-settings {
         .image-container {
             margin: 1rem 0;
         }
+    }
+
+    .pagination span.pagination-page-number {
+        display: block;
+        margin: .8rem;
     }
 }
 
