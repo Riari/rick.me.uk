@@ -266,6 +266,23 @@ a.badge {
     }
 }
 
+.tabs {
+    border-bottom: 2px solid $color-background-main-2;
+    text-align: center;
+
+    .tab {
+        display: inline-block;
+        padding: .5em 1em;
+        border-top-left-radius: .3rem;
+        border-top-right-radius: .3rem;
+        background: linear-gradient(to bottom, transparentize($color-background-main-2, 0.5), $color-background-main-2);
+
+        &--active {
+            background: linear-gradient(to bottom, $color-background-main-3, $color-background-main-2);
+        }
+    }
+}
+
 .pagination {
     list-style: none;
     padding: 0;
