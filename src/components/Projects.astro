@@ -1,0 +1,76 @@
+---
+import { projectStatuses } from "../content/config";
+import DocStart from "./DocStart.astro";
+import DocEnd from "./DocEnd.astro";
+import ExternalLink from "./ExternalLink.astro";
+import HeadTopLinks from "./HeadTopLinks.astro";
+import HeadBottomLinks from "./HeadBottomLinks.astro";
+import ItemCard from "./ItemCard.astro";
+import { statusToBadgeClass } from "../util/frontmatter";
+
+const { projects, statusFilter = null } = Astro.props;
+---
+
+<DocStart title="Projects" />
+<div class="container container--cards">
+    <div class="head head--slim">
+        <HeadTopLinks />
+
+        <h1>Projects</h1>
+
+        <HeadBottomLinks />
+    </div>
+
+    <div class="body">
+        <div class="inner-container">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                This is a selection of projects I'm working on (or have
+                previously worked on).
+                <br />
+                You can find more of my software projects on <ExternalLink
+                    url="https://github.com/Riari"
+                    label="GitHub"
+                />.
+
+                <p>
+                    Filter by status:
+                    {
+                        projectStatuses.map((status: string) => (
+                            <a
+                                href={`/projects/status/${status.toLocaleLowerCase()}/`}
+                                class:list={[
+                                    statusToBadgeClass(status),
+                                    statusFilter === status.toLocaleLowerCase()
+                                        ? "badge--active"
+                                        : "",
+                                ]}
+                                style="display: inline-block; margin: 0 0.35rem;"
+                            >
+                                {status}
+                            </a>
+                        ))
+                    }
+
+                    {
+                        statusFilter ? (
+                            <span>(<a href="/projects/">Clear filter</a>)</span>
+                        ) : null
+                    }
+                </p>
+            </div>
+
+            <div class="card-grid">
+                {
+                    projects.map((project: any) => (
+                        <ItemCard
+                            item={project}
+                            hasPublishDate={false}
+                            hasStatus={true}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<DocEnd />

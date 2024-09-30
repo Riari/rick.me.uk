@@ -1,0 +1,21 @@
+---
+import { projectStatuses } from "../../../content/config";
+import { loadAndFormatCollection } from "../../../util/collection";
+import Projects from "../../../components/Projects.astro";
+
+export async function getStaticPaths() {
+    return projectStatuses.map((status: string) => ({
+        params: { status: status.toLocaleLowerCase() }
+    }))
+}
+
+const { status } = Astro.params;
+
+let projects: any[] = (await loadAndFormatCollection("projects", false)).sort(
+    (a: any, b: any) => a.data.weight - b.data.weight,
+)
+
+projects = projects.filter((project: any) => (project.data.status as string).localeCompare(status, undefined, { sensitivity: 'base' }) === 0)
+---
+
+<Projects projects={projects} statusFilter={status} />

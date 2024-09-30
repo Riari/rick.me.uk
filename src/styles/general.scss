@@ -84,48 +84,50 @@ hr {
     background: $color-muted-1;
 }
 
-.text--primary-1 {
-    color: $color-primary-1;
-}
+.text {
+    &--primary-1 {
+        color: $color-primary-1;
+    }
+    
+    &--primary-2 {
+        color: $color-primary-2;
+    }
+    
+    &--primary-3 {
+        color: $color-primary-3;
+    }
+    
+    &--primary-4 {
+        color: $color-primary-4;
+    }
+    
+    &--primary-5 {
+        color: $color-primary-5;
+    }
+    
+    &--primary-6 {
+        color: $color-primary-6;
+    }
+    
+    &--primary-7 {
+        color: $color-primary-7;
+    }
+    
+    &--primary-8 {
+        color: $color-primary-8;
+    }
+    
+    &--muted-1 {
+        color: $color-muted-1;
+    }
+    
+    &--muted-2 {
+        color: $color-muted-2;
+    }
 
-.text--primary-2 {
-    color: $color-primary-2;
-}
-
-.text--primary-3 {
-    color: $color-primary-3;
-}
-
-.text--primary-4 {
-    color: $color-primary-4;
-}
-
-.text--primary-5 {
-    color: $color-primary-5;
-}
-
-.text--primary-6 {
-    color: $color-primary-6;
-}
-
-.text--primary-7 {
-    color: $color-primary-7;
-}
-
-.text--primary-8 {
-    color: $color-primary-8;
-}
-
-.text--muted-1 {
-    color: $color-muted-1;
-}
-
-.text--muted-2 {
-    color: $color-muted-2;
-}
-
-.text--muted-3 {
-    color: $color-muted-3;
+    &--muted-3 {
+        color: $color-muted-3;
+    }
 }
 
 .text-center {
@@ -197,6 +199,15 @@ hr {
     &--muted-4 {
         background: $color-background-main-4;
         color: $color-muted-4;
+    }
+
+    &--active {
+        font-weight: bold;
+
+        &::before {
+            content: "•";
+            margin-right: 0.2em;
+        }
     }
 }
 
@@ -694,6 +705,38 @@ a.link-settings {
     .badge {
         filter: brightness(60%) saturate(150%);
 
+        &--primary-1 {
+            color: $color-primary-1;
+        }
+    
+        &--primary-2 {
+            color: $color-primary-2;
+        }
+    
+        &--primary-3 {
+            color: $color-primary-3;
+        }
+    
+        &--primary-4 {
+            color: $color-primary-4;
+        }
+    
+        &--primary-5 {
+            color: $color-primary-5;
+        }
+    
+        &--primary-6 {
+            color: $color-primary-6;
+        }
+    
+        &--primary-7 {
+            color: $color-primary-7;
+        }
+    
+        &--primary-8 {
+            color: $color-primary-8;
+        }
+
         &--muted-1,
         &--muted-2,
         &--muted-3 {
@@ -706,6 +749,14 @@ a.link-settings {
             background: $color-muted-3;
             color: $color-foreground-light;
             filter: none;
+        }
+    }
+    
+    a {
+        color: $color-link-light;
+
+        &:hover {
+            color: #000000;
         }
     }
 
@@ -722,17 +773,10 @@ a.link-settings {
 
         .body {
             background: $color-background-light;
+            color: $color-foreground-light;
 
             .publish-date {
                 color: $color-muted-1;
-            }
-    
-            a {
-                color: $color-link-light;
-
-                &:hover {
-                    color: #000000;
-                }
             }
     
             article, p, ul, ol {

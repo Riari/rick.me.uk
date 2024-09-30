@@ -1,48 +1,10 @@
 ---
-import DocStart from "../../components/DocStart.astro";
-import DocEnd from "../../components/DocEnd.astro";
-import ExternalLink from "../../components/ExternalLink.astro";
-import HeadTopLinks from "../../components/HeadTopLinks.astro";
-import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
-import ItemCard from "../../components/ItemCard.astro";
-import { loadAndFormatCollection } from "../../util/collection";
+import { loadAndFormatCollection } from "../../util/collection"
+import Projects from "../../components/Projects.astro"
 
-const projects = (await loadAndFormatCollection("projects", false)).sort(
+let projects: any[] = (await loadAndFormatCollection("projects", false)).sort(
     (a: any, b: any) => a.data.weight - b.data.weight,
-);
+)
 ---
 
-<DocStart title="Projects" />
-<div class="container container--cards">
-    <div class="head head--slim">
-        <HeadTopLinks />
-
-        <h1>Projects</h1>
-
-        <HeadBottomLinks />
-    </div>
-
-    <div class="body">
-        <div class="inner-container">
-            <div class="text-center" style="margin-bottom: 2rem;">
-                This is a selection of projects I'm working on (or have
-                previously worked on).
-                <br />
-                You can find more of my software projects on <ExternalLink url="https://github.com/Riari" label="GitHub" />.
-            </div>
-
-            <div class="card-grid">
-                {
-                    projects.map((project: any) => (
-                        <ItemCard
-                            item={project}
-                            hasPublishDate={false}
-                            hasStatus={true}
-                        />
-                    ))
-                }
-            </div>
-        </div>
-    </div>
-</div>
-<DocEnd />
+<Projects projects={projects} />

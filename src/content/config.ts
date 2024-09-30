@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import type { string } from 'astro:schema';
 
 const posts = defineCollection({
 	type: 'content',
@@ -11,12 +12,20 @@ const posts = defineCollection({
 	}),
 });
 
+export enum ProjectStatus {
+    Active = 'Active',
+    Complete = 'Complete',
+    Archived = 'Archived',
+}
+
+export const projectStatuses: string[] = Object.values(ProjectStatus)
+
 const projects = defineCollection({
     type: 'content',
     schema: z.object({
         title: z.string(),
         description: z.string(),
-        status: z.enum(['Active', 'Inactive', 'Complete']),
+        status: z.enum((projectStatuses as [string, ...string[]])),
 		weight: z.number(),
 		heroImage: z.string(),
         url: z.string().url(),

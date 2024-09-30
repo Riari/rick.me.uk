@@ -1,11 +1,13 @@
+import { ProjectStatus } from "../content/config"
+
 export function statusToBadgeClass(status: string) {
     switch (status) {
-        case 'Active':
+        case ProjectStatus.Active:
             return 'badge badge--primary-4'
-        case 'Inactive':
-            return 'badge badge--primary-3'
-        case 'Complete':
+        case ProjectStatus.Complete:
             return 'badge badge--primary-2'
+        case ProjectStatus.Archived:
+            return 'badge badge--primary-3'
         default:
             return ''
     }
