@@ -1,6 +1,6 @@
 import { getCollection } from 'astro:content';
 
-export async function loadAndFormatCollection(name: any, filters: any = [], withDate = true) {
+export async function loadAndFormatCollection(name: any, withDate = true) {
 	const collection = await getCollection(name)
 
     collection.forEach((item: any) => {
