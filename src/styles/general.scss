@@ -344,16 +344,73 @@ a.badge {
         margin-bottom: 0;
     }
 
-    &--info .alert-icon {
-        color: $color-primary-5;
+    &--info {
+        .alert-accent {
+            &::before {
+                background: linear-gradient(to left, $color-primary-5, rgba($color-primary-5, 0));
+            }
+
+            &::after {
+                background: linear-gradient(to right, $color-primary-5, rgba($color-primary-5, 0));
+            }
+        }
+
+        .alert-icon {
+            color: $color-primary-5;
+        }
     }
 
-    &--tip .alert-icon {
-        color: $color-primary-7;
+    &--tip {
+        .alert-accent {
+            &::before {
+                background: linear-gradient(to left, $color-primary-7, rgba($color-primary-7, 0));
+            }
+
+            &::after {
+                background: linear-gradient(to right, $color-primary-7, rgba($color-primary-7, 0));
+            }
+        }
+
+        .alert-icon {
+            color: $color-primary-7;
+        }
     }
 
-    &--warn .alert-icon {
-        color: $color-primary-3;
+    &--warn {
+        .alert-accent {
+            &::before {
+                background: linear-gradient(to left, $color-primary-6, rgba($color-primary-6, 0));
+            }
+
+            &::after {
+                background: linear-gradient(to right, $color-primary-6, rgba($color-primary-6, 0));
+            }
+        }
+
+        .alert-icon {
+            color: $color-primary-6;
+        }
+    }
+
+    .alert-accent {
+        &::before,
+        &::after {
+            display: block;
+            content: "";
+            position: absolute;
+            top: -2px;
+            height: 2px;
+        }
+
+        &::before {
+            left: 1rem;
+            right: 50%;
+        }
+
+        &::after {
+            right: 1rem;
+            left: 50%;
+        }
     }
 
     .alert-icon {

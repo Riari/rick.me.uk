@@ -7,11 +7,8 @@ const { type } = Astro.props;
 
 const classes = `alert alert--${type}`;
 
-let Icon;
+let Icon = InfoIcon;
 switch (type) {
-    case "info":
-        Icon = InfoIcon;
-        break;
     case "tip":
         Icon = BulbIcon;
         break;
@@ -22,6 +19,7 @@ switch (type) {
 ---
 
 <div class={classes}>
+    <div class="alert-accent"></div>
     <div class="alert-icon"><Icon width="24" height="24" /></div>
     <slot />
 </div>
