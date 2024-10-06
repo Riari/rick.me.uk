@@ -1,0 +1,27 @@
+---
+import BulbIcon from "./Icons/BulbIcon.astro";
+import InfoIcon from "./Icons/InfoIcon.astro";
+import WarningIcon from "./Icons/WarningIcon.astro";
+
+const { type } = Astro.props;
+
+const classes = `alert alert--${type}`;
+
+let Icon;
+switch (type) {
+    case "info":
+        Icon = InfoIcon;
+        break;
+    case "tip":
+        Icon = BulbIcon;
+        break;
+    case "warn":
+        Icon = WarningIcon;
+        break;
+}
+---
+
+<div class={classes}>
+    <div class="alert-icon"><Icon width="24" height="24" /></div>
+    <slot />
+</div>

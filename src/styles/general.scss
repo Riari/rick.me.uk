@@ -68,6 +68,11 @@ h4 {
     }
 }
 
+p {
+    margin-bottom: 1.2em;
+    color: $color-foreground-dark;
+}
+
 a {
     color: $color-primary-1;
     text-decoration: none;
@@ -277,7 +282,7 @@ a.badge {
         display: inline-block;
         padding: .3rem 1rem;
         margin: .2rem;
-        border-radius: .3rem;
+        border-radius: .3em;
     }
     
     span.pagination-item-disabled {
@@ -321,6 +326,47 @@ a.badge {
 
     .next {
         text-align: right;
+    }
+}
+
+.alert {
+    position: relative;
+    padding: 1em;
+    margin: 1.2em 0;
+    border-radius: .5em;
+    border: 2px solid $color-muted-1;
+
+    p:first-of-type {
+        margin-top: 0;
+    }
+
+    p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &--info .alert-icon {
+        color: $color-primary-5;
+    }
+
+    &--tip .alert-icon {
+        color: $color-primary-7;
+    }
+
+    &--warn .alert-icon {
+        color: $color-primary-3;
+    }
+
+    .alert-icon {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 .5rem;
+        background: $color-background-dark;
+
+        svg {
+            display: block;
+        }
     }
 }
 
@@ -453,17 +499,12 @@ a.badge {
             }
         }
 
-        p {
-            margin-bottom: 1.2em;
-            color: $color-foreground-dark;
-        }
-
         p > code,
         ul > li > code,
         ol > li > code {
             display: inline-block;
             padding: 0 .4em;
-            border-radius: 0.2em;
+            border-radius: .2em;
             background: $color-inline-code-background-dark;
             font-size: 1rem;
             font-family: $font-family-monospace;
@@ -755,6 +796,14 @@ a.link-settings {
     .adjacent-content-links {
         a:hover span {
             color: #000;
+        }
+    }
+
+    .alert {
+        border-color: $color-muted-3;
+
+        .alert-icon {
+            background: $color-background-light;
         }
     }
 
