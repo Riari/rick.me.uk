@@ -1,6 +1,6 @@
 ---
 title: 'Advent of Code in Odin'
-description: ''
+description: 'Setting up VS Code for Odin and AoC'
 pubDate: 2024-10-06
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["advent-of-code", "odin", "github-template"]
@@ -9,18 +9,31 @@ import Alert from "../../../components/Alert.astro"
 import ExternalLink from "../../../components/ExternalLink.astro"
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
 
-I've been wanting to try <ExternalLink url="https://odin-lang.org/" label="Odin" /> for a while now and decided I'd try it out for this year's Advent of Code event. Rather than going blindly into that, though, I thought it best to get some practice in first, so I started tackling the 2016 AoC event instead.
+I've been wanting to try <ExternalLink url="https://odin-lang.org/" label="Odin" /> for a while now and decided it's the language I'll use for this year's _Advent of Code_ event.
 
-To that end, I put together some useful utils and VS Code configurations to make working on AoC puzzles in Odin a little easier.
+Before I could do that, though, I wanted to set up an easy way of building, debugging, and testing puzzle solutions in VS Code. There aren't many public GitHub repos with the specific combination of Odin, VS Code and Advent of Code, and none of them felt suitable as a starting point, so I decided to put together some useful utils and VS Code configurations of my own.
 
-TODO: write the rest!
+To that end, I created a GitHub template that provides three tasks:
 
-If you'd like to use the template, here's the repository:
+* **Init:** Create a package in the workspace with the provided directory name. This writes a `main.odin` with some boilerplate as well as an empty `input` file.
+* **Build:** Build the package of the current file's package.
+* **Test:** Build and run any tests available in the current file's package.
+
+It also provides two launch configurations:
+
+* **Debug:** Build and debug the current file's package.
+* **Debug tests:** Build and debug any tests available in the current file's package.
+
+There is a slight caveat with the _Debug tests_ configuration in that it executes the tests twice—once without a debugger and again with. This is because the only way to build tests (as far as I can tell) is with `odin test`, which is what the _Test_ task uses. So _Debug tests_ will run that first to get up-to-date test binaries, then launch the debugger. If I can figure out a way of building the tests without running them, I'll update the config.
+
+If you're interested in using the template, here's the repository:
 
 <OpenGraphSummary url="https://github.com/Riari/odin-aoc-vscode-template" />
 
+With that done, it's time to get some practice in so I'm not going into AoC 2024 blind! I'll probably use Odin to tackle some of the puzzles from a previous year, which should give me a good sense of the language.
+
 <Alert type="info">
-For those unfamiliar, <ExternalLink url="https://adventofcode.com/" label="Advent of Code" /> is a Christmas-themed annual event consisting of an advent calendar of programming puzzles. Each day, from the 1st of December to the 25th (inclusive), a puzzle is unlocked. Each puzzle takes the form of a fictional scenario requiring two answers. Input values are generated per user, so you have to solve the puzzles with your own input to discover your uniquely correct answers. Completing a part earns you one star, with 50 possible stars to obtain per event.
+For those unfamiliar, <ExternalLink url="https://adventofcode.com/" label="Advent of Code" /> is a Christmas-themed annual event consisting of an advent calendar of programming puzzles. Each day, from the 1st of December to the 25th (inclusive), a puzzle is unlocked. Each puzzle takes the form of a fictional scenario requiring two answers, which are unique to you because each user gets their own puzzle input. Completing a part earns you one star, with 50 possible stars to obtain per event.
 
 There are public leaderboards as well as the option to create private ones for those who wish to compete against their chosen peers.
 

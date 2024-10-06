@@ -447,7 +447,6 @@ a.badge {
     
         p {
             line-height: 1.5;
-            color: $color-muted-3;
 
             &.lead {
                 font-size: 1.6em;
@@ -699,6 +698,10 @@ a.badge {
     }
 
     .footer {
+        p {
+            color: $color-muted-3;
+        }
+
         strong {
             display: block;
             margin-top: 1rem;
@@ -943,6 +946,10 @@ a.link-settings {
     .modal-overlay .modal {
         background: $color-background-light;
         color: $color-foreground-light;
+
+        p {
+            color: $color-foreground-light;
+        }
 
         .modal-close svg {
             color: $color-foreground-light;
