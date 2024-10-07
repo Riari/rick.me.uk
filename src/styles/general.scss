@@ -329,104 +329,6 @@ a.badge {
     }
 }
 
-.alert {
-    position: relative;
-    padding: 1em;
-    margin: 1.2em 0;
-    border-radius: .5em;
-    border: 2px solid $color-muted-1;
-
-    p:first-of-type {
-        margin-top: 0;
-    }
-
-    p:last-of-type {
-        margin-bottom: 0;
-    }
-
-    &--info {
-        .alert-accent {
-            &::before {
-                background: linear-gradient(to left, $color-primary-5, rgba($color-primary-5, 0));
-            }
-
-            &::after {
-                background: linear-gradient(to right, $color-primary-5, rgba($color-primary-5, 0));
-            }
-        }
-
-        .alert-icon {
-            color: $color-primary-5;
-        }
-    }
-
-    &--tip {
-        .alert-accent {
-            &::before {
-                background: linear-gradient(to left, $color-primary-7, rgba($color-primary-7, 0));
-            }
-
-            &::after {
-                background: linear-gradient(to right, $color-primary-7, rgba($color-primary-7, 0));
-            }
-        }
-
-        .alert-icon {
-            color: $color-primary-7;
-        }
-    }
-
-    &--warn {
-        .alert-accent {
-            &::before {
-                background: linear-gradient(to left, $color-primary-6, rgba($color-primary-6, 0));
-            }
-
-            &::after {
-                background: linear-gradient(to right, $color-primary-6, rgba($color-primary-6, 0));
-            }
-        }
-
-        .alert-icon {
-            color: $color-primary-6;
-        }
-    }
-
-    .alert-accent {
-        &::before,
-        &::after {
-            display: block;
-            content: "";
-            position: absolute;
-            top: -2px;
-            height: 2px;
-        }
-
-        &::before {
-            left: 1rem;
-            right: 50%;
-        }
-
-        &::after {
-            right: 1rem;
-            left: 50%;
-        }
-    }
-
-    .alert-icon {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 0 .5rem;
-        background: $color-background-dark;
-
-        svg {
-            display: block;
-        }
-    }
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -856,14 +758,6 @@ a.link-settings {
     .adjacent-content-links {
         a:hover span {
             color: #000;
-        }
-    }
-
-    .alert {
-        border-color: $color-muted-3;
-
-        .alert-icon {
-            background: $color-background-light;
         }
     }
 

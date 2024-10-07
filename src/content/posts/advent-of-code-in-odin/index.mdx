@@ -1,7 +1,7 @@
 ---
 title: 'Advent of Code in Odin'
 description: 'Setting up VS Code for Odin and AoC'
-pubDate: 2024-10-06
+pubDate: 2024-10-07
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["advent-of-code", "odin", "github-template"]
 ---
@@ -11,31 +11,139 @@ import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
 
 I've been wanting to try <ExternalLink url="https://odin-lang.org/" label="Odin" /> for a while now and decided it's the language I'll use for this year's _Advent of Code_ event.
 
-Before I could do that, though, I wanted to set up an easy way of building, debugging, and testing puzzle solutions in VS Code. There aren't many public GitHub repos with the specific combination of Odin, VS Code and Advent of Code, and none of them felt suitable as a starting point, so I decided to put together some useful utils and VS Code configurations of my own.
+<Alert type="info">
+For those unfamiliar, <ExternalLink url="https://adventofcode.com/" label="Advent of Code" /> is a Christmas-themed annual event consisting of an advent calendar of programming puzzles. Each day, from the 1st of December to the 25th (inclusive), a puzzle is unlocked. Each puzzle consists of two parts, each requiring an answer. One star is earned per correct answer.
 
-To that end, I created a GitHub template that provides three tasks:
+For those who want to take part competitively, there are public leaderboards as well as the option to create private ones.
 
-* **Init:** Create a package in the workspace with the provided directory name. This writes a `main.odin` with some boilerplate as well as an empty `input` file.
-* **Build:** Build the package of the current file's package.
-* **Test:** Build and run any tests available in the current file's package.
+It's an excellent way to explore a language you've not used before or practice with one you're already familiar with!
+</Alert>
 
-It also provides two launch configurations:
+Before I could properly get familiar with Odin, I wanted to set up an easy way of building, debugging, and testing puzzle solutions in VS Code. I also wanted to be able to do these things easily on both Windows and Linux.
 
-* **Debug:** Build and debug the current file's package.
-* **Debug tests:** Build and debug any tests available in the current file's package.
+At the time of writing, there aren't many public GitHub repos with the specific combination of Odin, VS Code and Advent of Code, and none of them felt suitable as a starting point (especially cross-platform), so I decided to put together some useful utils and VS Code configurations of my own.
 
-There is a slight caveat with the _Debug tests_ configuration in that it executes the tests twice—once without a debugger and again with. This is because the only way to build tests (as far as I can tell) is with `odin test`, which is what the _Test_ task uses. So _Debug tests_ will run that first to get up-to-date test binaries, then launch the debugger. If I can figure out a way of building the tests without running them, I'll update the config.
+First up were the <ExternalLink url="https://code.visualstudio.com/docs/editor/tasks" label="tasks" />. I wanted to be able to do three things with these:
 
-If you're interested in using the template, here's the repository:
+* Build the package that the current file belongs to (which should, by Odin's conventions, be the directory the file resides in).
+* Build any tests available in the package the current file belongs to.
+* Easily generate boilerplate for a new puzzle solution.
+
+Odin comes with its own tool for managing Odin source code, including building and testing. It plays a similar role to Rust's `cargo`. The first two tasks can be handled by `odin build` and `odin test` respectively, while the third can be handled by a utility written in Odin, which is then run with `odin run` using a user-defined name for the directory it should create.
+
+Here's what I came up with:
+
+```json
+{
+    "version": "2.0.0",
+    "command": "",
+    "args": [],
+    "tasks": [
+        {
+            "label": "Init",
+            "type": "shell",
+            "command": "odin run ${workspaceFolder}/utils/init -out:build/util-init -- ${input:directoryName}",
+            "windows": {
+                "command": "odin run ${workspaceFolder}\\utils\\init -out:build\\util-init.exe -- ${input:directoryName}",
+            },
+            "problemMatcher": [],
+            "group": "none"
+        },
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "odin build ${relativeFileDirname} -debug -out:build/${relativeFileDirname}",
+            "windows": {
+                "command": "odin build ${relativeFileDirname} -debug -out:build\\${relativeFileDirname}.exe",
+            },
+            "group": "build"
+        },
+        {
+            "label": "Test",
+            "type": "shell",
+            "command": "odin test ${relativeFileDirname} -debug -define:ODIN_TEST_SHORT_LOGS=true -out:build/${relativeFileDirname}-tests",
+            "windows": {
+                "command": "odin test ${relativeFileDirname} -debug -define:ODIN_TEST_SHORT_LOGS=true -out:build\\${relativeFileDirname}-tests.exe",
+            },
+            "problemMatcher": [],
+            "group": "test"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "directoryName",
+            "description": "Enter directory name",
+            "type": "promptString",
+            "default": "01"
+        }
+    ]
+}
+```
+<div class="caption">`.vscode/tasks.json`</div>
+
+(Note the "inputs" section - this is a useful feature that allows you to accept input from the user via a prompt.)
+
+Next, the <ExternalLink url="https://code.visualstudio.com/docs/editor/debugging#_launch-configurations" label="launch configurations" />. I just needed two—one for debugging a solution, and another for debugging its tests.
+
+Originally, the plan was to make the same configurations work on both Windows and Linux, so I started down the path of using GDB as a debugger on both platforms. Unfortunately that didn't work because Odin on Windows compiles via MSVC, which produces PDB files, which can't be used by GDB. I'd have to either figure out how to make Odin use a different compiler on Windows (assuming that's even possible) or use WSL2. I opted to create separate Windows-specific launch configs instead.
+
+I ended up with this:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Build",
+            "program": "${workspaceFolder}/build/${relativeFileDirname}",
+            "args": [],
+            "cwd": "${workspaceFolder}/build"
+        },
+        {
+            "name": "Debug tests",
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Test",
+            "program": "${workspaceFolder}/build/${relativeFileDirname}-tests",
+            "args": [],
+            "cwd": "${workspaceFolder}/build"
+        },
+        {
+            "name": "(Windows) Debug",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "preLaunchTask": "Build",
+            "program": "${workspaceFolder}\\build\\${relativeFileDirname}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}\\build",
+            "environment": [],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "(Windows) Debug tests",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "preLaunchTask": "Test",
+            "program": "${workspaceFolder}\\build\\${relativeFileDirname}-tests.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}\\build",
+            "environment": [],
+            "console": "integratedTerminal"
+        }
+    ]
+}
+```
+<div class="caption">`.vscode/launch.json`</div>
+
+There is a slight caveat with the _Debug tests_ configs in that they execute the tests twice—once without a debugger and again with. This is because the only way to build tests (as far as I can tell) is with `odin test` (hence that's what the _Test_ task uses). So _Debug tests_ will run that first to get up-to-date test binaries, then launch the debugger. If I can figure out a way of building the tests without running them, I'll update the config.
+
+Other than that, it works pretty well. Now I can focus on writing some Odin and get some practice in before AoC 2024 begins!
+
+If you're interested in using the same setup for AoC, I created a GitHub template repo for it:
 
 <OpenGraphSummary url="https://github.com/Riari/odin-aoc-vscode-template" />
-
-With that done, it's time to get some practice in so I'm not going into AoC 2024 blind! I'll probably use Odin to tackle some of the puzzles from a previous year, which should give me a good sense of the language.
-
-<Alert type="info">
-For those unfamiliar, <ExternalLink url="https://adventofcode.com/" label="Advent of Code" /> is a Christmas-themed annual event consisting of an advent calendar of programming puzzles. Each day, from the 1st of December to the 25th (inclusive), a puzzle is unlocked. Each puzzle takes the form of a fictional scenario requiring two answers, which are unique to you because each user gets their own puzzle input. Completing a part earns you one star, with 50 possible stars to obtain per event.
-
-There are public leaderboards as well as the option to create private ones for those who wish to compete against their chosen peers.
-
-It's an excellent way to explore a language you've not used before or practice in one you're already familiar with!
-</Alert>
