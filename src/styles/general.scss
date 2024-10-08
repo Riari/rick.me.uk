@@ -881,13 +881,19 @@ a.link-settings {
         margin: 2em 0;
     }
 
-    .container .body .columns {
-        &--3 {
-            column-count: 1;
+    .container .body {
+        .og-summary img {
+            max-width: 100%;
         }
 
-        .image-container {
-            margin: 1rem 0;
+        .columns {
+            &--3 {
+                column-count: 1;
+            }
+
+            .image-container {
+                margin: 1rem 0;
+            }
         }
     }
 
