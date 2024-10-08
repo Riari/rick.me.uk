@@ -81,7 +81,7 @@ a {
         color: #fff;
     }
 
-    &[target="_blank"] {
+    &.external-link {
         white-space: nowrap;
     }
 }

@@ -4,4 +4,4 @@ import ExternalLinkIcon from "./Icons/ExternalLinkIcon.astro";
 const { url, label } = Astro.props;
 ---
 
-<a href={url} target="_blank" title={url}>{label} <ExternalLinkIcon /></a>
+<a href={url} target="_blank" title={url} class="external-link">{label} <ExternalLinkIcon /></a>
