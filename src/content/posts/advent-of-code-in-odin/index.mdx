@@ -81,7 +81,7 @@ Here's what I came up with:
 ```
 <div class="caption">`.vscode/tasks.json`</div>
 
-(Note the "inputs" section - this is a useful feature that allows you to accept input from the user via a prompt.)
+(Note the "inputs" section—this is a useful feature that allows you to accept input from the user via a prompt.)
 
 Next, the <ExternalLink url="https://code.visualstudio.com/docs/editor/debugging#_launch-configurations" label="launch configurations" />. I just needed two—one for debugging a solution, and another for debugging its tests.
 
@@ -139,6 +139,10 @@ I ended up with this:
 }
 ```
 <div class="caption">`.vscode/launch.json`</div>
+
+<Alert type="tip">
+The `lldb` configuration type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb" label="CodeLLDB" /> extension and the `cppvsdbg` type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" label="C/C++" /> extension.
+</Alert>
 
 There is a slight caveat with the _Debug tests_ configs in that they execute the tests twice—once without a debugger and again with. This is because the only way to build tests (as far as I can tell) is with `odin test` (hence that's what the _Test_ task uses). So _Debug tests_ will run that first to get up-to-date test binaries, then launch the debugger. If I can figure out a way of building the tests without running them, I'll update the config.
 

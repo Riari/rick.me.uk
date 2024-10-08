@@ -9,6 +9,10 @@
     border-radius: .5em;
     border: 2px solid $color-muted-1;
 
+    p {
+        color: $color-foreground-dark-dimmed;
+    }
+
     &::before {
         display: block;
         content: "";
@@ -38,14 +42,8 @@
     }
 
     &--tip {
-        .alert-accent {
-            &::before {
-                background: linear-gradient(to left, $color-primary-7, rgba($color-primary-7, 0));
-            }
-
-            &::after {
-                background: linear-gradient(to right, $color-primary-7, rgba($color-primary-7, 0));
-            }
+        &::before {
+            background: alert-accent-gradient($color-primary-7);
         }
 
         .alert-icon {
@@ -54,14 +52,8 @@
     }
 
     &--warn {
-        .alert-accent {
-            &::before {
-                background: linear-gradient(to left, $color-primary-6, rgba($color-primary-6, 0));
-            }
-
-            &::after {
-                background: linear-gradient(to right, $color-primary-6, rgba($color-primary-6, 0));
-            }
+        &::before {
+            background: alert-accent-gradient($color-primary-6);
         }
 
         .alert-icon {
@@ -86,6 +78,10 @@
 @mixin theme-light {
     .alert {
         border-color: $color-muted-3;
+
+        p {
+            color: $color-foreground-light-dimmed;
+        }
 
         .alert-icon {
             background: $color-background-light;

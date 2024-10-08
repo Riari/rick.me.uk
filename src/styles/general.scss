@@ -760,6 +760,13 @@ a.link-settings {
             color: #000;
         }
     }
+    
+    article,
+    p,
+    ul,
+    ol {
+        color: $color-foreground-light;
+    }
 
     .container {
         .head {
@@ -772,10 +779,6 @@ a.link-settings {
 
             .publish-date {
                 color: $color-muted-1;
-            }
-    
-            article, p, ul, ol {
-                color: $color-foreground-light;
             }
 
             p > code,
