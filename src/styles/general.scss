@@ -80,6 +80,10 @@ a {
     &:hover {
         color: #fff;
     }
+
+    &[target="_blank"] {
+        white-space: nowrap;
+    }
 }
 
 hr {
