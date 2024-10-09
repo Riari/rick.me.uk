@@ -323,6 +323,10 @@
 
         .links {
             flex-direction: column;
+
+            .button {
+                margin: 0.2em 0;
+            }
         }
     }
     
