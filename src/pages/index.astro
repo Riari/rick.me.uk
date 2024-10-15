@@ -66,11 +66,13 @@ const projects = (await loadAndFormatCollection("projects", false))
                     posts.map((post: any) => (
                         <li>
                             <a href={post.absoluteURL} class="link">
-                                {post.data.title}
+                                <span class="link-title">
+                                    {post.data.title}
+                                </span>
+                                <span class="link-publish-date">
+                                    <FormattedDate date={post.data.pubDate} />
+                                </span>
                             </a>
-                            <span class="publish-date">
-                                <FormattedDate date={post.data.pubDate} />
-                            </span>
                         </li>
                     ))
                 }
@@ -86,11 +88,11 @@ const projects = (await loadAndFormatCollection("projects", false))
                 </span>
             </div>
 
-            <div class="featured-cards">
+            <div class="project-cards">
                 {
                     projects.map((project: any) => (
-                        <div class="featured-cards__card">
-                            <div class="featured-cards__card__inner">
+                        <div class="project-cards__card">
+                            <div class="project-cards__card__inner">
                                 <span
                                     class={statusToBadgeClass(
                                         project.data.status,
@@ -100,10 +102,10 @@ const projects = (await loadAndFormatCollection("projects", false))
                                 </span>
                                 <a href={project.absoluteURL} class="link">
                                     {project.data.title}
+                                    <span class="description">
+                                        {project.data.description}
+                                    </span>
                                 </a>
-                                <div class="description">
-                                    {project.data.description}
-                                </div>
                             </div>
                         </div>
                     ))
