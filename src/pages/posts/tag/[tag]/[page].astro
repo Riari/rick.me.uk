@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
+import ContentFooter from "../../../../components/ContentFooter.astro";
 import DocStart from "../../../../components/DocStart.astro";
 import DocEnd from "../../../../components/DocEnd.astro";
 import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
@@ -52,19 +53,20 @@ const tagHasProjects =
             {
                 tagHasProjects ? (
                     <p class="text-center text--muted-3" style="margin-top: 0;">
-                        There are also <a href={`/projects/tag/${tag}`}>projects with this tag</a>
+                        There are also{" "}
+                        <a href={`/projects/tag/${tag}`}>
+                            projects with this tag
+                        </a>
                     </p>
                 ) : null
             }
 
-            {
-                page.data.map((post) => (
-                    <PostCard post={post} />
-                ))
-            }
+            {page.data.map((post) => <PostCard post={post} />)}
 
             <Pagination page={page} />
         </div>
     </div>
+
+    <ContentFooter />
 </div>
 <DocEnd />

@@ -813,6 +813,25 @@ a.link-theme {
             }
         }
 
+        .head,
+        .body {
+            ul.tags a {
+                color: $color-foreground-light;
+
+                &::after {
+                    background: $color-tag-foreground;
+                }
+
+                &:hover {
+                    color: $color-foreground-dark;
+
+                    &::after {
+                        background: $color-tag-background;
+                    }
+                }
+            }
+        }
+
         .footer {
             background: $color-background-light-dimmed;
             color: $color-muted-1;

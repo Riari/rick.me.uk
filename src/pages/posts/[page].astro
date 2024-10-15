@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
+import ContentFooter from "../../components/ContentFooter.astro";
 import DocStart from "../../components/DocStart.astro";
 import DocEnd from "../../components/DocEnd.astro";
 import HeadTopLinks from "../../components/HeadTopLinks.astro";
@@ -31,14 +32,13 @@ const { page } = Astro.props;
 
     <div class="body">
         <div class="inner-container">
-            {
-                page.data.map((post) => (
-                    <PostCard post={post} />
-                ))
-            }
+            {page.data.map((post) => <PostCard post={post} />)}
 
             <Pagination page={page} />
         </div>
     </div>
+
+    <ContentFooter />
 </div>
+
 <DocEnd />

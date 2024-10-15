@@ -1,5 +1,6 @@
 ---
 import { projectStatuses } from "../content/config";
+import ContentFooter from "./ContentFooter.astro";
 import DocStart from "./DocStart.astro";
 import DocEnd from "./DocEnd.astro";
 import ExternalLink from "./ExternalLink.astro";
@@ -69,5 +70,8 @@ const { projects, statusFilter = null } = Astro.props;
             </div>
         </div>
     </div>
+
+    <ContentFooter />
 </div>
+
 <DocEnd />
