@@ -4,14 +4,12 @@ import CheckIcon from "./Icons/CheckIcon.astro";
 ---
 
 <div class="modal-overlay">
-    <div class="modal modal--settings">
-        <a href="#" class="modal-close" data-close-modal=".modal--settings">
+    <div class="modal modal--theme">
+        <a href="#" class="modal-close" data-close-modal=".modal--theme">
             <CloseIcon width="32px" height="32px" />
         </a>
 
-        <h3>Settings</h3>
-
-        <p><b>Theme</b></p>
+        <h3>Theme</h3>
 
         <div class="radio-group">
             <div class="radio-group-item">
@@ -21,11 +19,15 @@ import CheckIcon from "./Icons/CheckIcon.astro";
                     name="theme"
                     value="system"
                 />
-                <label for="theme-system"><CheckIcon width="24" height="24" /> System</label>
+                <label for="theme-system"
+                    ><CheckIcon width="24" height="24" /> System</label
+                >
             </div>
             <div class="radio-group-item">
                 <input id="theme-dark" type="radio" name="theme" value="dark" />
-                <label for="theme-dark"><CheckIcon width="24" height="24" /> Dark</label>
+                <label for="theme-dark"
+                    ><CheckIcon width="24" height="24" /> Dark</label
+                >
             </div>
             <div class="radio-group-item">
                 <input
@@ -34,7 +36,9 @@ import CheckIcon from "./Icons/CheckIcon.astro";
                     name="theme"
                     value="light"
                 />
-                <label for="theme-light"><CheckIcon width="24" height="24" /> Light</label>
+                <label for="theme-light"
+                    ><CheckIcon width="24" height="24" /> Light</label
+                >
             </div>
         </div>
     </div>
@@ -106,9 +110,9 @@ import CheckIcon from "./Icons/CheckIcon.astro";
         setTheme(theme);
     });
 
-    document
-        .querySelector<HTMLAnchorElement>("a[data-open-modal]")
-        ?.addEventListener(
+    const openModalLinks = document.querySelectorAll<HTMLAnchorElement>("a[data-open-modal]");
+    for (let i = 0; i < openModalLinks.length; ++i) {
+        openModalLinks[i].addEventListener(
             "click",
             function (this: HTMLAnchorElement, event: Event) {
                 event.preventDefault();
@@ -118,10 +122,11 @@ import CheckIcon from "./Icons/CheckIcon.astro";
                 )!.style.display = "block";
             },
         );
+    }
 
-    document
-        .querySelector<HTMLAnchorElement>("a[data-close-modal]")
-        ?.addEventListener(
+    const closeModalLinks = document.querySelectorAll<HTMLAnchorElement>("a[data-close-modal]");
+    for (let i = 0; i < closeModalLinks.length; ++i) {
+        closeModalLinks[i].addEventListener(
             "click",
             function (this: HTMLAnchorElement, event: Event) {
                 event.preventDefault();
@@ -130,7 +135,8 @@ import CheckIcon from "./Icons/CheckIcon.astro";
                     this.dataset.closeModal!,
                 )!.style.display = "none";
             },
-        );
+        )
+    }
 
     function closeModals() {
         const modals = document.querySelectorAll<HTMLElement>(".modal");

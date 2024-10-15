@@ -170,7 +170,7 @@
         }
 
         .item-card {
-            background: $color-background-light-dimmed;
+            background: linear-gradient(145deg, $color-background-light-dimmed 80%, $color-muted-4);
             color: $color-foreground-light;
 
             &-link {

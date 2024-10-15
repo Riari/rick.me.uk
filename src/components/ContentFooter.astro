@@ -1,11 +1,41 @@
+---
+import ThemeIcon from "./Icons/ThemeIcon.astro";
+---
+
 <div class="footer">
     <div class="inner-container">
         <strong>About me</strong>
 
-        <p>I'm Rick, a UK-based developer whose professional experience began with full-stack web development in the late 2000s. I grew up in a household of nerds, which exposed me to computers, consoles, and games from a very early age. I was always curious about how game development works and eventually found my way into the games industry in 2019, where I currently work as a full time software engineer.</p>
+        <p>
+            I'm Rick, a UK-based developer whose professional experience began
+            with full-stack web development in the late 2000s. I grew up in a
+            household of nerds, which exposed me to computers, consoles, and
+            games from a very early age. I was always curious about how game
+            development works and eventually found my way into the games
+            industry in 2019, where I currently work as a full time software
+            engineer.
+        </p>
 
-        <p>Since 2019, I've spent much of my leisure time learning more about all facets of game development as well as programming in general. I occasionally post about those topics here.</p>
+        <p>
+            Since 2019, I've spent much of my leisure time learning more about
+            all facets of game development as well as programming in general. I
+            occasionally post about those topics here.
+        </p>
 
-        <p><a href="#">▴ Back to top</a></p>
+        <div class="footer-links">
+            <div>
+                <a href="#">▴ Back to top</a>
+            </div>
+            <div>
+                <a
+                    href="#"
+                    class="link-theme"
+                    data-open-modal=".modal--theme"
+                    title="Change theme"
+                >
+                    <ThemeIcon width="28px" height="28px" />
+                </a>
+            </div>
+        </div>
     </div>
 </div>

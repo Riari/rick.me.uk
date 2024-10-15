@@ -3,10 +3,12 @@
     flex-direction: row;
 
     .radio-group-item {
+        flex-grow: 1;
+
         label {
             position: relative;
             display: block;
-            padding: .5em 1em;
+            padding: .4em .8em;
             border: 2px solid $color-muted-1;
             color: $color-muted-3;
             cursor: pointer;
@@ -43,7 +45,7 @@
         }
 
         input:checked + label {
-            border-color: $color-primary-7;
+            border-color: $color-foreground-dark;
             color: $color-foreground-dark;
             z-index: 1000;
 
@@ -66,7 +68,7 @@
         }
 
         input:checked + label {
-            border-color: $color-primary-6;
+            border-color: $color-foreground-light;
             color: $color-foreground-light;
         }
     }

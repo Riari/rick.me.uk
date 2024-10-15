@@ -6,7 +6,7 @@ import Button from "../components/Button.astro";
 import GitHubIcon from "../components/Icons/GitHubIcon.astro";
 import LinkedInIcon from "../components/Icons/LinkedInIcon.astro";
 import MediumIcon from "../components/Icons/MediumIcon.astro";
-import SettingsIcon from "../components/Icons/SettingsIcon.astro";
+import ThemeIcon from "../components/Icons/ThemeIcon.astro";
 import { loadAndFormatCollection } from "../util/collection";
 import { statusToBadgeClass } from "../util/frontmatter";
 
@@ -35,14 +35,14 @@ const projects = (await loadAndFormatCollection("projects", false))
                 ><span class="text--primary-7">uk</span>
             </h1>
 
-            <div class="link-settings-container">
+            <div class="link-theme-container">
                 <a
                     href="#"
-                    class="link-settings"
-                    data-open-modal=".modal--settings"
-                    title="Change settings"
+                    class="link-theme"
+                    data-open-modal=".modal--theme"
+                    title="Change theme"
                 >
-                    <SettingsIcon width="28px" height="28px" />
+                    <ThemeIcon width="28px" height="28px" />
                 </a>
             </div>
         </div>
