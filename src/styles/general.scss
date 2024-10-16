@@ -9,7 +9,7 @@ body {
     background: $color-background-main-1;
     font-family: $font-family-sans-serif;
     font-size: 18px;
-    color: $color-text-on-dark;
+    color: $color-foreground-dark;
 }
 
 h1,
@@ -246,7 +246,7 @@ a.badge {
     padding: 1em;
     margin: .2em;
     background: rgba($color-muted-1, 0.3);
-    color: $color-text-on-dark;
+    color: $color-foreground-dark;
     font-weight: bold;
     text-decoration: none;
     overflow: hidden;
@@ -355,7 +355,7 @@ a.badge {
 
             &.lead {
                 font-size: 1.6em;
-                color: $color-text-on-dark;
+                color: $color-foreground-dark;
             }
         }
     }
@@ -375,7 +375,7 @@ a.badge {
         h1 {
             font-size: 2.4em;
             margin-bottom: 1rem;
-            color: $color-text-on-dark;
+            color: $color-foreground-dark;
         }
 
         h2 {
@@ -386,7 +386,7 @@ a.badge {
         .top-links {
             display: flex;
             padding: 0 1rem;
-            margin-bottom: 1.6em;
+            margin-bottom: 1.5em;
             font-size: 1.1em;
 
             .primary {
@@ -405,7 +405,7 @@ a.badge {
                 border-bottom-right-radius: .2em;
                 background: rgba(27, 27, 36, 0.6);
                 font-family: $font-family-monospace;
-                color: $color-text-on-dark;
+                color: $color-foreground-dark;
                 text-decoration: none;
                 transition: background .1s, color .1s;
 
@@ -438,6 +438,7 @@ a.badge {
 
         article {
             font-size: 1.1em;
+            color: $color-foreground-dark-dimmed;
         }
 
         h1,
@@ -785,6 +786,10 @@ a.link-theme {
         .body {
             background: $color-background-light;
             color: $color-foreground-light;
+
+            article {
+                color: $color-foreground-light;
+            }
 
             .publish-date {
                 color: $color-muted-1;
