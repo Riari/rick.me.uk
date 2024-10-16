@@ -70,7 +70,6 @@ h4 {
 
 p {
     margin-bottom: 1.2em;
-    color: $color-foreground-dark;
 }
 
 a {
@@ -380,6 +379,7 @@ a.badge {
         h1 {
             font-size: 2.4em;
             margin-bottom: 1rem;
+            color: $color-text-on-dark;
         }
 
         h2 {
@@ -442,7 +442,6 @@ a.badge {
 
         article {
             font-size: 1.1em;
-            color: $color-foreground-dark;
         }
 
         h1,
@@ -702,6 +701,11 @@ a.link-theme {
 }
 
 @mixin theme-light {
+    body {
+        background: $color-background-light;
+        color: $color-foreground-light;
+    }
+
     .inline-heading {
         .more-link a {
             background: $color-muted-4;
@@ -775,13 +779,6 @@ a.link-theme {
         a:hover span {
             color: #000;
         }
-    }
-    
-    article,
-    p,
-    ul,
-    ol {
-        color: $color-foreground-light;
     }
 
     .container {
@@ -894,12 +891,12 @@ a.link-theme {
     }
 }
 
-.theme--light {
+html[data-theme="light"] {
     @include theme-light;
 }
 
 @media (prefers-color-scheme: light) {
-    .theme--system {
+    html[data-theme="system"] {
         @include theme-light;
     }
 }

@@ -17,28 +17,28 @@ $color-background-main-2: lighten($color-background-main-1, 3%);
 $color-background-main-3: lighten($color-background-main-1, 7%);
 $color-background-main-4: lighten($color-background-main-1, 15%);
 
+$color-block-background-light: rgba(224, 235, 245, 0.8);
+
+$color-tag-foreground: #cfd9ec;
+$color-tag-background: #515b7c;
+
 $color-background-dark: #21212b;
 $color-foreground-dark: #d6dde7;
 $color-foreground-dark-dimmed: $color-muted-3;
+$color-text-on-dark: #f8f8f2;
+$color-code-background-dark: #292c3e;
+$color-inline-code-background-dark: #292c3e;
+$color-inline-code-foreground-dark: #d6dde7;
+$color-link-dark: #82aaff;
 
 $color-background-light: #ffffff;
 $color-background-light-dimmed: #ebeef5;
 $color-foreground-light: #252530;
 $color-foreground-light-dimmed: #505063;
-
-$color-code-comment: #888cc6;
-$color-text-on-dark: #f8f8f2;
-$color-code-background-dark: #292c3e;
 $color-code-background-light: #e8ebf5;
-$color-inline-code-background-dark: #292c3e;
-$color-inline-code-foreground-dark: #d6dde7;
 $color-inline-code-background-light: #eef4ff;
 $color-inline-code-foreground-light: #435981;
-$color-tag-foreground: #cfd9ec;
-$color-tag-background: #515b7c;
-$color-block-background-light: rgba(224, 235, 245, 0.8);
 $color-link-light: #3a60db;
-$color-link-dark: #82aaff;
 
 $palette: (
     primary-1: $color-primary-1,

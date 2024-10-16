@@ -46,7 +46,6 @@ import CheckIcon from "./Icons/CheckIcon.astro";
 
 <script>
     import mediumZoom, { type Zoom } from "medium-zoom";
-    import CookieUtil from "../js/cookie-util";
 
     const modalOverlay: HTMLDivElement =
         document.querySelector(".modal-overlay")!;
@@ -57,29 +56,11 @@ import CheckIcon from "./Icons/CheckIcon.astro";
     const mediumZoomBackgroundDark = "#21212b";
     var zoom: Zoom;
 
-    const themeIndexMap: Map<string, number> = new Map();
-    themeIndexMap.set("system", 0);
-    themeIndexMap.set("dark", 1);
-    themeIndexMap.set("light", 2);
+    function applyTheme(name: string) {
+        document.documentElement.dataset.theme = name;
 
-    const themeClasses: Array<string> = [
-        "theme--system",
-        "theme--dark",
-        "theme--light",
-    ];
-
-    function setTheme(name: string) {
-        for (var i = 0; i < themeClasses.length; ++i) {
-            document.body.classList.remove(themeClasses[i]);
-        }
-
-        document.body.classList.add(themeClasses[themeIndexMap.get(name)!]);
-
-        const prefersDark =
-            (name == "system" &&
-                window.matchMedia &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-            name == "dark";
+        const prefersDark = (name == "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+                            || name == "dark";
 
         zoom.update({
             background: prefersDark
@@ -88,29 +69,29 @@ import CheckIcon from "./Icons/CheckIcon.astro";
         });
     }
 
+    const theme: string = localStorage.getItem("theme") ?? "system";
+
+    const themeIndexMap: Map<string, number> = new Map();
+    themeIndexMap.set("system", 0);
+    themeIndexMap.set("dark", 1);
+    themeIndexMap.set("light", 2);
+
+    themeRadios[themeIndexMap.get(theme)!].checked = true;
+    zoom = mediumZoom(document.querySelectorAll("[data-zoomable]"));
+    applyTheme(theme);
+
     for (var i = 0; i < themeRadios.length; ++i) {
         themeRadios[i].addEventListener(
             "change",
             function (this: HTMLInputElement, _: Event) {
-                const expireAt = new Date();
-                expireAt.setDate(expireAt.getDate() + 30);
-                CookieUtil.set("theme", this.value, expireAt);
-                setTheme(this.value);
+                localStorage.setItem("theme", this.value);
+                applyTheme(this.value);
             },
         );
     }
 
-    document.addEventListener("DOMContentLoaded", function (_: Event) {
-        var theme: string = CookieUtil.get("theme") ?? "system";
-
-        themeRadios[themeIndexMap.get(theme)!].checked = true;
-
-        zoom = mediumZoom(document.querySelectorAll("[data-zoomable]"));
-
-        setTheme(theme);
-    });
-
-    const openModalLinks = document.querySelectorAll<HTMLAnchorElement>("a[data-open-modal]");
+    const openModalLinks =
+        document.querySelectorAll<HTMLAnchorElement>("a[data-open-modal]");
     for (let i = 0; i < openModalLinks.length; ++i) {
         openModalLinks[i].addEventListener(
             "click",
@@ -124,7 +105,9 @@ import CheckIcon from "./Icons/CheckIcon.astro";
         );
     }
 
-    const closeModalLinks = document.querySelectorAll<HTMLAnchorElement>("a[data-close-modal]");
+    const closeModalLinks = document.querySelectorAll<HTMLAnchorElement>(
+        "a[data-close-modal]",
+    );
     for (let i = 0; i < closeModalLinks.length; ++i) {
         closeModalLinks[i].addEventListener(
             "click",
@@ -135,7 +118,7 @@ import CheckIcon from "./Icons/CheckIcon.astro";
                     this.dataset.closeModal!,
                 )!.style.display = "none";
             },
-        )
+        );
     }
 
     function closeModals() {

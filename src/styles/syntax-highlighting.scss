@@ -22,7 +22,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .theme--system {
+    html[data-theme="system"] {
         @include theme('dark');
     }
 }
