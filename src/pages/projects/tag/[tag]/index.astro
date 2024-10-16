@@ -2,7 +2,6 @@
 import DocStart from "../../../../components/DocStart.astro";
 import DocEnd from "../../../../components/DocEnd.astro";
 import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
-import HeadBottomLinks from "../../../../components/HeadBottomLinks.astro";
 import ProjectCard from "../../../../components/ProjectCard.astro";
 import { loadAndFormatCollection, getTags } from "../../../../util/collection";
 
@@ -30,13 +29,11 @@ const tagHasPosts =
 
 <DocStart />
 <div class="container container--cards">
-    <div class="head head--slim">
+    <div class="head">
         <HeadTopLinks />
 
         <h1>Projects</h1>
         <h2 class="subheading">Tagged with '{tag}'</h2>
-
-        <HeadBottomLinks />
     </div>
 
     <div class="body">

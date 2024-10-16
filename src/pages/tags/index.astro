@@ -3,7 +3,6 @@ import ContentFooter from "../../components/ContentFooter.astro";
 import DocStart from "../../components/DocStart.astro";
 import DocEnd from "../../components/DocEnd.astro";
 import HeadTopLinks from "../../components/HeadTopLinks.astro";
-import HeadBottomLinks from "../../components/HeadBottomLinks.astro";
 import { loadAndFormatCollection, getTags } from "../../util/collection";
 
 const posts = await loadAndFormatCollection("posts");
@@ -14,12 +13,10 @@ const projectTags = await getTags(projects);
 
 <DocStart title="Tags" />
 <div class="container">
-    <div class="head head--slim">
+    <div class="head">
         <HeadTopLinks />
 
         <h1>Tags</h1>
-
-        <HeadBottomLinks />
     </div>
 
     <div class="body">

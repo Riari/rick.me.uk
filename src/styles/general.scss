@@ -362,15 +362,11 @@ a.badge {
 
     .head {
         margin: 0;
-        padding: 0;
+        padding: 0 0 3em 0;
         background-size: cover;
         background-color: $color-background-main-1;
         background-position: 50% 50%;
         text-align: center;
-
-        &--slim {
-            padding: 0;
-        }
 
         h1, h2, h3 {
             margin: 0;

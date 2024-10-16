@@ -4,7 +4,6 @@ import ContentFooter from "../../../../components/ContentFooter.astro";
 import DocStart from "../../../../components/DocStart.astro";
 import DocEnd from "../../../../components/DocEnd.astro";
 import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
-import HeadBottomLinks from "../../../../components/HeadBottomLinks.astro";
 import Pagination from "../../../../components/Pagination.astro";
 import PostCard from "../../../../components/PostCard.astro";
 import { loadAndFormatCollection, getTags } from "../../../../util/collection";
@@ -39,13 +38,11 @@ const tagHasProjects =
 
 <DocStart />
 <div class="container container--cards">
-    <div class="head head--slim">
+    <div class="head">
         <HeadTopLinks />
 
         <h1>Posts</h1>
         <h2 class="subheading">Tagged with '{tag}'</h2>
-
-        <HeadBottomLinks />
     </div>
 
     <div class="body">

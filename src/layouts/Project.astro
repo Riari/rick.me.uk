@@ -3,7 +3,6 @@ import type { CollectionEntry } from "astro:content";
 import DocStart from "../components/DocStart.astro";
 import DocEnd from "../components/DocEnd.astro";
 import HeadTopLinks from "../components/HeadTopLinks.astro";
-import HeadBottomLinks from "../components/HeadBottomLinks.astro";
 import ContentFooter from "../components/ContentFooter.astro";
 import ExternalLink from "../components/ExternalLink.astro";
 import { loadAndFormatCollection } from "../util/collection";
@@ -62,8 +61,6 @@ if (nextProject != null)
                     }
                 </ul>
             </div>
-
-            <HeadBottomLinks />
         </div>
     </div>
     

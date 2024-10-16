@@ -5,7 +5,6 @@ import DocStart from "./DocStart.astro";
 import DocEnd from "./DocEnd.astro";
 import ExternalLink from "./ExternalLink.astro";
 import HeadTopLinks from "./HeadTopLinks.astro";
-import HeadBottomLinks from "./HeadBottomLinks.astro";
 import ProjectCard from "./ProjectCard.astro";
 import { statusToBadgeClass } from "../util/frontmatter";
 
@@ -14,12 +13,10 @@ const { projects, statusFilter = null } = Astro.props;
 
 <DocStart title="Projects" />
 <div class="container container--cards">
-    <div class="head head--slim">
+    <div class="head">
         <HeadTopLinks />
 
         <h1>Projects</h1>
-
-        <HeadBottomLinks />
     </div>
 
     <div class="body">
