@@ -1,9 +1,13 @@
 @import "palette.scss";
 @import "fonts.scss";
 
+$breakpoint--small: 768px;
+$breakpoint--x-small: 526px;
+
 @import "general.scss";
 @import "input.scss";
 @import "components/alert.scss";
+@import "components/modal.scss";
 @import "layouts/container--cards.scss";
 @import "layouts/container--home.scss";
 @import "layouts/container--post.scss";

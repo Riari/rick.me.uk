@@ -4,6 +4,21 @@ import CheckIcon from "./Icons/CheckIcon.astro";
 ---
 
 <div class="modal-overlay">
+    <div class="modal modal--menu">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/projects/">Projects</a></li>
+                <li><a href="/posts/1/">Posts</a></li>
+                <li><a href="/tags/">Tags</a></li>
+            </ul>
+        </nav>
+
+        <a href="#" data-close-modal=".modal--menu">
+            Close <CloseIcon width="24" height="24" />
+        </a>
+    </div>
+
     <div class="modal modal--theme">
         <a href="#" class="modal-close" data-close-modal=".modal--theme">
             <CloseIcon width="32px" height="32px" />

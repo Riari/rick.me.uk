@@ -409,6 +409,11 @@ a.badge {
                 text-decoration: none;
                 transition: background .1s, color .1s;
 
+                &[data-open-modal] {
+                    display: none;
+                    padding-bottom: .2em;
+                }
+
                 span {
                     transition: color .1s;
                 }
@@ -645,58 +650,6 @@ a.link-theme {
     }
 }
 
-.modal-overlay {
-    display: none;
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: transparentize($color-background-main-1, 0.5);
-
-    .modal {
-        display: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        max-width: 400px;
-        padding: 2em;
-        box-sizing: border-box;
-        border-radius: .3em;
-        background: $color-background-main-1;
-        box-shadow: 0 10px 1em rgba(0, 0, 0, 0.3);
-
-        a.modal-close {
-            position: absolute;
-            top: 1.9em;
-            right: 1.8em;
-            opacity: 0.65;
-            transition: opacity .3s;
-
-            svg {
-                color: #fff;
-            }
-
-            &:hover {
-                opacity: 1.0;
-            }
-        }
-
-        h3 {
-            margin-top: 0;
-        }
-    }
-
-    .modal--theme {
-        label {
-            display: block;
-        }
-    }
-}
-
 @mixin theme-light {
     body {
         background: $color-background-light;
@@ -877,19 +830,6 @@ a.link-theme {
             background: $color-background-light-dimmed;
         }
     }
-
-    .modal-overlay .modal {
-        background: $color-background-light;
-        color: $color-foreground-light;
-
-        p {
-            color: $color-foreground-light;
-        }
-
-        .modal-close svg {
-            color: $color-foreground-light;
-        }
-    }
 }
 
 html[data-theme="light"] {
@@ -915,18 +855,20 @@ html[data-theme="light"] {
         margin: 2em 0;
     }
 
-    .container .body {
-        .og-summary img {
-            max-width: 100%;
-        }
-
-        .columns {
-            &--3 {
-                column-count: 1;
+    .container {
+        .body {
+            .og-summary img {
+                max-width: 100%;
             }
-
-            .image-container {
-                margin: 1rem 0;
+    
+            .columns {
+                &--3 {
+                    column-count: 1;
+                }
+    
+                .image-container {
+                    margin: 1rem 0;
+                }
             }
         }
     }
@@ -938,7 +880,13 @@ html[data-theme="light"] {
 }
 
 @media only screen and (max-width: $breakpoint--x-small) {
-    .container .head .top-links {
-        font-size: 0.95rem;
+    .container .head  .top-links .secondary {
+        a {
+            display: none;
+        }
+
+        a[data-open-modal] {
+            display: inline-block;
+        }
     }
 }

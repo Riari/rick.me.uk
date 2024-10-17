@@ -1,0 +1,142 @@
+
+
+.modal-overlay {
+    display: none;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: transparentize($color-background-main-1, 0.5);
+
+    .modal {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 400px;
+        padding: 2em;
+        box-sizing: border-box;
+        border-radius: .3em;
+        background: $color-background-main-1;
+        box-shadow: 0 10px 1em rgba(0, 0, 0, 0.3);
+
+        a.modal-close {
+            position: absolute;
+            top: 1.9em;
+            right: 1.8em;
+            opacity: 0.65;
+            transition: opacity .3s;
+
+            svg {
+                color: #fff;
+            }
+
+            &:hover {
+                opacity: 1.0;
+            }
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        &--menu {
+            top: 50%;
+            right: 0;
+            left: 0;
+            transform: translate(0, -50%);
+            max-width: 100%;
+            padding: 0;
+            border-radius: 0;
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                border-top: 1px solid $color-muted-1;
+
+                li {
+                    margin: 0;
+                    border-bottom: 1px solid $color-muted-1;
+
+                    a {
+                        display: block;
+                        padding: .8em 1.2em;
+                        font-weight: bold;
+                        font-family: $font-family-monospace;
+                        color: $color-foreground-dark-dimmed;
+                        text-align: center;
+
+                        &:hover {
+                            color: $color-foreground-dark;
+                        }
+                    }
+                }
+            }
+
+            a[data-close-modal] {
+                display: block;
+                padding: .8em 1.2em;
+                text-align: center;
+                color: $color-muted-2;
+
+                &:hover {
+                    color: $color-foreground-dark;
+                }
+
+                svg {
+                    vertical-align: -6px;
+                }
+            }
+        }
+
+        &--theme {
+            label {
+                display: block;
+            }
+        }
+    }
+}
+
+@mixin theme-light {
+    .modal-overlay .modal {
+        background: $color-background-light;
+        color: $color-foreground-light;
+
+        p {
+            color: $color-foreground-light;
+        }
+
+        .modal-close svg {
+            color: $color-foreground-light;
+        }
+
+        &--menu {
+            a {
+                color: $color-foreground-light-dimmed;
+
+                &:hover {
+                    color: $color-foreground-light;
+                }
+
+                &[data-close-modal]:hover {
+                    color: $color-foreground-light;
+                }
+            }
+        }
+    }
+}
+
+html[data-theme="light"] {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}
