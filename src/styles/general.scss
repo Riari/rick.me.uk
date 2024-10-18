@@ -190,7 +190,7 @@ a.theme-selector-toggle {
                 padding: .4em .8em;
                 border-bottom-left-radius: .2em;
                 border-bottom-right-radius: .2em;
-                background: rgba(27, 27, 36, 0.6);
+                background: $color-background-top-link;
                 font-family: $font-family-monospace;
                 color: $color-foreground-dark;
                 text-decoration: none;
@@ -600,8 +600,8 @@ html[data-theme="light"] {
 }
 
 @media (pointer: coarse) {
-    .container .head .top-links a:hover {
-        background: inherit;
-        color: inherit;
+    .container .head .top-links a[data-toggle]:hover {
+        background: $color-background-top-link;
+        color: $color-foreground-dark;
     }
 }
