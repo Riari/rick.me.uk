@@ -598,3 +598,9 @@ html[data-theme="light"] {
         }
     }
 }
+
+@media (pointer: coarse) {
+    .container .head .top-links a:hover {
+        all: revert-layer;
+    }
+}
