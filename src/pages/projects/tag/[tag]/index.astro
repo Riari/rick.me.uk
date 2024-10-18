@@ -1,7 +1,7 @@
 ---
 import DocStart from "../../../../components/DocStart.astro";
 import DocEnd from "../../../../components/DocEnd.astro";
-import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
+import Head from "../../../../components/Head.astro";
 import ProjectCard from "../../../../components/ProjectCard.astro";
 import { loadAndFormatCollection, getTags } from "../../../../util/collection";
 
@@ -29,12 +29,9 @@ const tagHasPosts =
 
 <DocStart />
 <div class="container container--cards">
-    <div class="head">
-        <HeadTopLinks />
-
-        <h1>Projects</h1>
+    <Head title="Projects">
         <h2 class="subheading">Tagged with '{tag}'</h2>
-    </div>
+    </Head>
 
     <div class="body">
         <div class="inner-container">
@@ -48,11 +45,7 @@ const tagHasPosts =
             }
 
             <div class="card-grid">
-                {
-                    projects.map((project) => (
-                        <ProjectCard project={project} />
-                    ))
-                }
+                {projects.map((project) => <ProjectCard project={project} />)}
             </div>
         </div>
     </div>
