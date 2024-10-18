@@ -598,10 +598,3 @@ html[data-theme="light"] {
         }
     }
 }
-
-@media (hover: hover) and (pointer: fine) {
-    a:hover {
-        background: inherit;
-        color: inherit;
-    }
-}
