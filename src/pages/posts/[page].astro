@@ -3,7 +3,7 @@ import type { GetStaticPathsOptions } from "astro";
 import ContentFooter from "../../components/ContentFooter.astro";
 import DocStart from "../../components/DocStart.astro";
 import DocEnd from "../../components/DocEnd.astro";
-import HeadTopLinks from "../../components/HeadTopLinks.astro";
+import Head from "../../components/Head.astro";
 import Pagination from "../../components/Pagination.astro";
 import PostCard from "../../components/PostCard.astro";
 import { loadAndFormatCollection } from "../../util/collection";
@@ -22,11 +22,7 @@ const { page } = Astro.props;
 
 <DocStart title="Posts" />
 <div class="container container--cards">
-    <div class="head">
-        <HeadTopLinks />
-
-        <h1>Posts</h1>
-    </div>
+    <Head title="Posts" />
 
     <div class="body">
         <div class="inner-container">
@@ -35,7 +31,12 @@ const { page } = Astro.props;
             <Pagination page={page} />
 
             <p class="text-center">
-                Posts are also available via <a href="/rss.xml" class="text--primary-3" target="blank"><RSSIcon style="vertical-align: -2px;" /> RSS</a>.
+                Posts are also available via <a
+                    href="/rss.xml"
+                    class="text--primary-3"
+                    target="blank"
+                    ><RSSIcon style="vertical-align: -2px;" /> RSS</a
+                >.
             </p>
         </div>
     </div>

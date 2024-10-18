@@ -3,7 +3,7 @@ import type { GetStaticPathsOptions } from "astro";
 import ContentFooter from "../../../../components/ContentFooter.astro";
 import DocStart from "../../../../components/DocStart.astro";
 import DocEnd from "../../../../components/DocEnd.astro";
-import HeadTopLinks from "../../../../components/HeadTopLinks.astro";
+import Head from "../../../../components/Head.astro";
 import Pagination from "../../../../components/Pagination.astro";
 import PostCard from "../../../../components/PostCard.astro";
 import { loadAndFormatCollection, getTags } from "../../../../util/collection";
@@ -38,12 +38,9 @@ const tagHasProjects =
 
 <DocStart />
 <div class="container container--cards">
-    <div class="head">
-        <HeadTopLinks />
-
-        <h1>Posts</h1>
+    <Head title="Posts">
         <h2 class="subheading">Tagged with '{tag}'</h2>
-    </div>
+    </Head>
 
     <div class="body">
         <div class="inner-container">

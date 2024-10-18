@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import DocStart from "../components/DocStart.astro";
 import DocEnd from "../components/DocEnd.astro";
-import HeadTopLinks from "../components/HeadTopLinks.astro";
+import Head from "../components/Head.astro";
 import ContentFooter from "../components/ContentFooter.astro";
 import ExternalLink from "../components/ExternalLink.astro";
 import { loadAndFormatCollection } from "../util/collection";
@@ -16,62 +16,61 @@ const { title, description, status, heroImage, url, tags } = Astro.props;
 const statusClass = statusToBadgeClass(status);
 const linkLabel = new URL(url).hostname;
 
-const projects: any[] = (await loadAndFormatCollection("projects", false))
-    .sort((a: any, b: any) => a.data.weight - b.data.weight);
+const projects: any[] = (await loadAndFormatCollection("projects", false)).sort(
+    (a: any, b: any) => a.data.weight - b.data.weight,
+);
 
 let prevProject = null;
 let nextProject = null;
 
-for (let i = 0; i < projects.length; ++i)
-{
-    if (projects[i].data.title == title)
-    {
+for (let i = 0; i < projects.length; ++i) {
+    if (projects[i].data.title == title) {
         if (i > 0) prevProject = projects[i - 1];
         if (i + 1 < projects.length) nextProject = projects[i + 1];
         break;
     }
 }
 
-if (prevProject != null)
-{
+if (prevProject != null) {
     prevProject.data.title = truncate(prevProject.data.title);
 }
 
-if (nextProject != null)
-{
+if (nextProject != null) {
     nextProject.data.title = truncate(nextProject.data.title);
 }
 ---
 
 <DocStart title={title} description={description} />
 <div class="container container--project">
-    <div class="head" style={`background-image: url(${heroImage})`}>
-        <div>
-            <HeadTopLinks />
+    <Head title={title} backgroundImage={heroImage}>
+        <h2 class="subheading">Project</h2>
 
-            <div style="margin: 0 1rem;">
-                <h1>{title}</h1>
-                <h2 class="subheading">Project</h2>
-    
-                <ul class="tags">
-                    {
-                        tags.map(tag => (
-                            <li><a href={`/projects/tag/${tag}`}><span>{tag}</span></a></li>
-                        ))
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    
+        <ul class="tags">
+            {
+                tags.map((tag) => (
+                    <li>
+                        <a href={`/projects/tag/${tag}`}>
+                            <span>{tag}</span>
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </Head>
+
     <div class="body">
         <div class="inner-container">
             <div class="project-fields">
                 <span class="badge-joined">
-                    <span class="badge badge--muted-4">Status</span><span class={statusClass}>{status}</span>
+                    <span class="badge badge--muted-4">Status</span><span
+                        class={statusClass}>{status}</span
+                    >
                 </span>
                 <span class="badge-joined">
-                    <span class="badge badge--muted-4">Link</span><span class="badge badge--muted-3"><ExternalLink url={url} label={linkLabel} /></span>
+                    <span class="badge badge--muted-4">Link</span><span
+                        class="badge badge--muted-3"
+                        ><ExternalLink url={url} label={linkLabel} /></span
+                    >
                 </span>
             </div>
 
@@ -79,26 +78,34 @@ if (nextProject != null)
                 <slot />
             </article>
 
-            <hr>
+            <hr />
 
             <div class="adjacent-content-links">
                 <div class="previous">
-                    { prevProject != null &&
-                        <a href={prevProject.absoluteURL}>
-                            <span class="prefix">‹ Previous project</span>
-                            <br />
-                            <span class="title">{prevProject.data.title}</span>
-                        </a>
+                    {
+                        prevProject != null && (
+                            <a href={prevProject.absoluteURL}>
+                                <span class="prefix">‹ Previous project</span>
+                                <br />
+                                <span class="title">
+                                    {prevProject.data.title}
+                                </span>
+                            </a>
+                        )
                     }
                 </div>
 
                 <div class="next">
-                    { nextProject != null &&
-                        <a href={nextProject.absoluteURL}>
-                            <span class="prefix">Next project ›</span>
-                            <br />
-                            <span class="title">{nextProject.data.title}</span>
-                        </a>
+                    {
+                        nextProject != null && (
+                            <a href={nextProject.absoluteURL}>
+                                <span class="prefix">Next project ›</span>
+                                <br />
+                                <span class="title">
+                                    {nextProject.data.title}
+                                </span>
+                            </a>
+                        )
                     }
                 </div>
             </div>

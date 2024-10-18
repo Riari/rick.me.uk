@@ -1,4 +1,5 @@
 ---
+import CloseIcon from "../components/Icons/CloseIcon.astro";
 import DocStart from "../components/DocStart.astro";
 import DocEnd from "../components/DocEnd.astro";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -7,6 +8,7 @@ import GitHubIcon from "../components/Icons/GitHubIcon.astro";
 import LinkedInIcon from "../components/Icons/LinkedInIcon.astro";
 import MediumIcon from "../components/Icons/MediumIcon.astro";
 import ThemeIcon from "../components/Icons/ThemeIcon.astro";
+import ThemeSelector from "../components/ThemeSelector.astro";
 import { loadAndFormatCollection } from "../util/collection";
 import { statusToBadgeClass } from "../util/frontmatter";
 
@@ -35,15 +37,19 @@ const projects = (await loadAndFormatCollection("projects", false))
                 ><span class="text--primary-7">uk</span>
             </h1>
 
-            <div class="link-theme-container">
+            <div class="theme-selector-container">
                 <a
                     href="#"
-                    class="link-theme"
-                    data-open-modal=".modal--theme"
+                    class="theme-selector-toggle"
+                    data-toggle=".theme-selector"
                     title="Change theme"
                 >
                     <ThemeIcon width="28px" height="28px" />
+                    <CloseIcon width="28px" height="28px" />
                 </a>
+                <div class="theme-selector">
+                    <ThemeSelector />
+                </div>
             </div>
         </div>
 

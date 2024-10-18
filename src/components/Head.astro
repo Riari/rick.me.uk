@@ -1,0 +1,18 @@
+---
+import HeadTopLinks from "./HeadTopLinks.astro";
+
+const { title, backgroundImage } = Astro.props;
+
+let style: any = {};
+
+if (backgroundImage) {
+    style["background-image"] = `url(${backgroundImage});`;
+}
+---
+
+<div class="head" style={style}>
+    <HeadTopLinks />
+
+    <h1>{title}</h1>
+    <slot />
+</div>

@@ -1,15 +1,16 @@
-@import "palette.scss";
-@import "fonts.scss";
-
 $breakpoint--small: 768px;
 $breakpoint--x-small: 526px;
 
+@import "palette.scss";
+@import "typography.scss";
+
+@import "badges.scss";
+@import "components/alert.scss";
 @import "general.scss";
 @import "input.scss";
-@import "components/alert.scss";
-@import "components/modal.scss";
 @import "layouts/container--cards.scss";
 @import "layouts/container--home.scss";
 @import "layouts/container--post.scss";
 @import "layouts/container--project.scss";
+@import "pagination.scss";
 @import "syntax-highlighting.scss";

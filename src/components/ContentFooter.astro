@@ -1,9 +1,24 @@
 ---
+import CloseIcon from "./Icons/CloseIcon.astro";
 import ThemeIcon from "./Icons/ThemeIcon.astro";
+import ThemeSelector from "./ThemeSelector.astro";
 ---
 
 <div class="footer">
     <div class="inner-container">
+        <a
+            href="#"
+            class="theme-selector-toggle"
+            data-toggle=".theme-selector"
+            title="Change theme"
+        >
+            <ThemeIcon width="24px" height="24px" />
+            <CloseIcon width="24px" height="24px" />
+        </a>
+        <div class="theme-selector">
+            <ThemeSelector />
+        </div>
+
         <strong>About me</strong>
 
         <p>
@@ -23,19 +38,7 @@ import ThemeIcon from "./Icons/ThemeIcon.astro";
         </p>
 
         <div class="footer-links">
-            <div>
-                <a href="#">▴ Back to top</a>
-            </div>
-            <div>
-                <a
-                    href="#"
-                    class="link-theme"
-                    data-open-modal=".modal--theme"
-                    title="Change theme"
-                >
-                    <ThemeIcon width="28px" height="28px" />
-                </a>
-            </div>
+            <a href="#">▴ Back to top</a>
         </div>
     </div>
 </div>

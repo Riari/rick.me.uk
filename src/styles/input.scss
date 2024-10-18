@@ -1,6 +1,6 @@
 .radio-group {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     .radio-group-item {
         flex-grow: 1;
@@ -8,8 +8,7 @@
         label {
             position: relative;
             display: block;
-            padding: .4em .8em;
-            border: 2px solid $color-muted-1;
+            padding: .4rem 1rem;
             color: $color-muted-3;
             cursor: pointer;
 
@@ -18,23 +17,13 @@
             }
 
             svg {
-                display: none;
+                opacity: 0;
                 vertical-align: -6px;
             }
         }
 
         &:not(:first-child) {
             margin-left: -2px;
-        }
-
-        &:first-child label {
-            border-top-left-radius: .3em;
-            border-bottom-left-radius: .3em;
-        }
-
-        &:last-child label {
-            border-top-right-radius: .3em;
-            border-bottom-right-radius: .3em;
         }
 
         input[type="radio"] {
@@ -45,12 +34,11 @@
         }
 
         input:checked + label {
-            border-color: $color-foreground-dark;
             color: $color-foreground-dark;
             z-index: 1000;
 
             svg {
-                display: inline-block;
+                opacity: 1;
             }
         }
     }
@@ -59,7 +47,6 @@
 @mixin theme-light {
     .radio-group .radio-group-item {
         label {
-            border-color: $color-muted-3;
             color: $color-muted-2;
 
             &:hover {
