@@ -1,8 +1,7 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
 import ContentFooter from "../../components/ContentFooter.astro";
-import DocStart from "../../components/DocStart.astro";
-import DocEnd from "../../components/DocEnd.astro";
+import Document from "../components/Document.astro";
 import Head from "../../components/Head.astro";
 import Pagination from "../../components/Pagination.astro";
 import PostCard from "../../components/PostCard.astro";
@@ -20,28 +19,27 @@ export async function getStaticPaths(options: GetStaticPathsOptions) {
 const { page } = Astro.props;
 ---
 
-<DocStart title="Posts" />
-<div class="container container--cards">
-    <Head title="Posts" />
+<Document title="Posts">
+    <div class="container container--cards">
+        <Head title="Posts" />
 
-    <div class="body">
-        <div class="inner-container">
-            {page.data.map((post) => <PostCard post={post} />)}
+        <div class="body">
+            <div class="inner-container">
+                {page.data.map((post) => <PostCard post={post} />)}
 
-            <Pagination page={page} />
+                <Pagination page={page} />
 
-            <p class="text-center">
-                Posts are also available via <a
-                    href="/rss.xml"
-                    class="text--primary-3"
-                    target="blank"
-                    ><RSSIcon style="vertical-align: -2px;" /> RSS</a
-                >.
-            </p>
+                <p class="text-center">
+                    Posts are also available via <a
+                        href="/rss.xml"
+                        class="text--primary-3"
+                        target="blank"
+                        ><RSSIcon style="vertical-align: -2px;" /> RSS</a
+                    >.
+                </p>
+            </div>
         </div>
+
+        <ContentFooter />
     </div>
-
-    <ContentFooter />
-</div>
-
-<DocEnd />
+</Document>

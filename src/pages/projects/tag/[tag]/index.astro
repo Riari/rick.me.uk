@@ -1,6 +1,5 @@
 ---
-import DocStart from "../../../../components/DocStart.astro";
-import DocEnd from "../../../../components/DocEnd.astro";
+import Document from "../../../../components/Document.astro";
 import Head from "../../../../components/Head.astro";
 import ProjectCard from "../../../../components/ProjectCard.astro";
 import { loadAndFormatCollection, getTags } from "../../../../util/collection";
@@ -27,27 +26,27 @@ const tagHasPosts =
     posts.filter((post: any) => post.data.tags.includes(tag)).length > 0;
 ---
 
-<DocStart />
-<div class="container container--cards">
-    <Head title="Projects">
-        <h2 class="subheading">Tagged with '{tag}'</h2>
-    </Head>
+<Document title={`Projects tagged with '${tag}'`}>
+    <div class="container container--cards">
+        <Head title="Projects">
+            <h2 class="subheading">Tagged with '{tag}'</h2>
+        </Head>
 
-    <div class="body">
-        <div class="inner-container">
-            {
-                tagHasPosts ? (
-                    <p class="text-center text--muted-3" style="margin-top: 0;">
-                        There are also
-                        <a href={`/posts/tag/${tag}/1`}>posts with this tag</a>
-                    </p>
-                ) : null
-            }
+        <div class="body">
+            <div class="inner-container">
+                {
+                    tagHasPosts ? (
+                        <p class="text-center text--muted-3" style="margin-top: 0;">
+                            There are also
+                            <a href={`/posts/tag/${tag}/1`}>posts with this tag</a>
+                        </p>
+                    ) : null
+                }
 
-            <div class="card-grid">
-                {projects.map((project) => <ProjectCard project={project} />)}
+                <div class="card-grid">
+                    {projects.map((project) => <ProjectCard project={project} />)}
+                </div>
             </div>
         </div>
     </div>
-</div>
-<DocEnd />
+</Document>

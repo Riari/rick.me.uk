@@ -1,9 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import DocStart from "../components/DocStart.astro";
-import DocEnd from "../components/DocEnd.astro";
-import Head from "../components/Head.astro";
 import ContentFooter from "../components/ContentFooter.astro";
+import Document from "../components/Document.astro";
+import Head from "../components/Head.astro";
 import { loadAndFormatCollection } from "../util/collection";
 import { truncate } from "../util/string";
 
@@ -35,67 +34,67 @@ if (nextPost != null) {
 }
 ---
 
-<DocStart title={title} description={description} />
-<div class="container container--post">
-    <Head title={title} backgroundImage={heroImage}>
-        <h2 class="subheading">{description}</h2>
+<Document title={title} description={description}>
+    <div class="container container--post">
+        <Head title={title} backgroundImage={heroImage}>
+            <h2 class="subheading">{description}</h2>
 
-        <ul class="tags">
-            {
-                tags.map((tag) => (
-                    <li>
-                        <a href={`/posts/tag/${tag}/1`}>
-                            <span>{tag}</span>
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
-    </Head>
-
-    <div class="body">
-        <div class="inner-container">
-            <div class="publish-date">
-                <div>
-                    {pubDate.toLocaleString("default", { month: "long" })}
-                    {pubDate.getDate()}, {pubDate.getFullYear()}
-                </div>
-            </div>
-
-            <article>
-                <slot />
-            </article>
-
-            <hr />
-
-            <div class="adjacent-content-links">
-                <div class="previous">
-                    {
-                        prevPost != null && (
-                            <a href={prevPost.absoluteURL}>
-                                <span class="prefix">‹ Previous post</span>
-                                <br />
-                                <span class="title">{prevPost.data.title}</span>
+            <ul class="tags">
+                {
+                    tags.map((tag) => (
+                        <li>
+                            <a href={`/posts/tag/${tag}/1`}>
+                                <span>{tag}</span>
                             </a>
-                        )
-                    }
+                        </li>
+                    ))
+                }
+            </ul>
+        </Head>
+
+        <div class="body">
+            <div class="inner-container">
+                <div class="publish-date">
+                    <div>
+                        {pubDate.toLocaleString("default", { month: "long" })}
+                        {pubDate.getDate()}, {pubDate.getFullYear()}
+                    </div>
                 </div>
 
-                <div class="next">
-                    {
-                        nextPost != null && (
-                            <a href={nextPost.absoluteURL}>
-                                <span class="prefix">Next post ›</span>
-                                <br />
-                                <span class="title">{nextPost.data.title}</span>
-                            </a>
-                        )
-                    }
+                <article>
+                    <slot />
+                </article>
+
+                <hr />
+
+                <div class="adjacent-content-links">
+                    <div class="previous">
+                        {
+                            prevPost != null && (
+                                <a href={prevPost.absoluteURL}>
+                                    <span class="prefix">‹ Previous post</span>
+                                    <br />
+                                    <span class="title">{prevPost.data.title}</span>
+                                </a>
+                            )
+                        }
+                    </div>
+
+                    <div class="next">
+                        {
+                            nextPost != null && (
+                                <a href={nextPost.absoluteURL}>
+                                    <span class="prefix">Next post ›</span>
+                                    <br />
+                                    <span class="title">{nextPost.data.title}</span>
+                                </a>
+                            )
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <ContentFooter />
-</div>
-<DocEnd />
+        <ContentFooter />
+    </div>
+</Document>

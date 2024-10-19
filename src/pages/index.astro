@@ -1,7 +1,6 @@
 ---
 import CloseIcon from "../components/Icons/CloseIcon.astro";
-import DocStart from "../components/DocStart.astro";
-import DocEnd from "../components/DocEnd.astro";
+import Document from "../components/Document.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Button from "../components/Button.astro";
 import GitHubIcon from "../components/Icons/GitHubIcon.astro";
@@ -23,197 +22,196 @@ const projects = (await loadAndFormatCollection("projects", false))
     .slice(0, 3);
 ---
 
-<DocStart title="Home" />
-<div class="container container--centred container--home">
-    <div class="inner-container">
-        <div class="site-title">
-            <h1>
-                <span class="text--muted-1" style="padding-right: .2em;"
-                    >&#8250;</span
-                ><span class="text--primary-1">rick</span><span
-                    class="text--muted-1">.</span
-                ><span class="text--primary-7">me</span><span
-                    class="text--muted-1">.</span
-                ><span class="text--primary-7">uk</span>
-            </h1>
+<Document title="Home">
+    <div class="container container--centred container--home">
+        <div class="inner-container">
+            <div class="site-title">
+                <h1>
+                    <span class="text--muted-1" style="padding-right: .2em;"
+                        >&#8250;</span
+                    ><span class="text--primary-1">rick</span><span
+                        class="text--muted-1">.</span
+                    ><span class="text--primary-7">me</span><span
+                        class="text--muted-1">.</span
+                    ><span class="text--primary-7">uk</span>
+                </h1>
 
-            <div class="theme-selector-container">
-                <a
-                    href="#"
-                    class="theme-selector-toggle"
-                    data-toggle=".theme-selector"
-                    title="Change theme"
-                >
-                    <ThemeIcon width="28px" height="28px" />
-                    <CloseIcon width="28px" height="28px" />
-                </a>
-                <div class="theme-selector">
-                    <ThemeSelector />
+                <div class="theme-selector-container">
+                    <a
+                        href="#"
+                        class="theme-selector-toggle"
+                        data-toggle=".theme-selector"
+                        title="Change theme"
+                    >
+                        <ThemeIcon width="28px" height="28px" />
+                        <CloseIcon width="28px" height="28px" />
+                    </a>
+                    <div class="theme-selector">
+                        <ThemeSelector />
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <p class="lead">
-            Hi. I'm Rick, a game developer with a background in full-stack web
-            dev.
-        </p>
+            <p class="lead">
+                Hi. I'm Rick, a game developer with a background in full-stack web
+                dev.
+            </p>
 
-        <div class="section recent-posts">
-            <div class="inline-heading">
-                <h2><a href="/posts/1">Posts</a></h2>
+            <div class="section recent-posts">
+                <div class="inline-heading">
+                    <h2><a href="/posts/1">Posts</a></h2>
 
-                <span class="more-link">
-                    <a href="/posts/1">See full list</a>
-                </span>
-            </div>
+                    <span class="more-link">
+                        <a href="/posts/1">See full list</a>
+                    </span>
+                </div>
 
-            <ul>
-                {
-                    posts.map((post: any) => (
-                        <li>
-                            <a href={post.absoluteURL} class="link">
-                                <span class="link-title">
-                                    {post.data.title}
-                                </span>
-                                <span class="link-publish-date">
-                                    <FormattedDate date={post.data.pubDate} />
-                                </span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-
-        <div class="section projects">
-            <div class="inline-heading">
-                <h2><a href="/projects/">Projects</a></h2>
-
-                <span class="more-link">
-                    <a href="/projects/">See full list</a>
-                </span>
-            </div>
-
-            <div class="project-cards">
-                {
-                    projects.map((project: any) => (
-                        <div class="project-cards__card">
-                            <div class="project-cards__card__inner">
-                                <span
-                                    class={statusToBadgeClass(
-                                        project.data.status,
-                                    )}
-                                >
-                                    {project.data.status}
-                                </span>
-                                <a href={project.absoluteURL} class="link">
-                                    {project.data.title}
-                                    <span class="description">
-                                        {project.data.description}
+                <ul>
+                    {
+                        posts.map((post: any) => (
+                            <li>
+                                <a href={post.absoluteURL} class="link">
+                                    <span class="link-title">
+                                        {post.data.title}
+                                    </span>
+                                    <span class="link-publish-date">
+                                        <FormattedDate date={post.data.pubDate} />
                                     </span>
                                 </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <div class="section projects">
+                <div class="inline-heading">
+                    <h2><a href="/projects/">Projects</a></h2>
+
+                    <span class="more-link">
+                        <a href="/projects/">See full list</a>
+                    </span>
+                </div>
+
+                <div class="project-cards">
+                    {
+                        projects.map((project: any) => (
+                            <div class="project-cards__card">
+                                <div class="project-cards__card__inner">
+                                    <span
+                                        class={statusToBadgeClass(
+                                            project.data.status,
+                                        )}
+                                    >
+                                        {project.data.status}
+                                    </span>
+                                    <a href={project.absoluteURL} class="link">
+                                        {project.data.title}
+                                        <span class="description">
+                                            {project.data.description}
+                                        </span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    ))
-                }
+                        ))
+                    }
+                </div>
             </div>
-        </div>
 
-        <div class="section proficiencies">
-            <h2>Proficiencies</h2>
+            <div class="section proficiencies">
+                <h2>Proficiencies</h2>
 
-            <div class="proficiencies__row">
-                <div class="proficiencies__row__label">Languages</div>
-                <div class="proficiencies__row__pills pills pills--primary-1">
-                    <span>C</span>
-                    <span>C++</span>
-                    <span>C#</span>
-                    <span>Rust</span>
-                    <span>Python</span>
-                    <span>PHP</span>
-                    <span>JavaScript</span>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Languages</div>
+                    <div class="proficiencies__row__pills pills pills--primary-1">
+                        <span>C</span>
+                        <span>C++</span>
+                        <span>C#</span>
+                        <span>Rust</span>
+                        <span>Python</span>
+                        <span>PHP</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Frameworks</div>
+                    <div class="proficiencies__row__pills pills pills--primary-2">
+                        <span>.NET</span>
+                        <span>Laravel</span>
+                        <span>Express</span>
+                        <span>Vue.js</span>
+                        <span>React</span>
+                        <span>React Native</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Game Engines</div>
+                    <div class="proficiencies__row__pills pills pills--primary-3">
+                        <span>Unreal</span>
+                        <span>Unity</span>
+                        <span>Godot</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Databases</div>
+                    <div class="proficiencies__row__pills pills pills--primary-4">
+                        <span>MySQL</span>
+                        <span>PostgreSQL</span>
+                        <span>MongoDB</span>
+                        <span>Redis</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Editors</div>
+                    <div class="proficiencies__row__pills pills pills--primary-5">
+                        <span>VS Code</span>
+                        <span>Visual Studio</span>
+                        <span>JetBrains IDEs</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Platforms</div>
+                    <div class="proficiencies__row__pills pills pills--primary-6">
+                        <span>Web</span>
+                        <span>Desktop</span>
+                        <span>Mobile</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Tools & Services</div>
+                    <div class="proficiencies__row__pills pills pills--primary-7">
+                        <span>Git</span>
+                        <span>WSL</span>
+                        <span>Docker</span>
+                        <span>AWS</span>
+                        <span>Cloudflare</span>
+                    </div>
                 </div>
             </div>
-            <div class="proficiencies__row">
-                <div class="proficiencies__row__label">Frameworks</div>
-                <div class="proficiencies__row__pills pills pills--primary-2">
-                    <span>.NET</span>
-                    <span>Laravel</span>
-                    <span>Express</span>
-                    <span>Vue.js</span>
-                    <span>React</span>
-                    <span>React Native</span>
-                </div>
-            </div>
-            <div class="proficiencies__row">
-                <div class="proficiencies__row__label">Game Engines</div>
-                <div class="proficiencies__row__pills pills pills--primary-3">
-                    <span>Unreal</span>
-                    <span>Unity</span>
-                    <span>Godot</span>
-                </div>
-            </div>
-            <div class="proficiencies__row">
-                <div class="proficiencies__row__label">Databases</div>
-                <div class="proficiencies__row__pills pills pills--primary-4">
-                    <span>MySQL</span>
-                    <span>PostgreSQL</span>
-                    <span>MongoDB</span>
-                    <span>Redis</span>
-                </div>
-            </div>
-            <div class="proficiencies__row">
-                <div class="proficiencies__row__label">Editors</div>
-                <div class="proficiencies__row__pills pills pills--primary-5">
-                    <span>VS Code</span>
-                    <span>Visual Studio</span>
-                    <span>JetBrains IDEs</span>
-                </div>
-            </div>
-            <div class="proficiencies__row">
-                <div class="proficiencies__row__label">Platforms</div>
-                <div class="proficiencies__row__pills pills pills--primary-6">
-                    <span>Web</span>
-                    <span>Desktop</span>
-                    <span>Mobile</span>
-                </div>
-            </div>
-            <div class="proficiencies__row">
-                <div class="proficiencies__row__label">Tools & Services</div>
-                <div class="proficiencies__row__pills pills pills--primary-7">
-                    <span>Git</span>
-                    <span>WSL</span>
-                    <span>Docker</span>
-                    <span>AWS</span>
-                    <span>Cloudflare</span>
-                </div>
-            </div>
-        </div>
 
-        <div class="section links">
-            <Button href="https://github.com/Riari">
-                <GitHubIcon
-                    width="32px"
-                    height="32px"
-                    style="vertical-align: -10px;"
-                /> GitHub
-            </Button>
-            <Button href="https://www.linkedin.com/in/rick-uk/">
-                <LinkedInIcon
-                    width="32px"
-                    height="32px"
-                    style="vertical-align: -10px;"
-                /> LinkedIn
-            </Button>
-            <Button href="https://medium.com/@rickhmann">
-                <MediumIcon
-                    width="32px"
-                    height="32px"
-                    style="vertical-align: -10px;"
-                /> Medium
-            </Button>
+            <div class="section links">
+                <Button href="https://github.com/Riari">
+                    <GitHubIcon
+                        width="32px"
+                        height="32px"
+                        style="vertical-align: -10px;"
+                    /> GitHub
+                </Button>
+                <Button href="https://www.linkedin.com/in/rick-uk/">
+                    <LinkedInIcon
+                        width="32px"
+                        height="32px"
+                        style="vertical-align: -10px;"
+                    /> LinkedIn
+                </Button>
+                <Button href="https://medium.com/@rickhmann">
+                    <MediumIcon
+                        width="32px"
+                        height="32px"
+                        style="vertical-align: -10px;"
+                    /> Medium
+                </Button>
+            </div>
         </div>
     </div>
-</div>
-
-<DocEnd />
+</Document>

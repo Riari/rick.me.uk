@@ -1,8 +1,7 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
 import ContentFooter from "../../../../components/ContentFooter.astro";
-import DocStart from "../../../../components/DocStart.astro";
-import DocEnd from "../../../../components/DocEnd.astro";
+import Document from "../../../../components/Document.astro";
 import Head from "../../../../components/Head.astro";
 import Pagination from "../../../../components/Pagination.astro";
 import PostCard from "../../../../components/PostCard.astro";
@@ -36,31 +35,34 @@ const tagHasProjects =
     0;
 ---
 
-<DocStart />
-<div class="container container--cards">
-    <Head title="Posts">
-        <h2 class="subheading">Tagged with '{tag}'</h2>
-    </Head>
+<Document title={`Posts tagged with '${tag}'`}>
+    <div class="container container--cards">
+        <Head title="Posts">
+            <h2 class="subheading">Tagged with '{tag}'</h2>
+        </Head>
 
-    <div class="body">
-        <div class="inner-container">
-            {
-                tagHasProjects ? (
-                    <p class="text-center text--muted-3" style="margin-top: 0;">
-                        There are also{" "}
-                        <a href={`/projects/tag/${tag}`}>
-                            projects with this tag
-                        </a>
-                    </p>
-                ) : null
-            }
+        <div class="body">
+            <div class="inner-container">
+                {
+                    tagHasProjects ? (
+                        <p
+                            class="text-center text--muted-3"
+                            style="margin-top: 0;"
+                        >
+                            There are also{" "}
+                            <a href={`/projects/tag/${tag}`}>
+                                projects with this tag
+                            </a>
+                        </p>
+                    ) : null
+                }
 
-            {page.data.map((post) => <PostCard post={post} />)}
+                {page.data.map((post) => <PostCard post={post} />)}
 
-            <Pagination page={page} />
+                <Pagination page={page} />
+            </div>
         </div>
-    </div>
 
-    <ContentFooter />
-</div>
-<DocEnd />
+        <ContentFooter />
+    </div>
+</Document>

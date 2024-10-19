@@ -1,5 +1,5 @@
 ---
-import BaseHead from "./BaseHead.astro"
+import BaseHead from "./BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
 const { title, description = SITE_DESCRIPTION } = Astro.props;
@@ -13,3 +13,9 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
         <BaseHead title={pageTitle} description={description} />
     </head>
     <body>
+        <slot></slot>
+
+        <script src="../js/theme.ts"></script>
+        <script src="../js/interactivity.ts"></script>
+    </body>
+</html>

@@ -1,14 +1,13 @@
 ---
-import DocStart from "../components/DocStart.astro";
-import DocEnd from "../components/DocEnd.astro";
+import Document from "../components/Document.astro";
 ---
 
-<DocStart />
-<div class="container container--centred container--404">
-    <div class="inner-container text-center">
-        <h1>Page not found</h1>
-        <p>That URL doesn't appear to be valid :(</p>
-        <p><a href="/">Go home</a>?</p>
+<Document title="Page not found">
+    <div class="container container--centred container--404">
+        <div class="inner-container text-center">
+            <h1>Page not found</h1>
+            <p>That URL doesn't appear to be valid :(</p>
+            <p><a href="/">Go home</a>?</p>
+        </div>
     </div>
-</div>
-<DocEnd />
+</Document>

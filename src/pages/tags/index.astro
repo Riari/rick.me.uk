@@ -1,7 +1,6 @@
 ---
 import ContentFooter from "../../components/ContentFooter.astro";
-import DocStart from "../../components/DocStart.astro";
-import DocEnd from "../../components/DocEnd.astro";
+import Document from "../../components/Document.astro";
 import Head from "../../components/Head.astro";
 import { loadAndFormatCollection, getTags } from "../../util/collection";
 
@@ -11,42 +10,44 @@ const postTags = await getTags(posts);
 const projectTags = await getTags(projects);
 ---
 
-<DocStart title="Tags" />
-<div class="container">
-    <Head title="Tags" />
+<Document title="Tags">
+    <div class="container">
+        <Head title="Tags" />
 
-    <div class="body">
-        <div class="inner-container text-center">
-            <h3 style="margin-top: 0;" class="text--muted-2">Browse posts tagged with…</h3>
+        <div class="body">
+            <div class="inner-container text-center">
+                <h3 style="margin-top: 0;" class="text--muted-2">
+                    Browse posts tagged with…
+                </h3>
 
-            <ul class="tags">
-                {
-                    postTags.map((tag) => (
-                        <li>
-                            <a href={`/posts/tag/${tag}/1`}>
-                                <span>{tag}</span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
+                <ul class="tags">
+                    {
+                        postTags.map((tag) => (
+                            <li>
+                                <a href={`/posts/tag/${tag}/1`}>
+                                    <span>{tag}</span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
 
-            <h3 class="text--muted-2">Browse projects tagged with…</h3>
+                <h3 class="text--muted-2">Browse projects tagged with…</h3>
 
-            <ul class="tags">
-                {
-                    projectTags.map((tag) => (
-                        <li>
-                            <a href={`/projects/tag/${tag}`}>
-                                <span>{tag}</span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
+                <ul class="tags">
+                    {
+                        projectTags.map((tag) => (
+                            <li>
+                                <a href={`/projects/tag/${tag}`}>
+                                    <span>{tag}</span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <ContentFooter />
-</div>
-<DocEnd />
+        <ContentFooter />
+    </div>
+</Document>

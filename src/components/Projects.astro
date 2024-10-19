@@ -1,8 +1,7 @@
 ---
 import { projectStatuses } from "../content/config";
 import ContentFooter from "./ContentFooter.astro";
-import DocStart from "./DocStart.astro";
-import DocEnd from "./DocEnd.astro";
+import Document from "./Document.astro";
 import ExternalLink from "./ExternalLink.astro";
 import Head from "./Head.astro";
 import ProjectCard from "./ProjectCard.astro";
@@ -11,60 +10,59 @@ import { statusToBadgeClass } from "../util/frontmatter";
 const { projects, statusFilter = null } = Astro.props;
 ---
 
-<DocStart title="Projects" />
-<div class="container container--cards">
-    <Head title="Projects" />
+<Document title="Projects">
+    <div class="container container--cards">
+        <Head title="Projects" />
 
-    <div class="body">
-        <div class="inner-container">
-            <div class="text-center" style="margin-bottom: 2rem;">
-                This is a selection of projects I'm working on (or have
-                previously worked on).
-                <br />
-                You can find more of my software projects on <ExternalLink
-                    url="https://github.com/Riari"
-                    label="GitHub"
-                />.
+        <div class="body">
+            <div class="inner-container">
+                <div class="text-center" style="margin-bottom: 2rem;">
+                    This is a selection of projects I'm working on (or have
+                    previously worked on).
+                    <br />
+                    You can find more of my software projects on <ExternalLink
+                        url="https://github.com/Riari"
+                        label="GitHub"
+                    />.
 
-                <p>
-                    Filter by status:
+                    <p>
+                        Filter by status:
+                        {
+                            projectStatuses.map((status: string) => (
+                                <a
+                                    href={`/projects/status/${status.toLocaleLowerCase()}/`}
+                                    class:list={[
+                                        statusToBadgeClass(status),
+                                        statusFilter === status.toLocaleLowerCase()
+                                            ? "badge--active"
+                                            : "",
+                                    ]}
+                                >
+                                    {status}
+                                </a>
+                            ))
+                        }
+
+                        {
+                            statusFilter ? (
+                                <span>
+                                    (<a href="/projects/">Clear filter</a>)
+                                </span>
+                            ) : null
+                        }
+                    </p>
+                </div>
+
+                <div class="card-grid">
                     {
-                        projectStatuses.map((status: string) => (
-                            <a
-                                href={`/projects/status/${status.toLocaleLowerCase()}/`}
-                                class:list={[
-                                    statusToBadgeClass(status),
-                                    statusFilter === status.toLocaleLowerCase()
-                                        ? "badge--active"
-                                        : "",
-                                ]}
-                            >
-                                {status}
-                            </a>
+                        projects.map((project: any) => (
+                            <ProjectCard project={project} />
                         ))
                     }
-
-                    {
-                        statusFilter ? (
-                            <span>
-                                (<a href="/projects/">Clear filter</a>)
-                            </span>
-                        ) : null
-                    }
-                </p>
-            </div>
-
-            <div class="card-grid">
-                {
-                    projects.map((project: any) => (
-                        <ProjectCard project={project} />
-                    ))
-                }
+                </div>
             </div>
         </div>
+
+        <ContentFooter />
     </div>
-
-    <ContentFooter />
-</div>
-
-<DocEnd />
+</Document>
