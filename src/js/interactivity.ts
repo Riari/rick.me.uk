@@ -31,7 +31,7 @@ document.querySelectorAll<HTMLElement>("[data-toggle]").forEach(function (toggle
     );
 });
 
-document.addEventListener("click", function (event) {
+document.addEventListener("click", function (_) {
     togglesToTargets.forEach((target, toggle) => {
         target.classList.remove("show");
         toggle.classList.remove("toggled");
