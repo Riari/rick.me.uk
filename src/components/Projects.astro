@@ -27,6 +27,7 @@ const { projects, statusFilter = null } = Astro.props;
 
                     <p>
                         Filter by status:
+                        <br />
                         {
                             projectStatuses.map((status: string) => (
                                 <a
@@ -46,7 +47,7 @@ const { projects, statusFilter = null } = Astro.props;
                         {
                             statusFilter ? (
                                 <span>
-                                    (<a href="/projects/">Clear filter</a>)
+                                    (<a href="/projects/">Reset</a>)
                                 </span>
                             ) : null
                         }
