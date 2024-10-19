@@ -70,12 +70,11 @@
     }
 }
 
-html[data-theme="light"] {
-    @include theme-light;
-}
+@include apply-light-theme();
 
-@media (prefers-color-scheme: light) {
-    html[data-theme="system"] {
-        @include theme-light;
+@media only screen and (max-width: $breakpoint--x-small) {
+    .pagination span.pagination-page-number {
+        display: block;
+        margin: .5rem 0;
     }
 }

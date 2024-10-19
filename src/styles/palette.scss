@@ -52,3 +52,15 @@ $palette: (
     primary-6: $color-primary-6,
     primary-7: $color-primary-7
 );
+
+@mixin apply-light-theme() {
+    html[data-theme="light"] {
+        @include theme-light;
+    }
+
+    @media (prefers-color-scheme: light) {
+        html[data-theme="system"] {
+            @include theme-light;
+        }
+    }
+}
