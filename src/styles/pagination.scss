@@ -57,8 +57,17 @@
 
 @mixin theme-light {
     .adjacent-content-links {
-        a:hover span {
-            color: #000;
+        .next,
+        .previous {
+            a {
+                .prefix {
+                    color: $color-muted-2;
+                }
+
+                &:hover span {
+                    color: #000;
+                }
+            }
         }
     }
 
