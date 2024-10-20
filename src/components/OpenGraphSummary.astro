@@ -11,7 +11,7 @@ const properties = await ogs({ url }).then((data: any) => {
 
 <div class="og-summary">
     <a href={url} target="_blank">
-        <img src={properties.ogImage[0].url} alt={properties.ogImage[0].alt}>
+        <img src={properties.ogImage[0].url} alt={properties.ogImage[0].alt} loading="lazy" />
     </a>
     <div class="caption">
         <a href={url} target="_blank">{properties.ogTitle}</a>
