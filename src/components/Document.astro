@@ -43,7 +43,8 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
         <meta property="twitter:description" content={description} />
         <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preload" href="/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" />
+        <link rel="preload" href="/fonts/SourceSans3.woff2" as="font" type="font/woff2" />
 
         <script is:inline>
             document.documentElement.dataset.theme =
