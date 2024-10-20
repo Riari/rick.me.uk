@@ -15,6 +15,10 @@
         h1 {
             flex: 1;
             margin: 0;
+
+            span:not(.text--muted-1) {
+                color: $color-foreground-light-dimmed;
+            }
         }
 
         .theme-selector-container {
