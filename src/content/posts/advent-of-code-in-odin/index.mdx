@@ -141,7 +141,7 @@ I ended up with this:
 <div class="caption">`.vscode/launch.json`</div>
 
 <Alert type="tip">
-The `lldb` configuration type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb" label="CodeLLDB" /> extension and the `cppvsdbg` type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</ExternalLink> extension.
+The `lldb` configuration type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb">CodeLLDB</ExternalLink> extension and the `cppvsdbg` type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</ExternalLink> extension.
 </Alert>
 
 There is a slight caveat with the _Debug tests_ configs in that they execute the tests twice—once without a debugger and again with. This is because the only way to build tests (as far as I can tell) is with `odin test` (hence that's what the _Test_ task uses). So _Debug tests_ will run that first to get up-to-date test binaries, then launch the debugger. If I can figure out a way of building the tests without running them, I'll update the config.

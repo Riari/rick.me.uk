@@ -18,7 +18,7 @@ Last time, I finished off with a scene of floating crates demonstrating some sim
 - Figure out how to support multiple sources of light at once.
 - Implement more types of light source.
 
-The next LearnOpenGL chapters on lighting—<ExternalLink url="https://learnopengl.com/Lighting/Light-casters" label="Light casters" /> and <ExternalLink url="https://learnopengl.com/Lighting/Multiple-lights">Multiple lights</ExternalLink>—covered both of those goals nicely, so I continued following them and worked to integrate the results (something which is becoming increasingly challenging as the GL-related parts of the engine codebase diverge more and more from the LearnOpenGL examples!).
+The next LearnOpenGL chapters on lighting—<ExternalLink url="https://learnopengl.com/Lighting/Light-casters">Light casters</ExternalLink> and <ExternalLink url="https://learnopengl.com/Lighting/Multiple-lights">Multiple lights</ExternalLink>—covered both of those goals nicely, so I continued following them and worked to integrate the results (something which is becoming increasingly challenging as the GL-related parts of the engine codebase diverge more and more from the LearnOpenGL examples!).
 
 ---
 
@@ -245,7 +245,7 @@ One directional light, numerous point lights, and a spot light attached to the c
 
 ### Bonus: GUI integration
 
-Having a scene full of lights with various properties is nice, but changing those properties in code and recompiling every time I want to test or verify something was starting to get cumbersome, so I decided to integrate a GUI library to make things easier. There are lots of GUI options for C++, but I was quick to opt for the popular <ExternalLink url="https://github.com/ocornut/imgui" label="Dear ImGui" />—an <ExternalLink url="https://en.wikipedia.org/wiki/Immediate_mode_GUI">immediate mode GUI</ExternalLink> library used in many game projects to provide debug UIs or interfaces for in-house tools. It's sponsored by some big names such as Blizzard and Ubisoft, and often shows up in behind-the-scenes footage at GDC talks, so I knew it would easily meet my criteria.
+Having a scene full of lights with various properties is nice, but changing those properties in code and recompiling every time I want to test or verify something was starting to get cumbersome, so I decided to integrate a GUI library to make things easier. There are lots of GUI options for C++, but I was quick to opt for the popular <ExternalLink url="https://github.com/ocornut/imgui">Dear ImGui</ExternalLink>—an <ExternalLink url="https://en.wikipedia.org/wiki/Immediate_mode_GUI">immediate mode GUI</ExternalLink> library used in many game projects to provide debug UIs or interfaces for in-house tools. It's sponsored by some big names such as Blizzard and Ubisoft, and often shows up in behind-the-scenes footage at GDC talks, so I knew it would easily meet my criteria.
 
 I started by grabbing the ImGui headers and source files and updating my CMake config to pull them in. This alone took some trial and error as I realised I forgot a few headers and had to enable imm32, among other things. However, it didn't take long to get a very basic integration of the ImGui demo working, which entailed calling a series of `ImGui::*` functions for initialisation, frame preparation at the start of the main loop, drawing various elements, rendering the collected draw data (just before the frame buffers are swapped), and cleaning up after the main loop.
 
