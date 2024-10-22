@@ -18,12 +18,12 @@ My dad recently built a handheld thermal imaging camera consisting of a Raspberr
 
 <Image src={photo2Image.src} alt="Photo of top - IR camera mounted in the top right" caption="Top - IR camera mounted in the top right" />
 
-On the software side, he started with <ExternalLink url="https://github.com/tomshaffner/PiThermalCam" label="https://github.com/tomshaffner/PiThermalCam" />, a Python package providing viewing capabilities on Pis with the MLX90640. It provides two modes of operation:
+On the software side, he started with <ExternalLink url="https://github.com/tomshaffner/PiThermalCam">https://github.com/tomshaffner/PiThermalCam</ExternalLink>, a Python package providing viewing capabilities on Pis with the MLX90640. It provides two modes of operation:
 
 * On-screen mode, which displays the camera feed in a window with keyboard controls.
 * Server mode, which runs a local Flask web server for viewing and controlling the camera feed via a browser.
 
-It's a great project, which you can read more about in much more detail in a post written by the author <ExternalLink url="https://tomshaffner.github.io/PiThermalCam/" label="here" />.
+It's a great project, which you can read more about in much more detail in a post written by the author <ExternalLink url="https://tomshaffner.github.io/PiThermalCam/">here</ExternalLink>.
 
 The problem was that my dad wanted to be able to control the feed without any connected peripherals by using the touchscreen instead, which is not supported by PiThermalCam. After investigating, I decided to write an alternative solution in Python; it's based very much on PiThermalCam for the parts concerning the camera connection and image processing, but I ended up refactoring most of it to make it a little easier for me to understand and maintain. I also took the opportunity to rework the text output to make it more legible on this particular display.
 

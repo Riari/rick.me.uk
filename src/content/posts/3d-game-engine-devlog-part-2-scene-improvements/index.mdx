@@ -16,7 +16,7 @@ I wasn't sure there was much I could do to greatly improve it, and this is an ar
 
 The second step was to introduce a precompiled header (PCH). This provides a means of caching an intermediate header compilation phase, speeding up subsequent builds where the header hasn't changed. Setting it up is a matter of specifying includes that you want to precompile—common candidates for this are STL and third party headers that you're importing numerous times throughout your project, but you can also include first party headers if they're infrequently changed. From this list, an intermediate `.pch` file is produced and included by the compiler.
 
-There are a few ways of going about that, but in my case, I used CMake's <ExternalLink url="https://cmake.org/cmake/help/latest/command/target_precompile_headers.html" label="target_precompile_headers" />:
+There are a few ways of going about that, but in my case, I used CMake's <ExternalLink url="https://cmake.org/cmake/help/latest/command/target_precompile_headers.html">target_precompile_headers</ExternalLink>:
 
 ```
 target_precompile_headers(
@@ -37,7 +37,7 @@ target_precompile_headers(
 
 The impact it had on build time was negligible, but at least the PCH is in place. Whether or not it's worth keeping is debatable as it can be problematic if not properly maintained, but I'll leave it in for now.
 
-The third step was to swap out the build system I was using—Make—with <ExternalLink url="https://ninja-build.org/" label="Ninja" />, a popular alternative. It's advertised as being speed-focused and did actually improve my build time a little. It's now down to ~55 seconds for a full build and ~32 seconds for an incremental one.
+The third step was to swap out the build system I was using—Make—with <ExternalLink url="https://ninja-build.org/">Ninja</ExternalLink>, a popular alternative. It's advertised as being speed-focused and did actually improve my build time a little. It's now down to ~55 seconds for a full build and ~32 seconds for an incremental one.
 
 I'm sure I could dig further into this to speed things up a little more, but I don't think it's worth worrying about at this point. So, on to the main topic: scenes!
 
@@ -177,7 +177,7 @@ Lastly, here's a screenshot of it in action with two windows and scenes:
 
 <Image src={multiWindowTestImage.src} alt="Multiple-window test" />
 
-It works well—the only issue visible above is the lack of any entities being drawn in the second scene/window. I think this is because I re-used the entities from the main scene and there are some OS/driver level limitations in terms of what GPU resources can be shared between windows. To fix that, I tried sharing the main window context's objects with the second window context via GLFW's built-in support for <ExternalLink url="https://www.glfw.org/docs/3.3/context_guide.html#context_sharing" label="context object sharing" />, but that unfortunately made no difference. It probably comes down to the fact that certain GL resources can't be shared and need to be created for each context, but I'm not too concerned about it because having multiple windows is an extremely rare requirement for a game—the main thing is this is a step closer to having data-driven scenes that I can easily switch between for a given render target.
+It works well—the only issue visible above is the lack of any entities being drawn in the second scene/window. I think this is because I re-used the entities from the main scene and there are some OS/driver level limitations in terms of what GPU resources can be shared between windows. To fix that, I tried sharing the main window context's objects with the second window context via GLFW's built-in support for <ExternalLink url="https://www.glfw.org/docs/3.3/context_guide.html#context_sharing">context object sharing</ExternalLink>, but that unfortunately made no difference. It probably comes down to the fact that certain GL resources can't be shared and need to be created for each context, but I'm not too concerned about it because having multiple windows is an extremely rare requirement for a game—the main thing is this is a step closer to having data-driven scenes that I can easily switch between for a given render target.
 
 There is one other caveat with the new approach in that System updates now have to take in a set of Entity IDs for the Scene being updated and determine the intersection of that set and the System's internal list, but that's not a major issue and at least it's working for now.
 
@@ -189,4 +189,4 @@ I'm also discovering that building the engine without a specific game concept (o
 
 ---
 
-*The latest code for this project can be found at <ExternalLink url="https://github.com/Riari/iris-engine" label="https://github.com/Riari/iris-engine" />.*
+*The latest code for this project can be found at <ExternalLink url="https://github.com/Riari/iris-engine">https://github.com/Riari/iris-engine</ExternalLink>.*

@@ -9,19 +9,19 @@ import ExternalLink from '../../../components/ExternalLink.astro';
 import Image from '../../../components/Image.astro';
 import processFlowImage from './process-flow.jpg';
 
-In this post, I'll cover some of the work I've done on the initial version of the ECS for <ExternalLink url="https://github.com/Riari/iris-engine" label="Iris Engine" />. Before I get into that, I'll summarise the other work I've done prior to implementing the ECS.
+In this post, I'll cover some of the work I've done on the initial version of the ECS for <ExternalLink url="https://github.com/Riari/iris-engine">Iris Engine</ExternalLink>. Before I get into that, I'll summarise the other work I've done prior to implementing the ECS.
 
 Currently, the engine consists of:
 
-- A way of creating and managing multiple window instances via <ExternalLink url="https://www.glfw.org" label="GLFW" />
-- Logging via <ExternalLink url="https://github.com/gabime/spdlog" label="spdlog" />
-- A very rough basis for an OpenGL renderer, with function loading via <ExternalLink url="https://glad.dav1d.de/" label="glad" />
+- A way of creating and managing multiple window instances via <ExternalLink url="https://www.glfw.org">GLFW</ExternalLink>
+- Logging via <ExternalLink url="https://github.com/gabime/spdlog">spdlog</ExternalLink>
+- A very rough basis for an OpenGL renderer, with function loading via <ExternalLink url="https://glad.dav1d.de/">glad</ExternalLink>
 - A generic event bus
 - Input management, including the ability to register keybinds with primary (and optionally, secondary) binds
 
 Needless to say, there's a long way to go. Writing an ECS when there's still so much to do on some fundamental systems is probably a little premature, but of all the possible next steps to take, it's the thing that interested me the most.
 
-I should point out that I have no intention of attempting to innovate with my implementation. The ECS architectural pattern has been popular for a very long time and its principles have been talked about as far back as almost twenty years ago, when Scott Bilas detailed some aspects of it in his <ExternalLink url="https://www.gamedevs.org/uploads/data-driven-game-object-system.pdf" label="GDC talk, "A Data-Driven Game Object System"" />. Many variants and evolutions of it have emerged since, but the core ideas remain the same.
+I should point out that I have no intention of attempting to innovate with my implementation. The ECS architectural pattern has been popular for a very long time and its principles have been talked about as far back as almost twenty years ago, when Scott Bilas detailed some aspects of it in his <ExternalLink url="https://www.gamedevs.org/uploads/data-driven-game-object-system.pdf">GDC talk, "A Data-Driven Game Object System"</ExternalLink>. Many variants and evolutions of it have emerged since, but the core ideas remain the same.
 
 ---
 
@@ -33,19 +33,19 @@ If you're not familiar with it, in brief, it's a compositional, data-oriented ap
 - **Components:** containers for different aspects of an entity's data, such as physics properties. Component instances are the constituent parts of entities and are usually stored in arrays or maps for easy lookup via entity IDs.
 - **Systems:** where the logic resides. A system is associated with one or more component types and processes entity data by iterating over all of the components matching those types per tick/update/frame and modifying the data in them.
 
-Because it's so prevalent in modern game engines, it should be no surprise that there's an abundance of ECS libraries across many languages, with C++ in particular having a number of well-established options such as <ExternalLink url="https://github.com/skypjack/entt" label="entt" /> and <ExternalLink url="https://github.com/alecthomas/entityx" label="EntityX" />. There are also many articles, forum posts, and other materials that discuss ways of implementing the pattern; some are more rough and ready, others go deeper into the topic and accommodate things like enhanced memory efficiency via custom memory allocators.
+Because it's so prevalent in modern game engines, it should be no surprise that there's an abundance of ECS libraries across many languages, with C++ in particular having a number of well-established options such as <ExternalLink url="https://github.com/skypjack/entt" label="entt" /> and <ExternalLink url="https://github.com/alecthomas/entityx">EntityX</ExternalLink>. There are also many articles, forum posts, and other materials that discuss ways of implementing the pattern; some are more rough and ready, others go deeper into the topic and accommodate things like enhanced memory efficiency via custom memory allocators.
 
 ---
 
 ### What I did
 
-For my purposes, I wanted an approach that isn't too difficult to learn, but also doesn't compromise too much on efficiency. The <ExternalLink url="https://austinmorlan.com/posts/entity_component_system/" label="approach described by Austin Morlan" /> seemed like a good middle ground, so I used that as a reference.
+For my purposes, I wanted an approach that isn't too difficult to learn, but also doesn't compromise too much on efficiency. The <ExternalLink url="https://austinmorlan.com/posts/entity_component_system/">approach described by Austin Morlan</ExternalLink> seemed like a good middle ground, so I used that as a reference.
 
 For the most part, I've not strayed far from that approach and largely have the same implementation. In summary:
 
 - Entities are just integers (IDs).
 - Component types are structs. When a component type is registered with the `ComponentManager`, it's assigned a numeric ID, similar to entities. This allows component types to be referenced and stored by entities and systems.
-- Every entity and every system has a `Signature`, which leverages <ExternalLink url="https://en.cppreference.com/w/cpp/utility/bitset" label="std::bitset" /> to specify component types and enable any given system to operate on entities that have the components it's interested in.
+- Every entity and every system has a `Signature`, which leverages <ExternalLink url="https://en.cppreference.com/w/cpp/utility/bitset">std::bitset</ExternalLink> to specify component types and enable any given system to operate on entities that have the components it's interested in.
 - `EntityManager` deals with the creation, destruction, and "signing" of entities.
 - `ComponentManager` deals with registration and retrieval of component types, as well as providing a way to add/fetch/remove an entity's components via the `ComponentStore`.
 - `ComponentStore` is instantiated per component type and provides an array of components per entity. It maintains a map of entity ID to component index and another of component index to entity ID for easy lookups from either angle.

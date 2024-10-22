@@ -10,7 +10,7 @@ import irisImage from './iris.jpg';
 
 This is the first post of what will hopefully become a comprehensive devlog detailing my work as I take a shot at creating my first "proper" 3D game engine. Needless to say I'm far, _far_ from the first to do something like this—especially in C++—but if I can share a few of my own ideas and learn a lot along the way, it'll be worthwhile!
 
-I've already done a lot of the groundwork for this project. It started out as an effort to follow <ExternalLink url="https://learnopengl.com/" label="LearnOpenGL" />, but I found myself wanting to refactor the code and build more than just a renderer, so it inevitably evolved into the rough beginnings of an engine (at which point I renamed the project to "Iris", after <a href={irisImage.src}>a cat</a> I helped my parents adopt!). Through that process, I've decided on a rough set of goals to start with:
+I've already done a lot of the groundwork for this project. It started out as an effort to follow <ExternalLink url="https://learnopengl.com/">LearnOpenGL</ExternalLink>, but I found myself wanting to refactor the code and build more than just a renderer, so it inevitably evolved into the rough beginnings of an engine (at which point I renamed the project to "Iris", after <a href={irisImage.src}>a cat</a> I helped my parents adopt!). Through that process, I've decided on a rough set of goals to start with:
 
 * OpenGL first, DirectX and/or Vulkan later (much, much later!)
 * Desktop only (but with potential consideration towards controller support)
@@ -25,7 +25,7 @@ To help keep myself on track and not produce an incorrigible mess, I'm using lot
 * Mastering C++ Game Development (2018)
 * Game Engine Architecture (2015)
 * Game Coding Complete, Fourth Edition (2013)
-* <ExternalLink url="https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT" label="The Cherno's Game Engine series" />
-* Modern open source C++ game engines (<ExternalLink url="https://github.com/TheCherno/Hazel" label="there" /> <ExternalLink url="https://github.com/godlikepanos/anki-3d-engine" label="are" /> <ExternalLink url="https://github.com/amzeratul/halley" label="lots" /> <ExternalLink url="https://github.com/nem0/LumixEngine" label="of" /> <ExternalLink url="https://github.com/urho3d/Urho3D" label="examples" />!)
+* <ExternalLink url="https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT">The Cherno's Game Engine series</ExternalLink>
+* Modern open source C++ game engines (<ExternalLink url="https://github.com/TheCherno/Hazel" label="there" /> <ExternalLink url="https://github.com/godlikepanos/anki-3d-engine" label="are" /> <ExternalLink url="https://github.com/amzeratul/halley" label="lots" /> <ExternalLink url="https://github.com/nem0/LumixEngine" label="of" /> <ExternalLink url="https://github.com/urho3d/Urho3D">examples</ExternalLink>!)
 
-Lastly, the repo for this project is available at <ExternalLink url="https://github.com/Riari/iris-engine" label="https://github.com/Riari/iris-engine" /> and at the time of writing, my focus is on integrating an initial version of an <ExternalLink url="https://en.wikipedia.org/wiki/Entity_component_system" label="entity component system" />, the work-in-progress of which is in the `ecs` branch (so I can easily refer to the original, non-componentised code). In the next post, I'll cover some of the work I'm doing on that.
+Lastly, the repo for this project is available at <ExternalLink url="https://github.com/Riari/iris-engine" label="https://github.com/Riari/iris-engine" /> and at the time of writing, my focus is on integrating an initial version of an <ExternalLink url="https://en.wikipedia.org/wiki/Entity_component_system">entity component system</ExternalLink>, the work-in-progress of which is in the `ecs` branch (so I can easily refer to the original, non-componentised code). In the next post, I'll cover some of the work I'm doing on that.

@@ -112,7 +112,7 @@ Instead of passing an array of phases into a route definition, you can pass a pi
 
 ### Better state
 
-For the state object that carries state between phases, I integrated <ExternalLink url="https://github.com/adbario/php-dot-notation" label="adbario/php-dot-notation" />. This was a quick and easy way to get the idea across, but it probably wouldn't hold up well in a real project where you could be juggling lots of data on the lead-up to generating a response.
+For the state object that carries state between phases, I integrated <ExternalLink url="https://github.com/adbario/php-dot-notation">adbario/php-dot-notation</ExternalLink>. This was a quick and easy way to get the idea across, but it probably wouldn't hold up well in a real project where you could be juggling lots of data on the lead-up to generating a response.
 
 One way to improve this would be to make it more object-oriented. If PHP had generics, the state object could act more like a container to typed instances of data, which could be read and written like so:
 
@@ -128,7 +128,7 @@ $data = $state->get<SomeData>();
 
 Even without generics, this could be approximated by passing the class string as an argument instead, like `$state->set(SomeData::class, $data);`.
 
-It's perhaps not the best mechanism, but I imagine it would be quite serviceable for the vast majority of uses. Besides, in conventional MVC projects, complex business logic ideally lives in places other than controllers, like actions (otherwise more generally known as <ExternalLink url="https://refactoring.guru/design-patterns/command" label="commands" />) or external APIs, where state is fairly self-contained. On that basis, controller methods generally only need to know if an operation succeeded and/or what to send back. Phases can be minimal in the same way, calling out to other APIs to get the work done without relying much (or at all) on state being carried from one phase to the next.
+It's perhaps not the best mechanism, but I imagine it would be quite serviceable for the vast majority of uses. Besides, in conventional MVC projects, complex business logic ideally lives in places other than controllers, like actions (otherwise more generally known as <ExternalLink url="https://refactoring.guru/design-patterns/command">commands</ExternalLink>) or external APIs, where state is fairly self-contained. On that basis, controller methods generally only need to know if an operation succeeded and/or what to send back. Phases can be minimal in the same way, calling out to other APIs to get the work done without relying much (or at all) on state being carried from one phase to the next.
 
 ### Other improvements
 
