@@ -33,7 +33,7 @@ Like most jams, each GWJ follows a theme—a keyword or phrase (chosen by the or
 
 For the GWJ #53, the theme was **Assembly Required**, and though I decided not to use any, the wildcards were:
 
-<Image src={imageGWJ53Wildcards.src} alt={`"Four Color Limit: Limit your palette to four colors", "Wait, What?: Include a plot twist in your story", "Thermometer: Use temperature as a game mechanic"`} />
+<Image src={imageGWJ53Wildcards} alt={`"Four Color Limit: Limit your palette to four colors", "Wait, What?: Include a plot twist in your story", "Thermometer: Use temperature as a game mechanic"`} />
 
 I had a few ideas in mind for my game and ultimately went with this:
 
@@ -45,15 +45,15 @@ In this post, I'll cover some of the key features of the game and how I implemen
 
 The first thing I wanted to do was get a feel for visuals. I opted to make the game in 3D (which in hindsight was probably not the best idea as the extra dimension made development more complicated than it was worth), and while I have some basic Blender skills, they weren't up to the task of creating all the models I'd need in a reasonable amount of time. Instead, I used <ExternalLink url="https://assetforge.io/">Asset Forge Deluxe</ExternalLink> to quickly piece together the terrain, scenery, track, train cars, and enemy structures.
 
-<Image src={screenshotAssetForgeTrain.src} alt="Train model" />
+<Image src={screenshotAssetForgeTrain} alt="Train model" />
 
-<Image src={screenshotAssetForgeProjectile.src} alt="Projectile model" />
+<Image src={screenshotAssetForgeProjectile} alt="Projectile model" />
 
 <div class="caption">Train and projectile models made in Asset Forge</div>
 
 With most of the models exported, I mocked up the first scene in Godot to get an idea of how the first level might look. Using <ExternalLink url="https://docs.godotengine.org/en/stable/tutorials/3d/using_gridmaps.html">GridMaps</ExternalLink>, I laid out some terrain, scenery, track, and an enemy turret:
 
-<Image src={screenshotGodotFirstScene.src} alt="Godot - first scene" />
+<Image src={screenshotGodotFirstScene} alt="Godot - first scene" />
 
 GridMaps definitely made that process quick and easy, but I realised soon after that they're quite limited in what they can do. They're designed for placing mesh instances rather than full nodes, so there's a limit to how much information you can embed in each cell of the grid. That, and not everything in this game is supposed to be confined to a grid, so I was only able to use GridMaps for the terrain and scenery.
 
@@ -69,7 +69,7 @@ The next thing I tackled was dynamic track placement. Since the player has to be
 
 I went back to the drawing board and decided to write a system that would instead generate a path at runtime. To do this, I replaced the paths in the track segment scenes with <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_spatial.html">Spatial</ExternalLink> nodes representing the points to construct a path with:
 
-<Image src={screenshotGodotTrackPoints.src} alt="Track curve points" />
+<Image src={screenshotGodotTrackPoints} alt="Track curve points" />
 
 The game needs to start with some existing track (otherwise the player would lose instantly), so the system works by traversing track nodes that already exist when the scene is loaded. Player-spawned track segments are added to the same node and the system extends the path (or more specifically, the path's <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_curve3d.html">Curve3D</ExternalLink>) accordingly:
 
@@ -124,7 +124,7 @@ For the firing logic itself, I used Spatial nodes placed in the turret scene to 
 
 I went through a few iterations of that system over the course of the jam, and while it still has room for refinements, I was able to refactor it into something that could be applied to the player's train turrets as well.
 
-<Image src={screenshotTurretScriptExports.src} alt="Turret script exports" caption="Configuration exposed by the turret script" />
+<Image src={screenshotTurretScriptExports} alt="Turret script exports" caption="Configuration exposed by the turret script" />
 
 To make the missiles explode on impact, I just used more of Godot's physics nodes: a <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_staticbody.html">StaticBody</ExternalLink> on the missile itself and <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_area.html">Area</ExternalLink> nodes on anything missiles should be able to hit (the terrain and the train cars). To make the impact more visually appealing, I integrated the explosion effect from <ExternalLink url="https://github.com/drcd1/GodotSimpleExplosionVFX">{"https://github.com/drcd1/GodotSimpleExplosionVFX"}</ExternalLink>:
 
@@ -200,13 +200,13 @@ I worked on the UI throughout the project, adding to it in small increments as p
 
 For the buttons, I opted to create some textures for the normal, hovered, and pressed states in Photoshop. I didn't use <ExternalLink url="https://en.wikipedia.org/wiki/9-slice_scaling">9-slicing</ExternalLink>, so the buttons all ended up being the same aspect ratio and scale, but that wasn't a problem since I only used buttons in the main menus and in-game pause menu.
 
-<Image src={screenshotMainMenu.src} alt="Main menu" caption="The main menu" />
+<Image src={screenshotMainMenu} alt="Main menu" caption="The main menu" />
 
 For the HUD, I wanted to use icons for all of the track pieces and train cars. I'm pretty sure there's a way of rendering these in Godot, but Asset Forge has a straightforward sprite export feature, so I exported PNGs with that and spent some more time in Photoshop designing circular button textures with normal/hovered/pressed states.
 
 Aside from creating some textures for the health bars (one in the HUD for the train integrity and one drawn in world space above each enemy structure), the rest of the UI work was mostly a combination of layout adjustments in the editor and script work to hook things up. In terms of interactivity, the most important part of the HUD is the bottom section, which hosts the options for laying down track as well as buying additional train cars.
 
-<Image src={screenshotHUDBottom.src} alt="HUD - bottom section" caption="The bottom section of the HUD" />
+<Image src={screenshotHUDBottom} alt="HUD - bottom section" caption="The bottom section of the HUD" />
 
 Like some other parts of the game, I used <ExternalLink url="https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html">signals</ExternalLink> for both upwards and lateral communication in the scene tree and direct calls to script functions for downwards communication. For example, the HUD script receives signals for button presses, changes to the train's integrity value, (un)pausing the game, and win/loss conditions (to show the corresponding modal UI to the player).
 

@@ -73,7 +73,7 @@ vec3 specular = (pointLight.specular * pointLightSpec) * (directionalLight.specu
 
 Here's how it looked (note the black cube, which represents the directional light, and the white one, which represents the original point light):
 
-<Image src={combinedLights1Image.src} alt="Combined lights" />
+<Image src={combinedLights1Image} alt="Combined lights" />
 
 It kind of worked, but the point light was significantly weaker despite being so close to one of the crates. Instead of handling it this way, what I needed to do instead was calculate the final `ambient + diffuse + specular` per light, sum the results, and add the material's emission colour to get the final fragment colour. More on this further down.
 
@@ -157,7 +157,7 @@ In order to test it in isolation, I replaced the lighting calculations in the fr
 
 Here's how it looked in-scene:
 
-<Image src={spotLightImage.src} alt="Spot light demo" />
+<Image src={spotLightImage} alt="Spot light demo" />
 
 Good result!
 
@@ -237,7 +237,7 @@ auto materialShaderProgram = assetManager.GetShaderProgram("Material");
 
 Problem solved! After some tweaking of the light data and number of lights, here's how the scene looked:
 
-<Image src={combinedLights2Image.src} alt="All of the lights" />
+<Image src={combinedLights2Image} alt="All of the lights" />
 
 One directional light, numerous point lights, and a spot light attached to the camera (although it's not very noticeable here).
 
@@ -251,7 +251,7 @@ I started by grabbing the ImGui headers and source files and updating my CMake c
 
 Here's how the integration looked:
 
-<Image src={dearImguiDemoImage.src} alt="Dear ImGui demo" />
+<Image src={dearImguiDemoImage} alt="Dear ImGui demo" />
 
 I was happy with that progress, but before I could make any real use of it, I wanted to clean up the integration and make it more manageable. I spent a while thinking about this, at one point peeking at <ExternalLink url="https://github.com/TheCherno/Hazel">TheCherno's Hazel engine</ExternalLink> (which uses Dear ImGui for its editor interface), and eventually settled on a basic concept consisting of two components:
 

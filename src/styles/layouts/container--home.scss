@@ -201,7 +201,10 @@
             flex: 1;
     
             svg {
+                width: 32px;
+                height: 32px;
                 margin-right: 0.6em;
+                vertical-align: -10px;
             }
 
             &:first-child {

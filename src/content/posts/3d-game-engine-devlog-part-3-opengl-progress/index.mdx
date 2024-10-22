@@ -55,7 +55,7 @@ I created a basic implementation of this system by following <ExternalLink url="
 
 Combined with *ambient*, *diffuse*, and *specular* properties for the `PointLight` component, these are sufficient for creating smooth surfaces that mimic real materials. I applied them to the cuboid entities in my scene and randomised their values to get this result:
 
-<Image src={basicMaterialsImage.src} alt="Basic materials" />
+<Image src={basicMaterialsImage} alt="Basic materials" />
 
 Notice how some of them are vaguely metallic, and the green one in the top left looks more like a plastic or rubber. It works! But it's obviously not good enough for more complex shapes consisting of multiple materials, since the properties are applied to the entire surface of the object rather than specific areas or pixels. That's where texture mapping comes in.
 
@@ -174,7 +174,7 @@ I also updated my `MeshRenderer` system—which renders the cuboid entities in m
 
 I then set up the following texture maps for the entities' `Material` components:
 
-<Image src={textureMapsImage.src} alt="Texture maps" caption="Left to right: Diffuse, Specular, Emission" />
+<Image src={textureMapsImage} alt="Texture maps" caption="Left to right: Diffuse, Specular, Emission" />
 
 The final result looks like this:
 

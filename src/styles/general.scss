@@ -300,6 +300,11 @@ a.theme-selector-toggle {
         .image-container {
             margin: 1rem 0;
             text-align: center;
+
+            img {
+                height: auto;
+                width: auto;
+            }
         }
 
         .video-container {

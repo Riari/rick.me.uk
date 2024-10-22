@@ -171,11 +171,11 @@ With all of those changes in place, the program flow now looks like this:
 
 Here's a rough overview of how the ECS, Window, Scene, and App fit together (some elements outside the scope of this post, such as InputManager and AssetManager, are not pictured):
 
-<Image src={engineStructureImage.src} alt="Iris engine ECS/Scene/App structure" />
+<Image src={engineStructureImage} alt="Iris engine ECS/Scene/App structure" />
 
 Lastly, here's a screenshot of it in action with two windows and scenes:
 
-<Image src={multiWindowTestImage.src} alt="Multiple-window test" />
+<Image src={multiWindowTestImage} alt="Multiple-window test" />
 
 It works well—the only issue visible above is the lack of any entities being drawn in the second scene/window. I think this is because I re-used the entities from the main scene and there are some OS/driver level limitations in terms of what GPU resources can be shared between windows. To fix that, I tried sharing the main window context's objects with the second window context via GLFW's built-in support for <ExternalLink url="https://www.glfw.org/docs/3.3/context_guide.html#context_sharing">context object sharing</ExternalLink>, but that unfortunately made no difference. It probably comes down to the fact that certain GL resources can't be shared and need to be created for each context, but I'm not too concerned about it because having multiple windows is an extremely rare requirement for a game—the main thing is this is a step closer to having data-driven scenes that I can easily switch between for a given render target.
 

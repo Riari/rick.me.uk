@@ -16,9 +16,9 @@ Modern game engines are immensely complex considering the requirements they typi
 
 The last big feature I attempted to work on was model loading. I wanted to integrate <ExternalLink url="https://github.com/assimp/assimp">assimp</ExternalLink> so I could load common 3D model formats and render them. That's when I started having issues. I should point out that they were no fault of assimp's—it was doing its part just fine, but somewhere along the way I was handling the resulting data incorrectly. While model files were being loaded without errors, they were being rendered with obvious texture and lighting issues:
 
-<Image src={brokenModel1Image.src} alt="Broken model #1" />
+<Image src={brokenModel1Image} alt="Broken model #1" />
 
-<Image src={brokenModel2Image.src} alt="Broken model #2" />
+<Image src={brokenModel2Image} alt="Broken model #2" />
 
 I was able to correct the texture issues (which turned out to be a simple case of telling assimp not to flip UVs on import), but the lighting issues remained. I went back to it at several points to attempt various fixes, none of which worked. This wasn't helped by the sloppy architecture I had already established, which was compounded by the momentum of adding new features (especially as I had already started building up some long term plans).
 

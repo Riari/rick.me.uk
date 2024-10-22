@@ -1,8 +1,10 @@
 ---
+import { Image as AstroImage } from "astro:assets";
+
 const { src, alt, caption, width = "auto" } = Astro.props;
 ---
 
 <div class="image-container">
-    <img src={src} alt={alt} style={{ width }} data-zoomable />
-    { caption && <div class="caption">{caption}</div> }
+    <AstroImage src={src} alt={alt} width={width} data-zoomable />
+    {caption && <div class="caption">{caption}</div>}
 </div>
