@@ -5,10 +5,11 @@ pubDate: 2023-06-23
 heroImage: '/images/post-headers/pixellated-code.png'
 tags: ["web", "php", "framework", "laravel"]
 ---
+import ExternalLink from '../../../components/ExternalLink.astro';
 
-[Route model binding](https://laravel.com/docs/10.x/routing#route-model-binding) is a feature in the Laravel PHP framework that allows you to bind a route parameter to an Eloquent (ORM) model. It's a way of automatically injecting model instances into controller actions by resolving route parameter values in URIs. This allows a URI path like `/users/1` to map to a controller action receiving a model instance for user ID 1 without requiring any lookups for that user to be done in the controller.
+<ExternalLink url="https://laravel.com/docs/10.x/routing#route-model-binding" label="Route model binding" /> is a feature in the Laravel PHP framework that allows you to bind a route parameter to an Eloquent (ORM) model. It's a way of automatically injecting model instances into controller actions by resolving route parameter values in URIs. This allows a URI path like `/users/1` to map to a controller action receiving a model instance for user ID 1 without requiring any lookups for that user to be done in the controller.
 
-Binding can be achieved in one of two ways: implicitly or explicitly. Implicit binding works by automatically matching a parameter to a type-hinted parameter in a controller action, while explicit binding works by specifying how to map a parameter name to a model (using [`Route::model`](https://laravel.com/api/10.x/Illuminate/Routing/Router.html#method_model)) or providing custom resolution logic (using [`Route::bind`](https://laravel.com/api/10.x/Illuminate/Routing/Router.html#method_bind)). Examples of both approaches are given in [the docs](https://laravel.com/docs/10.x/routing#route-model-binding).
+Binding can be achieved in one of two ways: implicitly or explicitly. Implicit binding works by automatically matching a parameter to a type-hinted parameter in a controller action, while explicit binding works by specifying how to map a parameter name to a model (using <ExternalLink url="https://laravel.com/api/10.x/Illuminate/Routing/Router.html#method_model" label="`Route::model`" />) or providing custom resolution logic (using <ExternalLink url="https://laravel.com/api/10.x/Illuminate/Routing/Router.html#method_bind" label="`Route::bind`" />). Examples of both approaches are given in <ExternalLink url="https://laravel.com/docs/10.x/routing#route-model-binding" label="the docs" />.
 
 ### The problem
 
@@ -33,7 +34,7 @@ In fairness, I don't think the problems I've described in this post are by any m
 
 ### The solution
 
-One of the issues I mentioned above is the potential for conflicts between multiple bindings for the same parameter name. I encountered this exact problem in a package I maintain some months ago, and ultimately decided to replace all usages of route model binding with a [custom middleware solution](https://github.com/Team-Tea-Time/laravel-forum/pull/322). This makes a lot of sense for many reasons:
+One of the issues I mentioned above is the potential for conflicts between multiple bindings for the same parameter name. I encountered this exact problem in a package I maintain some months ago, and ultimately decided to replace all usages of route model binding with a <ExternalLink url="https://github.com/Team-Tea-Time/laravel-forum/pull/322" label="custom middleware solution" />. This makes a lot of sense for many reasons:
 
 * It leverages another existing feature of the framework
 * It provides an intuitive place to contain all of your binding logic
@@ -82,7 +83,7 @@ class ResolveUserParameters
 }
 ```
 
-In this example, the resolution logic is identical for all three parameters. This could be refactored into something a little less repetitive, but there may be cases where you need to do something with the query or result before setting the parameter value, such as [authorising an action](https://laravel.com/docs/10.x/authorization#authorizing-actions-via-gates) to determine if additional data (such as soft-deleted rows) should be included. If your application has a large number of route parameters that are all resolved in the same way, you may find it preferable to write a base class for this type of middleware with methods for resolving parameters using a map of keys to model class names (which would not be dissimilar to implicit route model binding, but at least the logic would be adjacent to the middleware in your application source).
+In this example, the resolution logic is identical for all three parameters. This could be refactored into something a little less repetitive, but there may be cases where you need to do something with the query or result before setting the parameter value, such as <ExternalLink url="https://laravel.com/docs/10.x/authorization#authorizing-actions-via-gates" label="authorising an action" /> to determine if additional data (such as soft-deleted rows) should be included. If your application has a large number of route parameters that are all resolved in the same way, you may find it preferable to write a base class for this type of middleware with methods for resolving parameters using a map of keys to model class names (which would not be dissimilar to implicit route model binding, but at least the logic would be adjacent to the middleware in your application source).
 
 You can also divide the middleware up based on model, route group, or anything else that makes sense for your situation.
 

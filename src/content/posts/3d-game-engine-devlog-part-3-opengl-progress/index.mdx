@@ -6,11 +6,12 @@ heroImage: '/images/post-headers/building-game-engine-generic.png'
 tags: ["devlog", "cpp", "game-engine", "ecs", "opengl"]
 ---
 import { Vimeo } from 'astro-embed';
+import ExternalLink from '../../../components/ExternalLink.astro';
 import Image from '../../../components/Image.astro';
 import basicMaterialsImage from './basic-materials.png';
 import textureMapsImage from './texture-maps.jpg';
 
-At this point, for the most part, I'm back to following [LearnOpenGL](https://learnopengl.com/)—and I'm not going to reiterate in detail any of the topics already covered there. If you want to know more about the topics mentioned in this post, I encourage you to read through the corresponding material on that site!
+At this point, for the most part, I'm back to following <ExternalLink url="https://learnopengl.com/" label="LearnOpenGL" />—and I'm not going to reiterate in detail any of the topics already covered there. If you want to know more about the topics mentioned in this post, I encourage you to read through the corresponding material on that site!
 
 Since the last post, the first thing I did was a small tweak to point light calculations. Whereas the fragment shader for the cubes in my scene previously depended on uniforms for both the point light position and camera (viewer) position, the vertex shader now takes in the light position, transforms it with the view matrix, and exports it to the fragment shader to achieve the same result, eliminating the need to supply the camera position:
 
@@ -45,7 +46,7 @@ With that done, I moved onto the implementation of a material system, then did s
 
 Materials in 3D graphics define a set of properties that govern how light interacts with the surface of an object. This system can be used to create surfaces with the appearance of various *materials*; shiny surfaces such as metals and matte surfaces such as rubber are examples of surfaces that can be defined with this system.
 
-I created a basic implementation of this system by following [LearnOpenGL's chapter on Materials](https://learnopengl.com/Lighting/Materials). The first step was to define a basic new `Material` component consisting of the following properties:
+I created a basic implementation of this system by following <ExternalLink url="https://learnopengl.com/Lighting/Materials" label="LearnOpenGL's chapter on Materials" />. The first step was to define a basic new `Material` component consisting of the following properties:
 
 - **Ambient:** the colour of the surface under ambient light
 - **Diffuse:** the colour of the surface under diffused light (indirect, scattered light from a direct source)
@@ -58,7 +59,7 @@ Combined with *ambient*, *diffuse*, and *specular* properties for the `PointLigh
 
 Notice how some of them are vaguely metallic, and the green one in the top left looks more like a plastic or rubber. It works! But it's obviously not good enough for more complex shapes consisting of multiple materials, since the properties are applied to the entire surface of the object rather than specific areas or pixels. That's where texture mapping comes in.
 
-Further following [LearnOpenGL's chapter on lighting maps](https://learnopengl.com/Lighting/Materials) (texture mapping), I implemented three types of texture map that replace all of the above properties barring `shininess`:
+Further following <ExternalLink url="https://learnopengl.com/Lighting/Materials" label="LearnOpenGL's chapter on lighting maps" /> (texture mapping), I implemented three types of texture map that replace all of the above properties barring `shininess`:
 
 - **Diffuse map:** a texture that defines the colours and pattern of the surface under diffused light
 - **Specular map:** a texture that defines areas on the surface where specular lighting can appear (i.e. the reflective areas), as well as the intensity of the highlight for each pixel
@@ -216,7 +217,7 @@ auto& mesh = GetComponent<Mesh>(id);
 mesh.pShaderProgram->Use();
 ```
 
-A small change, but a significant improvement. Potential next steps in this area could include further rearranging things for better compatibility with [batch rendering](https://www.youtube.com/watch?v=Th4huqR77rI), or introducing caching for the shader programs.
+A small change, but a significant improvement. Potential next steps in this area could include further rearranging things for better compatibility with <ExternalLink url="https://www.youtube.com/watch?v=Th4huqR77rI" label="batch rendering" />, or introducing caching for the shader programs.
 
 ---
 
@@ -224,4 +225,4 @@ I'll likely continue working on rendering next—specifically, creating new type
 
 ---
 
-*The latest code for this project can be found at [https://github.com/Riari/iris-engine](https://github.com/Riari/iris-engine).*
+*The latest code for this project can be found at <ExternalLink url="https://github.com/Riari/iris-engine" label="https://github.com/Riari/iris-engine" />.*
