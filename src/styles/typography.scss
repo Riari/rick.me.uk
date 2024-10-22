@@ -163,6 +163,16 @@ p {
         article {
             font-size: 1.1em;
             color: $color-foreground-dark-dimmed;
+
+            a {
+                text-decoration: underline solid $color-muted-1;
+                text-decoration-thickness: 2px;
+                text-underline-offset: 2px;
+
+                &:hover {
+                    text-decoration-color: #fff;
+                }
+            }
         }
 
         h1,
@@ -212,6 +222,14 @@ p {
         .body {
             article {
                 color: $color-foreground-light;
+
+                a {
+                    text-decoration-color: $color-muted-3;
+
+                    &:hover {
+                        text-decoration-color: #000;
+                    }
+                }
             }
 
             .publish-date {
