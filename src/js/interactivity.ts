@@ -1,11 +1,17 @@
-window.onscroll = function () {
+function applyScrolledState() {
     const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
     if (scrollPosition > 0) {
         document.documentElement.classList.add("scrolled");
     } else {
         document.documentElement.classList.remove("scrolled");
     }
-};
+}
+
+window.onscroll = applyScrolledState;
+
+document.addEventListener("DOMContentLoaded", function () {
+    applyScrolledState();
+});
 
 let togglesToTargets = new Map<HTMLElement, HTMLElement>();
 document.querySelectorAll<HTMLElement>("[data-toggle]").forEach(function (toggle) {
