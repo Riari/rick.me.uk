@@ -20,12 +20,10 @@
     "astro-robots-txt": "^1.0.0",
     "medium-zoom": "^1.1.0",
     "open-graph-scraper": "^6.7.0",
-    "rehype-mermaid": "^3.0.0",
     "sass": "^1.77.8",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.1",
     "@types/node": "^22.7.8"
   }
 }

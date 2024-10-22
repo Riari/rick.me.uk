@@ -3,7 +3,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 import astroExpressiveCode from 'astro-expressive-code';
-import rehypeMermaid from 'rehype-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
@@ -32,8 +31,5 @@ export default defineConfig({
 
             return `[data-theme='${siteTheme}']`;
         }
-    }), mdx()],
-    markdown: {
-        rehypePlugins: [rehypeMermaid]
-    },
+    }), mdx()]
 });
