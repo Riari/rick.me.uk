@@ -1,28 +1,35 @@
-.astro-code {
-    padding: 1em;
-    border-radius: .5em;
+.expressive-code {
+    margin: 1.2em 0;
 
-    code {
-        font-family: $font-family-monospace;
-        font-size: .8em;
-        line-height: 1.5;
+    figure.frame {
+        box-shadow: none;
+
+        .copy {
+            .feedback {
+                background: $color-primary-2;
+                color: $color-foreground-light;
+        
+                &::after {
+                    border-left-color: $color-primary-2;
+                }
+            }
+
+            button::before {
+                border: none;
+            }
+        }
+    }
+
+    pre code .code span {
+        font-style: normal;
     }
 }
 
-@mixin theme($style) {
-    .astro-code,
-    .astro-code span {
-        color: var(--shiki-#{$style}) !important;
-        background-color: var(--shiki-#{$style}-bg) !important;
+@mixin theme-dark {
+    .expressive-code {
+        --ec-frm-trmTtbBg: #242836;
+        --ec-frm-edTabBarBg: #242836;
     }
 }
 
-.theme--dark {
-    @include theme('dark');
-}
-
-@media (prefers-color-scheme: dark) {
-    html[data-theme="system"] {
-        @include theme('dark');
-    }
-}
+@include apply-dark-theme();

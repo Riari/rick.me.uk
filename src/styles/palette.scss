@@ -64,3 +64,15 @@ $palette: (
         }
     }
 }
+
+@mixin apply-dark-theme() {
+    html[data-theme="dark"] {
+        @include theme-dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        html[data-theme="system"] {
+            @include theme-dark;
+        }
+    }
+}

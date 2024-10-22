@@ -2,20 +2,38 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
+import astroExpressiveCode from 'astro-expressive-code';
+import remarkMermaid from 'remark-mermaidjs';
 
 // https://astro.build/config
 export default defineConfig({
     site: 'https://www.rick.me.uk/',
-    integrations: [mdx(), sitemap(), robotsTxt()],
-    markdown: {
-        // https://shiki.style/
-        shikiConfig: {
-            themes: {
-                light: 'github-light',
-                dark: 'material-theme-palenight',
+    integrations: [sitemap(), robotsTxt(), astroExpressiveCode({
+        themes: ['material-theme-palenight', 'github-light'],
+        styleOverrides: {
+            codeFontFamily: 'JetBrains Mono, monospace',
+            codeFontSize: '1em',
+            frames: {
+                shadowColor: 'none'
             },
-            defaultColor: 'light',
-            wrap: false,
+            uiFontFamily: 'SourceSans 3, sans-serif',
+            uiFontSize: '.8em',
         },
+        themeCssSelector: (theme) => {
+            let siteTheme = '';
+            switch (theme.name) {
+                case 'material-theme-palenight':
+                    siteTheme = 'dark'
+                    break;
+                case 'github-light':
+                    siteTheme = 'light';
+                    break;
+            }
+
+            return `[data-theme='${siteTheme}']`;
+        }
+    }), mdx()],
+    markdown: {
+        remarkPlugins: [remarkMermaid]
     },
 });
