@@ -6,7 +6,7 @@ const { item } = Astro.props;
     <a class="item-card-link" href={item.absoluteURL}></a>
     <div
         class="item-card-background"
-        style={`background-image: url(${item.data.heroImage});`}
+        style={`background-image: url(${item.data.heroImage.src});`}
     >
     </div>
     <div class="item-card-inner">

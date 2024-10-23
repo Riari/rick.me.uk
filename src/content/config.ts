@@ -1,13 +1,12 @@
 import { defineCollection, z } from 'astro:content';
-import type { string } from 'astro:schema';
 
 const posts = defineCollection({
 	type: 'content',
-	schema: z.object({
+	schema: ({ image }) => z.object({
 		title: z.string(),
 		description: z.string(),
 		pubDate: z.coerce.date(),
-		heroImage: z.string(),
+		heroImage: image(),
         tags: z.array(z.string()),
 	}),
 });
@@ -22,12 +21,12 @@ export const projectStatuses: string[] = Object.values(ProjectStatus)
 
 const projects = defineCollection({
     type: 'content',
-    schema: z.object({
+    schema: ({ image }) => z.object({
         title: z.string(),
         description: z.string(),
         status: z.enum((projectStatuses as [string, ...string[]])),
 		weight: z.number(),
-		heroImage: z.string(),
+		heroImage: image(),
         url: z.string().url(),
         tags: z.array(z.string()),
     }),

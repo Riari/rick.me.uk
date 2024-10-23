@@ -7,7 +7,7 @@ const { title, backgroundImage } = Astro.props;
 let style: any = {};
 
 if (backgroundImage) {
-    style["background-image"] = `url(${backgroundImage});`;
+    style["background-image"] = `url(${backgroundImage.src});`;
 }
 ---
 
