@@ -33,7 +33,7 @@ Odin comes with its own tool for managing Odin source code, including building a
 
 Here's what I came up with:
 
-```json
+```json title=".vscode/tasks.json"
 {
     "version": "2.0.0",
     "command": "",
@@ -79,7 +79,6 @@ Here's what I came up with:
     ]
 }
 ```
-<div class="caption">`.vscode/tasks.json`</div>
 
 (Note the "inputs" section—this is a useful feature that allows you to accept input from the user via a prompt.)
 
@@ -89,7 +88,7 @@ Originally, the plan was to make the same configurations work on both Windows an
 
 I ended up with this:
 
-```json
+```json title=".vscode/launch.json"
 {
     "version": "0.2.0",
     "configurations": [
@@ -138,7 +137,6 @@ I ended up with this:
     ]
 }
 ```
-<div class="caption">`.vscode/launch.json`</div>
 
 <Alert type="tip">
 The `lldb` configuration type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb">CodeLLDB</ExternalLink> extension and the `cppvsdbg` type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</ExternalLink> extension.
