@@ -22,8 +22,7 @@ I'm not completely sure why that was happening, but I suspect it had something t
 
 The way I fixed it was to leave the slug unmodified and specify both the relative and absolute paths on each post, allowing post routes to be generated cleanly with no side effects:
 
-**src/util/collection.js**
-```js
+```js title="src/util/collection.js"
 import { getCollection } from 'astro:content';
 
 export async function loadAndFormatCollection(name) {
@@ -43,8 +42,7 @@ export async function loadAndFormatCollection(name) {
 };
 ```
 
-**src/pages/posts/[...slug].astro**
-```astro
+```astro title="src/pages/posts/[...slug].astro"
 ---
 import { type CollectionEntry } from 'astro:content';
 import Post from '../../layouts/Post.astro';

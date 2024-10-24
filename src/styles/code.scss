@@ -6,11 +6,11 @@
 
         .copy {
             .feedback {
-                background: $color-primary-2;
+                background: $color-primary-3;
                 color: $color-foreground-light;
         
                 &::after {
-                    border-left-color: $color-primary-2;
+                    border-left-color: $color-primary-3;
                 }
             }
 
@@ -27,8 +27,9 @@
 
 @mixin theme-dark {
     .expressive-code {
-        --ec-frm-trmTtbBg: #242836;
-        --ec-frm-edTabBarBg: #242836;
+        --ec-frm-trmTtbBg: #232734;
+        --ec-frm-edTabBarBg: #232734;
+        --ec-frm-edActTabIndBtmCol: #{$color-primary-5};
 
         .frame {
             --header-border-radius: .3em;
