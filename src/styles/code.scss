@@ -29,6 +29,10 @@
     .expressive-code {
         --ec-frm-trmTtbBg: #242836;
         --ec-frm-edTabBarBg: #242836;
+
+        .frame {
+            --header-border-radius: .3em;
+        }
     }
 }
 

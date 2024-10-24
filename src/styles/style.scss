@@ -5,6 +5,7 @@ $breakpoint--x-small: 526px;
 @import "typography.scss";
 
 @import "badges.scss";
+@import "code.scss";
 @import "components/alert.scss";
 @import "general.scss";
 @import "input.scss";
@@ -13,4 +14,3 @@ $breakpoint--x-small: 526px;
 @import "layouts/container--post.scss";
 @import "layouts/container--project.scss";
 @import "pagination.scss";
-@import "syntax-highlighting.scss";
