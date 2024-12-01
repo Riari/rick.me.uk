@@ -188,7 +188,8 @@ p {
 
         p > code,
         ul > li > code,
-        ol > li > code {
+        ol > li > code,
+        .alert > code {
             display: inline-block;
             padding: 0 .4em;
             border-radius: .2em;

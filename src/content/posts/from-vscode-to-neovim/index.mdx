@@ -1,0 +1,61 @@
+---
+title: 'From VS Code to Neovim'
+description: 'A summary of my switch to Neovim as my main editor'
+pubDate: 2024-12-01
+heroImage: '../../images/post-headers/pixellated-code.png'
+tags: ["vs-code", "neovim"]
+---
+import Alert from "../../../components/Alert.astro"
+import ExternalLink from "../../../components/ExternalLink.astro"
+import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
+
+For the past eight or so years, I had been using <ExternalLink url="https://code.visualstudio.com/">VS Code</ExternalLink> as my only editor both personally and professionally. VS Code is built on <ExternalLink url="https://www.electronjs.org/">Electron</ExternalLink>, and while I'm generally not a fan of desktop software being built on web technologies, I think Microsoft did a pretty good job of squeezing as much performance as they reasonably could out of Electron. There are also some pretty clear advantages to building a code editor on Electron, such as strong cross-platform support, high development speed, and a very accessible environment for community-made extensions.
+
+That last point is especially important. There are extensions to support almost any type of programming workload. Because of that, I got very comfortable using it for a wide range of purposes, including:
+
+* Full-stack web development with HTML, JS, CSS, and PHP
+* C
+* C++ (including Unreal Engine integration)
+* C# (including Unity integration)
+* Godot
+* Rust
+* Odin
+* Python
+
+That's without mentioning the various other formats and languages I probably worked with on occasion. It was very nice not to have to think about being proficient in multiple editors!
+
+### Why I switched
+
+The main reason I felt the need to switch to something else was performance. In my job, I work mainly with C++ in a moderately large codebase. It's nowhere near the size of some of the codebases in Big Tech, but big enough to present a challenge to C++ tooling in terms of efficiency. There came a point where the speed of C++ features provided by Microsoft's <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++ extension</ExternalLink> gradually degraded from acceptable to prohibitively slow (for example, CTRL-clicking a function name to navigate to its definition would often take around 10 seconds or longer).
+
+Looking into the issue, I found that some part of MSVC was generating a huge database of symbols, and updating it to match changes I made in the code was taking a matter of seconds rather than milliseconds. Whether this was the actual problem or only a symptom of it, I'm not sure, but it definitely didn't seem right.
+
+Not wanting to spend too much time identifying the exact problem, I decided to try the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd">clangd extension</ExternalLink> instead. This appeared to perform very well initially only to slow down just as much as the MSVC extension after working with the code for a while. At one point I noticed it had generated a `compile_commands.json` over 1 GB in size! I'm sure you can imagine 1 GB of JSON is a bit of a bottleneck no matter how fast the tools using it may be...
+
+<Alert type="info">To give some context, in order for a code editor to understand a C++ project and provide features such as autocompletion, it relies on external tools to analyse the code and generate metadata that describes it. One such example is the <ExternalLink url="https://clang.llvm.org/docs/JSONCompilationDatabase.html">compile_commands.json specification</ExternalLink>, a compilation database format for describing how each <ExternalLink url="https://en.wikipedia.org/wiki/Translation_unit_(programming)">translation unit</ExternalLink> in a given project is compiled. A `compile_commands.json` file can be generated in various ways (e.g. via <ExternalLink url="https://cmake.org/cmake/help/latest/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html">CMake</ExternalLink>) and can then be ingested by tools to understand things like include paths.</Alert>
+
+### What I use now
+
+While I would love to use Neovim at work, setting it up to work nicely with the build workflows we use there would take more time than I could justify investing, and I'm simply not proficient enough with the vim motions yet to work at a good pace. So, as a compromise, I switched to <ExternalLink url="https://www.jetbrains.com/rider/">Rider</ExternalLink> with the <ExternalLink url="https://plugins.jetbrains.com/plugin/164-ideavim">IdeaVim plugin</ExternalLink>, which lets me dip into vim motions where I feel comfortable and still be able to fall back to the conventions of a graphical editor that vaguely resembles VS Code.
+
+Interestingly, the performance issues went away with Rider. I'm not sure why, but whatever it does differently to achieve the same functionality I was getting in VS Code seems to be much more efficient. Maybe one day I'll experiment with a large open source project in my spare time to see if I can figure out those differences.
+
+For everything else, I went all in on Neovim. I don't care so much if I work slowly on personal projects as long as the editor I'm using has good support for them, so I went on a mission to create a configuration that would support all of the languages and game engines I mentioned at the start of the post using kickstart.nvim as a starting point:
+
+<OpenGraphSummary url="https://github.com/nvim-lua/kickstart.nvim"></OpenGraphSummary>
+
+### My configuration
+
+#### C and C++ (via CMake)
+
+#### HTML, CSS, JS, and PHP
+
+#### Unreal Engine
+
+#### Unity
+
+#### Godot
+
+#### Odin
+
+#### Rust
