@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "palette";
+@use "breakpoints";
+
 $font-family-monospace: 'JetBrains Mono', monospace;
 $font-family-sans-serif: 'Source Sans 3', sans-serif;
 
@@ -64,8 +68,8 @@ h4 {
         a {
             display: inline-block;
             padding: .2em .6em;
-            background: lighten($color-background-main-1, 3%);
-            color: $color-muted-3;
+            background: color.adjust(palette.$color-background-main-1, $lightness: 3%);
+            color: palette.$color-muted-3;
             text-decoration: none;
             transition: color .1s;
 
@@ -83,47 +87,47 @@ p {
 .container .body p.text,
 .text {
     &--primary-1 {
-        color: $color-primary-1;
+        color: palette.$color-primary-1;
     }
 
     &--primary-2 {
-        color: $color-primary-2;
+        color: palette.$color-primary-2;
     }
 
     &--primary-3 {
-        color: $color-primary-3;
+        color: palette.$color-primary-3;
     }
 
     &--primary-4 {
-        color: $color-primary-4;
+        color: palette.$color-primary-4;
     }
 
     &--primary-5 {
-        color: $color-primary-5;
+        color: palette.$color-primary-5;
     }
 
     &--primary-6 {
-        color: $color-primary-6;
+        color: palette.$color-primary-6;
     }
 
     &--primary-7 {
-        color: $color-primary-7;
+        color: palette.$color-primary-7;
     }
 
     &--primary-8 {
-        color: $color-primary-8;
+        color: palette.$color-primary-8;
     }
 
     &--muted-1 {
-        color: $color-muted-1;
+        color: palette.$color-muted-1;
     }
 
     &--muted-2 {
-        color: $color-muted-2;
+        color: palette.$color-muted-2;
     }
 
     &--muted-3 {
-        color: $color-muted-3;
+        color: palette.$color-muted-3;
     }
 }
 
@@ -136,7 +140,7 @@ p {
     text-align: center;
     font-size: .9em;
     font-style: italic;
-    color: $color-muted-3;
+    color: palette.$color-muted-3;
 }
 
 .container {
@@ -149,23 +153,23 @@ p {
 
         h1 {
             font-size: 2.4em;
-            color: $color-foreground-dark;
+            color: palette.$color-foreground-dark;
         }
 
         h2 {
             margin-top: 1rem;
             font-size: 1.4em;
-            color: $color-muted-3;
+            color: palette.$color-muted-3;
         }
     }
 
     .body {
         article {
             font-size: 1.1em;
-            color: $color-foreground-dark-dimmed;
+            color: palette.$color-foreground-dark-dimmed;
 
             a {
-                text-decoration: underline solid $color-muted-1;
+                text-decoration: underline solid palette.$color-muted-1;
                 text-decoration-thickness: 2px;
                 text-underline-offset: 2px;
 
@@ -188,16 +192,16 @@ p {
             display: inline-block;
             padding: 0 .4em;
             border-radius: .2em;
-            background: $color-inline-code-background-dark;
+            background: palette.$color-inline-code-background-dark;
             font-size: 1rem;
             font-family: $font-family-monospace;
-            color: $color-inline-code-foreground-dark;
+            color: palette.$color-inline-code-foreground-dark;
         }
 
         blockquote {
             margin-left: 1em;
             padding-left: 1em;
-            border-left: 4px solid $color-muted-1;
+            border-left: 4px solid palette.$color-muted-1;
 
             p {
                 font-style: italic;
@@ -207,7 +211,7 @@ p {
 
     .footer {
         p {
-            color: $color-muted-3;
+            color: palette.$color-muted-3;
         }
 
         strong {
@@ -221,10 +225,10 @@ p {
     .container {
         .body {
             article {
-                color: $color-foreground-light;
+                color: palette.$color-foreground-light;
 
                 a {
-                    text-decoration-color: $color-muted-3;
+                    text-decoration-color: palette.$color-muted-3;
 
                     &:hover {
                         text-decoration-color: #000;
@@ -233,36 +237,44 @@ p {
             }
 
             .publish-date {
-                color: $color-muted-1;
+                color: palette.$color-muted-1;
             }
 
             p > code,
             ul > li > code,
             ol > li > code {
-                background: $color-inline-code-background-light;
-                color: $color-inline-code-foreground-light;
+                background: palette.$color-inline-code-background-light;
+                color: palette.$color-inline-code-foreground-light;
             }
 
             blockquote {
-                border-left: 4px solid lighten($color-muted-3, 10%);
+                border-left: 4px solid color.adjust(palette.$color-muted-3, $lightness: 10%);
             }
 
             .caption {
-                color: $color-muted-2;
+                color: palette.$color-muted-2;
             }
         }
     }
 
     .footer {
         p {
-            color: $color-muted-2;
+            color: palette.$color-muted-2;
         }
     }
 }
 
-@include apply-light-theme();
+html[data-theme="light"] {
+    @include theme-light;
+}
 
-@media only screen and (max-width: $breakpoint--small) {
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}
+
+@media only screen and (max-width: breakpoints.$small) {
     h1 {
         font-size: 2.6em;
     }

@@ -1,15 +1,18 @@
+@use "../palette";
+@use "../breakpoints";
+
 .container--post {
     .body {
         .publish-date {
             margin-bottom: 2em;
             font-weight: bold;
-            color: $color-muted-2;
+            color: palette.$color-muted-2;
             text-align: center;
         }
     }
 }
 
-@media only screen and (max-width: $breakpoint--small) {
+@media only screen and (max-width: breakpoints.$small) {
     .container--post {
         .head {
             h1 {

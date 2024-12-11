@@ -1,3 +1,5 @@
+@use "palette";
+
 .expressive-code {
     margin: 1.2em 0;
 
@@ -6,11 +8,11 @@
 
         .copy {
             .feedback {
-                background: $color-primary-3;
-                color: $color-foreground-light;
-        
+                background: palette.$color-primary-3;
+                color: palette.$color-foreground-light;
+
                 &::after {
-                    border-left-color: $color-primary-3;
+                    border-left-color: palette.$color-primary-3;
                 }
             }
 
@@ -29,7 +31,7 @@
     .expressive-code {
         --ec-frm-trmTtbBg: #232734;
         --ec-frm-edTabBarBg: #232734;
-        --ec-frm-edActTabIndBtmCol: #{$color-primary-5};
+        --ec-frm-edActTabIndBtmCol: #{palette.$color-primary-5};
 
         .frame {
             --header-border-radius: .3em;
@@ -37,4 +39,12 @@
     }
 }
 
-@include apply-dark-theme();
+html[data-theme="dark"] {
+    @include theme-dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    html[data-theme="system"] {
+        @include theme-dark;
+    }
+}

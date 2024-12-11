@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "palette";
+
 .badge {
     display: inline-block;
     padding: .1rem .7rem;
@@ -6,63 +9,63 @@
     font-weight: 500;
 
     &--primary-1 {
-        background: transparentize($color-primary-1, .95);
-        color: $color-primary-1;
+        background: color.adjust(palette.$color-primary-1, $alpha: -.95);
+        color: palette.$color-primary-1;
     }
 
     &--primary-2 {
-        background: transparentize($color-primary-2, .95);
-        color: $color-primary-2;
+        background: color.adjust(palette.$color-primary-2, $alpha: -.95);
+        color: palette.$color-primary-2;
     }
 
     &--primary-3 {
-        background: transparentize($color-primary-3, .95);
-        color: $color-primary-3;
+        background: color.adjust(palette.$color-primary-3, $alpha: -.95);
+        color: palette.$color-primary-3;
     }
 
     &--primary-4 {
-        background: transparentize($color-primary-4, .95);
-        color: $color-primary-4;
+        background: color.adjust(palette.$color-primary-4, $alpha: -.95);
+        color: palette.$color-primary-4;
     }
 
     &--primary-5 {
-        background: transparentize($color-primary-5, .95);
-        color: $color-primary-5;
+        background: color.adjust(palette.$color-primary-5, $alpha: -.95);
+        color: palette.$color-primary-5;
     }
 
     &--primary-6 {
-        background: transparentize($color-primary-6, .95);
-        color: $color-primary-6;
+        background: color.adjust(palette.$color-primary-6, $alpha: -.95);
+        color: palette.$color-primary-6;
     }
 
     &--primary-7 {
-        background: transparentize($color-primary-7, .95);
-        color: $color-primary-7;
+        background: color.adjust(palette.$color-primary-7, $alpha: -.95);
+        color: palette.$color-primary-7;
     }
 
     &--primary-8 {
-        background: transparentize($color-primary-8, .95);
-        color: $color-primary-8;
+        background: color.adjust(palette.$color-primary-8, $alpha: -.95);
+        color: palette.$color-primary-8;
     }
 
     &--muted-1 {
-        background: $color-background-main-3;
-        color: $color-muted-1;
+        background: palette.$color-background-main-3;
+        color: palette.$color-muted-1;
     }
 
     &--muted-2 {
-        background: $color-background-main-3;
-        color: $color-muted-2;
+        background: palette.$color-background-main-3;
+        color: palette.$color-muted-2;
     }
 
     &--muted-3 {
-        background: $color-background-main-3;
-        color: $color-muted-3;
+        background: palette.$color-background-main-3;
+        color: palette.$color-muted-3;
     }
 
     &--muted-4 {
-        background: $color-background-main-4;
-        color: $color-muted-4;
+        background: palette.$color-background-main-4;
+        color: palette.$color-muted-4;
     }
 
     &--active {
@@ -96,55 +99,63 @@ a.badge {
 }
 
 @mixin theme-light {
-.badge {
-        color: $color-foreground-light;
+    .badge {
+        color: palette.$color-foreground-light;
 
         &--primary-1 {
-            background: $color-primary-1;
+            background: palette.$color-primary-1;
         }
 
         &--primary-2 {
-            background: $color-primary-2;
+            background: palette.$color-primary-2;
         }
 
         &--primary-3 {
-            background: $color-primary-3;
+            background: palette.$color-primary-3;
         }
 
         &--primary-4 {
-            background: $color-primary-4;
+            background: palette.$color-primary-4;
         }
 
         &--primary-5 {
-            background: $color-primary-5;
+            background: palette.$color-primary-5;
         }
 
         &--primary-6 {
-            background: $color-primary-6;
+            background: palette.$color-primary-6;
         }
 
         &--primary-7 {
-            background: $color-primary-7;
+            background: palette.$color-primary-7;
         }
 
         &--primary-8 {
-            background: $color-primary-8;
+            background: palette.$color-primary-8;
         }
 
         &--muted-1,
         &--muted-2,
         &--muted-3 {
-            background: $color-muted-4;
-            color: $color-muted-1;
+            background: palette.$color-muted-4;
+            color: palette.$color-muted-1;
             filter: none;
         }
 
         &--muted-4 {
-            background: $color-muted-3;
-            color: $color-foreground-light;
+            background: palette.$color-muted-3;
+            color: palette.$color-foreground-light;
             filter: none;
         }
     }
 }
 
-@include apply-light-theme();
+html[data-theme="light"] {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}

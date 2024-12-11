@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $color-primary-1: #82aaff;
 $color-primary-2: #c3e88d;
 $color-primary-3: #f78c6c;
@@ -13,9 +15,9 @@ $color-muted-3: #aaacc4;
 $color-muted-4: #dcdde9;
 
 $color-background-main-1: #252530;
-$color-background-main-2: lighten($color-background-main-1, 3%);
-$color-background-main-3: lighten($color-background-main-1, 7%);
-$color-background-main-4: lighten($color-background-main-1, 15%);
+$color-background-main-2: color.adjust($color-background-main-1, $lightness: 3%);
+$color-background-main-3: color.adjust($color-background-main-1, $lightness: 7%);
+$color-background-main-4: color.adjust($color-background-main-1, $lightness: 15%);
 
 $color-background-top-link: rgba(27, 27, 36, 0.6);
 
@@ -48,31 +50,7 @@ $palette: (
     primary-2: $color-primary-2,
     primary-3: $color-primary-3,
     primary-4: $color-primary-4,
-    primary-5: $color-primary-5,    
+    primary-5: $color-primary-5,
     primary-6: $color-primary-6,
     primary-7: $color-primary-7
 );
-
-@mixin apply-light-theme() {
-    html[data-theme="light"] {
-        @include theme-light;
-    }
-
-    @media (prefers-color-scheme: light) {
-        html[data-theme="system"] {
-            @include theme-light;
-        }
-    }
-}
-
-@mixin apply-dark-theme() {
-    html[data-theme="dark"] {
-        @include theme-dark;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        html[data-theme="system"] {
-            @include theme-dark;
-        }
-    }
-}

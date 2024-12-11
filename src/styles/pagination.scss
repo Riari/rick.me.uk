@@ -1,3 +1,6 @@
+@use "palette";
+@use "breakpoints";
+
 .pagination {
     padding: 0;
     margin: 1.8rem 0;
@@ -12,18 +15,18 @@
     }
 
     span.pagination-item-disabled {
-        background: $color-background-main-1;
-        color: $color-muted-2;
+        background: palette.$color-background-main-1;
+        color: palette.$color-muted-2;
     }
 
     a {
-        background: $color-background-main-1;
+        background: palette.$color-background-main-1;
     }
 
     span.pagination-page-number {
         display: inline-block;
         margin: .2rem 1rem;
-        color: $color-muted-2;
+        color: palette.$color-muted-2;
     }
 }
 
@@ -41,7 +44,7 @@
 
             .prefix {
                 font-size: .9em;
-                color: $color-muted-3;
+                color: palette.$color-muted-3;
             }
 
             &:hover span {
@@ -61,7 +64,7 @@
         .previous {
             a {
                 .prefix {
-                    color: $color-muted-2;
+                    color: palette.$color-muted-2;
                 }
 
                 &:hover span {
@@ -74,14 +77,22 @@
     .pagination {
         span.pagination-item-disabled,
         a {
-            background: $color-background-light-dimmed;
+            background: palette.$color-background-light-dimmed;
         }
     }
 }
 
-@include apply-light-theme();
+html[data-theme="light"] {
+    @include theme-light;
+}
 
-@media only screen and (max-width: $breakpoint--x-small) {
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}
+
+@media only screen and (max-width: breakpoints.$x-small) {
     .pagination span.pagination-page-number {
         display: block;
         margin: .5rem 0;

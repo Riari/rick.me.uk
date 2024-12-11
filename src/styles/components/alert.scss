@@ -1,3 +1,5 @@
+@use "../palette";
+
 @function alert-accent-gradient($color) {
     @return linear-gradient(to left, rgba($color, 0) 0%, $color 40%, $color 60%, rgba($color, 0) 100%)
 }
@@ -7,10 +9,10 @@
     padding: 1.2em;
     margin: 1.2em 0;
     border-radius: .3em;
-    border: 2px solid $color-muted-1;
+    border: 2px solid palette.$color-muted-1;
 
     p {
-        color: $color-muted-3;
+        color: palette.$color-muted-3;
     }
 
     &::before {
@@ -33,31 +35,31 @@
 
     &--info {
         &::before {
-            background: alert-accent-gradient($color-primary-5);
+            background: alert-accent-gradient(palette.$color-primary-5);
         }
 
         .alert-icon {
-            color: $color-primary-5;
+            color: palette.$color-primary-5;
         }
     }
 
     &--tip {
         &::before {
-            background: alert-accent-gradient($color-primary-7);
+            background: alert-accent-gradient(palette.$color-primary-7);
         }
 
         .alert-icon {
-            color: $color-primary-7;
+            color: palette.$color-primary-7;
         }
     }
 
     &--warn {
         &::before {
-            background: alert-accent-gradient($color-primary-6);
+            background: alert-accent-gradient(palette.$color-primary-6);
         }
 
         .alert-icon {
-            color: $color-primary-6;
+            color: palette.$color-primary-6;
         }
     }
 
@@ -67,7 +69,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 0 .5rem;
-        background: $color-background-dark;
+        background: palette.$color-background-dark;
 
         svg {
             display: block;
@@ -77,16 +79,24 @@
 
 @mixin theme-light {
     .alert {
-        border-color: $color-muted-3;
+        border-color: palette.$color-muted-3;
 
         p {
-            color: $color-foreground-light-dimmed;
+            color: palette.$color-foreground-light-dimmed;
         }
 
         .alert-icon {
-            background: $color-background-light;
+            background: palette.$color-background-light;
         }
     }
 }
 
-@include apply-light-theme();
+html[data-theme="light"] {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}

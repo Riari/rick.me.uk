@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "palette";
+@use "typography";
+@use "breakpoints";
+
 html,
 body {
     min-height: 100vh;
@@ -6,14 +11,14 @@ body {
 }
 
 body {
-    background: $color-background-main-1;
-    font-family: $font-family-sans-serif;
+    background: palette.$color-background-main-1;
+    font-family: typography.$font-family-sans-serif;
     font-size: 18px;
-    color: $color-foreground-dark;
+    color: palette.$color-foreground-dark;
 }
 
 a {
-    color: $color-primary-1;
+    color: palette.$color-primary-1;
     text-decoration: none;
 
     &:hover {
@@ -25,7 +30,7 @@ hr {
     margin: 2em 0;
     height: 2px;
     border: 0;
-    background: $color-muted-1;
+    background: palette.$color-muted-1;
 }
 
 .button {
@@ -33,8 +38,8 @@ hr {
     display: inline-block;
     padding: 1em;
     margin: .2em;
-    background: rgba($color-muted-1, 0.3);
-    color: $color-foreground-dark;
+    background: rgba(palette.$color-muted-1, 0.3);
+    color: palette.$color-foreground-dark;
     font-weight: bold;
     text-decoration: none;
     overflow: hidden;
@@ -46,7 +51,7 @@ hr {
         height: 160px;
         top: 0;
         left: 0;
-        background: radial-gradient(circle, rgba($color-muted-1, 0.5), rgba($color-muted-1, 0), rgba($color-muted-1, 0));
+        background: radial-gradient(circle, rgba(palette.$color-muted-1, 0.5), rgba(palette.$color-muted-1, 0), rgba(palette.$color-muted-1, 0));
         z-index: 10;
         opacity: 0;
         transition: opacity 0.2s ease-out;
@@ -58,8 +63,8 @@ hr {
     }
 
     &:hover {
-        background: rgba($color-muted-1, 0.4);
-        box-shadow: inset 0 0 0 2px rgba($color-muted-1, 0.6);
+        background: rgba(palette.$color-muted-1, 0.4);
+        box-shadow: inset 0 0 0 2px rgba(palette.$color-muted-1, 0.6);
     }
 }
 
@@ -72,12 +77,12 @@ a.theme-selector-toggle {
     z-index: 600;
     padding: .6rem;
     border-radius: 3em;
-    background-color: $color-background-main-1;
-    color: $color-muted-3;
+    background-color: palette.$color-background-main-1;
+    color: palette.$color-muted-3;
     transition: color .2s;
 
     &:hover {
-        color: $color-foreground-dark;
+        color: palette.$color-foreground-dark;
     }
 
     svg:first-child {
@@ -89,7 +94,7 @@ a.theme-selector-toggle {
     }
 
     &.toggled {
-        background: $color-background-main-2;
+        background: palette.$color-background-main-2;
 
         svg:first-child {
             display: none;
@@ -110,7 +115,7 @@ a.theme-selector-toggle {
     z-index: 500;
     border-top-left-radius: .3em;
     border-top-right-radius: .3em;
-    background: $color-background-main-2;
+    background: palette.$color-background-main-2;
     text-align: right;
     white-space: nowrap;
 
@@ -137,13 +142,13 @@ a.theme-selector-toggle {
         padding: 1.5rem;
         max-width: 860px;
         width: 100%;
-    
+
         p {
             line-height: 1.5;
 
             &.lead {
                 font-size: 1.6em;
-                color: $color-foreground-dark;
+                color: palette.$color-foreground-dark;
             }
         }
     }
@@ -153,7 +158,7 @@ a.theme-selector-toggle {
         margin: 0;
         padding: 3.5rem 1rem 2.5rem 1rem;
         background-size: cover;
-        background-color: $color-background-main-1;
+        background-color: palette.$color-background-main-1;
         background-position: 50% 50%;
         text-align: center;
 
@@ -165,7 +170,7 @@ a.theme-selector-toggle {
             z-index: 1001;
             padding: 0;
             margin-bottom: 1.5em;
-            background-color: transparentize($color-background-main-2, 1.0);
+            background-color: color.adjust(palette.$color-background-main-2, $alpha: -1.0);
             box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.0);
             transition: background-color .2s, box-shadow .2s;
             font-size: 1.1em;
@@ -190,9 +195,9 @@ a.theme-selector-toggle {
                 padding: .4em .8em;
                 border-bottom-left-radius: .2em;
                 border-bottom-right-radius: .2em;
-                background: $color-background-top-link;
-                font-family: $font-family-monospace;
-                color: $color-foreground-dark;
+                background: palette.$color-background-top-link;
+                font-family: typography.$font-family-monospace;
+                color: palette.$color-foreground-dark;
                 text-decoration: none;
                 transition: background .1s, color .1s;
 
@@ -203,7 +208,7 @@ a.theme-selector-toggle {
                     svg:first-child {
                         display: inline-block;
                     }
-                    
+
                     svg:last-child {
                         display: none;
                     }
@@ -224,16 +229,16 @@ a.theme-selector-toggle {
                 }
 
                 &:hover {
-                    background: $color-block-background-light;
-                    color: $color-background-main-1;
+                    background: palette.$color-block-background-light;
+                    color: palette.$color-background-main-1;
 
                     span {
-                        color: $color-background-main-1;
+                        color: palette.$color-background-main-1;
                     }
                 }
             }
         }
-        
+
         .small-display-menu {
             display: block;
             opacity: 0.0;
@@ -245,7 +250,7 @@ a.theme-selector-toggle {
             height: 0;
             border-radius: .3em;
             overflow: hidden;
-            background-color: $color-background-overlay;
+            background-color: palette.$color-background-overlay;
             transition: top .2s ease-out, opacity .2s;
 
             &.show {
@@ -260,17 +265,17 @@ a.theme-selector-toggle {
                 display: block;
                 padding: 1em 0;
                 margin: 2px 0;
-                font-family: $font-family-monospace;
+                font-family: typography.$font-family-monospace;
                 font-size: 1.1em;
-                color: $color-foreground-dark-dimmed;
-                border-bottom: 1px solid $color-background-main-3;
+                color: palette.$color-foreground-dark-dimmed;
+                border-bottom: 1px solid palette.$color-background-main-3;
 
                 &:last-child {
                     border-bottom: none;
                 }
 
                 &:hover {
-                    color: $color-foreground-dark;
+                    color: palette.$color-foreground-dark;
                 }
             }
         }
@@ -279,8 +284,8 @@ a.theme-selector-toggle {
     .body {
         flex: 1;
         padding: 1rem 0;
-        background: $color-background-dark;
-        color: $color-foreground-dark;
+        background: palette.$color-background-dark;
+        color: palette.$color-foreground-dark;
 
         ul:not(.tags) {
             padding: 0;
@@ -359,11 +364,11 @@ a.theme-selector-toggle {
                 margin: 0;
             }
         }
-    
+
         hr {
             height: 1px;
             border: 0;
-            background: $color-muted-1;
+            background: palette.$color-muted-1;
         }
     }
 
@@ -372,19 +377,19 @@ a.theme-selector-toggle {
         list-style: none;
         margin: 1.2em 0 0 0;
         padding: 0;
-    
+
         li {
             display: inline-block;
-    
+
             a {
                 position: relative;
                 display: inline-block;
                 padding: .3em 1.2em;
                 margin: .2em;
-                color: $color-tag-foreground;
+                color: palette.$color-tag-foreground;
                 text-decoration: none;
                 transition: color .1s;
-    
+
                 &::after {
                     content: "";
                     display: block;
@@ -396,18 +401,18 @@ a.theme-selector-toggle {
                     z-index: 1;
                     transform: skew(-20deg);
                     border-radius: .3em;
-                    background: $color-tag-background;
+                    background: palette.$color-tag-background;
                     transition: opacity .1s, background .1s;
                 }
-    
+
                 &:hover {
-                    color: $color-background-main-1;
-    
+                    color: palette.$color-background-main-1;
+
                     &::after {
-                        background: $color-block-background-light;
+                        background: palette.$color-block-background-light;
                     }
                 }
-    
+
                 span {
                     position: relative;
                     z-index: 2;
@@ -427,7 +432,7 @@ a.theme-selector-toggle {
 
 .scrolled {
     .container .head .top-links {
-        background-color: transparentize($color-background-main-2, 0.03);
+        background-color: color.adjust(palette.$color-background-main-2, $alpha: -0.03);
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
         .primary > a,
@@ -439,23 +444,23 @@ a.theme-selector-toggle {
 
 @mixin theme-light {
     body {
-        background: $color-background-light;
-        color: $color-foreground-light;
+        background: palette.$color-background-light;
+        color: palette.$color-foreground-light;
     }
 
     .inline-heading {
         .more-link a {
-            background: $color-muted-4;
-            color: $color-foreground-light;
+            background: palette.$color-muted-4;
+            color: palette.$color-foreground-light;
 
             &:hover {
                 color: #000;
             }
         }
     }
-    
+
     a {
-        color: $color-link-light;
+        color: palette.$color-link-light;
 
         &:hover {
             color: #000000;
@@ -464,98 +469,106 @@ a.theme-selector-toggle {
 
     .container {
         .head {
-            background-color: $color-background-main-4;
+            background-color: palette.$color-background-main-4;
 
             .small-display-menu {
-                background-color: transparentize($color-background-light-dimmed, 0.03);
+                background-color: color.adjust(palette.$color-background-light-dimmed, $alpha: -0.03);
 
                 a {
-                    color: $color-foreground-light-dimmed;
-                    border-color: $color-muted-3;
+                    color: palette.$color-foreground-light-dimmed;
+                    border-color: palette.$color-muted-3;
 
                     &:hover {
-                        color: $color-foreground-light;
+                        color: palette.$color-foreground-light;
                     }
                 }
             }
         }
 
         .body {
-            background: $color-background-light;
-            color: $color-foreground-light;
+            background: palette.$color-background-light;
+            color: palette.$color-foreground-light;
         }
 
         .head,
         .body {
             ul.tags a {
-                color: $color-foreground-light;
+                color: palette.$color-foreground-light;
 
                 &::after {
-                    background: $color-tag-foreground;
+                    background: palette.$color-tag-foreground;
                 }
 
                 &:hover {
-                    color: $color-foreground-dark;
+                    color: palette.$color-foreground-dark;
 
                     &::after {
-                        background: $color-tag-background;
+                        background: palette.$color-tag-background;
                     }
                 }
             }
         }
 
         .footer {
-            background: $color-background-light-dimmed;
-            color: $color-muted-1;
+            background: palette.$color-background-light-dimmed;
+            color: palette.$color-muted-1;
 
             a {
-                color: $color-link-light;
+                color: palette.$color-link-light;
 
                 &:hover {
-                    color: $color-foreground-light;
+                    color: palette.$color-foreground-light;
                 }
             }
 
             a.theme-selector-toggle {
-                background: $color-background-light-dimmed;
-                color: $color-muted-3;
+                background: palette.$color-background-light-dimmed;
+                color: palette.$color-muted-3;
 
                 &:hover {
-                    color: $color-muted-1;
+                    color: palette.$color-muted-1;
                 }
 
                 &.toggled {
-                    background: $color-muted-4;
+                    background: palette.$color-muted-4;
                 }
             }
 
             .theme-selector {
-                background: $color-muted-4;
+                background: palette.$color-muted-4;
             }
         }
 
         .button {
-            background: $color-background-light-dimmed;
-            color: $color-muted-1;
+            background: palette.$color-background-light-dimmed;
+            color: palette.$color-muted-1;
 
             &__hover {
-                background: radial-gradient(circle, rgba($color-muted-4, 1), rgba($color-muted-4, 0), rgba($color-muted-4, 0));
+                background: radial-gradient(circle, rgba(palette.$color-muted-4, 1), rgba(palette.$color-muted-4, 0), rgba(palette.$color-muted-4, 0));
             }
-        
+
             &:hover {
-                box-shadow: inset 0 0 0 2px $color-muted-4;
+                box-shadow: inset 0 0 0 2px palette.$color-muted-4;
             }
         }
 
         hr {
-            background: lighten($color-muted-3, 10%);
+            background: color.adjust(palette.$color-muted-3, $lightness: 10%);
         }
     }
 }
 
-@include apply-light-theme();
+html[data-theme="light"] {
+    @include theme-light;
+}
 
-@media only screen and (max-width: $breakpoint--small) {
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}
+
+@media only screen and (max-width: breakpoints.$small) {
     hr {
         margin: 2em 0;
     }
@@ -565,12 +578,12 @@ a.theme-selector-toggle {
             .og-summary img {
                 max-width: 100%;
             }
-    
+
             .columns {
                 &--3 {
                     column-count: 1;
                 }
-    
+
                 .image-container {
                     margin: 1rem 0;
                 }
@@ -584,7 +597,7 @@ a.theme-selector-toggle {
     }
 }
 
-@media only screen and (max-width: $breakpoint--x-small) {
+@media only screen and (max-width: breakpoints.$x-small) {
     .container .head  .top-links .secondary {
         & > a {
             display: none;
@@ -598,7 +611,7 @@ a.theme-selector-toggle {
 
 @media (pointer: coarse) {
     .container .head .top-links a[data-toggle]:hover {
-        background: $color-background-top-link;
-        color: $color-foreground-dark;
+        background: palette.$color-background-top-link;
+        color: palette.$color-foreground-dark;
     }
 }

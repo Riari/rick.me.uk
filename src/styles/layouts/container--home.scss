@@ -1,3 +1,9 @@
+@use "sass:color";
+@use "sass:map";
+@use "../palette";
+@use "../typography";
+@use "../breakpoints";
+
 .container--home {
     .inner-container {
         max-width: 900px;
@@ -25,10 +31,10 @@
             a.theme-selector-toggle {
                 top: .2rem;
                 right: 0;
-                background: $color-background-main-2;
+                background: palette.$color-background-main-2;
 
                 &.toggled {
-                    background: $color-background-main-2;
+                    background: palette.$color-background-main-2;
                 }
             }
 
@@ -40,7 +46,7 @@
                 border-top-right-radius: 0;
                 border-bottom-left-radius: .3em;
                 border-bottom-right-radius: .3em;
-                background: $color-background-main-2;
+                background: palette.$color-background-main-2;
             }
         }
     }
@@ -63,17 +69,17 @@
             list-style: none;
             margin: 0 0 1em 0;
             padding: 0;
-    
+
             li {
                 margin: .2em 0;
-                background: lighten($color-background-main-1, 3%);
-    
+                background: color.adjust(palette.$color-background-main-1, $lightness: 3%);
+
                 a.link {
                     display: flex;
                     padding: 0.4em 1em;
-                    font-family: $font-family-sans-serif;
+                    font-family: typography.$font-family-sans-serif;
                     font-weight: 500;
-                    color: $color-primary-5;
+                    color: palette.$color-primary-5;
                     text-decoration: none;
                     transition: color .1s;
 
@@ -87,40 +93,40 @@
 
                     .link-publish-date {
                         font-weight: 400;
-                        color: $color-muted-3;
+                        color: palette.$color-muted-3;
                     }
                 }
             }
         }
     }
-    
+
     .project-cards {
         list-style: none;
         display: flex;
         flex-wrap: wrap;
         gap: 1em;
         margin: 0 0 2em;
-    
+
         &__card {
             flex: 1;
-    
+
             &__inner {
                 position: relative;
                 height: 100%;
                 box-sizing: border-box;
-                background: $color-background-main-2;
-    
+                background: palette.$color-background-main-2;
+
                 a {
                     display: flex;
                     flex-direction: column;
                     padding: 1em;
                     box-sizing: border-box;
-                    font-family: $font-family-sans-serif;
+                    font-family: typography.$font-family-sans-serif;
                     font-weight: 500;
-                    color: $color-primary-1;
+                    color: palette.$color-primary-1;
                     text-decoration: none;
                     transition: color .1s;
-    
+
                     &:hover {
                         color: #fff;
                     }
@@ -129,7 +135,7 @@
                         font-weight: 400;
                     }
                 }
-    
+
                 .badge {
                     position: absolute;
                     top: 1em;
@@ -138,9 +144,9 @@
                     border-top-left-radius: 3px;
                     border-bottom-left-radius: 3px;
                 }
-    
+
                 .description {
-                    color: $color-muted-3;
+                    color: palette.$color-muted-3;
                 }
             }
         }
@@ -149,7 +155,7 @@
     .proficiencies {
         &__row {
             display: flex;
-            border-bottom: 1px solid rgba($color-muted-1, 0.2);
+            border-bottom: 1px solid rgba(palette.$color-muted-1, 0.2);
             padding: .5em 0;
 
             &:first-of-type {
@@ -160,12 +166,12 @@
                 padding-bottom: 0;
                 border-bottom: 0;
             }
-    
+
             &__label {
                 padding: 0.2em 0;
                 font-weight: 700;
                 min-width: 200px;
-                color: $color-muted-3;
+                color: palette.$color-muted-3;
             }
 
             .pills {
@@ -176,11 +182,11 @@
                     border-radius: 2em;
                     font-weight: 500;
                 }
-            
+
                 @for $i from 1 through 7 {
                     &--primary-#{$i} span {
-                        background: linear-gradient(145deg, rgba($color-muted-1, 0.2), rgba($color-muted-1, 0.3), rgba(map-get($palette, primary-#{$i}), 0.12));
-                        color: map-get($palette, primary-#{$i});
+                        background: linear-gradient(145deg, rgba(palette.$color-muted-1, 0.2), rgba(palette.$color-muted-1, 0.3), rgba(map.get(palette.$palette, primary-#{$i}), 0.12));
+                        color: map.get(palette.$palette, primary-#{$i});
                     }
                 }
             }
@@ -189,17 +195,17 @@
 
     .about {
         p {
-            color: $color-muted-3;
+            color: palette.$color-muted-3;
             line-height: 1.5;
         }
     }
-    
+
     .links {
         display: flex;
-    
+
         .button {
             flex: 1;
-    
+
             svg {
                 width: 32px;
                 height: 32px;
@@ -216,13 +222,13 @@
             }
         }
     }
-    
+
     .highlight {
         font-size: .8em;
-    
+
         &> div {
             border-radius: .3em;
-    
+
             table {
                 tr {
                     td:first-child {
@@ -230,15 +236,15 @@
                         min-width: 50px;
                         text-align: right;
                     }
-    
+
                     td:nth-child(2) {
                         width: 100%;
                     }
                 }
             }
-    
+
             code {
-                font-family: $font-family-monospace;
+                font-family: typography.$font-family-monospace;
             }
         }
     }
@@ -246,64 +252,64 @@
 
 @mixin theme-light {
     .container--home {
-        background: $color-background-light;
+        background: palette.$color-background-light;
 
         .site-title {
             span:not(.text--muted-1) {
-                color: $color-foreground-light-dimmed;
+                color: palette.$color-foreground-light-dimmed;
             }
 
             .theme-selector-container {
                 a.theme-selector-toggle {
-                    background: $color-background-light-dimmed;
-                    color: $color-muted-3;
+                    background: palette.$color-background-light-dimmed;
+                    color: palette.$color-muted-3;
 
                     &:hover {
-                        color: $color-muted-1;
+                        color: palette.$color-muted-1;
                     }
                 }
 
                 .theme-selector {
-                    background: $color-background-light-dimmed;
+                    background: palette.$color-background-light-dimmed;
                 }
             }
         }
 
         h2, h2 a {
-            color: $color-muted-1;
+            color: palette.$color-muted-1;
         }
 
         p, p.lead {
-            color: $color-muted-1;
+            color: palette.$color-muted-1;
         }
 
         hr {
-            background: $color-muted-3;
+            background: palette.$color-muted-3;
         }
 
         .recent-posts {
             ul li {
-                background: $color-background-light-dimmed;
+                background: palette.$color-background-light-dimmed;
 
                 a {
-                    color: $color-link-light;
+                    color: palette.$color-link-light;
 
                     &:hover {
                         color: #000;
                     }
 
                     .link-publish-date {
-                        color: $color-muted-1;
+                        color: palette.$color-muted-1;
                     }
                 }
             }
         }
 
         .project-cards__card__inner {
-            background: $color-background-light-dimmed;
+            background: palette.$color-background-light-dimmed;
 
             a {
-                color: $color-link-light;
+                color: palette.$color-link-light;
 
                 &:hover {
                     color: #000;
@@ -311,31 +317,39 @@
             }
 
             .description {
-                color: $color-muted-1;
+                color: palette.$color-muted-1;
             }
         }
 
         .proficiencies__row {
             &__label {
-                color: $color-muted-1;
+                color: palette.$color-muted-1;
             }
 
             .pills span {
-                color: $color-foreground-light;
+                color: palette.$color-foreground-light;
             }
 
             @for $i from 1 through 7 {
                 .pills--primary-#{$i} span {
-                    background: linear-gradient(145deg, map-get($palette, primary-#{$i}), rgba(map-get($palette, primary-#{$i}), 0.35));
+                    background: linear-gradient(145deg, map.get(palette.$palette, primary-#{$i}), rgba(map.get(palette.$palette, primary-#{$i}), 0.35));
                 }
             }
         }
     }
 }
 
-@include apply-light-theme();
+html[data-theme="light"] {
+    @include theme-light;
+}
 
-@media only screen and (max-width: $breakpoint--small) {
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}
+
+@media only screen and (max-width: breakpoints.$small) {
     .container--home {
         .site-title {
             h1 {
@@ -371,7 +385,7 @@
             }
         }
     }
-    
+
     .recent-posts ul li {
         flex-direction: column;
     }

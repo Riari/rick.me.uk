@@ -1,16 +1,12 @@
-$breakpoint--small: 768px;
-$breakpoint--x-small: 526px;
+@use "typography";
 
-@import "palette.scss";
-@import "typography.scss";
-
-@import "badges.scss";
-@import "code.scss";
-@import "components/alert.scss";
-@import "general.scss";
-@import "input.scss";
-@import "layouts/container--cards.scss";
-@import "layouts/container--home.scss";
-@import "layouts/container--post.scss";
-@import "layouts/container--project.scss";
-@import "pagination.scss";
+@use "badges";
+@use "code";
+@use "components/alert.scss";
+@use "general";
+@use "input";
+@use "layouts/container--cards";
+@use "layouts/container--home";
+@use "layouts/container--post";
+@use "layouts/container--project";
+@use "pagination";
