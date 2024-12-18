@@ -1,8 +1,93 @@
 ---
 title: 'C++ Profiling in Unreal Engine 5'
-description: "A walkthrough of third-party and native CPU profiling tools in UE"
-pubDate: 2024-11-21
+description: "A walkthrough of CPU profiling in UE using first- and third-party tools"
+pubDate: 2024-12-17
 heroImage: '../../images/post-headers/pixellated-code.png'
 tags: ["cpp", "profiling", "unreal-engine", "game-engine"]
 ---
+import Alert from "../../../components/Alert.astro"
+import ExternalLink from "../../../components/ExternalLink.astro"
+import Image from "../../../components/Image.astro"
+import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
+import Video from "../../../components/Video.astro"
+
+import insightsSelectChannelsImage from "./insights-select-channels.png"
+import setStandaloneModeImage from "./set-standalone-mode.png"
+import openSessionBrowserImage from "./open-session-browser.png"
+import liveSessionVideo from "./live-session.mp4"
+
+Unreal Engine ships with some powerful features for profiling CPU, GPU, and memory performance. In Unreal Engine 5, they're delivered by Unreal Insights, a suite of tools for capturing performance data at runtime and analysing captured data. It takes the place of the older Unreal Profiler available in UE 4 and deprecated in 5.0.
+
+In this post, I'll walk through profiling via Unreal Insights as well as two third-party profilers - <ExternalLink url="https://github.com/wolfpld/tracy">Tracy</ExternalLink> and <ExternalLink url="https://github.com/bombomby/optick">Optick</ExternalLink> - with an emphasis on measuring the CPU performance of custom C++ code.
+
+Everything I demonstrate in this post is based on Unreal Engine 5.4.4, but should apply to any `5.*` version. Also note that I won't go over how to analyse profiler results or optimise code - these are both deep topics that warrant their own posts and are therefore out of scope. Regardless, I hope you find this useful!
+
+### Unreal Insights
+
+Unreal Insights consists of two executables:
+
+* **UnrealTraceServer**: the backend. The server is responsible for recording high volumes of performance data (categorised by _Channels_) from the engine.
+* **UnrealInsights**: the frontend. This includes the Session Browser GUI for opening and analysing traces stored by the trace server.
+
+Before you begin tracing, you can select the trace channels you're interested in via the Trace menu in the bottom right of the editor:
+
+<Image src={insightsSelectChannelsImage} alt="Trace menu - channel selection" style="max-height: 500px;"></Image>
+
+#### Starting a trace session
+
+There are two ways of starting a trace session:
+
+1) Via the Trace menu, which allows you to profile your game while it's running in the editor viewport.
+2) By starting your game in standalone mode with the Session Browser window open.
+
+The latter method is preferable since it means your game is running independently of the editor, eliminating some of the overhead associated with running it inside the editor and giving you a more accurate picture of performance - not to mention it does away with the need to manually start and stop traces.
+
+To do this, first make sure your play mode is set to Standalone Mode:
+
+<Image src={setStandaloneModeImage} alt="Setting play mode to Standalone Mode"></Image>
+
+Then open up the Session Browser window via the Trace menu:
+
+<Image src={openSessionBrowserImage} alt="Opening the session browser via the Trace menu in the lower right of the editor"></Image>
+
+As long as you keep that window open, the editor should automatically start tracing every time you start the game. Closing the game window will similarly terminate the trace session.
+
+<Alert type="tip">
+The trace server should automatically start when you launch Unreal Editor. If it's not running, traces will fail to start.
+
+If attempting to start the server via the Trace menu doesn't work (which was the case for me when I last tried this on a new UE 5.5 project), you can start it manually. On Windows, you can find the binary at `Engine\Binaries\Win64\UnrealTraceServer.exe` under your Unreal Engine installation directory. You can start it as a background process by executing `UnrealTraceServer.exe fork`.
+
+The command may result in the error "Error: Deamon is configured to run in sponsored mode, but no sponsor pid has been specified.". When the server runs in sponsor mode, it'll only run as long as any local processes (i.e. editor instances) are using it, then it'll shut down. You can disable sponsored mode by modifying the `settings.ini` file specified in the output (by default, this should be `C:\Users\<user>\AppData\Local\UnrealEngine\Common\UnrealTrace\settings.ini`) to specify `Sponsored=0`. The server should then start successfully with `UnrealTraceServer.exe fork`.
+
+When you're done using the trace server, you can kill it with `UnrealTraceServer.exe kill`.
+</Alert>
+
+The Trace Store tab in the Session Browser lists all of the traces stored on the server, including live ones (denoted with "LIVE" in the status column). Double-clicking a trace will open it, presenting you with a frame time graph, a flame graph of timer events, a table of timers and their performance stats, and a few other views:
+
+<Video src={liveSessionVideo} alt="A live trace session open in Unreal Insights" isLoop={true}></Video>
+
+#### Timing custom C++ code
+
+The engine provides a range of macros for instrumenting your code with trace events. There are different types of event covering CPU timing, counters, memory allocations and more, and it's also possible to define custom event types for more specialised tracing behaviour depending on your exact needs.
+
+For this example, I'll use `TRACE_CPUPROFILER_EVENT_SCOPE_STR`, one of the built-in scoped timer macros defined in <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/40eea367040d50aadd9f030ed5909fc890c159c2/Engine/Source/Runtime/Core/Public/ProfilingDebugging/CpuProfilerTrace.h#L335-L347">Source/Runtime/Core/Public/ProfilingDebugging/CpuProfilerTrace.h</ExternalLink>. This timer starts measuring at the point the macro is called and automatically stops measuring via the RAII mechanism in C++. Its usage looks like this:
+
+```cpp
+{
+    TRACE_CPUPROFILER_EVENT_SCOPE_STR("My event")
+    // Code here is timed
+} // The timer stops when exiting scope here
+```
+
+TODO: Decide on a good way to demonstrate spikes or gradual increase in frame time
+
+### Alternative profiler: Tracy
+
+<OpenGraphSummary url="https://github.com/wolfpld/tracy"></OpenGraphSummary>
+
+### Alternative profiler: Optick
+
+<OpenGraphSummary url="https://github.com/bombomby/optick"></OpenGraphSummary>
+
+### Closing remarks
 
