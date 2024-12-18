@@ -15,12 +15,13 @@ import insightsSelectChannelsImage from "./insights-select-channels.png"
 import setStandaloneModeImage from "./set-standalone-mode.png"
 import openSessionBrowserImage from "./open-session-browser.png"
 import liveSessionVideo from "./live-session.mp4"
+import insightsTraceAnalysisVideo from "./insights-trace-analysis.mp4"
 
 Unreal Engine ships with some powerful features for profiling CPU, GPU, and memory performance. In Unreal Engine 5, they're delivered by Unreal Insights, a suite of tools for capturing performance data at runtime and analysing captured data. It takes the place of the older Unreal Profiler available in UE 4 and deprecated in 5.0.
 
-In this post, I'll walk through profiling via Unreal Insights as well as two third-party profilers - <ExternalLink url="https://github.com/wolfpld/tracy">Tracy</ExternalLink> and <ExternalLink url="https://github.com/bombomby/optick">Optick</ExternalLink> - with an emphasis on measuring the CPU performance of custom C++ code.
+In this post, I'll walk through the basics of profiling via Unreal Insights as well as how to integrate two third-party profilers - <ExternalLink url="https://github.com/wolfpld/tracy">Tracy</ExternalLink> and <ExternalLink url="https://github.com/bombomby/optick">Optick</ExternalLink> - with an emphasis on measuring the CPU performance of custom C++ code.
 
-Everything I demonstrate in this post is based on Unreal Engine 5.4.4, but should apply to any `5.*` version. Also note that I won't go over how to analyse profiler results or optimise code - these are both deep topics that warrant their own posts and are therefore out of scope. Regardless, I hope you find this useful!
+Everything I demonstrate in this post is based on Unreal Engine 5.4.4, but should apply to any `5.*` version. Also note that I won't go into detail with respect to profiler result analysis and code optimisation as these are both deep topics that warrant posts of their own. Regardless, I hope you find this useful!
 
 ### Unreal Insights
 
@@ -57,7 +58,7 @@ The trace server should automatically start when you launch Unreal Editor. If it
 
 If attempting to start the server via the Trace menu doesn't work (which was the case for me when I last tried this on a new UE 5.5 project), you can start it manually. On Windows, you can find the binary at `Engine\Binaries\Win64\UnrealTraceServer.exe` under your Unreal Engine installation directory. You can start it as a background process by executing `UnrealTraceServer.exe fork`.
 
-The command may result in the error "Error: Deamon is configured to run in sponsored mode, but no sponsor pid has been specified.". When the server runs in sponsor mode, it'll only run as long as any local processes (i.e. editor instances) are using it, then it'll shut down. You can disable sponsored mode by modifying the `settings.ini` file specified in the output (by default, this should be `C:\Users\<user>\AppData\Local\UnrealEngine\Common\UnrealTrace\settings.ini`) to specify `Sponsored=0`. The server should then start successfully with `UnrealTraceServer.exe fork`.
+The command may result in the error "Error: Deamon is configured to run in sponsored mode, but no sponsor pid has been specified.". When the server runs in sponsor mode, it'll only run as long as any local processes are using it, then it'll shut down. You can disable sponsored mode by modifying the `settings.ini` file specified in the output (by default, this should be `C:\Users\<user>\AppData\Local\UnrealEngine\Common\UnrealTrace\settings.ini`) to specify `Sponsored=0`. The server should then start successfully with `UnrealTraceServer.exe fork`.
 
 When you're done using the trace server, you can kill it with `UnrealTraceServer.exe kill`.
 </Alert>
@@ -68,9 +69,9 @@ The Trace Store tab in the Session Browser lists all of the traces stored on the
 
 #### Timing custom C++ code
 
-The engine provides a range of macros for instrumenting your code with trace events. There are different types of event covering CPU timing, counters, memory allocations and more, and it's also possible to define custom event types for more specialised tracing behaviour depending on your exact needs.
+The engine provides a range of macros for instrumenting your code with trace events. There are different types of event covering CPU timing, counters, memory allocations and more, and it's possible to define custom event types so you can implement more specialised tracing behaviour depending on your exact needs.
 
-For this example, I'll use `TRACE_CPUPROFILER_EVENT_SCOPE_STR`, one of the built-in scoped timer macros defined in <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/40eea367040d50aadd9f030ed5909fc890c159c2/Engine/Source/Runtime/Core/Public/ProfilingDebugging/CpuProfilerTrace.h#L335-L347">Source/Runtime/Core/Public/ProfilingDebugging/CpuProfilerTrace.h</ExternalLink>. This timer starts measuring at the point the macro is called and automatically stops measuring via the RAII mechanism in C++. Its usage looks like this:
+For this example, I'll use one of the built-in scoped timer macros defined in <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/40eea367040d50aadd9f030ed5909fc890c159c2/Engine/Source/Runtime/Core/Public/ProfilingDebugging/CpuProfilerTrace.h#L335-L347">Source/Runtime/Core/Public/ProfilingDebugging/CpuProfilerTrace.h</ExternalLink>, `TRACE_CPUPROFILER_EVENT_SCOPE_STR`. This timer starts measuring at the point the macro is called and automatically stops measuring via the RAII mechanism in C++. Its usage looks like this:
 
 ```cpp
 {
@@ -79,7 +80,22 @@ For this example, I'll use `TRACE_CPUPROFILER_EVENT_SCOPE_STR`, one of the built
 } // The timer stops when exiting scope here
 ```
 
-TODO: Decide on a good way to demonstrate spikes or gradual increase in frame time
+To demonstrate this, I'll create some artificial spikes in frame time in one of my projects, which has an enemy actor type that seeks and attacks the player. I'll insert a sleep duration of 30ms in its `InflictWeaponDamageOnTarget` and time it like so:
+
+```cpp
+{
+    TRACE_CPUPROFILER_EVENT_SCOPE_STR("EnemyActor: Expensive work");
+    FPlatformProcess::Sleep(0.03f);
+}
+```
+
+Obviously this isn't a realistic example of an expensive workload, but it serves the purpose of making frames stand out in the trace results.
+
+After around 25s of gameplay, here are the results:
+
+<Video src={insightsTraceAnalysisVideo} alt="Analysis of trace results"></Video>
+
+This type of timer is one of the most commonly used features of C++ profilers, which all have similar macros.
 
 ### Alternative profiler: Tracy
 
@@ -90,4 +106,6 @@ TODO: Decide on a good way to demonstrate spikes or gradual increase in frame ti
 <OpenGraphSummary url="https://github.com/bombomby/optick"></OpenGraphSummary>
 
 ### Closing remarks
+
+While profilers give you the means to dissect frames and really understand what's happening, it's worth noting that the editor also exposes _stat commands_, which in most cases should be checked as a first resort. The most useful of these is arguably `stat unit`, which displays a selection of real-time stats including frame time, draw call count, and the number of primitives being drawn. `stat fps` is similarly useful for observing framerate performance. You can execute these in the console (opened with the `\`` (tilde) key) when running your game via the editor.
 
