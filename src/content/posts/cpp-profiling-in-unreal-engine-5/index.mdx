@@ -16,10 +16,13 @@ import setStandaloneModeImage from "./set-standalone-mode.png"
 import openSessionBrowserImage from "./open-session-browser.png"
 import liveSessionVideo from "./live-session.mp4"
 import insightsTraceAnalysisVideo from "./insights-trace-analysis.mp4"
+import setLaunchArgsImage from "./set-launch-args.png"
+import tracyProfilerResultsImage from "./tracy-profiler-results.png"
+import optickProfilerResultsImage from "./optick-profiler-results.png"
 
-Unreal Engine ships with some powerful features for profiling CPU, GPU, and memory performance. In Unreal Engine 5, they're delivered by Unreal Insights, a suite of tools for capturing performance data at runtime and analysing captured data. It takes the place of the older Unreal Profiler available in UE 4 and deprecated in 5.0.
+Unreal Engine ships with some powerful features for profiling CPU, GPU, and memory performance. In Unreal Engine 5, they're delivered by Unreal Insights, a suite of tools for capturing performance data at runtime and analysing it. It takes the place of the older Unreal Profiler available in UE 4 and deprecated in 5.0.
 
-In this post, I'll walk through the basics of profiling via Unreal Insights as well as how to integrate two third-party profilers - <ExternalLink url="https://github.com/wolfpld/tracy">Tracy</ExternalLink> and <ExternalLink url="https://github.com/bombomby/optick">Optick</ExternalLink> - with an emphasis on measuring the CPU performance of custom C++ code.
+In this post, I'll walk through the basics of profiling via Unreal Insights (with an emphasis on measuring the CPU performance of custom C++ code) as well as how to set up two third-party C++ profilers - <ExternalLink url="https://github.com/wolfpld/tracy">Tracy</ExternalLink> and <ExternalLink url="https://github.com/bombomby/optick">Optick</ExternalLink>.
 
 Everything I demonstrate in this post is based on Unreal Engine 5.4.4, but should apply to any `5.*` version. Also note that I won't go into detail with respect to profiler result analysis and code optimisation as these are both deep topics that warrant posts of their own. Regardless, I hope you find this useful!
 
@@ -34,6 +37,8 @@ Before you begin tracing, you can select the trace channels you're interested in
 
 <Image src={insightsSelectChannelsImage} alt="Trace menu - channel selection" style="max-height: 500px;"></Image>
 
+Note that the defaults are sufficient for common profiling tasks.
+
 #### Starting a trace session
 
 There are two ways of starting a trace session:
@@ -43,9 +48,9 @@ There are two ways of starting a trace session:
 
 The latter method is preferable since it means your game is running independently of the editor, eliminating some of the overhead associated with running it inside the editor and giving you a more accurate picture of performance - not to mention it does away with the need to manually start and stop traces.
 
-To do this, first make sure your play mode is set to Standalone Mode:
+To do this, first make sure your play mode is set to Standalone Game:
 
-<Image src={setStandaloneModeImage} alt="Setting play mode to Standalone Mode"></Image>
+<Image src={setStandaloneModeImage} alt="Setting play mode to Standalone Game"></Image>
 
 Then open up the Session Browser window via the Trace menu:
 
@@ -97,15 +102,69 @@ After around 25s of gameplay, here are the results:
 
 This type of timer is one of the most commonly used features of C++ profilers, which all have similar macros.
 
-### Alternative profiler: Tracy
+### Alternative profilers
+
+Unreal Engine exposes `FExternalProfiler`, an interface for external profiler integration. See <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Source/Runtime/Core/Public/ProfilingDebugging/ExternalProfiler.h">Engine/Source/Runtime/Core/Public/ProfilingDebugging/ExternalProfiler.h</ExternalLink>.
+
+I'll possibly write a guide for integrating profilers with this API at a later date. For now, I'll cover setting up Tracy and Optick with existing integrations.
+
+#### Tracy
 
 <OpenGraphSummary url="https://github.com/wolfpld/tracy"></OpenGraphSummary>
 
-### Alternative profiler: Optick
+<ExternalLink url="https://github.com/Nesquick0/TracyUnrealPlugin">Nesquick0/TracyUnrealPlugin</ExternalLink> provides a solid starting point for a plugin that provides a Tracy implementation. At the time of writing, it's compatible with Tracy 0.9.1 (with some modifications) and current versions of Unreal Engine 5. Installation is detailed in the readme, but in short:
+
+1. Copy the `Tracy` directory from the repo into the `Plugins` subdirectory of your project (create the subdirectory if it doesn't already exist)
+2. From a copy of Tracy 0.9.1 source (downloadable <ExternalLink url="https://github.com/wolfpld/tracy/archive/refs/tags/v0.9.1.zip">here</ExternalLink>), copy the `public` directory to `Plugins\Tracy\Source\TracyLib`
+3. Modify `Plugins\Tracy\Source\TracyLib\public\client\TracyProfiler.cpp` as follows:
+
+```diff
+-   ptr += sprintf( ptr, "OS: Windows %i.%i.%i\n", ver.dwMajorVersion, ver.dwMinorVersion, ver.dwBuildNumber );
++   ptr += sprintf( ptr, "OS: Windows %i.%i.%i\n", (int)ver.dwMajorVersion, (int)ver.dwMinorVersion, (int)ver.dwBuildNumber );
+```
+
+<Alert type="warn">
+In addition to modifying TracyProfiler.cpp, you'll also need to modify the plugin's `FExternalProfiler` implementation to make it compatible:
+
+`Plugins\Tracy\Source\Tracy\Public\TracyPlugin.h`:
+```diff
+-   virtual void StartScopedEvent(const TCHAR* Text) override;
++   virtual void StartScopedEvent(const FColor& color, const TCHAR* Text) override;
+```
+
+`Plugins\Tracy\Source\Tracy\Private\TracyPlugin.cpp`:
+```diff
+-void FTracyExternalProfiler::StartScopedEvent(const TCHAR* Text)
++void FTracyExternalProfiler::StartScopedEvent(const struct FColor& Color, const TCHAR* Text)
+```
+</Alert>
+
+At this point, Tracy.exe should be able to connect to the editor or your game as long as they're launched with the `-tracy` command line argument. To set this argument for the game in Standalone Game mode, edit the advanced play mode settings and add `-tracy` to the "Additional Launch Parameters" setting:
+
+<Image src={setLaunchArgsImage} alt="Setting the -tracy argument for Standalone Game mode" caption="Advanced settings for play modes"></Image>
+
+<Image src={tracyProfilerResultsImage} alt="Tracy profiler results captured from one of my projects" caption="Tracy profiler results captured from one of my projects"></Image>
+
+#### Optick
 
 <OpenGraphSummary url="https://github.com/bombomby/optick"></OpenGraphSummary>
 
+Optick's author maintains an Unreal Engine plugin for Optick support. It's <ExternalLink url="https://www.fab.com/listings/1691bfe6-25bd-46cd-973b-7fc9ddde3592">available on Fab</ExternalLink>. At the time of writing, the latest engine version it supports is 5.0.
+
+After adding the plugin to your library, you can find it in the Epic Games Launcher under **Library > Fab Library** and install it to a compatible engine installation.
+
+With the plugin installed, enable it in the editor by going to **Edit > Plugins > Installed > Performance**, enabling the plugin, and restarting the editor. You can then open Optick via **Tools > Open Optick Profiler**.
+
+<Alert type="warn">
+As noted in the <ExternalLink url="https://github.com/bombomby/optick/wiki/UE5-Optick-Plugin">plugin documentation</ExternalLink>, Optick uses <ExternalLink url="https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/event-tracing-for-windows--etw-">Event Tracing for Windows (ETW)</ExternalLink> to capture kernel-level events. If you need to do that, you'll need to launch the editor (or your game) with administrator priveleges.
+</Alert>
+
+<Image src={optickProfilerResultsImage} alt="Optick profiler results captured from a fresh FPS template project" caption="Optick profiler results captured from a fresh FPS template project"></Image>
+
 ### Closing remarks
 
-While profilers give you the means to dissect frames and really understand what's happening, it's worth noting that the editor also exposes _stat commands_, which in most cases should be checked as a first resort. The most useful of these is arguably `stat unit`, which displays a selection of real-time stats including frame time, draw call count, and the number of primitives being drawn. `stat fps` is similarly useful for observing framerate performance. You can execute these in the console (opened with the `\`` (tilde) key) when running your game via the editor.
+While profilers give you the means to dissect frames and really understand what's happening, it's worth noting that the editor also exposes _stat commands_, which in most cases should be checked as a first resort as they can give you immediate insight into potential issues. The most useful of these is arguably `stat unit`, which displays a selection of real-time stats including frame time, draw call count, and the number of primitives being drawn. `stat fps` is similarly useful for observing framerate performance. You can execute these in the console (opened with the <code>`</code> (tilde) key) when running your game via the editor.
 
+You can find a full list of stat commands in <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/stat-commands-in-unreal-engine">the documentation</ExternalLink>.
+
+That being said, profilers are powerful tools that, when used effectively, can help you avoid wasting time on red herrings. If you have performance issues and you're unsure of the root cause based on some superficial investigation, you should definitely take advantage of a profiler. I hope this post has been useful to that end!
