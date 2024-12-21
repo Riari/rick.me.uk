@@ -1,8 +1,8 @@
 ---
 title: 'C++ Profiling in Unreal Engine 5'
-description: "A walkthrough of CPU profiling in UE using first- and third-party tools"
+description: "A walkthrough of profiling in UE using first- and third-party tools"
 pubDate: 2024-12-17
-heroImage: '../../images/post-headers/pixellated-code.png'
+heroImage: './post-header.png'
 tags: ["cpp", "profiling", "unreal-engine", "game-engine"]
 ---
 import Alert from "../../../components/Alert.astro"
@@ -85,7 +85,7 @@ For this example, I'll use one of the built-in scoped timer macros defined in <E
 } // The timer stops when exiting scope here
 ```
 
-To demonstrate this, I'll create some artificial spikes in frame time in one of my projects, which has an enemy actor type that seeks and attacks the player. I'll insert a sleep duration of 30ms in its `InflictWeaponDamageOnTarget` and time it like so:
+To demonstrate this, I'll create some artificial spikes in frame time in one of my projects, which has an enemy actor type that seeks and attacks the player. I'll insert a sleep duration of 30ms in its `InflictWeaponDamageOnTarget` method and time it like so:
 
 ```cpp
 {
