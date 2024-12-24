@@ -1,0 +1,98 @@
+---
+title: 'Unreal Engine: Gameplay Ability System'
+description: "An overview of Unreal Engine's framework for gameplay actions & effects"
+pubDate: 2024-12-22
+heroImage: './post-header.jpg'
+tags: ["cpp", "gameplay-programming", "unreal-engine", "game-engine"]
+---
+import Alert from "../../../components/Alert.astro"
+import ExternalLink from "../../../components/ExternalLink.astro"
+import Image from "../../../components/Image.astro"
+import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
+import Video from "../../../components/Video.astro"
+
+import gasDiagramImage from "./gas-overview-diagram.png"
+
+The Gameplay Ability System (GAS) is a feature released by Epic as a plugin for Unreal Engine 4 and later. According to the <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine">documentation</ExternalLink>:
+
+> The **Gameplay Ability System** is a framework for building attributes, abilities, and interactions that an Actor can own and trigger. The system is designed to be adapted to a wide variety of Gameplay-Driven projects such as **Role-Playing Games** (RPGs), **Action-Adventure** games, and **Multiplayer Online Battle Arenas** games (MOBA).
+
+If you're not already familiar with it, you might be inclined to think that it's not very useful outside of those genres, but it's versatile enough to drive almost any type of gameplay action. In this post, I'll give a high-level introduction to GAS by breaking it down into its constituent parts and going through a simple example of a GAS-driven gameplay feature.
+
+### Breaking it down
+
+At a very high level, you can think of GAS as having three major elements: **Gameplay Abilities**, **Gameplay Attributes**, and **Gameplay Effects**. These are abstract concepts that encompass a very broad range of gameplay scenarios.
+
+Gameplay Abilities can include almost any kind of action that an actor or component can perform. Examples include:
+
+* Character movement abilities like _walk_ and _jump_
+* Character combat abilities like _punch_ and _kick_
+* Ranged weapon abilities like _fire_ and _aim down sights_
+* Melee weapon abilities like _light attack_ and _heavy attack_
+
+Gameplay Attributes are floating-point values that represent finite resources such as health and stamina. They can also be used to represent values that are used to modify other attributes, such as damage and stamina regeneration values.
+
+Gameplay Effects are changes triggered by executing abilities. They can be broken down further by their properties:
+
+* **Duration**. Every effect has one of three duration types: instant, limited duration (where the effect is usually intended to last seconds or minutes at most), or infinite (where the effect is completely passive until it's removed).
+* **Behaviours**:
+    * **Components**. These define special behaviours such as blocking other effects and granting abilities.
+    * **Modifiers**. These define how the effect interacts with attributes, including conditions that must be met for changes to occur.
+    * **Executions**. These define custom behaviours that occur when the effect executes.
+* **Gameplay Cues**. These can be used to signal when cosmetic effects (such as particles or sounds) should occur.
+* **Stacking**. This defines whether the effect can stack on the same target, and if so, what the stacking limitations are.
+
+You can read more about Gameplay Effects in the <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-effects-for-the-gameplay-ability-system-in-unreal-engine">official documentation</ExternalLink>. It's worth noting that Gameplay Effects rely heavily on <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/using-gameplay-tags-in-unreal-engine">Gameplay Tags</ExternalLink>, a general-purpose hierarchical labelling system in Unreal Engine. Specifically, they can be used to apply modifiers conditionally, and they're used by Gameplay Cues to trigger cosmetic events.
+
+### Breaking it down further
+
+While the breakdown above helps to understand what GAS can be used for and broadly how it works, there are some additional parts that are important to understand on a more technical level.
+
+First and foremost is the **Ability System Component (ASC)**. This component provides an interface to the GAS features detailed above. In a nutshell, it provides the following functionality:
+
+* For Gameplay Abilities:
+    * Methods for granting abilities.
+    * Management of granted abilities.
+    * Replication of ability state (GAS has network replication built into it).
+* For Gameplay Attributes:
+    * Methods for creating and querying Attribute Sets (more on this further down).
+* For Gameplay Effects:
+    * Methods for applying effects to self or another target.
+    * Methods for querying or removing active effects.
+
+<Alert type="info">
+The Ability System Component is initialised with two actor references: Owner and Avatar. This separation is optional, i.e. both can refer to the same actor, but the idea is that Owner is stateful and persistent while Avatar is the spatial actor that represents the actor in the world. Separating these can be useful when the spatial representation needs to be destroyed (e.g. respawned) without destroying all of the state associated with it.
+</Alert>
+
+Next is **Attribute Sets**. An Ability Set contains attribute definitions as well as optional methods for implementing custom behaviour before or after attribute-related events. In most cases, at a minimum there should be a base attribute set that defines common attributes such as health, but this can be subclassed for specific types of actor (e.g. for players, who might have additional attributes).
+
+Lastly, **Ability Tasks**. Ability Tasks are essentially asynchronous tasks fired off during Gameplay Ability execution. These tasks can either start doing work immediately (e.g. facing towards a target), or they can wait for something specific to happen before proceeding (like waiting for a target actor to come within a specified radius).
+
+Putting all of these elements together, the system looks like this:
+
+<Image src={gasDiagramImage} alt="A diagram of the Gameplay Ability System" height="800px"></Image>
+
+### A practical example
+
+I created a small project in Unreal Engine 5.4 to demonstrate how the Gameplay Ability System can be applied to a specific gameplay feature. It uses the C++ FPS template and consists of the following:
+
+* A first-person player character with an attribute set containing an Energy attribute
+* A blaster that can be picked up by the player
+* `FireAbility`, a Gameplay Ability implementation that executes projectile-firing logic and applies various effects, including an Energy cost and a cooldown
+* A basic HUD with an energy level bar that reads from the player's Energy attribute
+
+I'll go over key parts of the implementation, but first, here's how I enabled GAS in the project:
+
+1. Enabled the "Gameplay Abilities" plugin
+2. Added the following dependencies to the `[module].Build.cs` file:
+```cpp
+PrivateDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "GameplayTags", "GameplayTasks" });
+```
+3. Closed the editor, built the project, and re-opened the editor
+
+Next, some groundwork in C++. Since the project uses the FPS template, I already had a character class, game mode class, player controller, projectile actor class, weapon pick-up component, and weapon component. I created the following new classes:
+
+* `ABaseCharacter`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h#L240">ACharacter</ExternalLink> and implements <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemInterface.h#L19">IAbilitySystemInterface</ExternalLink>
+* `UBaseAttributeSet`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h#L180">UAttributeSet</ExternalLink>
+* `UCombatantAttributeSet`, which inherits `UBaseAttributeSet`
+* 
