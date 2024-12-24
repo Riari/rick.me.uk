@@ -1,11 +1,17 @@
 ---
-const { src, type, isLoop, caption } = Astro.props;
+const { src, type, isLoop, caption, autoplay = false } = Astro.props;
 
-const properties = {
-    'controls': '',
-    'autoplay': '',
-    ...(isLoop && { 'loop': '' })
+let properties: any = {
+    'controls': ''
 };
+
+if (isLoop) {
+    properties['loop'] = ''
+}
+
+if (autoplay) {
+    properties['autoplay'] = ''
+}
 ---
 
 <div class="video-container">
