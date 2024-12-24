@@ -12,6 +12,15 @@ import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
 import Video from "../../../components/Video.astro"
 
 import gasDiagramImage from "./gas-overview-diagram.png"
+import blueprintGAFireEnergyWeaponImage from "./blueprint-ga_fireenergyweapon.png"
+import gaFireEnergyWeaponClassDefaultsImage from "./ga_fireenergyweapon-class-defaults.png"
+import geDefaultAttributesImage from "./ge_defaultattributes.png"
+import geWeaponEnergyCooldownImage from "./ge_weaponenergycooldown.png"
+import geWeaponEnergyCostImage from "./ge_weaponenergycost.png"
+import geWeaponEnergyRegenImage from "./ge_weaponenergyregen.png"
+import geWeaponEnergyRegenDelayImage from "./ge_weaponenergyregendelay.png"
+import bpPickupRifleImage from "./bp_pickup_rifle.png"
+import resultVideo from "./result.mp4"
 
 The Gameplay Ability System (GAS) is a feature released by Epic as a plugin for Unreal Engine 4 and later. According to the <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine">documentation</ExternalLink>:
 
@@ -64,7 +73,7 @@ First and foremost is the **Ability System Component (ASC)**. This component pro
 The Ability System Component is initialised with two actor references: Owner and Avatar. This separation is optional, i.e. both can refer to the same actor, but the idea is that Owner is stateful and persistent while Avatar is the spatial actor that represents the actor in the world. Separating these can be useful when the spatial representation needs to be destroyed (e.g. respawned) without destroying all of the state associated with it.
 </Alert>
 
-Next is **Attribute Sets**. An Ability Set contains attribute definitions as well as optional methods for implementing custom behaviour before or after attribute-related events. In most cases, at a minimum there should be a base attribute set that defines common attributes such as health, but this can be subclassed for specific types of actor (e.g. for players, who might have additional attributes).
+Next is **Attribute Sets**. An Attribute Set contains attribute definitions as well as optional methods for implementing custom behaviour before or after attribute-related events. In most cases, at a minimum there should be a base Attribute Set that defines common attributes such as health, but this can be subclassed for specific types of actor (e.g. for players, who might have additional attributes).
 
 Lastly, **Ability Tasks**. Ability Tasks are essentially asynchronous tasks fired off during Gameplay Ability execution. These tasks can either start doing work immediately (e.g. facing towards a target), or they can wait for something specific to happen before proceeding (like waiting for a target actor to come within a specified radius).
 
@@ -74,7 +83,7 @@ Putting all of these elements together, the system looks like this:
 
 ### A practical example
 
-I created a small project in Unreal Engine 5.4 to demonstrate how the Gameplay Ability System can be applied to a specific gameplay feature. It uses the C++ FPS template and consists of the following:
+I created a small single player project in Unreal Engine 5.4 to demonstrate how the Gameplay Ability System can be applied to a specific gameplay feature. It's built on the C++ FPS template and consists of the following:
 
 * A first-person player character with an attribute set containing an Energy attribute
 * A blaster that can be picked up by the player
@@ -90,9 +99,364 @@ PrivateDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "Gamep
 ```
 3. Closed the editor, built the project, and re-opened the editor
 
-Next, some groundwork in C++. Since the project uses the FPS template, I already had a character class, game mode class, player controller, projectile actor class, weapon pick-up component, and weapon component. I created the following new classes:
+Next, some groundwork in C++. Since the project uses the FPS template, I already had a character class, player controller, and a few other useful classes. I created the following C++ classes:
 
 * `ABaseCharacter`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h#L240">ACharacter</ExternalLink> and implements <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemInterface.h#L19">IAbilitySystemInterface</ExternalLink>
 * `UBaseAttributeSet`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h#L180">UAttributeSet</ExternalLink>
 * `UCombatantAttributeSet`, which inherits `UBaseAttributeSet`
-* 
+* `UBaseGameplayAbility`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h#L108">UGameplayAbility</ExternalLink>
+
+I also created the following Blueprint classes:
+
+* `GA_FireEnergyWeapon`, a which inherits `UBaseGameplayAbility`
+* Five Gameplay Effects inheriting <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/GameplayEffect.h#L2040">UGameplayEffect</ExternalLink>:
+    * `GE_DefaultAttributes`
+    * `GE_WeaponEnergyCooldown`
+    * `GE_WeaponEnergyCost`
+    * `GE_WeaponEnergyRegen`
+    * `GE_WeaponEnergyRegenDelay`
+
+Let's take a closer look at all of these...
+
+#### ABaseCharacter
+
+The base class for all character types. It includes the **Ability System Component**, an **Attribute Set**, an array of default **Abilities** and an array of default **Effects**:
+
+```cpp
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities", meta = (AllowPrivateAccess = "true"))
+	class UAbilitySystemComponent* AbilitySystemComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities", meta = (AllowPrivateAccess = "true"))
+	class UCombatantAttributeSet* AttributeSet;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
+	TArray<TSubclassOf<class UBaseGameplayAbility>> DefaultAbilities;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
+	TArray<TSubclassOf<class UGameplayEffect>> DefaultEffects;
+
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+```
+
+The `GetAbilitySystemComponent()` member function is declared in `IAbilitySystemInterface` and simply returns the `AbilitySystemComponent` pointer:
+
+```cpp
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+```
+
+The following protected member functions are also defined:
+```cpp
+// Grants abilities specified in DefaultAbilities
+void ABaseCharacter::InitializeAbilities()
+{
+	if (!HasAuthority() || !AbilitySystemComponent) return;
+
+	for (TSubclassOf<UBaseGameplayAbility>& Ability : DefaultAbilities)
+	{
+		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, static_cast<int32>(Ability.GetDefaultObject()->GetAbilityInputID()), this));
+	}
+}
+
+// Applies effects specified in DefaultEffects
+// (useful for applying infinite effects such as passive health regeneration)
+void ABaseCharacter::InitializeEffects()
+{
+	if (!AbilitySystemComponent) return;
+
+	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	for (TSubclassOf<UGameplayEffect>& Effect : DefaultEffects)
+	{
+		FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, 1, EffectContext);
+		if (SpecHandle.IsValid())
+		{
+			FActiveGameplayEffectHandle EffectHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get()); 
+		}
+	}
+}
+
+// OnWeaponEnergyChanged is a BlueprintImplementableEvent
+void ABaseCharacter::OnWeaponEnergyAttributeChanged(const FOnAttributeChangeData& Data)
+{
+	OnWeaponEnergyChanged(Data.OldValue, Data.NewValue);
+}
+```
+
+Lastly, I modified the existing constructor and two member function overrides, `BeginPlay()` and `PostInitializeComponents()`:
+
+```cpp
+ABaseCharacter::ABaseCharacter()
+	: AbilitySystemComponent{CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"))}
+	, AttributeSet{CreateDefaultSubobject<UCombatantAttributeSet>(TEXT("AttributeSet"))}
+{
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void ABaseCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetWeaponEnergyAttribute()).AddUObject(this, &ABaseCharacter::OnWeaponEnergyAttributeChanged);
+}
+
+void ABaseCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	if (!AbilitySystemComponent) return;
+
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+	InitializeAbilities();
+	InitializeEffects();
+}
+```
+
+Altogether, this provides characters with a way to specify abilities that should be granted by default, a way to specify effects that should be applied by default, an Attribute Set with a Weapon Energy attribute, a Blueprint event for responding to changes in the Weapon Energy attribute, and a way to interface with GAS features (AbilitySystemComponent).
+
+#### UBaseAttributeSet
+
+A simple implementation of `UAttributeSet`. The whole class declaration looks like this:
+
+```cpp
+UCLASS()
+class ARMAROSUNREAL_API UBaseAttributeSet : public UAttributeSet
+{
+	GENERATED_BODY()
+
+protected:
+	virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
+	virtual void ClampAttributeOnChange(const FGameplayAttribute& Attribute, float& NewValue) const;
+};
+```
+
+It also defines the following macro (used in the next class, `UCombatantAttributeSet`) as suggested in the <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h#L418-L422">source documentation</ExternalLink>:
+
+```cpp
+#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
+	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+```
+
+The implementation simply uses `PreAttributeBaseChange` and `PreAttributeChange` to clamp the new attribute value:
+
+```cpp
+void UBaseAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
+{
+	Super::PreAttributeBaseChange(Attribute, NewValue);
+
+	ClampAttributeOnChange(Attribute, NewValue);
+}
+
+void UBaseAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+	Super::PreAttributeChange(Attribute, NewValue);
+
+	ClampAttributeOnChange(Attribute, NewValue);
+}
+
+// This is a no-op and is intended to be overridden by inheriting classes
+void UBaseAttributeSet::ClampAttributeOnChange(const FGameplayAttribute& Attribute, float& NewValue) const
+{
+}
+```
+
+#### UCombatantAttributeSet
+
+This is the Attribute Set that gets assigned to characters and includes three attributes:
+
+```cpp
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData WeaponEnergy;
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, WeaponEnergy);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData MaxWeaponEnergy;
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, MaxWeaponEnergy);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData WeaponEnergyRegen;
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, WeaponEnergyRegen);
+```
+
+It also includes a constructor and a member function override for `ClampAttributeOnChange()`:
+
+```cpp
+UCombatantAttributeSet::UCombatantAttributeSet()
+	: WeaponEnergy{0.0f}
+	, MaxWeaponEnergy{60.0f}
+	, WeaponEnergyRegen{1.0f}
+{
+}
+
+void UCombatantAttributeSet::ClampAttributeOnChange(const FGameplayAttribute& Attribute, float& NewValue) const
+{
+	if (Attribute == GetWeaponEnergyAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxWeaponEnergy());
+	}
+}
+```
+
+#### UBaseGameplayAbility
+
+The base class for all Gameplay Abilities. This simply encapsulates a way to configure a unique input identifier per ability (explained in the next section):
+
+```cpp
+UCLASS()
+class ARMAROSUNREAL_API UBaseGameplayAbility : public UGameplayAbility
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category = "Ability")
+	EAbilityInputID AbilityInputID{ EAbilityInputID::None };
+
+public:
+	EAbilityInputID GetAbilityInputID() const { return AbilityInputID; }
+};
+```
+
+`EAbilityInputID` is an enum defined in the module's main header (`[module].h`):
+
+```cpp
+UENUM(BlueprintType)
+enum class EAbilityInputID : uint8
+{
+	None = 0,
+	Confirm = 1,
+	Cancel = 2,
+	FireAbility = 3
+};
+```
+
+#### Boilerplate alterations
+
+Along with the new classes, I made some alterations to the classes provided by the FPS template.
+
+The first is the character class. In my project, it's called `AArmarosCharacter`. I defined an input action for the Fire ability and a couple of member functions for handling ability inputs:
+
+```cpp
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* FireAbilityAction;
+
+protected:
+	virtual void SendAbilityLocalInput(const FInputActionValue& Value, int32 InputID);
+	void FireAbility(const FInputActionValue& Value);
+```
+
+In the `SetupPlayerInputComponent` function, I set up the binding for `FireAbilityAction`:
+
+```cpp
+EnhancedInputComponent->BindAction(FireAbilityAction, ETriggerEvent::Triggered, this, &AArmarosUnrealCharacter::FireAbility);
+```
+
+Lastly, `SendAbilityLocalInput` and `FireAbility` look like this:
+
+```cpp
+void AArmarosUnrealCharacter::SendAbilityLocalInput(const FInputActionValue& Value, int32 InputID)
+{
+	if (!AbilitySystemComponent) return;
+
+	Value.Get<bool>()
+		? AbilitySystemComponent->AbilityLocalInputPressed(InputID)
+		: AbilitySystemComponent->AbilityLocalInputReleased(InputID);
+}
+
+void AArmarosUnrealCharacter::FireAbility(const FInputActionValue& Value)
+{
+	SendAbilityLocalInput(Value, static_cast<int32>(EAbilityInputID::FireAbility));
+}
+```
+
+Note that this is where the `EAbilityInputID` enum I mentioned earlier comes in. This is how bound inputs are assigned to abilities - the enhanced input binding above calls `FireAbility` when the input is activated, which in turn calls `SendAbilityLocalInput`, informing the ASC when the input starts and ends. Any granted abilities that are configured with the received input ID will be executed as long as conditions are met.
+
+You might also have noticed the enum contains "Confirm" and "Cancel" input IDs. These are used by Ability Tasks to signal confirmation or cancellation, which is out of scope for this particular project.
+
+#### GA_FireEnergyWeapon
+
+The blueprint for this ability obtains a reference to the actor executing the ability (obtained via the "Get Avatar Actor from Actor Info" node), attempts to commit the ability (which can fail if conditions aren't met, e.g. an attribute value is too low), calls the `Fire` function on the weapon component, commits the ability's cooldown (`GE_WeaponEnergyCooldown`), and applies a delay effect before regen can resume (`GE_WeaponEnergyRegenDelay`):
+
+<Image src={blueprintGAFireEnergyWeaponImage} alt="GA_FireEnergyWeapon blueprint" caption="GA_FireEnergyWeapon blueprint"></Image>
+
+The cooldown (`GE_WeaponEnergyCooldown`) and regen (`GE_WeaponEnergyRegen`) are configured on the ability via the class defaults:
+
+<Image src={gaFireEnergyWeaponClassDefaultsImage} alt="GA_FireEnergyWeapon class defaults" caption="GA_FireEnergyWeapon class defaults"></Image>
+
+#### GE_DefaultAttributes
+
+This overrides some of the default attribute values for `UCombatantAttributeSet` and is added to the player character's default effects via class defaults:
+
+<Image src={geDefaultAttributesImage} alt="GE_DefaultAttributes configuration" caption="GE_DefaultAttributes configuration"></Image>
+
+#### GE_WeaponEnergyCooldown
+
+This enforces a delay between shots when firing the weapon. It's configured with a `0.2` second duration and grants the `Ability.FireEnergyWeapon.Cooldown` tag to the actor to signal when the cooldown is in effect:
+
+<Image src={geWeaponEnergyCooldownImage} alt="GE_WeaponEnergyCooldown configuration" caption="GE_WeaponEnergyCooldown configuration"></Image>
+
+#### GE_WeaponEnergyCost
+
+This is an instant effect that deducts from the WeaponEnergy stat:
+
+<Image src={geWeaponEnergyCostImage} alt="GE_WeaponEnergyCost configuration" caption="GE_WeaponEnergyCost configuration"></Image>
+
+#### GE_WeaponEnergyRegen
+
+This passively regenerates 1 WeaponEnergy every 50ms as long as the actor doesn't have the `Ability.FireEnergyWeapon.RegenDelay` tag:
+
+<Image src={geWeaponEnergyRegenImage} alt="GE_WeaponEnergyRegen configuration" caption="GE_WeaponEnergyRegen configuration"></Image>
+
+#### GE_WeaponEnergyRegenDelay
+
+This applies the `Ability.FireEnergyWeapon.RegenDelay` tag for a duration of 1 second:
+
+<Image src={geWeaponEnergyRegenDelayImage} alt="GE_WeaponEnergyRegenDelay configuration" caption="GE_WeaponEnergyRegenDelay configuration"></Image>
+
+#### BP_PickUp_Rifle boilerplate modifications
+
+In order to drive the projectile-firing functionality of the weapon via FireAbility instead of handling it directly, I needed to modify the `BP_PickUp_Rifle` blueprint to grant the ability to the player when they pick the weapon up:
+
+<Image src={bpPickupRifleImage} alt="BP_Pickup_Rifle blueprint"></Image>
+
+### The result
+
+With all of those pieces in place, we have a functional energy weapon that can be picked up by the player and fired using their Energy attribute. There are a few other parts to this project that I haven't detailed, such as the Energy attribute integration with the Energy bar in the HUD, the sound effects, the bouncing projectiles, etc - but hopefully the power of the Gameplay Ability System comes through in this small example. Here's how it looks:
+
+<Video src={resultVideo} alt="The final result" caption="The final result"></Video>
+
+### Why use GAS?
+
+You might still be wondering why you should use this system. After all, it's easy enough to implement a lot of what I've shown here, and some of it is functionality you get out of the box with the starter templates. This system also has a steep learning curve, and the true power of it isn't necessarily obvious until you use it a few times yourself.
+
+Nonetheless, there are many reasons to consider using it, and the ones that come to mind based on my own experiences are:
+
+* Once the groundwork is done, it's a very powerful system that unlocks tons of options and control for gameplay designers
+* It provides a range of conventions for handling things that are common to the vast majority of games, which is good for teams - there's a high likelihood that anyone new joining a team will have at least some GAS experience, whereas they'd have no knowledge at all of any gameplay systems custom-built by the team
+* It comes with some network replication and prediction capabilities out of the box, so you can spend less time making those things work correctly for your gameplay features
+* It provides a solid foundation for more complex gameplay as your game design evolves
+
+Ultimately, I think it's worth considering for any new projects unless you're a solo developer who is very comfortable doing things without GAS. Even then, I encourage you to explore it, and I hope this post has at least sparked your interest!
+
+### Further reading
+
+The official documentation for the Gameplay Ability System is somewhat lacking. It mainly covers the high-level concepts and doesn't go into much detail regarding the actual usage. Thankfully, there are a few resources that fill in the gaps:
+
+* The <ExternalLink url="https://github.com/EpicGames/UnrealEngine/tree/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public">public GAS source files</ExternalLink>. They're reasonably well-commented and you can find a lot of information in the comments that isn't included in the documentation. In particular:
+    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemComponent.h">AbilitySystemComponent.h</ExternalLink>
+    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h">GameplayAbility.h</ExternalLink>
+    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h">AttributeSet.h</ExternalLink>
+    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/GameplayEffect.h">GameplayEffect.h</ExternalLink>
+* <ExternalLink url="https://github.com/tranek/GASDocumentation">tranek/GASDocumentation</ExternalLink> is a long-established, ongoing effort to understandand GAS and document it in detail. It's an excellent resouce that is endorsed by Epic in the official docs.
+
+That's all for now. As always, thanks for reading!
