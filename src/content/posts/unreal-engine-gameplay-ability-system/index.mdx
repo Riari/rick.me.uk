@@ -108,7 +108,7 @@ Next, some groundwork in C++. Since the project uses the FPS template, I already
 
 I also created the following Blueprint classes:
 
-* `GA_FireEnergyWeapon`, a which inherits `UBaseGameplayAbility`
+* `GA_FireEnergyWeapon`, which inherits `UBaseGameplayAbility`
 * Five Gameplay Effects inheriting <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/GameplayEffect.h#L2040">UGameplayEffect</ExternalLink>:
     * `GE_DefaultAttributes`
     * `GE_WeaponEnergyCooldown`
@@ -343,7 +343,7 @@ enum class EAbilityInputID : uint8
 
 Along with the new classes, I made some alterations to the classes provided by the FPS template.
 
-The first is the character class. In my project, it's called `AArmarosCharacter`. I defined an input action for the Fire ability and a couple of member functions for handling ability inputs:
+The first is the character class. In my project, it's called `AArmarosUnrealCharacter`. I defined an input action for the Fire ability and a couple of member functions for handling ability inputs:
 
 ```cpp
 private:
