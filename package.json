@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^3.1.9",
+    "@astrojs/mdx": "^4.1.0",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^4.16.16",
+    "astro": "^5.4.0",
     "astro-embed": "^0.6.2",
     "astro-expressive-code": "^0.37.1",
     "astro-robots-txt": "^1.0.0",
