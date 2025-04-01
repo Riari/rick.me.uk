@@ -86,6 +86,14 @@ p {
 
 .container .body p.text,
 .text {
+    &--accent-1 {
+        color: palette.$color-accent-1;
+    }
+
+    &--accent-2 {
+        color: palette.$color-accent-2;
+    }
+
     &--primary-1 {
         color: palette.$color-primary-1;
     }

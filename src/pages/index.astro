@@ -1,6 +1,7 @@
 ---
 import CloseIcon from "../components/Icons/CloseIcon.astro";
 import Document from "../components/Document.astro";
+import PostCard from "../components/PostCard.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Button from "../components/Button.astro";
 import GitHubIcon from "../components/Icons/GitHubIcon.astro";
@@ -8,6 +9,8 @@ import LinkedInIcon from "../components/Icons/LinkedInIcon.astro";
 import MediumIcon from "../components/Icons/MediumIcon.astro";
 import ThemeIcon from "../components/Icons/ThemeIcon.astro";
 import ThemeSelector from "../components/ThemeSelector.astro";
+import ArrowRightFillIcon from "../components/Icons/ArrowRightFillIcon.astro";
+import ArrowRightSmallIcon from "../components/Icons/ArrowRightSmallIcon.astro";
 import { loadAndFormatCollection } from "../util/collection";
 import { statusToBadgeClass } from "../util/frontmatter";
 
@@ -23,5 +26,28 @@ const projects = (await loadAndFormatCollection("projects", false))
 ---
 
 <Document title="Home">
+    <div class="container container--home">
+        <div class="inner-container">
+            <h1><span class="text--muted-3" style="padding-right: .2em;">›</span><span class="text--primary-1">rick</span><span class="text--muted-3">.me.uk</span> </h1>
+            <div style="margin: 0 0 1.5em 0; font-size: 1.6em;">Hi. I'm Rick, a software engineer working in the games industry.</div>
 
+            <div class="section section--primary-5">
+                <div class="section__heading">
+                    <h2>Posts</h2>
+                    <a href="/posts/1" class="section__heading-link">See more<ArrowRightSmallIcon width="18px" height="18px" /></a>
+                </div>
+                <div class="post-grid">
+                    {posts.map(post => <PostCard post={post} showTags={false} />)}
+                </div>
+            </div>
+
+            <div class="section section--primary-3">
+                <div class="section__heading">
+                    <h2>Projects</h2>
+                    <a href="/projects" class="section__heading-link">See more<ArrowRightSmallIcon width="18px" height="18px" /></a>
+                </div>
+                <div>(Content)</div>
+            </div>
+        </div>
+    </div>
 </Document>
