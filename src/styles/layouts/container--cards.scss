@@ -72,6 +72,7 @@
                     position: relative;
                     z-index: 10;
                     display: flex;
+                    flex-direction: row-reverse;
                     align-items: start;
                     margin-bottom: 1rem;
 
@@ -135,6 +136,7 @@
                             background: palette.$color-background-main-1;
                             font-size: .9em;
                             color: palette.$color-muted-3;
+                            text-decoration: none;
 
                             &:hover {
                                 color: #fff;

@@ -50,6 +50,11 @@
     .intro {
         margin-bottom: 2em;
         font-size: 1.5em;
+
+        a {
+            text-decoration-thickness: 3px;
+            text-underline-offset: 3px;
+        }
     }
 
     .section {
@@ -74,13 +79,15 @@
             margin-bottom: 1em;
 
             h2 {
+                flex: 1;
                 margin: 0;
             }
 
             &-link {
-                display: inline-block;
-                margin: 0 0 0 1em;
-                padding: .1em .6em;
+                display: flex;
+                margin: .2em 0 0 1em;
+                padding: .1em .2em .1em .6em;
+                font-weight: 500;
                 color: palette.$color-background-dark;
                 text-decoration: none;
                 opacity: .75;
@@ -199,8 +206,10 @@
                     }
 
                     h3 {
-                        margin: 0 0 .2em 0;
-                        font-size: 1em;
+                        margin: 0;
+                        font-family: typography.$font-family-sans-serif;
+                        font-weight: 700;
+                        font-size: 1.1em;
                     }
                 }
 
@@ -239,7 +248,7 @@
             &__label {
                 padding: 0.2em 0;
                 font-weight: 700;
-                min-width: 200px;
+            min-width: 200px;
                 color: palette.$color-muted-3;
             }
 
@@ -250,11 +259,13 @@
                     margin: .1em;
                     border-radius: 2em;
                     font-weight: 500;
+                    background: palette.$color-background-dark;
                 }
 
                 @for $i from 1 through 7 {
                     &--primary-#{$i} span {
-                        background: linear-gradient(145deg, rgba(palette.$color-muted-1, 0.2), rgba(palette.$color-muted-1, 0.3), rgba(map.get(palette.$palette, primary-#{$i}), 0.12));
+                        background:
+                            linear-gradient(145deg, rgba(palette.$color-muted-1, 0.2), rgba(palette.$color-muted-1, 0.3), rgba(map.get(palette.$palette, primary-#{$i}), 0.12));
                         color: map.get(palette.$palette, primary-#{$i});
                     }
                 }
@@ -265,11 +276,9 @@
 
 @mixin theme-light {
     .container--home {
-        background: palette.$color-background-light;
-
         .site-title {
             span:not(.text--muted-1) {
-                color: palette.$color-foreground-light-dimmed;
+                color: palette.$color-muted-1;
             }
 
             .theme-selector-container {

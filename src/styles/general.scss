@@ -11,10 +11,26 @@ body {
 }
 
 body {
-    background: palette.$color-background-dark;
+    position: relative;
+    background-color: palette.$color-background-dark;
     font-family: typography.$font-family-sans-serif;
     font-size: 18px;
     color: palette.$color-foreground-dark;
+
+    &:before {
+        display: block;
+        content: "";
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-image: url('/images/bg-noise.png');
+        background-position: 50% 0%;
+        background-repeat: repeat;
+        opacity: 0.5;
+    }
 }
 
 a {
@@ -173,138 +189,136 @@ a.theme-selector-toggle {
         width: 100%;
     }
 
-    .head {
-        position: relative;
-        margin: 0;
-        padding: 3.5rem 1rem 2.5rem 1rem;
-        background-size: cover;
-        background-color: palette.$color-background-main-1;
-        background-position: 50% 50%;
-        text-align: center;
+    .top-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1001;
+        padding: 0;
+        margin-bottom: 1.5em;
+        background-color: color.adjust(palette.$color-background-main-2, $alpha: -1.0);
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.0);
+        transition: background-color .2s, box-shadow .2s;
+        font-size: 1.1em;
 
-        .top-links {
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1001;
-            padding: 0;
-            margin-bottom: 1.5em;
-            background-color: color.adjust(palette.$color-background-main-2, $alpha: -1.0);
-            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.0);
-            transition: background-color .2s, box-shadow .2s;
-            font-size: 1.1em;
+        .inner-container {
+            display: flex;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
 
-            .inner-container {
-                display: flex;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
+        .primary {
+            flex: 1;
+            text-align: left;
+        }
 
-            .primary {
-                flex: 1;
-                text-align: left;
-            }
+        .secondary {
+            text-align: right;
+        }
 
-            .secondary {
-                text-align: right;
-            }
+        a {
+            display: inline-block;
+            padding: .4em .8em;
+            border-bottom-left-radius: .2em;
+            border-bottom-right-radius: .2em;
+            background: palette.$color-background-main-1;
+            font-family: typography.$font-family-monospace;
+            color: palette.$color-foreground-dark;
+            text-decoration: none;
+            transition: background .1s, color .1s;
 
-            a {
-                display: inline-block;
-                padding: .4em .8em;
-                border-bottom-left-radius: .2em;
-                border-bottom-right-radius: .2em;
-                background: palette.$color-background-top-link;
-                font-family: typography.$font-family-monospace;
-                color: palette.$color-foreground-dark;
-                text-decoration: none;
-                transition: background .1s, color .1s;
+            &[data-toggle] {
+                display: none;
+                padding-bottom: .2em;
 
-                &[data-toggle] {
+                svg:first-child {
+                    display: inline-block;
+                }
+
+                svg:last-child {
                     display: none;
-                    padding-bottom: .2em;
+                }
 
+                &.toggled {
                     svg:first-child {
-                        display: inline-block;
-                    }
-
-                    svg:last-child {
                         display: none;
                     }
 
-                    &.toggled {
-                        svg:first-child {
-                            display: none;
-                        }
-
-                        svg:last-child {
-                            display: inline-block;
-                        }
+                    svg:last-child {
+                        display: inline-block;
                     }
                 }
+            }
+
+            span {
+                transition: color .1s;
+            }
+
+            &:hover {
+                background: palette.$color-block-background-light;
+                color: palette.$color-background-main-1;
 
                 span {
-                    transition: color .1s;
-                }
-
-                &:hover {
-                    background: palette.$color-block-background-light;
                     color: palette.$color-background-main-1;
-
-                    span {
-                        color: palette.$color-background-main-1;
-                    }
-                }
-            }
-        }
-
-        .small-display-menu {
-            display: block;
-            opacity: 0.0;
-            position: fixed;
-            z-index: 1001;
-            top: 3.8rem;
-            right: 1.5rem;
-            left: 1.5rem;
-            height: 0;
-            border-radius: .3em;
-            overflow: hidden;
-            background-color: palette.$color-background-overlay;
-            transition: top .2s ease-out, opacity .2s;
-
-            &.show {
-                opacity: 1.0;
-                top: 3.4rem;
-                height: auto;
-                padding: 1em 4em;
-                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-            }
-
-            a {
-                display: block;
-                padding: 1em 0;
-                margin: 2px 0;
-                font-family: typography.$font-family-monospace;
-                font-size: 1.1em;
-                color: palette.$color-foreground-dark-dimmed;
-                border-bottom: 1px solid palette.$color-background-main-3;
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                &:hover {
-                    color: palette.$color-foreground-dark;
                 }
             }
         }
     }
 
+    .small-display-menu {
+        display: block;
+        opacity: 0.0;
+        position: fixed;
+        z-index: 1001;
+        top: 3.8rem;
+        right: 1.5rem;
+        left: 1.5rem;
+        height: 0;
+        border-radius: .3em;
+        overflow: hidden;
+        background-color: palette.$color-background-overlay;
+        transition: top .2s ease-out, opacity .2s;
+
+        &.show {
+            opacity: 1.0;
+            top: 3.4rem;
+            height: auto;
+            padding: 1em 4em;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        a {
+            display: block;
+            padding: 1em 0;
+            margin: 2px 0;
+            font-family: typography.$font-family-monospace;
+            font-size: 1.1em;
+            color: palette.$color-foreground-dark-dimmed;
+            border-bottom: 1px solid palette.$color-background-main-3;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                color: palette.$color-foreground-dark;
+            }
+        }
+    }
+
+    .head {
+        position: relative;
+        margin: 0;
+        padding: 3.5rem 1rem 1rem 1rem;
+        background-size: cover;
+        background-position: 50% 50%;
+        text-align: center;
+    }
+
     .body {
         flex: 1;
         padding: 1rem 0;
-        background: palette.$color-background-dark;
         color: palette.$color-foreground-dark;
 
         ul:not(.tags) {
@@ -455,7 +469,7 @@ a.theme-selector-toggle {
 }
 
 .scrolled {
-    .container .head .top-links {
+    .container .top-links {
         background-color: color.adjust(palette.$color-background-main-2, $alpha: -0.03);
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
@@ -468,8 +482,12 @@ a.theme-selector-toggle {
 
 @mixin theme-light {
     body {
-        background: palette.$color-background-light;
+        background-color: palette.$color-background-light;
         color: palette.$color-foreground-light;
+
+        &:before {
+            opacity: 1.0;
+        }
     }
 
     .inline-heading {
@@ -510,7 +528,6 @@ a.theme-selector-toggle {
         }
 
         .body {
-            background: palette.$color-background-light;
             color: palette.$color-foreground-light;
         }
 
@@ -597,6 +614,7 @@ html[data-theme="light"] {
         margin: 2em 0;
     }
 
+
     .container {
         .body {
             .og-summary img {
@@ -622,7 +640,7 @@ html[data-theme="light"] {
 }
 
 @media only screen and (max-width: breakpoints.$x-small) {
-    .container .head  .top-links .secondary {
+    .container .top-links .secondary {
         & > a {
             display: none;
         }
@@ -634,7 +652,7 @@ html[data-theme="light"] {
 }
 
 @media (pointer: coarse) {
-    .container .head .top-links a[data-toggle]:hover {
+    .container .top-links a[data-toggle]:hover {
         background: palette.$color-background-top-link;
         color: palette.$color-foreground-dark;
     }

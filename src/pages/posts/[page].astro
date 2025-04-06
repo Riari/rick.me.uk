@@ -20,12 +20,12 @@ const { page } = Astro.props;
 ---
 
 <Document title="Posts">
-    <div class="container container--cards">
+    <div class="container container--posts container--cards">
         <Head title="Posts" />
 
         <div class="body">
             <div class="inner-container">
-                {page.data.map((post) => <PostCard post={post} />)}
+                {page.data.map((post) => <PostCard post={post} showBody={true} showTags={true} />)}
 
                 <Pagination page={page} />
 

@@ -58,7 +58,10 @@ const projects = (await loadAndFormatCollection("projects", false))
             <div class="section section--posts section--primary-5">
                 <div class="section__heading">
                     <h2>Posts</h2>
-                    <a href="/posts/1" class="section__heading-link">See more<ArrowRightSmallIcon width="18px" height="18px" /></a>
+                    <a href="/posts/1" class="section__heading-link">
+                        <span>See more</span>
+                        <ArrowRightSmallIcon width="24px" height="24px" />
+                    </a>
                 </div>
                 <div class="card-grid">
                     {posts.map(post => <PostCard post={post} showBody={false} showTags={false} />)}
@@ -68,7 +71,10 @@ const projects = (await loadAndFormatCollection("projects", false))
             <div class="section section--projects section--primary-3">
                 <div class="section__heading">
                     <h2>Projects</h2>
-                    <a href="/projects" class="section__heading-link">See more<ArrowRightSmallIcon width="18px" height="18px" /></a>
+                    <a href="/projects" class="section__heading-link">
+                        <span>See More</span>
+                        <ArrowRightSmallIcon width="24px" height="24px" />
+                    </a>
                 </div>
                 <div class="card-grid">
                     {projects.map(project => <ProjectCard project={project} showBody={true} showTags={false} />)}
