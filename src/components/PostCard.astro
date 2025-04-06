@@ -2,11 +2,11 @@
 import FormattedDate from "./FormattedDate.astro";
 import ItemCard from "./ItemCard.astro";
 
-const { post, showTags } = Astro.props;
+const { post, showBody, showTags } = Astro.props;
 ---
 
-<ItemCard item={post}>
-    <span class="item-card-inner-header-publish-date" slot="after-title">
+<ItemCard item={post} showBody={showBody}>
+    <span class="item-card-inner-header-publish-date" slot="before-title">
         <FormattedDate date={post.data.pubDate} />
     </span>
     { showTags &&

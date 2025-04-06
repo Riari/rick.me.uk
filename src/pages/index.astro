@@ -2,6 +2,8 @@
 import CloseIcon from "../components/Icons/CloseIcon.astro";
 import Document from "../components/Document.astro";
 import PostCard from "../components/PostCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ExternalLink from "../components/ExternalLink.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Button from "../components/Button.astro";
 import GitHubIcon from "../components/Icons/GitHubIcon.astro";
@@ -28,25 +30,100 @@ const projects = (await loadAndFormatCollection("projects", false))
 <Document title="Home">
     <div class="container container--home">
         <div class="inner-container">
-            <h1><span class="text--muted-3" style="padding-right: .2em;">›</span><span class="text--primary-1">rick</span><span class="text--muted-3">.me.uk</span> </h1>
-            <div style="margin: 0 0 1.5em 0; font-size: 1.6em;">Hi. I'm Rick, a software engineer working in the games industry.</div>
+            <div class="site-title">
+                <h1><span style="margin-right: 0.2em;">›</span><span class="text--primary-1">rick</span>.<span class="text--primary-7">me</span>.<span class="text--primary-7">uk</span></h1>
 
-            <div class="section section--primary-5">
+                <div class="theme-selector-container">
+                    <a
+                        href="#"
+                        class="theme-selector-toggle"
+                        data-toggle=".theme-selector"
+                        title="Change theme"
+                    >
+                        <ThemeIcon width="28px" height="28px" />
+                        <CloseIcon width="28px" height="28px" />
+                    </a>
+                    <div class="theme-selector">
+                        <ThemeSelector />
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro">
+                Hi. I'm Rick, a software engineer working in the games industry.
+                <br>
+                You can also find me on <ExternalLink url="https://github.com/Riari">GitHub</ExternalLink> and <ExternalLink url="https://www.linkedin.com/in/rick-uk/">LinkedIn</ExternalLink>.
+            </div>
+
+            <div class="section section--posts section--primary-5">
                 <div class="section__heading">
                     <h2>Posts</h2>
                     <a href="/posts/1" class="section__heading-link">See more<ArrowRightSmallIcon width="18px" height="18px" /></a>
                 </div>
-                <div class="post-grid">
-                    {posts.map(post => <PostCard post={post} showTags={false} />)}
+                <div class="card-grid">
+                    {posts.map(post => <PostCard post={post} showBody={false} showTags={false} />)}
                 </div>
             </div>
 
-            <div class="section section--primary-3">
+            <div class="section section--projects section--primary-3">
                 <div class="section__heading">
                     <h2>Projects</h2>
                     <a href="/projects" class="section__heading-link">See more<ArrowRightSmallIcon width="18px" height="18px" /></a>
                 </div>
-                <div>(Content)</div>
+                <div class="card-grid">
+                    {projects.map(project => <ProjectCard project={project} showBody={true} showTags={false} />)}
+                </div>
+            </div>
+
+            <div class="section section--primary-2">
+                <div class="section__heading">
+                    <h2>Proficiencies</h2>
+                </div>
+
+                <p>Some examples of technologies I'm experienced with (in no particular order).</p>
+
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Languages</div>
+                    <div class="proficiencies__row__pills pills pills--primary-1">
+                        <span>C</span><span>C++</span><span>C#</span><span>Rust</span><span>Python</span><span>PHP</span><span>JavaScript</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Frameworks</div>
+                    <div class="proficiencies__row__pills pills pills--primary-2">
+                        <span>.NET</span><span>Laravel</span><span>Express</span><span>Vue.js</span><span>React</span><span>React Native</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Game Engines</div>
+                    <div class="proficiencies__row__pills pills pills--primary-3">
+                        <span>Unreal</span><span>Unity</span><span>Godot</span><span>Custom</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Databases</div>
+                    <div class="proficiencies__row__pills pills pills--primary-4">
+                        <span>MySQL</span><span>PostgreSQL</span><span>MongoDB</span><span>Redis</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Editors</div>
+                    <div class="proficiencies__row__pills pills pills--primary-5">
+                        <span>VS Code</span><span>Visual Studio</span><span>JetBrains IDEs</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Platforms</div>
+                    <div class="proficiencies__row__pills pills pills--primary-6">
+                        <span>Web</span><span>Desktop</span><span>Mobile</span>
+                    </div>
+                </div>
+                <div class="proficiencies__row">
+                    <div class="proficiencies__row__label">Tools & Services</div>
+                    <div class="proficiencies__row__pills pills pills--primary-7">
+                        <span>Git</span><span>WSL</span><span>Docker</span><span>AWS</span><span>Cloudflare</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

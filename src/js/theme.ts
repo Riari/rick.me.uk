@@ -25,16 +25,18 @@ themeIndexMap.set("system", 0);
 themeIndexMap.set("dark", 1);
 themeIndexMap.set("light", 2);
 
-themeRadios[themeIndexMap.get(theme)!].checked = true;
-zoom = mediumZoom(document.querySelectorAll("[data-zoomable]"));
-applyTheme(theme);
+if (themeRadios.length > 0) {
+    themeRadios[themeIndexMap.get(theme)!].checked = true;
+    zoom = mediumZoom(document.querySelectorAll("[data-zoomable]"));
+    applyTheme(theme);
 
-for (var i = 0; i < themeRadios.length; ++i) {
-    themeRadios[i].addEventListener(
-        "change",
-        function (this: HTMLInputElement, _: Event) {
-            localStorage.setItem("theme", this.value);
-            applyTheme(this.value);
-        },
-    );
+    for (var i = 0; i < themeRadios.length; ++i) {
+        themeRadios[i].addEventListener(
+            "change",
+            function(this: HTMLInputElement, _: Event) {
+                localStorage.setItem("theme", this.value);
+                applyTheme(this.value);
+            },
+        );
+    }
 }
