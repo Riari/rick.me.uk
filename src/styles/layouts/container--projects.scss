@@ -1,0 +1,19 @@
+@use "../palette";
+
+.container--projects {
+    .head-container {
+        max-width: 860px;
+    }
+
+    .head {
+        background: transparentize(palette.$color-primary-3, 0.95);
+
+        h1 {
+            color: palette.$color-primary-3;
+        }
+    }
+
+    .body .badge {
+        text-decoration: none;
+    }
+}

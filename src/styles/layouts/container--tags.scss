@@ -1,0 +1,11 @@
+@use "../palette";
+
+.container--tags {
+    .head-container {
+        max-width: 860px;
+    }
+
+    .head {
+        background: transparentize(palette.$color-primary-8, 0.95);
+    }
+}

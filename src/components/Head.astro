@@ -34,14 +34,15 @@ if (backgroundImage) {
     </div>
 </div>
 
+<nav class="small-display-menu">
+    <a href="/posts/1">Posts</a>
+    <a href="/projects/">Projects</a>
+    <a href="/tags/">Tags</a>
+</nav>
+
 <div class="head" style={style}>
-
-    <nav class="small-display-menu">
-        <a href="/posts/1">Posts</a>
-        <a href="/projects/">Projects</a>
-        <a href="/tags/">Tags</a>
-    </nav>
-
-    <h1>{title}</h1>
-    <slot />
+    <div class="inner-container">
+        <h1>{title}</h1>
+        <slot />
+    </div>
 </div>

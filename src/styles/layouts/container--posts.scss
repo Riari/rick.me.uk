@@ -1,0 +1,15 @@
+@use "../palette";
+
+.container--posts {
+    .head-container {
+        max-width: 860px;
+
+        .head {
+            background: transparentize(palette.$color-primary-1, 0.95);
+
+            h1 {
+                color: palette.$color-primary-1;
+            }
+        }
+    }
+}

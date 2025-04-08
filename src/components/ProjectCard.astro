@@ -10,7 +10,7 @@ const statusClass = statusToBadgeClass(project.data.status);
 <ItemCard item={project} showBody={showBody}>
     <span
         class:list={["item-card-inner-header-status", statusClass]}
-        slot="after-title"
+        slot="before-title"
     >
         {project.data.status}
     </span>

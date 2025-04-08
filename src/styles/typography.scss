@@ -190,6 +190,10 @@ p {
         text-decoration-thickness: 2px;
         text-underline-offset: 2px;
 
+        &.no-decoration {
+            text-decoration: none;
+        }
+
         &:hover {
             text-decoration-color: #fff;
         }

@@ -1,7 +1,12 @@
 @use "../palette";
 @use "../breakpoints";
+@use "../typography";
 
 .container--post {
+    .head-container .head h1 {
+        color: palette.$color-primary-5;
+    }
+
     .body {
         .publish-date {
             margin-bottom: 2em;

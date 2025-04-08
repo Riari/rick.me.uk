@@ -11,8 +11,10 @@ const { projects, statusFilter = null } = Astro.props;
 ---
 
 <Document title="Projects">
-    <div class="container container--cards">
-        <Head title="Projects" />
+    <div class="container container--projects container--cards">
+        <div class="head-container">
+            <Head title="Projects" />
+        </div>
 
         <div class="body">
             <div class="inner-container">
@@ -54,7 +56,7 @@ const { projects, statusFilter = null } = Astro.props;
                 <div class="card-grid">
                     {
                         projects.map((project: any) => (
-                            <ProjectCard project={project} />
+                            <ProjectCard project={project} showBody={true} />
                         ))
                     }
                 </div>

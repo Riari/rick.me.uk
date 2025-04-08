@@ -18,7 +18,7 @@ body {
     color: palette.$color-foreground-dark;
 
     &:before {
-        display: block;
+        display: none;
         content: "";
         z-index: -1;
         position: absolute;
@@ -76,41 +76,6 @@ hr {
 
     &-7 {
         background: palette.$color-primary-7;
-    }
-}
-
-.button {
-    position: relative;
-    display: inline-block;
-    padding: 1em;
-    margin: .2em;
-    background: rgba(palette.$color-muted-1, 0.3);
-    color: palette.$color-foreground-dark;
-    font-weight: bold;
-    text-decoration: none;
-    overflow: hidden;
-
-    &__hover {
-        display: block;
-        position: absolute;
-        width: 600px;
-        height: 160px;
-        top: 0;
-        left: 0;
-        background: radial-gradient(circle, rgba(palette.$color-muted-1, 0.5), rgba(palette.$color-muted-1, 0), rgba(palette.$color-muted-1, 0));
-        z-index: 10;
-        opacity: 0;
-        transition: opacity 0.2s ease-out;
-    }
-
-    &__inner {
-        position: relative;
-        z-index: 100;
-    }
-
-    &:hover {
-        background: rgba(palette.$color-muted-1, 0.4);
-        box-shadow: inset 0 0 0 2px rgba(palette.$color-muted-1, 0.6);
     }
 }
 
@@ -178,6 +143,29 @@ a.theme-selector-toggle {
     &--centred {
         justify-content: center;
         min-height: 100vh;
+    }
+
+    .head-container {
+        position: relative;
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 4.5rem 1.5rem 0 1.5rem;
+        max-width: 1200px;
+        width: 100%;
+
+        .head {
+            border-radius: 1rem;
+            padding: 3rem;
+
+            .inner-container {
+                padding: 0;
+                max-width: 1100px;
+            }
+
+            .button-group {
+                margin-top: 1rem;
+            }
+        }
     }
 
     .inner-container {
@@ -278,6 +266,7 @@ a.theme-selector-toggle {
         border-radius: .3em;
         overflow: hidden;
         background-color: palette.$color-background-overlay;
+        text-align: center;
         transition: top .2s ease-out, opacity .2s;
 
         &.show {
@@ -296,6 +285,7 @@ a.theme-selector-toggle {
             font-size: 1.1em;
             color: palette.$color-foreground-dark-dimmed;
             border-bottom: 1px solid palette.$color-background-main-3;
+            text-decoration: none;
 
             &:last-child {
                 border-bottom: none;
@@ -410,11 +400,12 @@ a.theme-selector-toggle {
         }
     }
 
-    .head ul.tags,
+    .head-container ul.tags,
     .body ul.tags {
         list-style: none;
         margin: 1.2em 0 0 0;
         padding: 0;
+        text-align: center;
 
         li {
             display: inline-block;
@@ -424,31 +415,15 @@ a.theme-selector-toggle {
                 display: inline-block;
                 padding: .3em 1.2em;
                 margin: .2em;
-                color: palette.$color-tag-foreground;
+                border-radius: .3em;
+                background: palette.$color-background-main-1;
+                color: palette.$color-muted-3;
                 text-decoration: none;
-                transition: color .1s;
-
-                &::after {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    z-index: 1;
-                    transform: skew(-20deg);
-                    border-radius: .3em;
-                    background: palette.$color-tag-background;
-                    transition: opacity .1s, background .1s;
-                }
+                transition: color .1s, background .1s;
 
                 &:hover {
                     color: palette.$color-background-main-1;
-
-                    &::after {
-                        background: palette.$color-block-background-light;
-                    }
+                    background: palette.$color-block-background-light;
                 }
 
                 span {
@@ -461,6 +436,7 @@ a.theme-selector-toggle {
 
     .footer {
         position: relative;
+        background: palette.$color-background-main-1;
 
         .footer-links {
             text-align: center;
@@ -470,7 +446,7 @@ a.theme-selector-toggle {
 
 .scrolled {
     .container .top-links {
-        background-color: color.adjust(palette.$color-background-main-2, $alpha: -0.03);
+        background-color: color.adjust(palette.$color-background-main-1, $alpha: -0.03);
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
         .primary > a,
@@ -577,19 +553,6 @@ a.theme-selector-toggle {
 
             .theme-selector {
                 background: palette.$color-muted-4;
-            }
-        }
-
-        .button {
-            background: palette.$color-background-light-dimmed;
-            color: palette.$color-muted-1;
-
-            &__hover {
-                background: radial-gradient(circle, rgba(palette.$color-muted-4, 1), rgba(palette.$color-muted-4, 0), rgba(palette.$color-muted-4, 0));
-            }
-
-            &:hover {
-                box-shadow: inset 0 0 0 2px palette.$color-muted-4;
             }
         }
 

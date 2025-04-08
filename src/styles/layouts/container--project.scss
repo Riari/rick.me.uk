@@ -1,4 +1,12 @@
+@use "../palette";
+
 .container--project {
+    .head-container {
+        h1 {
+            color: palette.$color-primary-3;
+        }
+    }
+
     .body {
         .project-fields {
             margin-bottom: 2rem;

@@ -41,21 +41,23 @@ if (nextProject != null) {
 
 <Document title={title} description={description}>
     <div class="container container--project">
-        <Head title={title} backgroundImage={heroImage}>
-            <h2 class="subheading">Project</h2>
+        <div class="head-container">
+            <Head title={title} backgroundImage={heroImage}>
+                <h2 class="subheading">Project</h2>
 
-            <ul class="tags">
-                {
-                    tags.map((tag) => (
-                        <li>
-                            <a href={`/projects/tag/${tag}`}>
-                                <span>{tag}</span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </Head>
+                <ul class="button-group button-group--primary-3 text-center">
+                    {
+                        tags.map((tag) => (
+                            <li>
+                                <a href={`/projects/tag/${tag}`}>
+                                    <span>{tag}</span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </Head>
+        </div>
 
         <div class="body">
             <div class="inner-container">

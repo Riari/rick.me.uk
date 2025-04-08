@@ -11,8 +11,10 @@ const projectTags = await getTags(projects);
 ---
 
 <Document title="Tags">
-    <div class="container">
-        <Head title="Tags" />
+    <div class="container container--tags">
+        <div class="head-container">
+            <Head title="Tags" />
+        </div>
 
         <div class="body">
             <div class="inner-container text-center">
@@ -20,7 +22,7 @@ const projectTags = await getTags(projects);
                     Browse posts tagged with…
                 </h3>
 
-                <ul class="tags">
+                <ul class="button-group button-group--primary-5">
                     {
                         postTags.map((tag) => (
                             <li>
@@ -34,7 +36,7 @@ const projectTags = await getTags(projects);
 
                 <h3 class="text--muted-2">Browse projects tagged with…</h3>
 
-                <ul class="tags">
+                <ul class="button-group button-group--primary-3">
                     {
                         projectTags.map((tag) => (
                             <li>

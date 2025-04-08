@@ -21,7 +21,9 @@ const { page } = Astro.props;
 
 <Document title="Posts">
     <div class="container container--posts container--cards">
-        <Head title="Posts" />
+        <div class="head-container">
+            <Head title="Posts" />
+        </div>
 
         <div class="body">
             <div class="inner-container">
@@ -32,7 +34,7 @@ const { page } = Astro.props;
                 <p class="text-center">
                     Posts are also available via <a
                         href="/rss.xml"
-                        class="text--primary-3"
+                        class="text--primary-3 no-decoration"
                         target="blank"
                         ><RSSIcon style="vertical-align: -2px;" /> RSS</a
                     >.

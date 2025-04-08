@@ -36,21 +36,23 @@ if (nextPost != null) {
 
 <Document title={title} description={description}>
     <div class="container container--post">
-        <Head title={title} backgroundImage={heroImage}>
-            <h2 class="subheading">{description}</h2>
+        <div class="head-container">
+            <Head title={title} backgroundImage={heroImage}>
+                <h2 class="subheading">{description}</h2>
 
-            <ul class="tags">
-                {
-                    tags.map((tag) => (
-                        <li>
-                            <a href={`/posts/tag/${tag}/1`}>
-                                <span>{tag}</span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </Head>
+                <ul class="button-group button-group--primary-5 text-center">
+                    {
+                        tags.map((tag) => (
+                            <li>
+                                <a href={`/posts/tag/${tag}/1`}>
+                                    <span>{tag}</span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </Head>
+        </div>
 
         <div class="body">
             <div class="inner-container">

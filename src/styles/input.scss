@@ -1,5 +1,67 @@
 @use "palette";
 
+ul.button-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+    }
+}
+
+.button-group a,
+.button {
+    position: relative;
+    display: inline-block;
+    padding: .2em 1.2em;
+    margin: .2em;
+    color: palette.$color-background-main-1;
+    text-decoration: none;
+    transition: color .1s;
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        transform: skew(-20deg);
+        border-radius: .3em;
+        transition: opacity .1s, background .1s;
+    }
+
+    &:hover {
+        color: palette.$color-background-main-1;
+
+        &::after {
+            background: palette.$color-block-background-light;
+        }
+    }
+
+    span {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.button-group--primary-3 a,
+.button--primary-3 {
+    &::after {
+        background: palette.$color-primary-3;
+    }
+}
+
+.button-group--primary-5 a,
+.button--primary-5 {
+    &::after {
+        background: palette.$color-primary-5;
+    }
+}
+
 .radio-group {
     display: flex;
     flex-direction: column;
@@ -47,6 +109,19 @@
 }
 
 @mixin theme-light {
+    .button-group a,
+    .button {
+        color: palette.$color-background-main-1;
+
+        &:hover {
+            color: palette.$color-block-background-light;
+
+            &::after {
+                background: palette.$color-background-main-1;
+            }
+        }
+    }
+
     .radio-group .radio-group-item {
         label {
             color: palette.$color-muted-2;
