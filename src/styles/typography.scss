@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "sass:map";
+@use "sass:list";
 @use "palette";
 @use "breakpoints";
 
@@ -88,8 +88,8 @@ p {
 .container .body p.text,
 .text {
     @for $i from 1 through 7 {
-        &--primary-#{$i} {
-            color: map.get(palette.$palette, primary-#{$i});
+        &--accent-#{$i} {
+            color: list.nth(palette.$accents-dark, $i);
         }
     }
 
@@ -239,8 +239,8 @@ p {
 
         .text {
             @for $i from 1 through 7 {
-                &--primary-#{$i} {
-                    color: palette.adjust-for-light(map.get(palette.$palette, primary-#{$i}));
+                &--accent-#{$i} {
+                    color: list.nth(palette.$accents-light, $i);
                 }
             }
         }

@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:color";
 @use "palette";
 @use "typography";
@@ -34,7 +35,7 @@ body {
 }
 
 a {
-    color: palette.$color-primary-1;
+    color: list.nth(palette.$accents-dark, 1);
     text-decoration: none;
 
     &:hover {
@@ -47,36 +48,6 @@ hr {
     height: 2px;
     border: 0;
     background: palette.$color-muted-1;
-}
-
-.background--primary {
-    &-1 {
-        background: palette.$color-primary-1;
-    }
-
-    &-2 {
-        background: palette.$color-primary-2;
-    }
-
-    &-3 {
-        background: palette.$color-primary-3;
-    }
-
-    &-4 {
-        background: palette.$color-primary-4;
-    }
-
-    &-5 {
-        background: palette.$color-primary-5;
-    }
-
-    &-6 {
-        background: palette.$color-primary-6;
-    }
-
-    &-7 {
-        background: palette.$color-primary-7;
-    }
 }
 
 a.theme-selector-toggle {

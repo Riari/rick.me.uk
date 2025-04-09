@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "palette";
 
 .expressive-code {
@@ -8,11 +9,11 @@
 
         .copy {
             .feedback {
-                background: palette.$color-primary-3;
+                background: list.nth(palette.$accents-light, 3);
                 color: palette.$color-foreground-light;
 
                 &::after {
-                    border-left-color: palette.$color-primary-3;
+                    border-left-color: list.nth(palette.$accents-light, 3);
                 }
             }
 
@@ -31,7 +32,7 @@
     .expressive-code {
         --ec-frm-trmTtbBg: #232734;
         --ec-frm-edTabBarBg: #232734;
-        --ec-frm-edActTabIndBtmCol: #{palette.$color-primary-5};
+        --ec-frm-edActTabIndBtmCol: list.nth(palette.$accents-dark, 5);
 
         .frame {
             --header-border-radius: .3em;

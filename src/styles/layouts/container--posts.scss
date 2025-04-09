@@ -1,4 +1,4 @@
-@use "sass:map";
+@use "sass:list";
 @use "sass:color";
 @use "../palette";
 
@@ -7,10 +7,10 @@
         max-width: 860px;
 
         .head {
-            background: color.adjust(palette.$color-primary-5, $alpha: -0.95);
+            background: color.adjust(list.nth(palette.$accents-dark, 5), $alpha: -0.95);
 
             h1 {
-                color: palette.$color-primary-5;
+                color: list.nth(palette.$accents-dark, 5);
             }
         }
     }
@@ -20,10 +20,10 @@
     .container--posts {
         .head-container {
             .head {
-                background: color.adjust(map.get(palette.$palette-light, primary-5), $alpha: -0.85);
+                background: color.adjust(list.nth(palette.$accents-light, 5), $alpha: -0.85);
 
                 h1 {
-                    color: map.get(palette.$palette-light, primary-5);
+                    color: list.nth(palette.$accents-light, 5);
                 }
             }
         }

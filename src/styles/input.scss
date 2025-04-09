@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:map";
 @use "palette";
 
@@ -55,17 +56,17 @@ ul.button-group {
     }
 }
 
-.button-group--primary-3 a,
-.button--primary-3 {
+.button-group--accent-3 a,
+.button--accent-3 {
     &::after {
-        background: palette.$color-primary-3;
+        background: list.nth(palette.$accents-dark, 3);
     }
 }
 
-.button-group--primary-5 a,
-.button--primary-5 {
+.button-group--accent-5 a,
+.button--accent-5 {
     &::after {
-        background: palette.$color-primary-5;
+        background: list.nth(palette.$accents-dark, 5);
     }
 }
 
@@ -124,6 +125,24 @@ ul.button-group {
             &::after {
                 background: palette.$color-muted-4;
             }
+        }
+    }
+
+    .button-group--accent-3 a,
+    .button--accent-3 {
+        color: palette.$color-foreground-dark;
+
+        &::after {
+            background: list.nth(palette.$accents-light, 3);
+        }
+    }
+
+    .button-group--accent-5 a,
+    .button--accent-5 {
+        color: palette.$color-foreground-dark;
+
+        &::after {
+            background: list.nth(palette.$accents-light, 5);
         }
     }
 

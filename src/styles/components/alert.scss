@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "../palette";
 
 @function alert-accent-gradient($color) {
@@ -35,31 +36,31 @@
 
     &--info {
         &::before {
-            background: alert-accent-gradient(palette.$color-primary-5);
+            background: alert-accent-gradient(list.nth(palette.$accents-dark, 5));
         }
 
         .alert-icon {
-            color: palette.$color-primary-5;
+            color: list.nth(palette.$accents-dark, 5);
         }
     }
 
     &--tip {
         &::before {
-            background: alert-accent-gradient(palette.$color-primary-7);
+            background: alert-accent-gradient(list.nth(palette.$accents-dark, 7));
         }
 
         .alert-icon {
-            color: palette.$color-primary-7;
+            color: list.nth(palette.$accents-dark, 7);
         }
     }
 
     &--warn {
         &::before {
-            background: alert-accent-gradient(palette.$color-primary-6);
+            background: alert-accent-gradient(list.nth(palette.$accents-dark, 6));
         }
 
         .alert-icon {
-            color: palette.$color-primary-6;
+            color: list.nth(palette.$accents-dark, 6)
         }
     }
 

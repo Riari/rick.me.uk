@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "sass:map";
+@use "sass:list";
 @use "../palette";
 @use "../typography";
 @use "../breakpoints";
@@ -48,7 +48,7 @@
     }
 
     .intro {
-        margin-bottom: 2em;
+        margin: 1.5em 0 2em 0;
         font-size: 1.5em;
 
         a {
@@ -110,33 +110,33 @@
             }
         }
 
-        &--primary-2 {
+        &--accent-2 {
             &::before {
-                background: palette.$color-primary-2;
+                background: list.nth(palette.$accents-dark, 2);
             }
 
             .section__heading {
-                color: palette.$color-primary-2;
+                color: list.nth(palette.$accents-dark, 2);
             }
         }
 
-        &--primary-3 {
+        &--accent-3 {
             &::before {
-                background: palette.$color-primary-3;
+                background: list.nth(palette.$accents-dark, 3);
             }
 
             .section__heading {
-                color: palette.$color-primary-3;
+                color: list.nth(palette.$accents-dark, 3);
             }
         }
 
-        &--primary-5 {
+        &--accent-5 {
             &::before {
-                background: palette.$color-primary-5;
+                background: list.nth(palette.$accents-dark, 5);
             }
 
             .section__heading {
-                color: palette.$color-primary-5;
+                color: list.nth(palette.$accents-dark, 5);
             }
         }
     }
@@ -247,10 +247,10 @@
                 }
 
                 @for $i from 1 through 7 {
-                    &--primary-#{$i} span {
+                    &--accent-#{$i} span {
                         background:
-                            linear-gradient(145deg, rgba(palette.$color-muted-1, 0.2), rgba(palette.$color-muted-1, 0.3), rgba(map.get(palette.$palette, primary-#{$i}), 0.12));
-                        color: map.get(palette.$palette, primary-#{$i});
+                            linear-gradient(145deg, rgba(palette.$color-muted-1, 0.2), rgba(palette.$color-muted-1, 0.3), rgba(list.nth(palette.$accents-dark, $i), 0.12));
+                        color: list.nth(palette.$accents-dark, $i);
                     }
                 }
             }
@@ -278,33 +278,33 @@
         }
 
         .section {
-            &--primary-2 {
+            &--accent-2 {
                 &::before {
-                    background: map.get(palette.$palette-light, primary-2);
+                    background: list.nth(palette.$accents-light, 2);
                 }
 
                 .section__heading {
-                    color: map.get(palette.$palette-light, primary-2);
+                    color: list.nth(palette.$accents-light, 2);
                 }
             }
 
-            &--primary-3 {
+            &--accent-3 {
                 &::before {
-                    background: map.get(palette.$palette-light, primary-3);
+                    background: list.nth(palette.$accents-light, 3);
                 }
 
                 .section__heading {
-                    color: map.get(palette.$palette-light, primary-3);
+                    color: list.nth(palette.$accents-light, 3);
                 }
             }
 
-            &--primary-5 {
+            &--accent-5 {
                 &::before {
-                    background: map.get(palette.$palette-light, primary-5);
+                    background: list.nth(palette.$accents-light, 5);
                 }
 
                 .section__heading {
-                    color: map.get(palette.$palette-light, primary-5);
+                    color: list.nth(palette.$accents-light, 5);
                 }
             }
         }
@@ -314,14 +314,10 @@
                 color: palette.$color-muted-1;
             }
 
-            span {
-                font-weight: 400;
-            }
-
             @for $i from 1 through 7 {
-                .pills--primary-#{$i} span {
-                    background: linear-gradient(145deg, rgba(map.get(palette.$palette-light, primary-#{$i}), 0.75), rgba(map.get(palette.$palette, primary-#{$i}), 0.25));
-                    color: color.adjust(map.get(palette.$palette-light, primary-#{$i}), $lightness: -30%, $saturation: -30%);
+                .pills--accent-#{$i} span {
+                    background: color.adjust(palette.$color-muted-4, $alpha: -0.5);
+                    color: list.nth(palette.$accents-light, $i);
                 }
             }
         }

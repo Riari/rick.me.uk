@@ -4,15 +4,6 @@ $color-background-dark: #1b1b24;
 $color-background-muted-1: #424D60;
 $color-background-muted-2: #57647B;
 
-$color-primary-1: #82aaff;
-$color-primary-2: #c3e88d;
-$color-primary-3: #f78c6c;
-$color-primary-4: #89ddff;
-$color-primary-5: #c792ea;
-$color-primary-6: #f07178;
-$color-primary-7: #ffcb6b;
-$color-primary-8: #bfc5cf;
-
 $color-muted-1: #44475a;
 $color-muted-2: #666b80;
 $color-muted-3: #aaacc4;
@@ -46,26 +37,24 @@ $color-inline-code-background-light: #eef4ff;
 $color-inline-code-foreground-light: #435981;
 $color-link-light: #3a60db;
 
-$palette: (
-    primary-1: $color-primary-1,
-    primary-2: $color-primary-2,
-    primary-3: $color-primary-3,
-    primary-4: $color-primary-4,
-    primary-5: $color-primary-5,
-    primary-6: $color-primary-6,
-    primary-7: $color-primary-7
+$accents-dark: (
+    #82aaff, // blue
+    #c3e88d, // green
+    #f78c6c, // orange
+    #89ddff, // cyan
+    #c792ea, // purple
+    #f07178, // red
+    #ffcb6b, // orange
+    #bfc5cf // neutral
 );
 
-@function adjust-for-light($color) {
-    @return color.adjust($color, $saturation: -20%, $lightness: -20%);
-}
-
-$palette-light: (
-    primary-1: adjust-for-light($color-primary-1),
-    primary-2: adjust-for-light($color-primary-2),
-    primary-3: adjust-for-light($color-primary-3),
-    primary-4: adjust-for-light($color-primary-4),
-    primary-5: adjust-for-light($color-primary-5),
-    primary-6: adjust-for-light($color-primary-6),
-    primary-7: adjust-for-light($color-primary-7),
+$accents-light: (
+    #005CC5,
+    #22863A,
+    #FA6F71,
+    #0BC7D7,
+    #6F42C1,
+    #D73A49,
+    #F7C400,
+    #333333
 );

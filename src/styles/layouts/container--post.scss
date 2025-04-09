@@ -1,10 +1,11 @@
+@use "sass:list";
 @use "../palette";
 @use "../breakpoints";
 @use "../typography";
 
 .container--post {
     .head-container .head h1 {
-        color: palette.$color-primary-5;
+        color: list.nth(palette.$accents-dark, 5);
     }
 
     .body {

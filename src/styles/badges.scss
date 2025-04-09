@@ -1,18 +1,18 @@
-@use "sass:map";
+@use "sass:list";
 @use "sass:color";
 @use "palette";
 
 .badge {
     display: inline-block;
-    padding: .1rem .7rem;
+    padding: .2rem .7rem;
     border-radius: 2em;
     font-size: 1rem;
     font-weight: 500;
 
-    @for $i from 1 through 7 {
-        &--primary-#{$i} {
-            background: color.adjust(map.get(palette.$palette, primary-#{$i}), $alpha: -0.95);
-            color: map.get(palette.$palette, primary-#{$i});
+    @for $i from 1 through 8 {
+        &--accent-#{$i} {
+            background: color.adjust(list.nth(palette.$accents-dark, $i), $alpha: -0.95);
+            color: list.nth(palette.$accents-dark, $i);
         }
     }
 
@@ -74,9 +74,9 @@ a.badge {
     .badge {
         color: palette.$color-foreground-light;
 
-        @for $i from 1 through 7 {
-            &--primary-#{$i} {
-                background: linear-gradient(145deg, color.adjust(map.get(palette.$palette-light, primary-#{$i}), $alpha: -0.25), color.adjust(map.get(palette.$palette-light, primary-#{$i}), $alpha: -0.75));
+        @for $i from 1 through 8 {
+            &--accent-#{$i} {
+                background: color.adjust(list.nth(palette.$accents-light, $i), $alpha: -0.30);
             }
         }
 
