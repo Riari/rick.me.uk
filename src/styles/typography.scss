@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:map";
 @use "palette";
 @use "breakpoints";
 
@@ -86,44 +87,10 @@ p {
 
 .container .body p.text,
 .text {
-    &--accent-1 {
-        color: palette.$color-accent-1;
-    }
-
-    &--accent-2 {
-        color: palette.$color-accent-2;
-    }
-
-    &--primary-1 {
-        color: palette.$color-primary-1;
-    }
-
-    &--primary-2 {
-        color: palette.$color-primary-2;
-    }
-
-    &--primary-3 {
-        color: palette.$color-primary-3;
-    }
-
-    &--primary-4 {
-        color: palette.$color-primary-4;
-    }
-
-    &--primary-5 {
-        color: palette.$color-primary-5;
-    }
-
-    &--primary-6 {
-        color: palette.$color-primary-6;
-    }
-
-    &--primary-7 {
-        color: palette.$color-primary-7;
-    }
-
-    &--primary-8 {
-        color: palette.$color-primary-8;
+    @for $i from 1 through 7 {
+        &--primary-#{$i} {
+            color: map.get(palette.$palette, primary-#{$i});
+        }
     }
 
     &--muted-1 {
@@ -240,14 +207,6 @@ p {
         .body {
             article {
                 color: palette.$color-foreground-light;
-
-                a {
-                    text-decoration-color: palette.$color-muted-3;
-
-                    &:hover {
-                        text-decoration-color: #000;
-                    }
-                }
             }
 
             .publish-date {
@@ -267,6 +226,22 @@ p {
 
             .caption {
                 color: palette.$color-muted-2;
+            }
+        }
+
+        a {
+            text-decoration-color: palette.$color-muted-3;
+
+            &:hover {
+                text-decoration-color: #000;
+            }
+        }
+
+        .text {
+            @for $i from 1 through 7 {
+                &--primary-#{$i} {
+                    color: palette.adjust-for-light(map.get(palette.$palette, primary-#{$i}));
+                }
             }
         }
     }

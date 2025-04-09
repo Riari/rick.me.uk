@@ -1,8 +1,5 @@
 @use "sass:color";
 
-$color-accent-1: #1976F8;
-$color-accent-2: #FF9763;
-
 $color-background-dark: #1b1b24;
 $color-background-muted-1: #424D60;
 $color-background-muted-2: #57647B;
@@ -35,10 +32,8 @@ $color-block-background-light: rgba(224, 235, 245, 0.8);
 $color-tag-foreground: #cfd9ec;
 $color-tag-background: #515b7c;
 
-//$color-background-dark: #21212b;
 $color-foreground-dark: #f8f8f2;
 $color-foreground-dark-dimmed: #d6dde7;
-$color-code-background-dark: #292c3e;
 $color-inline-code-background-dark: #292c3e;
 $color-inline-code-foreground-dark: #d6dde7;
 $color-link-dark: #82aaff;
@@ -47,14 +42,11 @@ $color-background-light: #ffffff;
 $color-background-light-dimmed: #ebeef5;
 $color-foreground-light: #252530;
 $color-foreground-light-dimmed: #505063;
-$color-code-background-light: #e8ebf5;
 $color-inline-code-background-light: #eef4ff;
 $color-inline-code-foreground-light: #435981;
 $color-link-light: #3a60db;
 
 $palette: (
-    accent-1: $color-accent-1,
-    accent-2: $color-accent-2,
     primary-1: $color-primary-1,
     primary-2: $color-primary-2,
     primary-3: $color-primary-3,
@@ -62,4 +54,18 @@ $palette: (
     primary-5: $color-primary-5,
     primary-6: $color-primary-6,
     primary-7: $color-primary-7
+);
+
+@function adjust-for-light($color) {
+    @return color.adjust($color, $saturation: -20%, $lightness: -20%);
+}
+
+$palette-light: (
+    primary-1: adjust-for-light($color-primary-1),
+    primary-2: adjust-for-light($color-primary-2),
+    primary-3: adjust-for-light($color-primary-3),
+    primary-4: adjust-for-light($color-primary-4),
+    primary-5: adjust-for-light($color-primary-5),
+    primary-6: adjust-for-light($color-primary-6),
+    primary-7: adjust-for-light($color-primary-7),
 );

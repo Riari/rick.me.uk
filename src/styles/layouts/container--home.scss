@@ -15,18 +15,18 @@
 
         h1 {
             flex: 1;
+            margin: 0;
             color: palette.$color-muted-2;
         }
 
         .theme-selector-container {
             position: relative;
-            top: auto;
-            right: auto;
 
             a.theme-selector-toggle {
                 position: relative;
-                top: 14px;
+                top: auto;
                 right: auto;
+                transform: none;
                 background: palette.$color-background-main-2;
 
                 &.toggled {
@@ -35,7 +35,7 @@
             }
 
             .theme-selector {
-                top: 30%;
+                top: 50%;
                 right: 1px;
                 bottom: auto;
                 padding: 1.5rem 0 .5rem 0;
@@ -172,7 +172,7 @@
                 position: absolute;
                 top: 0;
                 right: 0;
-                bottom: 0;
+                bottom: 0;grid-template-columns: 1fr;
                 left: 0;
                 border-radius: .5em;
                 background-size: cover;
@@ -261,10 +261,6 @@
 @mixin theme-light {
     .container--home {
         .site-title {
-            span:not(.text--muted-1) {
-                color: palette.$color-muted-1;
-            }
-
             .theme-selector-container {
                 a.theme-selector-toggle {
                     background: palette.$color-background-light-dimmed;
@@ -281,16 +277,36 @@
             }
         }
 
-        h2, h2 a {
-            color: palette.$color-muted-1;
-        }
+        .section {
+            &--primary-2 {
+                &::before {
+                    background: map.get(palette.$palette-light, primary-2);
+                }
 
-        p, p.lead {
-            color: palette.$color-muted-1;
-        }
+                .section__heading {
+                    color: map.get(palette.$palette-light, primary-2);
+                }
+            }
 
-        hr {
-            background: palette.$color-muted-3;
+            &--primary-3 {
+                &::before {
+                    background: map.get(palette.$palette-light, primary-3);
+                }
+
+                .section__heading {
+                    color: map.get(palette.$palette-light, primary-3);
+                }
+            }
+
+            &--primary-5 {
+                &::before {
+                    background: map.get(palette.$palette-light, primary-5);
+                }
+
+                .section__heading {
+                    color: map.get(palette.$palette-light, primary-5);
+                }
+            }
         }
 
         .proficiencies__row {
@@ -298,13 +314,14 @@
                 color: palette.$color-muted-1;
             }
 
-            .pills span {
-                color: palette.$color-foreground-light;
+            span {
+                font-weight: 400;
             }
 
             @for $i from 1 through 7 {
                 .pills--primary-#{$i} span {
-                    background: linear-gradient(145deg, map.get(palette.$palette, primary-#{$i}), rgba(map.get(palette.$palette, primary-#{$i}), 0.35));
+                    background: linear-gradient(145deg, rgba(map.get(palette.$palette-light, primary-#{$i}), 0.75), rgba(map.get(palette.$palette, primary-#{$i}), 0.25));
+                    color: color.adjust(map.get(palette.$palette-light, primary-#{$i}), $lightness: -30%, $saturation: -30%);
                 }
             }
         }
@@ -333,6 +350,10 @@ html[data-theme="light"] {
                     top: 0;
                 }
             }
+        }
+
+        .card-grid {
+            grid-template-columns: 1fr;
         }
 
         .proficiencies__row {

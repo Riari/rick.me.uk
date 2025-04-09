@@ -1,3 +1,5 @@
+@use "sass:map";
+@use "sass:color";
 @use "../palette";
 
 .container--posts {
@@ -5,11 +7,35 @@
         max-width: 860px;
 
         .head {
-            background: transparentize(palette.$color-primary-1, 0.95);
+            background: color.adjust(palette.$color-primary-5, $alpha: -0.95);
 
             h1 {
-                color: palette.$color-primary-1;
+                color: palette.$color-primary-5;
             }
         }
+    }
+}
+
+@mixin theme-light {
+    .container--posts {
+        .head-container {
+            .head {
+                background: color.adjust(map.get(palette.$palette-light, primary-5), $alpha: -0.85);
+
+                h1 {
+                    color: map.get(palette.$palette-light, primary-5);
+                }
+            }
+        }
+    }
+}
+
+html[data-theme="light"] {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
     }
 }

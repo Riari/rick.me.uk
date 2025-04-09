@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../palette";
 
 .container--tags {
@@ -6,6 +7,28 @@
     }
 
     .head {
-        background: transparentize(palette.$color-primary-8, 0.95);
+        background: color.adjust(palette.$color-primary-8, $alpha: -0.95);
+    }
+}
+
+@mixin theme-light {
+    .container--tags {
+        .head {
+            background: color.adjust(palette.$color-primary-8, $alpha: -0.85);
+
+            h1 {
+                color: palette.$color-muted-2;
+            }
+        }
+    }
+}
+
+html[data-theme="light"] {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
     }
 }

@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "palette";
 
 ul.button-group {
@@ -14,7 +15,7 @@ ul.button-group {
 .button {
     position: relative;
     display: inline-block;
-    padding: .2em 1.2em;
+    padding: .2em 1em;
     margin: .2em;
     color: palette.$color-background-main-1;
     text-decoration: none;
@@ -45,6 +46,12 @@ ul.button-group {
     span {
         position: relative;
         z-index: 2;
+    }
+
+    &.button--skew-left {
+        &::after {
+            transform: skew(20deg);
+        }
     }
 }
 
@@ -114,10 +121,8 @@ ul.button-group {
         color: palette.$color-background-main-1;
 
         &:hover {
-            color: palette.$color-block-background-light;
-
             &::after {
-                background: palette.$color-background-main-1;
+                background: palette.$color-muted-4;
             }
         }
     }

@@ -4,16 +4,16 @@ const { page } = Astro.props;
 
 {
     page.total > page.size ? (
-        <nav class="pagination">
+        <nav class="pagination button-group">
             {page.url.first ? (
-                <a href={page.url.first}>« First</a>
+                <a href={page.url.first} class="button--skew-left"><span>« First</span></a>
             ) : (
-                <span class="pagination-item-disabled">« First</span>
+                <span class="pagination-item-disabled button"><span>« First</span></span>
             )}
             {page.url.prev ? (
-                <a href={page.url.prev}>‹ Previous</a>
+                <a href={page.url.prev} class="button--skew-left"><span>‹ Previous</span></a>
             ) : (
-                <span class="pagination-item-disabled">‹ Previous</span>
+                <span class="pagination-item-disabled button"><span>‹ Previous</span></span>
             )}
 
             <span class="pagination-page-number">
@@ -21,14 +21,14 @@ const { page } = Astro.props;
             </span>
 
             {page.url.next ? (
-                <a href={page.url.next}>Next ›</a>
+                <a href={page.url.next}><span>Next ›</span></a>
             ) : (
-                <span class="pagination-item-disabled">Next ›</span>
+                <span class="pagination-item-disabled button"><span>Next ›</span></span>
             )}
             {page.url.last ? (
-                <a href={page.url.last}>Last »</a>
+                <a href={page.url.last}><span>Last »</span></a>
             ) : (
-                <span class="pagination-item-disabled">Last »</span>
+                <span class="pagination-item-disabled button"><span>Last »</span></span>
             )}
         </nav>
     ) : null

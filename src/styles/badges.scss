@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "sass:color";
 @use "palette";
 
@@ -8,44 +9,11 @@
     font-size: 1rem;
     font-weight: 500;
 
-    &--primary-1 {
-        background: color.adjust(palette.$color-primary-1, $alpha: -.95);
-        color: palette.$color-primary-1;
-    }
-
-    &--primary-2 {
-        background: color.adjust(palette.$color-primary-2, $alpha: -.95);
-        color: palette.$color-primary-2;
-    }
-
-    &--primary-3 {
-        background: color.adjust(palette.$color-primary-3, $alpha: -.95);
-        color: palette.$color-primary-3;
-    }
-
-    &--primary-4 {
-        background: color.adjust(palette.$color-primary-4, $alpha: -.95);
-        color: palette.$color-primary-4;
-    }
-
-    &--primary-5 {
-        background: color.adjust(palette.$color-primary-5, $alpha: -.95);
-        color: palette.$color-primary-5;
-    }
-
-    &--primary-6 {
-        background: color.adjust(palette.$color-primary-6, $alpha: -.95);
-        color: palette.$color-primary-6;
-    }
-
-    &--primary-7 {
-        background: color.adjust(palette.$color-primary-7, $alpha: -.95);
-        color: palette.$color-primary-7;
-    }
-
-    &--primary-8 {
-        background: color.adjust(palette.$color-primary-8, $alpha: -.95);
-        color: palette.$color-primary-8;
+    @for $i from 1 through 7 {
+        &--primary-#{$i} {
+            background: color.adjust(map.get(palette.$palette, primary-#{$i}), $alpha: -0.95);
+            color: map.get(palette.$palette, primary-#{$i});
+        }
     }
 
     &--muted-1 {
@@ -106,36 +74,10 @@ a.badge {
     .badge {
         color: palette.$color-foreground-light;
 
-        &--primary-1 {
-            background: palette.$color-primary-1;
-        }
-
-        &--primary-2 {
-            background: palette.$color-primary-2;
-        }
-
-        &--primary-3 {
-            background: palette.$color-primary-3;
-        }
-
-        &--primary-4 {
-            background: palette.$color-primary-4;
-        }
-
-        &--primary-5 {
-            background: palette.$color-primary-5;
-        }
-
-        &--primary-6 {
-            background: palette.$color-primary-6;
-        }
-
-        &--primary-7 {
-            background: palette.$color-primary-7;
-        }
-
-        &--primary-8 {
-            background: palette.$color-primary-8;
+        @for $i from 1 through 7 {
+            &--primary-#{$i} {
+                background: linear-gradient(145deg, color.adjust(map.get(palette.$palette-light, primary-#{$i}), $alpha: -0.25), color.adjust(map.get(palette.$palette-light, primary-#{$i}), $alpha: -0.75));
+            }
         }
 
         &--muted-1,

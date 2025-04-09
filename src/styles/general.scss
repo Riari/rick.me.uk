@@ -485,20 +485,42 @@ a.theme-selector-toggle {
         }
     }
 
-    .container {
-        .head {
-            background-color: palette.$color-background-main-4;
-
-            .small-display-menu {
+    &.scrolled {
+        .container {
+            .top-links {
                 background-color: color.adjust(palette.$color-background-light-dimmed, $alpha: -0.03);
+            }
+        }
+    }
 
+    .container {
+        .head-container {
+            .top-links {
                 a {
-                    color: palette.$color-foreground-light-dimmed;
-                    border-color: palette.$color-muted-3;
+                    background-color: palette.$color-background-light-dimmed;
+                    color: palette.$color-foreground-light;
 
                     &:hover {
-                        color: palette.$color-foreground-light;
+                        background-color: palette.$color-foreground-light-dimmed;
+                        color: palette.$color-background-light-dimmed;
                     }
+
+                    &:hover span {
+                        color: palette.$color-background-light-dimmed;
+                    }
+                }
+            }
+        }
+
+        .small-display-menu {
+            background-color: color.adjust(palette.$color-background-light-dimmed, $alpha: -0.03);
+
+            a {
+                color: palette.$color-foreground-light-dimmed;
+                border-color: palette.$color-muted-3;
+
+                &:hover {
+                    color: palette.$color-foreground-light;
                 }
             }
         }
