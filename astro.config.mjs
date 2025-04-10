@@ -8,7 +8,7 @@ import astroExpressiveCode from 'astro-expressive-code';
 export default defineConfig({
     site: 'https://www.rick.me.uk/',
     integrations: [sitemap(), robotsTxt(), astroExpressiveCode({
-        themes: ['material-theme-palenight', 'min-light'],
+        themes: ['material-theme-palenight', 'github-light'],
         styleOverrides: {
             codeFontFamily: 'JetBrains Mono, monospace',
             codeFontSize: '1em',
@@ -24,7 +24,7 @@ export default defineConfig({
                 case 'material-theme-palenight':
                     siteTheme = 'dark'
                     break;
-                case 'min-light':
+                case 'github-light':
                     siteTheme = 'light';
                     break;
             }
