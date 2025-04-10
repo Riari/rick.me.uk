@@ -4,17 +4,9 @@ import Document from "../components/Document.astro";
 import PostCard from "../components/PostCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import ExternalLink from "../components/ExternalLink.astro";
-import FormattedDate from "../components/FormattedDate.astro";
-import Button from "../components/Button.astro";
-import GitHubIcon from "../components/Icons/GitHubIcon.astro";
-import LinkedInIcon from "../components/Icons/LinkedInIcon.astro";
-import MediumIcon from "../components/Icons/MediumIcon.astro";
 import ThemeIcon from "../components/Icons/ThemeIcon.astro";
 import ThemeSelector from "../components/ThemeSelector.astro";
-import ArrowRightFillIcon from "../components/Icons/ArrowRightFillIcon.astro";
-import ArrowRightSmallIcon from "../components/Icons/ArrowRightSmallIcon.astro";
 import { loadAndFormatCollection } from "../util/collection";
-import { statusToBadgeClass } from "../util/frontmatter";
 
 const posts = (await loadAndFormatCollection("posts"))
     .sort(
