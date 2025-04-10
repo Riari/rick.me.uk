@@ -1,9 +1,5 @@
 @use "sass:color";
 
-$color-background-dark: #1b1b24;
-$color-background-muted-1: #424D60;
-$color-background-muted-2: #57647B;
-
 $color-muted-1: #44475a;
 $color-muted-2: #666b80;
 $color-muted-3: #aaacc4;
@@ -20,9 +16,7 @@ $color-background-overlay: rgba(27, 27, 36, 0.98);
 
 $color-block-background-light: rgba(224, 235, 245, 0.8);
 
-$color-tag-foreground: #cfd9ec;
-$color-tag-background: #515b7c;
-
+$color-background-dark: #1b1b24;
 $color-foreground-dark: #f8f8f2;
 $color-foreground-dark-dimmed: #d6dde7;
 $color-inline-code-background-dark: #292c3e;
@@ -37,6 +31,7 @@ $color-inline-code-background-light: #eef4ff;
 $color-inline-code-foreground-light: #435981;
 $color-link-light: #3a60db;
 
+// Palenight
 $accents-dark: (
     #82aaff, // blue
     #c3e88d, // green
@@ -44,17 +39,18 @@ $accents-dark: (
     #89ddff, // cyan
     #c792ea, // purple
     #f07178, // red
-    #ffcb6b, // orange
+    #ffcb6b, // yellow
     #bfc5cf // neutral
 );
 
+// Based on min-light
 $accents-light: (
-    #005CC5,
-    #22863A,
-    #FA6F71,
-    #0BC7D7,
-    #6F42C1,
-    #D73A49,
-    #F7C400,
-    #333333
+    #1669BB,
+    #3B975B,
+    #DF8148,
+    #169CBB,
+    #7C60E1,
+    #C62C2C,
+    #EA9C0E,
+    #676869
 );

@@ -18,6 +18,7 @@ ul.button-group {
     display: inline-block;
     padding: .2em 1em;
     margin: .2em;
+    font-weight: 500;
     color: palette.$color-background-main-1;
     text-decoration: none;
     transition: color .1s;
@@ -122,6 +123,8 @@ ul.button-group {
         color: palette.$color-background-main-1;
 
         &:hover {
+            color: palette.$color-background-main-1;
+
             &::after {
                 background: palette.$color-muted-4;
             }

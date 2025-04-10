@@ -7,19 +7,21 @@
         max-width: 860px;
     }
 
-    .head {
+    .head__background {
         background: color.adjust(list.nth(palette.$accents-dark, 8), $alpha: -0.95);
     }
 }
 
 @mixin theme-light {
-    .container--tags {
-        .head {
+    .container.container--tags .head-container .head {
+        &__background {
             background: color.adjust(list.nth(palette.$accents-light, 8), $alpha: -0.85);
+            filter: none;
+            opacity: 1.0;
+        }
 
-            h1 {
-                color: palette.$color-muted-2;
-            }
+        h1 {
+            color: palette.$color-muted-2;
         }
     }
 }

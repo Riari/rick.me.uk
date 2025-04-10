@@ -264,7 +264,7 @@
             .theme-selector-container {
                 a.theme-selector-toggle {
                     background: palette.$color-background-light-dimmed;
-                    color: palette.$color-muted-3;
+                    color: palette.$color-muted-2;
 
                     &:hover {
                         color: palette.$color-muted-1;
@@ -312,6 +312,10 @@
         .proficiencies__row {
             &__label {
                 color: palette.$color-muted-1;
+            }
+
+            span {
+                font-weight: 600;
             }
 
             @for $i from 1 through 7 {

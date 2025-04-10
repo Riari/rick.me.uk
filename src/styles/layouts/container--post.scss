@@ -18,6 +18,26 @@
     }
 }
 
+@mixin theme-light {
+    .container--post {
+        .head-container .head {
+            h1 {
+                color: list.nth(palette.$accents-light, 5);
+            }
+        }
+    }
+}
+
+html[data-theme="light"] {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}
+
 @media only screen and (max-width: breakpoints.$small) {
     .container--post {
         .head {

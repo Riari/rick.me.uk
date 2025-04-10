@@ -72,11 +72,14 @@ a.badge {
 
 @mixin theme-light {
     .badge {
-        color: palette.$color-foreground-light;
+        color: palette.$color-foreground-dark;
 
         @for $i from 1 through 8 {
             &--accent-#{$i} {
-                background: color.adjust(list.nth(palette.$accents-light, $i), $alpha: -0.30);
+                background: linear-gradient(145deg,
+                    list.nth(palette.$accents-light, $i),
+                    color.adjust(list.nth(palette.$accents-light, $i), $lightness: 10%)
+                    );
             }
         }
 

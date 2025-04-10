@@ -125,8 +125,17 @@ a.theme-selector-toggle {
         width: 100%;
 
         .head {
-            border-radius: 1rem;
+            position: relative;
             padding: 3rem;
+
+            &__background {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                border-radius: 1rem;
+            }
 
             .inner-container {
                 padding: 0;
@@ -282,7 +291,7 @@ a.theme-selector-toggle {
         padding: 1rem 0;
         color: palette.$color-foreground-dark;
 
-        ul:not(.tags) {
+        ul:not(.button-group) {
             padding: 0;
             margin: 1.2em 0 1.2em 2em;
 
@@ -466,6 +475,17 @@ a.theme-selector-toggle {
 
     .container {
         .head-container {
+            .head {
+                h2 {
+                    color: palette.$color-muted-1;
+                }
+
+                .head__background {
+                    filter: brightness(200%) contrast(150%);
+                    opacity: 0.25;
+                }
+            }
+
             .top-links {
                 a {
                     background-color: palette.$color-background-light-dimmed;
@@ -500,25 +520,6 @@ a.theme-selector-toggle {
             color: palette.$color-foreground-light;
         }
 
-        .head,
-        .body {
-            ul.tags a {
-                color: palette.$color-foreground-light;
-
-                &::after {
-                    background: palette.$color-tag-foreground;
-                }
-
-                &:hover {
-                    color: palette.$color-foreground-dark;
-
-                    &::after {
-                        background: palette.$color-tag-background;
-                    }
-                }
-            }
-        }
-
         .footer {
             background: palette.$color-background-light-dimmed;
             color: palette.$color-muted-1;
@@ -533,7 +534,7 @@ a.theme-selector-toggle {
 
             a.theme-selector-toggle {
                 background: palette.$color-background-light-dimmed;
-                color: palette.$color-muted-3;
+                color: palette.$color-muted-2;
 
                 &:hover {
                     color: palette.$color-muted-1;

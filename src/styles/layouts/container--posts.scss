@@ -7,7 +7,9 @@
         max-width: 860px;
 
         .head {
-            background: color.adjust(list.nth(palette.$accents-dark, 5), $alpha: -0.95);
+            &__background {
+                background: color.adjust(list.nth(palette.$accents-dark, 5), $alpha: -0.95);
+            }
 
             h1 {
                 color: list.nth(palette.$accents-dark, 5);
@@ -17,10 +19,14 @@
 }
 
 @mixin theme-light {
-    .container--posts {
+    .container.container--posts {
         .head-container {
             .head {
-                background: color.adjust(list.nth(palette.$accents-light, 5), $alpha: -0.85);
+                &__background {
+                    background: color.adjust(list.nth(palette.$accents-light, 5), $alpha: -0.85);
+                    filter: none;
+                    opacity: 1.0;
+                }
 
                 h1 {
                     color: list.nth(palette.$accents-light, 5);

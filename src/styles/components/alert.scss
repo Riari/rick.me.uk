@@ -36,11 +36,11 @@
 
     &--info {
         &::before {
-            background: alert-accent-gradient(list.nth(palette.$accents-dark, 5));
+            background: alert-accent-gradient(list.nth(palette.$accents-dark, 1));
         }
 
         .alert-icon {
-            color: list.nth(palette.$accents-dark, 5);
+            color: list.nth(palette.$accents-dark, 1);
         }
     }
 
