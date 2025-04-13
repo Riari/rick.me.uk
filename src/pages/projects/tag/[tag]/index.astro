@@ -1,4 +1,5 @@
 ---
+import ContentFooter from "../../../../components/ContentFooter.astro";
 import Document from "../../../../components/Document.astro";
 import Head from "../../../../components/Head.astro";
 import ProjectCard from "../../../../components/ProjectCard.astro";
@@ -27,10 +28,12 @@ const tagHasPosts =
 ---
 
 <Document title={`Projects tagged with '${tag}'`}>
-    <div class="container container--cards">
-        <Head title="Projects">
-            <h2 class="subheading">Tagged with '{tag}'</h2>
-        </Head>
+    <div class="container container--projects container--cards">
+        <div class="head-container">
+            <Head title="Projects">
+                <h2 class="subheading">Tagged with '{tag}'</h2>
+            </Head>
+        </div>
 
         <div class="body">
             <div class="inner-container">
@@ -44,9 +47,11 @@ const tagHasPosts =
                 }
 
                 <div class="card-grid">
-                    {projects.map((project) => <ProjectCard project={project} />)}
+                    {projects.map((project) => <ProjectCard project={project} showBody={true} />)}
                 </div>
             </div>
         </div>
+
+        <ContentFooter />
     </div>
 </Document>

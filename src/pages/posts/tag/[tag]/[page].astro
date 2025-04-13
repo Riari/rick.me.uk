@@ -36,10 +36,12 @@ const tagHasProjects =
 ---
 
 <Document title={`Posts tagged with '${tag}'`}>
-    <div class="container container--cards">
-        <Head title="Posts">
-            <h2 class="subheading">Tagged with '{tag}'</h2>
-        </Head>
+    <div class="container container--posts container--cards">
+        <div class="head-container">
+            <Head title="Posts">
+                <h2 class="subheading">Tagged with '{tag}'</h2>
+            </Head>
+        </div>
 
         <div class="body">
             <div class="inner-container">
@@ -57,7 +59,7 @@ const tagHasProjects =
                     ) : null
                 }
 
-                {page.data.map((post) => <PostCard post={post} />)}
+                {page.data.map((post) => <PostCard post={post} showBody={true} showTags={false} />)}
 
                 <Pagination page={page} />
             </div>

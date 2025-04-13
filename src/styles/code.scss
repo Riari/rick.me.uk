@@ -8,14 +8,8 @@
         box-shadow: none;
 
         .copy {
-            .feedback {
-                background: list.nth(palette.$accents-light, 3);
-                color: palette.$color-foreground-light;
-
-                &::after {
-                    border-left-color: list.nth(palette.$accents-light, 3);
-                }
-            }
+            --ec-frm-tooltipSuccessBg: #{list.nth(palette.$accents-light, 2)};
+            --ec-frm-tooltipSuccessFg: #{palette.$color-foreground-dark};
 
             button::before {
                 border: none;
@@ -34,8 +28,13 @@
         --ec-frm-edTabBarBg: #232734;
         --ec-frm-edActTabIndBtmCol: list.nth(palette.$accents-dark, 5);
 
-        .frame {
+        figure.frame {
             --header-border-radius: .3em;
+
+            .copy {
+                --ec-frm-tooltipSuccessBg: #{list.nth(palette.$accents-dark, 2)};
+                --ec-frm-tooltipSuccessFg: #{palette.$color-foreground-light};
+            }
         }
     }
 }

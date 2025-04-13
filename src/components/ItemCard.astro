@@ -22,8 +22,6 @@ const { item, showBody } = Astro.props;
                 {item.data.description}
             </div>
         }
-        <div class="item-card-inner-footer">
-            <slot name="footer" />
-        </div>
+        <div class="item-card-inner-footer"><slot name="footer" /></div>
     </div>
 </div>

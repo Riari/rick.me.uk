@@ -4,7 +4,7 @@
 
 .container--cards {
     .body {
-        padding: 1rem 0;
+        padding: 0 0 1rem 0;
         font-family: typography.$font-family-sans-serif;
         font-weight: 400;
         line-height: 1.6;
@@ -124,6 +124,10 @@
                         transition: color .1s;
                     }
 
+                    &:empty {
+                        display: none;
+                    }
+
                     &-tags {
                         position: relative;
                         z-index: 200;
@@ -235,7 +239,7 @@ html[data-theme="light"] {
             text-align: center;
 
             &-inner-header {
-                flex-direction: column;
+                flex-direction: column-reverse;
                 align-items: center;
 
                 &-title {
