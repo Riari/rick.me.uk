@@ -19,3 +19,23 @@
         }
     }
 }
+
+@mixin theme-light {
+    .container--project {
+        .head-container .head {
+            h1 {
+                color: list.nth(palette.$accents-light, 3);
+            }
+        }
+    }
+}
+
+html[data-theme="light"] {
+    @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme="system"] {
+        @include theme-light;
+    }
+}
