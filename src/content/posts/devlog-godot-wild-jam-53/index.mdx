@@ -106,7 +106,7 @@ My first attempt was sloppy and involved spawning the car invisibly with the sam
 
 To make spawning a little more interesting, I integrated the vertical dissolve shader from <ExternalLink url="https://github.com/ceceppa/godot-shaders">{"https://github.com/ceceppa/godot-shaders"}</ExternalLink>, which unfortunately doesn't seem to work in HTML5 exports, but it's better than anything I could produce with my current shader skills. Here's how it looks in the editor:
 
-<Video src={videoTrainSpawnEffect} type="video/mp4" isLoop={true} />
+<Video src={videoTrainSpawnEffect} type="video/mp4" loop={true} />
 
 ### Weapons
 
@@ -118,7 +118,7 @@ For targeting, I kept track of relevant nodes entering the aggro radius and prio
 
 For the projectile, I created a missile in Asset Forge (as seen earlier in the post) and used the engine flame shader from <ExternalLink url="https://github.com/miskatonicstudio/godot-experiments">{"https://github.com/miskatonicstudio/godot-experiments"}</ExternalLink> for the exhaust effect:
 
-<Video src={videoMissileShader} type="video/mp4" isLoop={true} />
+<Video src={videoMissileShader} type="video/mp4" loop={true} />
 
 For the firing logic itself, I used Spatial nodes placed in the turret scene to represent the points at which projectiles should be spawned (which I named "muzzle points"), similar to how I approached path generation for the tracks. When a projectile is spawned, it inherits both the position and rotation of the muzzle point, but it's added to the root of the scene tree so that it can move independently of the turret.
 
@@ -128,7 +128,7 @@ I went through a few iterations of that system over the course of the jam, and w
 
 To make the missiles explode on impact, I just used more of Godot's physics nodes: a <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_staticbody.html">StaticBody</ExternalLink> on the missile itself and <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_area.html">Area</ExternalLink> nodes on anything missiles should be able to hit (the terrain and the train cars). To make the impact more visually appealing, I integrated the explosion effect from <ExternalLink url="https://github.com/drcd1/GodotSimpleExplosionVFX">{"https://github.com/drcd1/GodotSimpleExplosionVFX"}</ExternalLink>:
 
-<Video src={videoExplosionVFX} type="video/mp4" isLoop={true} />
+<Video src={videoExplosionVFX} type="video/mp4" loop={true} />
 
 With all of those pieces in place, all that was left to make combat work was to add some simple health/integrity values to both the enemy structures and terrain. To save time, I hard-coded damage handling—not ideal, but it was a quick and easy solution that I could easily balance. If I had more time to implement more structures and train cars, I probably would have refactored it into something more robust first.
 
