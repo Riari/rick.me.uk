@@ -1,0 +1,83 @@
+---
+title: "Devlog: Flecs City"
+description: "A sandbox C++ project for exploring game architecture"
+pubDate: 2025-05-14
+heroImage: "../../images/post-headers/pixellated-code.png"
+tags: ["devlog", "cpp", "flecs", "ecs"]
+---
+import ExternalLink from "../../../components/ExternalLink.astro";
+import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
+
+Ever since I set out to [write my first game engine four years ago](/posts/2021/02/building-a-game-engine-preface/) (and subsequently [threw in the towel](/posts/2022/07/the-meaning-of-practice/)), I've been reluctant to try anything similar (not counting [Glint renderer](/projects/glint-renderer/), which was intentionally much smaller in scope). I'm sure I'll write another engine some day, but probably only when I have more experience and an end goal that really justifies the work (whether that's a particular game spec or just a type of game that the engine should excel at).
+
+In the meantime, I want to keep learning about game engine architecture without getting lost in the weeds trying to figure out how to write most of the code from scratch. To that end, I decided to spin up a new project: Flecs City.
+
+Flecs City is a sandbox project written in C++. I gave it that name because one of my long term goals is to learn more about <ExternalLink url="https://www.flecs.dev/flecs/">Flecs</ExternalLink> (a popular ECS framework for C and C++), and to do so I decided I would implement traffic simulation in a city environment using the ECS paradigm.
+
+<OpenGraphSummary url="https://github.com/Riari/flecs-city"></OpenGraphSummary>
+
+To be clear, it's _not_ a game engine (although it will have some of the things you might expect to see in one). It's not even a game as such. There's no game design and I have no plans to add any interesting mechanics or interactivity outside of basic camera controls and a debug UI. It's purely an engineering playground.
+
+Aside from Flecs, I settled on the following libraries:
+
+* <ExternalLink url="https://github.com/raysan5/raylib">raylib</ExternalLink> for window creation and rendering (I still have a lot of interest in graphics programming, but I've written a few basic renderers at this point and would like to focus on other things)
+* <ExternalLink url="https://github.com/ValveSoftware/GameNetworkingSockets">GameNetworkingSockets</ExternalLink> for netcode
+* <ExternalLink url="https://github.com/gabime/spdlog">spdlog</ExternalLink> for logging
+* <ExternalLink url="https://github.com/Taywee/args">args</ExternalLink> for argument parsing
+
+For dependency management, I ended up using <ExternalLink url="https://github.com/microsoft/vcpkg">vcpkg</ExternalLink>. There isn't really a de facto dependency manager in C++, but vcpkg is quite popular and supports a wide range of libraries.
+
+For building, I chose <ExternalLink url="https://github.com/Kitware/CMake">CMake</ExternalLink> (paired with <ExternalLink url="https://github.com/ninja-build/ninja">Ninja</ExternalLink>). I don't particularly like CMake—I think it's clunky and I'm not a fan of its DSL (its lack of types is especially off-putting)—but it has been around for long enough to firmly establish itself as the go-to build system generator in the C++ community. I tried to migrate to <ExternalLink url="https://bazel.build/">Bazel</ExternalLink> instead, but in the end, CMake was the much easier option and has so far proven very low-friction alongside vcpkg.
+
+### What I've built so far
+
+At the time of writing, the project builds on Windows and consists of:
+
+* raylib integration with window creation
+* Flecs integration
+* A module system for adding ECS code in a modular fashion
+* A "Core" module that does some rendering using raylib functions
+* GameNetworkingSockets integration with rough server and client implementations based on the ones in the GNS <ExternalLink url="https://github.com/ValveSoftware/GameNetworkingSockets/blob/master/examples/example_chat.cpp">chat example</ExternalLink>
+* spdlog integration
+* Some wrappers around argument parsing and application stuff
+* Server/client/monolith runtime modes
+
+Modules are built as shared libraries. There was no particular need to implement them that way and it does complicate things (for example, most of the third-party libraries have to be built as shared libraries so they can be shared by the modules), but I wanted to explore a fully modular approach and I think this might help (along with the conventions set by Flecs) with code organisation.
+
+### What's next
+
+One of the first things I did was define a list of things I want to implement, which currently looks like this:
+
+- 🔴 **Should** (things I should do first)
+    - DONE Basic camera with WASD and mouse controls
+    - DOING Networking foundation
+    - WAITING Plane to draw stuff on
+    - WAITING Roads
+    - WAITING Buildings
+    - WAITING Vehicles
+        - WAITING Models (use existing assets)
+        - WAITING Movement with basic AI
+- 🟠 **Would** (things I'll do once most/all of the above items are done)
+    - WAITING Traffic lights
+    - WAITING ImGui debug UI
+    - WAITING Parameters to adjust traffic behaviour
+- 🟢 **Could** (things I could do eventually)
+    - WAITING Player-controlled vehicles
+    - WAITING Street lights
+    - WAITING Day/night cycle
+    - WAITING World time speed controls
+    - WAITING Better vehicle and building models
+    - WAITING Pedestrians
+        - WAITING Models (use existing assets)
+        - WAITING Movement with basic AI
+    - WAITING Pedestrian crossings
+
+(Note: I wrote this list in <ExternalLink url="https://logseq.com/">Logseq</ExternalLink>, where the DONE/DOING/WAITING keywords signify task status.)
+
+I've no doubt this will change a lot as my interests and motivation change. In fact, I already moved a few things like networking up the list because I was keen to explore them straight away.
+
+I expect I won't get through more than about 50% of it in the long run, but one of the advantages of a malleable, open-ended project like this is I can put as much or as little time into it as I want without disappointing myself for not building a "game engine" or "game". I've already learned several things, so anything else I learn from here onwards is a bonus!
+
+As shown in the list, my current focus is on getting some of the groundwork for netcode implemented. Since I'm using GameNetworkingSockets, the lower-level interaction with socket APIs is abstracted away, so this is mostly a matter of adding boilerplate to manage connections and some basic data transfer. Unfortunately, I might have to put that effort on hold because of a bug in GNS (or one of its dependencies) on Linux, which I reported <ExternalLink url="https://github.com/ValveSoftware/GameNetworkingSockets/issues/380">here</ExternalLink>. This isn't exactly blocking my progress because the library works fine on Windows and I can easily continue development there, but I would like to target both Windows and Linux at a minimum, so I may have to consider switching to a different library.
+
+In the next post, I'll get into some of the code I've written. Hopefully by then I will have solved the Linux issue. Thanks for reading!
