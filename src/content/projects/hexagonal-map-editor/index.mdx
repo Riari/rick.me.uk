@@ -1,0 +1,48 @@
+---
+title: "Hexagonal Map Editor"
+description: "A hexagonal map editor implemented in Unity"
+status: "Complete"
+weight: 15
+heroImage: "../../images/project-headers/hex-map-editor.jpg"
+url: "https://github.com/Riari/unity-hex-map-editor"
+tags: ["unity", "csharp", "game-dev", "game-dev-tool"]
+---
+import ExternalLink from '../../../components/ExternalLink.astro';
+import Image from '../../../components/Image.astro';
+import Video from '../../../components/Video.astro';
+import screenshotShaderSettings from './screenshot-shader-settings.png';
+import screenshotMapSettings from './screenshot-map-settings.png';
+import screenshotMapEditorWindow from './screenshot-map-editor-window.png';
+import screenshotScene from './screenshot-scene.png';
+import editorDemoVideo from './editor-demo.mp4';
+
+I developed this hexagonal map editor in Unity 6 partly as an exploration into how hexagonal maps work in games like the Civilization series, but also to become more familiar with authoring custom tools in Unity.
+
+It consists of the following:
+
+* A hexagonal grid with cells in flat-top orientation using an axial coordinate system
+* A custom shader for drawing the cells, including properties to adjust grid size, cell size, and colours for each state (normal, hovered, selected)
+* `HexagonalMapData`: A `ScriptableObject` implementation to persist cell data (which includes asset references for prefabs to spawn in each cell)
+* `HexagonalMap`: A `MonoBehaviour` implementation that handles the grid settings, updates to the shader properties, and updates to the cell data
+* `HexagonalMapEditor`: A `CustomEditor` implementation for `HexagonalMap` that exposes the grid settings via the inspector and draws previews of content placed in the cells
+* `HexagonalMapEditorWindow`: An `EditorWindow` implementation using the <ExternalLink url="https://docs.unity3d.com/Packages/com.unity.addressables@2.6/manual/index.html">Addressables</ExternalLink> package for grouping, listing, and selecting prefabs to place in the currently selected cell
+
+The source code is available at <ExternalLink url="https://github.com/Riari/unity-hex-map-editor">github.com/Riari/unity-hex-map-editor</ExternalLink>.
+
+Here's a video of the editor in action:
+
+<Video src={editorDemoVideo}></Video>
+
+<hr />
+
+<div class="columns columns--2">
+    <Image src={screenshotMapEditorWindow} alt="Map editor window" />
+    <Image src={screenshotMapSettings} alt="Map settings" />
+    <Image src={screenshotShaderSettings} alt="Shader settings" />
+    <Image src={screenshotScene} alt="Scene view" />
+</div>
+<div class="caption">Screenshots</div>
+
+<hr />
+
+_The tile assets I used in this project are from <ExternalLink url="https://lauwet.itch.io/dice-lands-hexagon-tile-assets">itch.io/dice-lands-hexagon-tile-assets</ExternalLink>._
