@@ -331,6 +331,10 @@ a.theme-selector-toggle {
                 max-width: 800px;
                 max-height: 400px;
             }
+
+            lite-youtube {
+                margin: 0 auto;
+            }
         }
 
         .audio-container {
@@ -377,6 +381,19 @@ a.theme-selector-toggle {
             .image-container {
                 margin: 0;
                 padding: 0.5rem 0;
+            }
+        }
+
+        .grid {
+            display: grid;
+            column-gap: 1rem;
+
+            &--2 {
+                grid-template-columns: 50% 50%;
+            }
+
+            &--3 {
+                grid-template-columns: 33.33% 33.33% 33.33%;
             }
         }
 
@@ -589,6 +606,13 @@ html[data-theme="light"] {
                 &--2,
                 &--3 {
                     column-count: 1;
+                }
+            }
+
+            .grid {
+                &--2,
+                &--3 {
+                    grid-template-columns: auto;
                 }
             }
         }
