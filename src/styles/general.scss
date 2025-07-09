@@ -450,9 +450,30 @@ a.theme-selector-toggle {
     .footer {
         position: relative;
         background: palette.$color-background-main-1;
+        padding-bottom: 2rem;
 
-        .footer-links {
+        .back-to-top {
+            position: fixed;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
             text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s, visibility .3s;
+            z-index: 1000;
+
+            a {
+                display: inline-block;
+                padding: .5rem 1rem;
+                border-radius: 5rem;
+                background: color.adjust(palette.$color-background-main-3, $alpha: -0.08);
+                box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+
+                svg {
+                    vertical-align: -6px;
+                }
+            }
         }
     }
 }
@@ -466,6 +487,11 @@ a.theme-selector-toggle {
         .secondary > a {
             border-radius: 0;
         }
+    }
+
+    .footer .back-to-top {
+        opacity: 1;
+        visibility: visible;
     }
 }
 
@@ -483,6 +509,10 @@ a.theme-selector-toggle {
         .more-link a {
             background: palette.$color-muted-4;
             color: palette.$color-foreground-light;
+
+                    &:hover {
+                        background: palette.$color-muted-3;
+                    }
 
             &:hover {
                 color: #000;
@@ -580,6 +610,12 @@ a.theme-selector-toggle {
 
             .theme-selector {
                 background: palette.$color-muted-4;
+            }
+
+            .back-to-top {
+                a {
+                    background: color.adjust(palette.$color-muted-4, $alpha: -0.1);
+                }
             }
         }
 
