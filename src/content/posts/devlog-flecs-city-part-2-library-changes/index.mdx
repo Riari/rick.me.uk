@@ -1,8 +1,8 @@
 ---
 title: "Devlog: Flecs City (Part 2)"
-description: "Library changes"
+description: "Library and architecture changes"
 pubDate: 2025-09-15
-heroImage: "../../../images/post-headers/pixellated-code.png"
+heroImage: "../../../images/post-headers/pixellated-code-2.png"
 tags: ["devlog", "cpp", "flecs", "ecs"]
 ---
 import ExternalLink from "../../../components/ExternalLink.astro";
@@ -11,6 +11,10 @@ import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
 It's been a while since I [last posted back in May](/posts/2025/05/devlog-flecs-city-part-2-library-changes/). A lot has happened since then: Hytale was cancelled, I was back in the job market for the first time in eight years, and I was lucky enough to catch the interest of a few other studios, one of which I accepted an offer from. I'm now working full time on an Unreal Engine project.
 
 Now that I'm somewhat settled into that job, I decided to revisit this project. In recent months I've spent a lot of time in Unity and Unreal building up my skills and portfolio, but I was keen to get back into writing some lower level C++, so here I am.
+
+In my latest changes to the project, I was focused on two things: library compatibility and "running mode".
+
+### Getting Raylib and ENet to co-exist
 
 In the previous post, I mentioned a bug with GameNetworkingSockets on Linux, which I <ExternalLink url="https://github.com/ValveSoftware/GameNetworkingSockets/issues/380">reported here</ExternalLink>. I've not been able to figure this one out and don't feel like investigating it further, so I decided to replace GNS with <ExternalLink url="https://github.com/lsalzman/enet">ENet</ExternalLink>, which is a popular UDP library that has been around for many years and should be more than enough for my purposes. Of course it lacks the Steam integration, but I don't need that for this project.
 
@@ -31,3 +35,34 @@ endif()
 
 This seems to give ENet everything it needs while avoiding the declarations that upset Raylib.
 
+### Running mode
+
+Previously, I made the application decide whether to open a socket or connect to one (or neither) based on whether the user passed a value to the `--listen` arg or the `--connect` arg (or neither). I realised this wasn't working very well, so I added a separate `--mode` arg:
+
+```cpp
+enum RunMode
+{
+    Monolith,
+    Server,
+    Client
+};
+
+std::unordered_map<std::string, RunMode> mModeMap{
+    {"monolith", RunMode::Monolith},
+    {"server", RunMode::Server},
+    {"client", RunMode::Client}
+};
+
+args::ArgumentParser mParser{"Flecs City"};
+args::MapFlag<std::string, RunMode> mMode{mParser, "mode", "Mode to run in (monolith|server|client). Defaults to monolith.", {'m', "mode"}, mModeMap};
+```
+
+The general idea with these modes is as follows:
+
+* **Monolith:** Run the client and server code monolithically with no networking.
+* **Server:** Run as a dedicated server (execute the server code while listening for connections on a given port).
+* **Client:** Run as a client (connect to a server address and execute the client code).
+
+My current thinking is that where a server and a client would each get their own ECS world and the network layer would take care of synchronising entity and component updates, in monolith mode, there's just a single ECS that everything gets registered to, including both client-specific and server-specific systems. I'm sure in practice it won't be that simple at all, but that's the plan. The end result I have in mind is a single binary that can run totally offline, as a dedicated server, or as a client.
+
+This does exclude the option of running a server and connecting to it in the same process, but I want to implement monolith mode instead of that as it essentially achieves the same thing without sending/receiving any network traffic at all.
