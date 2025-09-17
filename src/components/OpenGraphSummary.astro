@@ -7,16 +7,21 @@ const { url } = Astro.props;
 const properties = await ogs({ url }).then((data: any) => {
     return data.result;
 });
+
+// TODO: Might need to add a fallback to favicon or display a generic image if the OG response contains no usable image URLs.
+const image = properties.ogImage && properties.ogImage.length > 0
+    ? properties.ogImage[0]
+    : properties.twitterImage[0];
 ---
 
 <div class="og-summary">
     <a href={url} target="_blank">
         <Image
-            src={properties.ogImage[0].url}
-            alt={properties.ogImage[0].alt ?? ""}
-            width={properties.ogImage[0].width ?? null}
-            height={properties.ogImage[0].height ?? null}
-            inferSize={!properties.ogImage[0].width}
+            src={image.url}
+            alt={image.alt ?? ""}
+            width={image.width ?? null}
+            height={image.height ?? null}
+            inferSize={!image.width}
             zoomable={false}
             loading="lazy" />
     </a>
