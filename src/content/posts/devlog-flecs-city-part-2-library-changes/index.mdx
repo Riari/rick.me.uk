@@ -8,11 +8,9 @@ tags: ["devlog", "cpp", "flecs", "ecs"]
 import ExternalLink from "../../../components/ExternalLink.astro";
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
 
-It's been a while since I [last posted back in May](/posts/2025/05/devlog-flecs-city-part-2-library-changes/). A lot has happened since then: Hytale was cancelled, I was back in the job market for the first time in eight years, and I was lucky enough to catch the interest of a few other studios, one of which I accepted an offer from. I'm now working full time on an Unreal Engine project.
+It's been a while since I [last posted back in May](/posts/2025/05/devlog-flecs-city-part-2-library-changes/). A lot has happened since then: Hytale was cancelled, I was back in the job market for the first time in eight years, I spent a few months focusing on sharpening my skills and building my portfolio, and I was lucky enough to catch the interest of several studios. Ultimately I accepted an offer from one of those studios and I'm now working full time on an Unreal Engine project.
 
-Now that I'm somewhat settled into that job, I decided to revisit this project. In recent months I've spent a lot of time in Unity and Unreal building up my skills and portfolio, but I was keen to get back into writing some lower level C++, so here I am.
-
-In my latest changes to the project, I was focused on two things: library compatibility and "running mode".
+Since settling into that new job, I decided to revisit this project and wanted to focus my attention on two things: library compatibility and some architectural changes.
 
 ### Getting Raylib and ENet to co-exist
 
@@ -65,4 +63,202 @@ The general idea with these modes is as follows:
 
 My current thinking is that where a server and a client would each get their own ECS world and the network layer would take care of synchronising entity and component updates, in monolith mode, there's just a single ECS that everything gets registered to, including both client-specific and server-specific systems. I'm sure in practice it won't be that simple at all, but that's the plan. The end result I have in mind is a single binary that can run totally offline, as a dedicated server, or as a client.
 
-This does exclude the option of running a server and connecting to it in the same process, but I want to implement monolith mode instead of that as it essentially achieves the same thing without sending/receiving any network traffic at all.
+This does exclude the option of running a server and connecting to it in the same process, but I want to implement monolith mode instead of that as it essentially achieves the same thing with zero networking overhead.
+
+### Network thread
+
+Up until now, there was no concurrency of any kind in this project. Networking seemed like a good first candidate for changing that, so I implemented a basic network thread for the modes that use networking. The network thread runs for the duration of the main thread and handles the complete ENet lifecycle from `enet_initialize()` to host servicing to `enet_deinitialize()`.
+
+The main part of this is a simple abstract `NetworkThread`:
+
+```cpp title="NetworkThread.h"
+#pragma once
+
+#include <atomic>
+#include <condition_variable>
+#include <mutex>
+#include <queue>
+#include <thread>
+
+#include <enet/enet.h>
+
+#include "Network/Types.h"
+
+namespace fc::Network
+{
+
+class NetworkThread
+{
+public:
+    enum State
+    {
+        Idle,
+        Active,
+        PendingExit
+    };
+
+    NetworkThread() = default;
+    ~NetworkThread();
+
+    bool Start();
+    void Stop();
+
+protected:
+    std::thread mThread;
+    std::atomic<State> mState{State::Idle};
+
+    std::atomic<ENetHost*> mHost{nullptr};
+
+    /// @brief Connection address (when this is a client) or listen address (when this is a server).
+    ENetAddress mAddress;
+
+    std::mutex mIncomingMutex;
+    std::mutex mOutgoingMutex;
+    std::condition_variable mOutgoingCV;
+
+    std::queue<NetworkMessage> mIncomingMessages;
+    std::queue<NetworkMessage> mOutgoingMessages;
+
+    virtual bool Init() = 0;
+    virtual void HandleEvent(const ENetEvent& event);
+    virtual void Disconnect() {}
+
+private:
+    /// @brief Thread function
+    void Main();
+};
+
+} // namespace fc::Network
+```
+
+```cpp title="NetworkThread.cpp"
+#include "NetworkThread.h"
+
+#include <chrono>
+
+#include <enet/enet.h>
+#include <spdlog/spdlog.h>
+
+namespace fc::Network
+{
+
+NetworkThread::~NetworkThread()
+{
+    Stop();
+}
+
+bool NetworkThread::Start()
+{
+    if (mThread.joinable())
+    {
+        return false;
+    }
+
+    mThread = std::thread(&NetworkThread::Main, this);
+
+    return true;
+}
+
+void NetworkThread::Stop()
+{
+    mOutgoingCV.notify_all();
+
+    if (mThread.joinable())
+    {
+        mThread.join();
+    }
+}
+
+void NetworkThread::Main()
+{
+    if (enet_initialize() != 0)
+    {
+        spdlog::error("Failed to initialize ENet");
+        return;
+    }
+
+    if (!Init())
+    {
+        enet_deinitialize();
+        return;
+    }
+
+    State state = mState.load();
+    ENetEvent event;
+    while (state != State::PendingExit)
+    {
+        if (state == State::Idle)
+        {
+            state = mState.load();
+            continue;
+        }
+
+        int result = enet_host_service(mHost, &event, 1000);
+        if (result > 0)
+        {
+            HandleEvent(event);
+        }
+        else if (result < 0)
+        {
+            spdlog::error("An ENet service error occurred");
+            break;
+        }
+
+        // Small yield to prevent busy waiting
+        // TODO: replace with a more suitable alternative (CV?)
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+        state = mState.load();
+    }
+
+    Disconnect();
+
+    if (mHost)
+    {
+        enet_host_destroy(mHost);
+    }
+
+    enet_deinitialize();
+}
+
+void NetworkThread::HandleEvent(const ENetEvent& event)
+{
+    switch (event.type)
+    {
+        case ENET_EVENT_TYPE_RECEIVE:
+            {
+                std::vector<uint8_t> data(event.packet->data, event.packet->data + event.packet->dataLength);
+
+                {
+                    std::lock_guard<std::mutex> lock(mIncomingMutex);
+                    mIncomingMessages.push({std::move(data), event.channelID, 0});
+                }
+
+                enet_packet_destroy(event.packet);
+            }
+
+        default:
+            break;
+    }
+}
+
+} // namespace fc::Network
+```
+
+I wrote two implementations of this--one for the server and one for the client. They implement `Init()` and `HandleEvent(const ENetEvent& event)`, and the client additionally implements `Connect(const char* address, uint32_t port)` and `Disconnect()` methods for (dis)connecting during runtime.
+
+A quick test reveals successful connections in the server log:
+```
+[info] Registering components...
+[info] Initialising ECS...
+[info] Entering main loop...
+[info] Server host created.
+[info] Client connected from 127.0.0.1:60973 (peer ID: 0). Total clients: 1.
+[info] Client connected from 127.0.0.1:60974 (peer ID: 1). Total clients: 2.
+```
+
+There's a lot more to do here still, not least of which is sending/receiving data, which is probably what I'll focus on next. Once I have a reasonable foundation there, I'll think about how to handle replication of ECS components.
+
+If you want to take a closer look at the source code, you can find the repo here:
+
+<OpenGraphSummary url="https://github.com/Riari/flecs-city" />
