@@ -8,17 +8,17 @@ tags: ["devlog", "cpp", "flecs", "ecs"]
 import ExternalLink from "../../../components/ExternalLink.astro";
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
 
-It's been a while since I [last posted back in May](/posts/2025/05/devlog-flecs-city-part-2-library-changes/). A lot has happened since then: Hytale was cancelled, I was back in the job market for the first time in eight years, I spent a few months focusing on sharpening my skills and building my portfolio, and I was lucky enough to catch the interest of several studios. Ultimately I accepted an offer from one of those studios and I'm now working full time on an Unreal Engine project.
+It's been a while since I [last posted back in May](/posts/2025/05/devlog-flecs-city-part-2-library-changes/). A lot has happened since then: Hytale was cancelled, I entered the job market for the first time in eight years, I spent a few months focusing on sharpening my skills and building my portfolio, and I was lucky enough to catch the interest of several studios. Ultimately I accepted an offer from one of those studios and I'm now working full time on an Unreal Engine project.
 
-Since settling into that new job, I decided to revisit this project and wanted to focus my attention on two things: library compatibility and some architectural changes.
+Since settling into that new job, I decided to revisit this project and wanted to focus my attention on two things--library compatibility and some architectural changes.
 
 ### Getting Raylib and ENet to co-exist
 
 In the previous post, I mentioned a bug with GameNetworkingSockets on Linux, which I <ExternalLink url="https://github.com/ValveSoftware/GameNetworkingSockets/issues/380">reported here</ExternalLink>. I've not been able to figure this one out and don't feel like investigating it further, so I decided to replace GNS with <ExternalLink url="https://github.com/lsalzman/enet">ENet</ExternalLink>, which is a popular UDP library that has been around for many years and should be more than enough for my purposes. Of course it lacks the Steam integration, but I don't need that for this project.
 
-Switching to it was not the smoothest experience because it uses windows.h on Windows, leading to conflicts in function names from Raylib, an issue that has been discussed at length in <ExternalLink url="https://github.com/raysan5/raylib/issues/1217">this GitHub issue</ExternalLink>. For reasons that aren't very clear to me, the author of Raylib is adamant about not prefixing the library's function names (despite that being a common practice in C where namespacing doesn't exist). As is his right, of course! It's still an excellent library, but this is an annoying thing to have to deal with.
+Switching to it was not the smoothest experience because it uses some Windows headers that lead to collisions with Raylib function names, an issue that has been discussed at length in <ExternalLink url="https://github.com/raysan5/raylib/issues/1217">this GitHub issue</ExternalLink>. For reasons that aren't very clear to me, the author of Raylib has no plans to prefix the library's function names (despite that being a common practice in C where namespacing doesn't exist), making them prone to this type of issue when you're using Windows APIs (whether directly or indirectly).
 
-Anyway, to work around that issue, I found it was enough to set a few definitions via CMake:
+To work around that issue, after some trial and error, I found it was enough to set a few definitions via CMake:
 
 ```cmake
 if(WIN32)
@@ -63,11 +63,11 @@ The general idea with these modes is as follows:
 
 My current thinking is that where a server and a client would each get their own ECS world and the network layer would take care of synchronising entity and component updates, in monolith mode, there's just a single ECS that everything gets registered to, including both client-specific and server-specific systems. I'm sure in practice it won't be that simple at all, but that's the plan. The end result I have in mind is a single binary that can run totally offline, as a dedicated server, or as a client.
 
-This does exclude the option of running a server and connecting to it in the same process, but I want to implement monolith mode instead of that as it essentially achieves the same thing with zero networking overhead.
+This does exclude the option of running a server and connecting to it in the same process, but I want to implement monolith mode instead since that achieves the same result with zero networking overhead.
 
 ### Network thread
 
-Up until now, there was no concurrency of any kind in this project. Networking seemed like a good first candidate for changing that, so I implemented a basic network thread for the modes that use networking. The network thread runs for the duration of the main thread and handles the complete ENet lifecycle from `enet_initialize()` to host servicing to `enet_deinitialize()`.
+Up until now, there was no concurrency of any kind in this project. Networking seemed like a good first candidate for changing that, so I implemented a basic network thread for the modes that use networking. The network thread runs for the duration of the main thread and handles the complete ENet lifecycle from `enet_initialize()` to `enet_deinitialize()`.
 
 The main part of this is a simple abstract `NetworkThread`:
 
@@ -245,9 +245,9 @@ void NetworkThread::HandleEvent(const ENetEvent& event)
 } // namespace fc::Network
 ```
 
-I wrote two implementations of this--one for the server and one for the client. They implement `Init()` and `HandleEvent(const ENetEvent& event)`, and the client additionally implements `Connect(const char* address, uint32_t port)` and `Disconnect()` methods for (dis)connecting during runtime.
+I wrote two implementations of this--one for the server and one for the client. They implement `Init()` and `HandleEvent(const ENetEvent& event)`, and the client additionally implements methods for handling connections to peers during runtime.
 
-A quick test reveals successful connections in the server log:
+A quick test with a server and two clients reveals successful connections in the server log:
 ```
 [info] Registering components...
 [info] Initialising ECS...
@@ -257,7 +257,7 @@ A quick test reveals successful connections in the server log:
 [info] Client connected from 127.0.0.1:60974 (peer ID: 1). Total clients: 2.
 ```
 
-There's a lot more to do here still, not least of which is sending/receiving data, which is probably what I'll focus on next. Once I have a reasonable foundation there, I'll think about how to handle replication of ECS components.
+There's a lot more to do here, most obviously data transfer, which is probably what I'll focus on next. Once I have a reasonable foundation there, I'll think about how to handle replication of ECS components.
 
 If you want to take a closer look at the source code, you can find the repo here:
 
