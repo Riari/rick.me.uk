@@ -1,0 +1,68 @@
+---
+title: "Devlog: Flecs City (Part 3)"
+description: "Fixes on Linux"
+pubDate: 2025-09-27
+heroImage: "../../../images/post-headers/pixellated-code-2.png"
+tags: ["devlog", "cpp", "flecs", "ecs"]
+---
+import ExternalLink from "../../../components/ExternalLink.astro";
+import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
+
+[Last time](/posts/2025/05/devlog-flecs-city/), I replaced GameNetworkingSockets with ENet (along with a few other changes). In this devlog, I'll cover the following:
+
+* Fixes for build issues on Linux
+* ...
+
+## Linux fixes
+
+When I tested the project on Linux with the latest changes, I was getting a new segfault that turned out to be caused by static linkage. I'm not sure why this didn't crop up before--perhaps it was masked by the GameNetworkingSockets problem.
+
+vcpkg uses <ExternalLink url="https://learn.microsoft.com/en-us/vcpkg/concepts/triplets#remarks">triplets</ExternalLink> to encapsulate target environment/configuration. At a minimum, a triplet specifies two things: CPU architecture and OS. The defaults for each major desktop OS are:
+
+* Windows: `x64-windows`
+* Linux: `x64-linux`
+* OSX: `x64-osx`
+
+The problem is that while `x64-windows` defaults to dynamic linkage, `x64-linux` defaults to static linkage. Listing shared objects for my Core module (libCore.so) confirmed that none of the vcpkg libraries were linked:
+
+```bash
+> ldd libCore.so
+	linux-vdso.so.1 (0x00007f2f7aa9e000)
+	libstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007f2f7a200000)
+	libm.so.6 => /usr/lib/libm.so.6 (0x00007f2f7a96e000)
+	libgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007f2f7a941000)
+	libc.so.6 => /usr/lib/libc.so.6 (0x00007f2f79e00000)
+	/usr/lib64/ld-linux-x86-64.so.2 (0x00007f2f7aaa0000)
+```
+
+Fortunately, the fix was simple: tell vcpkg to use the `x64-linux-dynamic` triplet. In CMake, this can be done by setting `VCPKG_TARGET_TRIPLET` before the `project(...)` command is used:
+
+```cmake
+if(LINUX AND NOT APPLE)
+    set(VCPKG_TARGET_TRIPLET "x64-linux-dynamic" CACHE STRING "")
+endif()
+```
+
+After clearing the build directory and re-running cmake, the issue was resolved:
+
+```bash {3-7}
+> ldd libCore.so
+	linux-vdso.so.1 (0x00007fa587a44000)
+	libflecs.so => /home/rick/Projects/Code/flecs-city/build/vcpkg_installed/x64-linux-dynamic/debug/lib/libflecs.so (0x00007fa587888000)
+	libglfw.so.3 => /home/rick/Projects/Code/flecs-city/build/vcpkg_installed/x64-linux-dynamic/debug/lib/libglfw.so.3 (0x00007fa58780c000)
+	libraylib.so.550 => /home/rick/Projects/Code/flecs-city/build/vcpkg_installed/x64-linux-dynamic/debug/lib/libraylib.so.550 (0x00007fa587400000)
+	libspdlogd.so.1.15 => /home/rick/Projects/Code/flecs-city/build/vcpkg_installed/x64-linux-dynamic/debug/lib/libspdlogd.so.1.15 (0x00007fa587000000)
+	libfmtd.so.11 => /home/rick/Projects/Code/flecs-city/build/vcpkg_installed/x64-linux-dynamic/debug/lib/libfmtd.so.11 (0x00007fa5877cc000)
+	libstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007fa586c00000)
+	libm.so.6 => /usr/lib/libm.so.6 (0x00007fa5876a2000)
+	libgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007fa5873d3000)
+	libc.so.6 => /usr/lib/libc.so.6 (0x00007fa586800000)
+	libOpenGL.so.0 => /usr/lib/libOpenGL.so.0 (0x00007fa5873af000)
+	libGLX.so.0 => /usr/lib/libGLX.so.0 (0x00007fa58737e000)
+	/usr/lib64/ld-linux-x86-64.so.2 (0x00007fa587a46000)
+	libGLdispatch.so.0 => /usr/lib/libGLdispatch.so.0 (0x00007fa586f87000)
+	libX11.so.6 => /usr/lib/libX11.so.6 (0x00007fa586abf000)
+	libxcb.so.1 => /usr/lib/libxcb.so.1 (0x00007fa587353000)
+	libXau.so.6 => /usr/lib/libXau.so.6 (0x00007fa58769b000)
+	libXdmcp.so.6 => /usr/lib/libXdmcp.so.6 (0x00007fa587693000)
+```
