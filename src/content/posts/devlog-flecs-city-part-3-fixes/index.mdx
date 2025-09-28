@@ -10,20 +10,39 @@ import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
 
 [Last time](/posts/2025/05/devlog-flecs-city/), I replaced GameNetworkingSockets with ENet (along with a few other changes). In this devlog, I'll cover the following:
 
-* Fixes for build issues on Linux
+* Fix for a build issue on Linux
 * ...
 
-## Linux fixes
+## Linux fix
 
-When I tested the project on Linux with the latest changes, I was getting a new segfault that turned out to be caused by static linkage. I'm not sure why this didn't crop up before--perhaps it was masked by the GameNetworkingSockets problem.
+When I tested the project on Linux with the latest changes, I was getting a segfault. This was happening in the Core module during registration of custom flecs phases:
 
-vcpkg uses <ExternalLink url="https://learn.microsoft.com/en-us/vcpkg/concepts/triplets#remarks">triplets</ExternalLink> to encapsulate target environment/configuration. At a minimum, a triplet specifies two things: CPU architecture and OS. The defaults for each major desktop OS are:
+```cpp {8}
+flecs::entity PreDraw;
+flecs::entity Draw3D;
+flecs::entity Draw2D;
+flecs::entity PostDraw;
+
+void InitPhases(flecs::world& ecs)
+{
+    PreDraw = ecs.entity("fc::PreDraw").add(flecs::Phase).depends_on(flecs::OnUpdate);
+    Draw3D = ecs.entity("fc::Draw3D").add(flecs::Phase).depends_on(PreDraw);
+    Draw2D = ecs.entity("fc::Draw2D").add(flecs::Phase).depends_on(Draw3D);
+    PostDraw = ecs.entity("fc::PostDraw").add(flecs::Phase).depends_on(Draw2D);
+}
+```
+
+After some investigation, I realised the root cause was static linkage. The `flecs::world` reference passed to the above function is initialised by the main executable, and because flecs was statically linked, that address wasn't accessible to the Core module.
+
+In fact, it turned out that none of the third party libraries managed by vcpkg were being built and linked as shared libraries. I'm not sure why this didn't crop up before--perhaps it was masked by the GameNetworkingSockets problem.
+
+To elaborate, vcpkg uses <ExternalLink url="https://learn.microsoft.com/en-us/vcpkg/concepts/triplets#remarks">triplets</ExternalLink> to identify target environments/configurations. At a minimum, a triplet specifies two things: CPU architecture and OS. The defaults for each major desktop OS are:
 
 * Windows: `x64-windows`
 * Linux: `x64-linux`
 * OSX: `x64-osx`
 
-The problem is that while `x64-windows` defaults to dynamic linkage, `x64-linux` defaults to static linkage. Listing shared objects for my Core module (libCore.so) confirmed that none of the vcpkg libraries were linked:
+The problem is that while `x64-windows` defaults to dynamic linkage (hence I didn't encounter the problem on Windows), `x64-linux` defaults to static linkage. Listing shared objects for my Core module (libCore.so) confirmed that none of the vcpkg libraries were there:
 
 ```bash
 > ldd libCore.so
@@ -43,7 +62,7 @@ if(LINUX AND NOT APPLE)
 endif()
 ```
 
-After clearing the build directory and re-running cmake, the issue was resolved:
+After clearing the build directory and re-running CMake, the issue was resolved:
 
 ```bash {3-7}
 > ldd libCore.so
