@@ -50,7 +50,7 @@ h3 {
 }
 
 h4 {
-    font-size: 1em;
+    font-size: 1.25em;
     margin: 1rem 0;
 }
 
@@ -139,7 +139,7 @@ p {
     }
 
     article {
-        font-size: 1.1em;
+        font-size: 1.2em;
         color: palette.$color-foreground-dark-dimmed;
     }
 
@@ -270,5 +270,9 @@ html[data-theme="light"] {
 
     h2 {
         font-size: 1.7em;
+    }
+
+    .container article {
+        font-size: 1.1em;
     }
 }

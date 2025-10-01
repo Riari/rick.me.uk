@@ -1,14 +1,27 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import ContentFooter from "../components/ContentFooter.astro";
 import Document from "../components/Document.astro";
 import Head from "../components/Head.astro";
+import TableOfContents from "../components/TableOfContents.astro";
 import { loadAndFormatCollection } from "../util/collection";
 import { truncate } from "../util/string";
+import type { MarkdownHeading } from "astro";
 
-type Props = CollectionEntry<"posts">["data"];
+interface Props {
+    title: string;
+    description: string;
+    pubDate: Date;
+    heroImage: {
+        src: string;
+        width: Number;
+        height: Number;
+        format: string;
+    };
+    tags: string[];
+    headings: MarkdownHeading[];
+}
 
-const { title, description, pubDate, heroImage, tags } = Astro.props;
+const { title, description, pubDate, heroImage, tags, headings } = Astro.props as Props;
 
 const posts: any[] = (await loadAndFormatCollection("posts")).sort(
     (a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
@@ -62,38 +75,52 @@ if (nextPost != null) {
                         {pubDate.getDate()}, {pubDate.getFullYear()}
                     </div>
                 </div>
+            </div>
 
-                <article>
-                    <slot />
-                </article>
+            <div class="post-grid">
+                {
+                    headings.length > 0
+                        ? (
+                            <div class="post-grid-toc">
+                                <TableOfContents headings={headings} />
+                            </div>
+                        )
+                        : <div class="post-grid-filler"></div>
+                }
+                <div class="post-grid-content">
+                    <article>
+                        <slot />
+                    </article>
 
-                <hr />
+                    <hr />
 
-                <div class="adjacent-content-links">
-                    <div class="previous">
-                        {
-                            prevPost != null && (
-                                <a href={prevPost.absoluteURL}>
-                                    <span class="prefix">‹ Previous post</span>
-                                    <br />
-                                    <span class="title">{prevPost.data.title}</span>
-                                </a>
-                            )
-                        }
-                    </div>
+                    <div class="adjacent-content-links">
+                        <div class="previous">
+                            {
+                                prevPost != null && (
+                                    <a href={prevPost.absoluteURL}>
+                                        <span class="prefix">‹ Previous post</span>
+                                        <br />
+                                        <span class="title">{prevPost.data.title}</span>
+                                    </a>
+                                )
+                            }
+                        </div>
 
-                    <div class="next">
-                        {
-                            nextPost != null && (
-                                <a href={nextPost.absoluteURL}>
-                                    <span class="prefix">Next post ›</span>
-                                    <br />
-                                    <span class="title">{nextPost.data.title}</span>
-                                </a>
-                            )
-                        }
+                        <div class="next">
+                            {
+                                nextPost != null && (
+                                    <a href={nextPost.absoluteURL}>
+                                        <span class="prefix">Next post ›</span>
+                                        <br />
+                                        <span class="title">{nextPost.data.title}</span>
+                                    </a>
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
+                <div class="post-grid-filler"></div>
             </div>
         </div>
 

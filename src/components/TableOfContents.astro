@@ -1,0 +1,31 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+  levels?: 1 | 2 | 3;
+}
+
+const { headings, levels = 3 } = Astro.props as Props;
+
+const filteredHeadings = headings.filter((heading) => heading.depth <= levels);
+---
+
+<div class="toc">
+    <h4>In this post</h4>
+    <ul>
+        {
+            filteredHeadings.map((heading) => (
+                <li>
+                    <a href={`#${heading.slug}`}>
+                        {heading.text}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</div>
