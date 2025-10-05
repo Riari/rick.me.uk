@@ -93,11 +93,7 @@ html[data-theme="light"] {
                 font-size: 1.2em
             }
         }
-    }
-}
 
-@media only screen and (max-width: breakpoints.$small) {
-    .container--post {
         .body {
             .post-grid {
                 flex-direction: column;
@@ -108,6 +104,11 @@ html[data-theme="light"] {
                     max-width: 860px;
                     padding: 0 1.5rem;
                     margin: 0 auto 1.5rem auto;
+
+                    .toc {
+                        position: static;
+                        top: auto;
+                    }
                 }
 
                 &-content {
