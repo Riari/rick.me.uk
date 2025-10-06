@@ -11,10 +11,7 @@
     margin: 1.2em 0;
     border-radius: .3em;
     border: 2px solid palette.$color-muted-1;
-
-    p {
-        color: palette.$color-muted-3;
-    }
+    color: palette.$color-muted-3;
 
     &::before {
         display: block;
@@ -81,10 +78,7 @@
 @mixin theme-light {
     .alert {
         border-color: palette.$color-muted-3;
-
-        p {
-            color: palette.$color-foreground-light-dimmed;
-        }
+        color: palette.$color-foreground-light-dimmed;
 
         .alert-icon {
             background: palette.$color-background-light;
