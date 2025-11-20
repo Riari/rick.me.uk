@@ -4,7 +4,19 @@ import Image from "./Image.astro";
 
 const { url } = Astro.props;
 
-const properties = await ogs({ url }).then((data: any) => {
+let fetchOptions = {};
+
+if (url.includes("github.com")) {
+    const githubToken = import.meta.env.GITHUB_TOKEN;
+    fetchOptions = githubToken ? {
+        headers: {
+            'Authorization': `Bearer ${import.meta.env.GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json'
+        }
+    } : {};
+}
+
+const properties = await ogs({ url, fetchOptions }).then((data: any) => {
     return data.result;
 });
 
