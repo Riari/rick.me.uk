@@ -8,12 +8,16 @@ let fetchOptions = {};
 
 if (url.includes("github.com")) {
     const githubToken = import.meta.env.GITHUB_TOKEN;
-    fetchOptions = githubToken ? {
-        headers: {
-            'Authorization': `Bearer ${import.meta.env.GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-        }
-    } : {};
+    if (githubToken) {
+        fetchOptions = {
+            headers: {
+                'Authorization': `Bearer ${import.meta.env.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        };
+
+        console.log(`Fetching OG summary for ${url} with authentication`);
+    }
 }
 
 const properties = await ogs({ url, fetchOptions }).then((data: any) => {
