@@ -1,74 +1,27 @@
 ---
 title: "Hytale"
 description: "A sandbox game by Hypixel Studios"
-status: "Archived"
+status: "Active"
 weight: 10
 heroImage: "../../../images/project-headers/hytale.jpg"
 url: "https://hytale.com/"
-tags: ["cpp", "flecs", "game-engine", "game-dev"]
+tags: ["csharp", "java", "cpp", "flecs", "game-engine", "game-dev"]
 ---
 import ExternalLink from '../../../components/ExternalLink.astro';
 import Image from '../../../components/Image.astro';
-import Video from '../../../components/Video.astro';
 import logoImage from './hytale-logo.webp';
-import screenshotBlockTypes from './screenshot-block-types.jpg';
-import screenshotCaveSunshaft from './screenshot-cave-sunshaft.jpg';
-import screenshotCraftedSword from './screenshot-crafted-sword.jpg';
-import screenshotDungeonPortal from './screenshot-dungeon-portal.jpg';
-import screenshotFarming from './screenshot-farming.jpg';
-import screenshotIceDragon from './screenshot-ice-dragon.jpg';
-import screenshotSkeletonFight from './screenshot-skeleton-fight.jpg';
-import screenshotUnderwaterDangers from './screenshot-underwater-dangers.jpg';
-import screenshotUnderwaterEffects from './screenshot-underwater-effects.jpg';
-import screenshotVista from './screenshot-vista.jpg';
-import screenshotZone2Fight from './screenshot-zone-2-fight.jpg';
-import screenshotZone3SunshaftAndBloom from './screenshot-zone-3-sunshaft-and-bloom.jpg';
-import videoAvatarsBuildTogether from './video-avatars-build-together.mp4';
-import videoCombatActionEvaluator from './video-combat-action-evaluator.mp4';
-import videoDeadeyePigeon from './video-deadeye-pigeon.mp4';
-import videoPvP from './video-pvp.mp4';
-import videoSkeletonBattle from './video-skeleton-battle.mp4';
-import videoTrorkFindsMeat from './video-trork-finds-meat.mp4';
+import howlingSandsImage from './howling-sands.jpg';
 
 <div style="margin: 2rem 0;">
     <Image src={logoImage} alt="Logo" caption="" width="400px" />
 </div>
 
-Hytale was a sandbox game under development at <ExternalLink url="https://hypixelstudios.com/">Hypixel Studios</ExternalLink>, where I worked as a senior software engineer. During my time in this role, I worked on various aspects of the game, including gameplay features, UI, and the technology behind Hytale's NPC behaviours.
+Hytale is a sandbox game that was previously under development at Hypixel Studios, where I worked as a software engineer. After a long development timeline, it was cancelled in 2025 and Hypixel Studios was closed.
 
-It was built on a proprietery voxel engine developed in-house using <ExternalLink url="https://www.flecs.dev/flecs/">Flecs</ExternalLink>, a C/C++ ECS library. If you'd like to read more about the tech, you can find links to the official technical posts below.
+In November 2025, the original founders of Hypixel Studios successfully closed a deal with Riot to re-acquire the project in order to finally deliver it to fans around the world through early access.
 
-* <ExternalLink url="https://web.archive.org/web/20250624000316/https://hytale.com/news/2024/12/technical-explainer-powering-up-with-launch-pads">December 2024 Technical Explainer: Powering Up with Launch Pads</ExternalLink>
-* <ExternalLink url="https://web.archive.org/web/20250624000303/https://hytale.com/news/2024/6/summer-2024-technical-explainer-hytale-s-entity-component-system-oPwpCAMdI">Summer 2024 Technical Explainer: Hytale's Entity Component System</ExternalLink>
+During my eight years with the original studio, I worked on many aspects of the game across both its original C# client and Java server as well as its newer C++ engine developed using <ExternalLink url="https://www.flecs.dev/flecs/">Flecs</ExternalLink> as its architectural backbone.
 
-You can read more about the game on the <ExternalLink url="https://web.archive.org/web/20250624000305/https://www.hytale.com/news">official blog</ExternalLink>.
+You can read more about the game on the <ExternalLink url="https://www.hytale.com/">official website</ExternalLink>.
 
-See below for a selection of in-engine videos and screenshots. The full set of Hytale media is also available on <ExternalLink url="https://archive.org/details/hytale-website-media-page-archive/">archive.org</ExternalLink>.
-
-### Videos
-
-<div class="grid grid--2">
-    <Video src={videoCombatActionEvaluator} caption="Combat action evaluator" />
-    <Video src={videoTrorkFindsMeat} caption="Trork finds meat" />
-    <Video src={videoSkeletonBattle} caption="Co-op skeleton battle" />
-    <Video src={videoPvP} caption="PvP" />
-    <Video src={videoAvatarsBuildTogether} caption="Avatars build together" />
-    <Video src={videoDeadeyePigeon} caption="Deadeye pigeon" />
-</div>
-
-### Screenshots
-
-<div class="grid grid--3">
-    <Image src={screenshotBlockTypes} alt="Block types" />
-    <Image src={screenshotCaveSunshaft} alt="Cave sunshaft" />
-    <Image src={screenshotCraftedSword} alt="Crafted sword" />
-    <Image src={screenshotDungeonPortal} alt="Dungeon portal" />
-    <Image src={screenshotFarming} alt="Farming" />
-    <Image src={screenshotIceDragon} alt="Ice dragon" />
-    <Image src={screenshotSkeletonFight} alt="Skeleton fight" />
-    <Image src={screenshotUnderwaterDangers} alt="Underwater dangers" />
-    <Image src={screenshotUnderwaterEffects} alt="Underwater effects" />
-    <Image src={screenshotVista} alt="Vista" />
-    <Image src={screenshotZone2Fight} alt="Zone 2 fight" />
-    <Image src={screenshotZone3SunshaftAndBloom} alt="Zone 3 sunshaft and bloom" />
-</div>
+<Image src={howlingSandsImage} alt="Howling Sands wallpaper" />
