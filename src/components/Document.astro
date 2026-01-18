@@ -14,7 +14,7 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="system" class="scrolled">
+<html lang="en" data-theme="dark" class="scrolled">
     <head>
         <!-- Global Metadata -->
         <meta charset="utf-8" />
@@ -45,11 +45,6 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
 
         <link rel="preload" href="/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" />
         <link rel="preload" href="/fonts/SourceSans3.woff2" as="font" type="font/woff2" />
-
-        <script is:inline>
-            document.documentElement.dataset.theme =
-                localStorage.getItem("theme") ?? "system";
-        </script>
     </head>
     <body>
         <slot></slot>

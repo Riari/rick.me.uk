@@ -29,9 +29,3 @@
 html[data-theme="light"] {
     @include theme-light;
 }
-
-@media (prefers-color-scheme: light) {
-    html[data-theme="system"] {
-        @include theme-light;
-    }
-}

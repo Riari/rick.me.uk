@@ -259,12 +259,6 @@ html[data-theme="light"] {
     @include theme-light;
 }
 
-@media (prefers-color-scheme: light) {
-    html[data-theme="system"] {
-        @include theme-light;
-    }
-}
-
 @media only screen and (max-width: breakpoints.$small) {
     h1 {
         font-size: 2.6em;

@@ -6,10 +6,11 @@ const mediumZoomBackgroundDark = "#21212b";
 var zoom: Zoom;
 
 function applyTheme(name: string) {
-    document.documentElement.dataset.theme = name;
-
     const prefersDark = (name == "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
         || name == "dark";
+
+    // Set the resolved theme to data-theme for compatibility with astro-mermaid
+    document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
 
     zoom.update({
         background: prefersDark
@@ -24,6 +25,14 @@ const themeIndexMap: Map<string, number> = new Map();
 themeIndexMap.set("system", 0);
 themeIndexMap.set("dark", 1);
 themeIndexMap.set("light", 2);
+
+// Listen for system theme changes
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    const currentTheme = localStorage.getItem("theme") ?? "system";
+    if (currentTheme === "system") {
+        applyTheme("system");
+    }
+});
 
 if (themeRadios.length > 0) {
     themeRadios[themeIndexMap.get(theme)!].checked = true;

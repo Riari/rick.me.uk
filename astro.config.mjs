@@ -31,7 +31,8 @@ export default defineConfig({
 
             return `[data-theme='${siteTheme}']`;
         }
-    }), mdx()],
+    }),
+    mdx()],
     image: {
         remotePatterns: [{ protocol: "https" }],
     }
