@@ -7,6 +7,9 @@ import astroExpressiveCode from 'astro-expressive-code';
 // https://astro.build/config
 export default defineConfig({
     site: 'https://www.rick.me.uk/',
+    redirects: {
+        "/posts/2026/01/devlog-flecs-city-part-3-network-messages-and-replication/": "/posts/2026/01/devlog-flecs-city-part-3-ecs-replication"
+    },
     integrations: [sitemap(), robotsTxt(), astroExpressiveCode({
         themes: ['material-theme-palenight', 'github-light'],
         styleOverrides: {
