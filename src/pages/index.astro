@@ -55,7 +55,7 @@ const projects = (await loadAndFormatCollection("projects", false))
                     </a>
                 </div>
                 <div class="card-grid">
-                    {posts.map(post => <PostCard post={post} showBody={false} showTags={false} />)}
+                    {posts.map(post => <PostCard post={post} showBody={true} showTags={false} />)}
                 </div>
             </div>
 

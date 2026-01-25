@@ -94,6 +94,16 @@
             }
         }
 
+        &--posts {
+            .item-card-inner-header {
+                margin-bottom: .5em;
+            }
+
+            .item-card-inner-body {
+                color: palette.$color-muted-3;
+            }
+        }
+
         &--projects {
             .item-card-inner-header {
                 display: flex;
@@ -234,7 +244,7 @@
             &__label {
                 padding: 0.2em 0;
                 font-weight: 700;
-            min-width: 200px;
+                min-width: 200px;
                 color: palette.$color-muted-3;
             }
 
