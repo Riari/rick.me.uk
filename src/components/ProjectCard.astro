@@ -1,18 +1,18 @@
 ---
 import ItemCard from "./ItemCard.astro";
-import { statusToBadgeClass } from "../util/frontmatter";
+import { typeToBadgeClass } from "../util/frontmatter";
 
 const { project, showBody, showTags } = Astro.props;
 
-const statusClass = statusToBadgeClass(project.data.status);
+const typeClass = typeToBadgeClass(project.data.type);
 ---
 
 <ItemCard item={project} showBody={showBody}>
     <span
-        class:list={["item-card-inner-header-status", statusClass]}
+        class:list={["item-card-inner-header-type", typeClass]}
         slot="before-title"
     >
-        {project.data.status}
+        {project.data.type}
     </span>
     { showTags &&
         <div class="item-card-inner-footer-tags" slot="footer">

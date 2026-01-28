@@ -107,6 +107,7 @@
         &--projects {
             .item-card-inner-header {
                 display: flex;
+                gap: .1em;
                 align-items: start;
                 flex-direction: row-reverse;
                 margin-bottom: .5em;

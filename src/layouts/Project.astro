@@ -5,14 +5,14 @@ import Document from "../components/Document.astro";
 import ExternalLink from "../components/ExternalLink.astro";
 import Head from "../components/Head.astro";
 import { loadAndFormatCollection } from "../util/collection";
-import { statusToBadgeClass } from "../util/frontmatter";
+import { typeToBadgeClass } from "../util/frontmatter";
 import { truncate } from "../util/string";
 
 type Props = CollectionEntry<"projects">["data"];
 
-const { title, description, status, heroImage, url, tags } = Astro.props;
+const { title, description, type, heroImage, url, tags } = Astro.props;
 
-const statusClass = statusToBadgeClass(status);
+const typeClass = typeToBadgeClass(type);
 const linkLabel = new URL(url).hostname;
 
 const projects: any[] = (await loadAndFormatCollection("projects", false)).sort(
@@ -63,7 +63,7 @@ if (nextProject != null) {
             <div class="inner-container">
                 <div class="project-fields">
                     <span class="badge-joined">
-                        <span class="badge badge--muted-4">Status</span><span class={statusClass}>{status}</span>
+                        <span class="badge badge--muted-4">Type</span><span class={typeClass}>{type}</span>
                     </span>
                     <span class="badge-joined">
                         <span class="badge badge--muted-4">Link</span><span class="badge badge--muted-3"><ExternalLink url={url}>{linkLabel}</ExternalLink></span>

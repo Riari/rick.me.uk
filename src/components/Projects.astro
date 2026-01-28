@@ -1,13 +1,13 @@
 ---
-import { projectStatuses } from "../content/config";
+import { projectTypes } from "../content/config";
 import ContentFooter from "./ContentFooter.astro";
 import Document from "./Document.astro";
 import ExternalLink from "./ExternalLink.astro";
 import Head from "./Head.astro";
 import ProjectCard from "./ProjectCard.astro";
-import { statusToBadgeClass } from "../util/frontmatter";
+import { typeToBadgeClass } from "../util/frontmatter";
 
-const { projects, statusFilter = null } = Astro.props;
+const { projects, typeFilter = null } = Astro.props;
 ---
 
 <Document title="Projects">
@@ -24,26 +24,26 @@ const { projects, statusFilter = null } = Astro.props;
                     You can find more of my software projects on <ExternalLink url="https://github.com/Riari">GitHub</ExternalLink>.
 
                     <p>
-                        Filter by status:
+                        Filter by type:
                         <br />
                         {
-                            projectStatuses.map((status: string) => (
+                            projectTypes.map((type: string) => (
                                 <a
-                                    href={`/projects/status/${status.toLocaleLowerCase()}/`}
+                                    href={`/projects/type/${type.toLocaleLowerCase()}/`}
                                     class:list={[
-                                        statusToBadgeClass(status),
-                                        statusFilter === status.toLocaleLowerCase()
+                                        typeToBadgeClass(type),
+                                        typeFilter === type.toLocaleLowerCase()
                                             ? "badge--active"
                                             : "",
                                     ]}
                                 >
-                                    {status}
+                                    {type}
                                 </a>
                             ))
                         }
 
                         {
-                            statusFilter ? (
+                            typeFilter ? (
                                 <span>
                                     (<a href="/projects/" class="no-decoration">Reset</a>)
                                 </span>

@@ -11,20 +11,21 @@ const posts = defineCollection({
     }),
 });
 
-export enum ProjectStatus {
-    Active = 'Active',
-    Complete = 'Complete',
-    Archived = 'Archived',
+export enum ProjectType {
+    Game = 'Game',
+    Tool = 'Tool',
+    Package = 'Package',
+    Website = 'Website',
 }
 
-export const projectStatuses: string[] = Object.values(ProjectStatus)
+export const projectTypes: string[] = Object.values(ProjectType)
 
 const projects = defineCollection({
     type: 'content',
     schema: ({ image }) => z.object({
         title: z.string(),
         description: z.string(),
-        status: z.enum((projectStatuses as [string, ...string[]])),
+        type: z.enum((projectTypes as [string, ...string[]])),
         weight: z.number(),
         heroImage: image(),
         url: z.string().url(),

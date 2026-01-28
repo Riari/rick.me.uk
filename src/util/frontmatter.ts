@@ -1,13 +1,15 @@
-import { ProjectStatus } from "../content/config"
+import { ProjectType } from "../content/config"
 
-export function statusToBadgeClass(status: string) {
-    switch (status) {
-        case ProjectStatus.Active:
-            return 'badge badge--accent-4'
-        case ProjectStatus.Complete:
+export function typeToBadgeClass(type: string) {
+    switch (type) {
+        case ProjectType.Game:
+            return 'badge badge--accent-5'
+        case ProjectType.Tool:
+            return 'badge badge--accent-7'
+        case ProjectType.Package:
             return 'badge badge--accent-2'
-        case ProjectStatus.Archived:
-            return 'badge badge--accent-3'
+        case ProjectType.Website:
+            return 'badge badge--accent-4'
         default:
             return ''
     }

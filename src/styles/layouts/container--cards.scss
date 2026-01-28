@@ -98,8 +98,8 @@
                         color: palette.$color-muted-3;
                     }
 
-                    &-status .badge {
-                        font-size: 1.3rem;
+                    &-type {
+                        margin-left: 1em;
                     }
                 }
 
@@ -130,11 +130,13 @@
 
                     &-tags {
                         position: relative;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: .3em;
                         z-index: 200;
 
                         a {
-                            display: inline-block;
-                            margin-right: .5rem;
+                            flex: 0 0 auto;
                             padding: 0 .4rem;
                             border-radius: .3em;
                             background: palette.$color-background-main-1;
@@ -238,6 +240,10 @@ html[data-theme="light"] {
 
                 &-title {
                     margin-bottom: .3em;
+                }
+
+                &-type {
+                    margin-left: 0;
                 }
             }
 
