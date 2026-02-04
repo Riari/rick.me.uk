@@ -3,6 +3,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 import astroExpressiveCode from 'astro-expressive-code';
+import projectWeightManager from './integrations/project-weight-manager.mjs';
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,7 +37,8 @@ export default defineConfig({
             return `[data-theme='${siteTheme}']`;
         }
     }),
-    mdx()],
+    mdx(),
+    projectWeightManager()],
     image: {
         remotePatterns: [{ protocol: "https" }],
     }
