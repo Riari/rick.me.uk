@@ -8,7 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "new-post": "node scripts/new-post.mjs",
+    "new-project": "node scripts/new-project.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
