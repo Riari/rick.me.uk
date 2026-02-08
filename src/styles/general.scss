@@ -17,21 +17,6 @@ body {
     font-family: typography.$font-family-sans-serif;
     font-size: 18px;
     color: palette.$color-foreground-dark;
-
-    &:before {
-        display: none;
-        content: "";
-        z-index: -1;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-image: url('/images/bg-noise.png');
-        background-position: 50% 0%;
-        background-repeat: repeat;
-        opacity: 0.5;
-    }
 }
 
 a {
