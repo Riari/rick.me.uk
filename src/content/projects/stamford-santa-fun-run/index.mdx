@@ -1,0 +1,34 @@
+---
+title: "stamfordsantafunrun.com"
+description: "A website for a local charity event"
+type: "Website"
+weight: 90
+heroImage: "../../../images/project-headers/stamford-sfr.jpg"
+url: "https://www.stamfordsantafunrun.com/"
+tags: ["web", "php", "js", "laravel"]
+---
+import ExternalLink from '../../../components/ExternalLink.astro';
+import Image from '../../../components/Image.astro';
+import screenshotEntry1 from './screenshot-entry-1.png';
+import screenshotEntry2 from './screenshot-entry-2.png';
+import screenshotDashboard from './screenshot-dashboard.png';
+
+I built this website for the Rotary Club of Stamford Burghley in 2009 to facilitate online entries to their annual Santa Fun Run event.
+
+I originally designed and developed it from scratch on top of a Content Management System (CMS) I wrote in PHP as a university project. I migrated it to Laravel in 2014 and have kept it up-to-date ever since.
+
+It currently runs on Laravel 11. Feature highlights include:
+
+* A custom multi-page event entry flow implementing Vue.js for dynamic elements
+* PayPal and Stripe integrations for entry payments
+* An admin control panel built with the <ExternalLink url="https://filamentphp.com/">Filament UI framework</ExternalLink>, enabling event organisers to open or close the event, manage users, manage entrants and teams, and edit content
+* A data-driven permission system built on Laravel's Authorization system
+* An account management frontend for users to manage their address information, entries, teams, and other account details
+* Transactional email delivery with <ExternalLink url="https://postmarkapp.com/">Postmark</ExternalLink> integration
+* A custom, fully responsive design
+
+The event is now organised by the <ExternalLink url="https://www.stamfordstriders.org/">Stamford Striders running club</ExternalLink> and I work with them to deliver new features, fixes and improvements to the website year-on-year.
+
+<Image src={screenshotEntry1} alt="Event entry (step 1)" caption="Event entry (step 1)" />
+<Image src={screenshotEntry2} alt="Event entry (step 2)" caption="Event entry (step 2)" />
+<Image src={screenshotDashboard} alt="Admin dashboard" caption="Admin dashboard" />
