@@ -3,12 +3,12 @@ title: "Unreal Action RPG"
 description: "An action RPG demo built in Unreal Engine"
 type: "Game"
 weight: 40
-heroImage: "../../../images/project-headers/unreal-action-rpg.jpg"
+headerImage: "../../../assets/project-headers/unreal-action-rpg.jpg"
 url: "https://github.com/Riari/unreal-arpg"
 tags: ["cpp", "unreal-engine", "game-dev"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
-import { YouTube } from 'astro-embed';
+import ExtLink from '../../../components/ExtLink.astro';
+import Video from '../../../components/Video.astro';
 
 I started developing this ARPG demo in Unreal 5 in late 2024. It's an active project that I revisit from time to time with some long-term ideas and goals.
 
@@ -16,13 +16,11 @@ My main goal with this is to learn more about what goes into a satisfying ARPG o
 
 Currently, it consists of a dungeon level, a player character, a mob type with rudimentary AI, movement and melee animations, player health, HUD, combat and ambient sound effects, and occlusion masking.
 
-You can find the source code (as well as a roadmap with systems and features I'm interested in adding) at <ExternalLink url="https://github.com/Riari/unreal-arpg">Riari/unreal-arpg</ExternalLink>.
+You can find the source code (as well as a roadmap with systems and features I'm interested in adding) at <ExtLink url="https://github.com/Riari/unreal-arpg">Riari/unreal-arpg</ExtLink>.
 
 Here's how it looks in action:
 
-<div class="video-container">
-    <YouTube id="eMOvtCQe61s" />
-</div>
+<Video src="eMOvtCQe61s" isYouTube={true} />
 
 <hr />
 

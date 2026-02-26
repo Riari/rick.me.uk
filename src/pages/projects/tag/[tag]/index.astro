@@ -1,9 +1,10 @@
 ---
-import ContentFooter from "../../../../components/ContentFooter.astro";
-import Document from "../../../../components/Document.astro";
-import Head from "../../../../components/Head.astro";
+import { loadAndFormatCollection, getTags } from "../../../../scripts/utils/collection";
+
+import Layout from "../../../../layouts/Layout.astro";
+import Container from "../../../../components/Container.astro";
+import Header from "../../../../components/Header.astro";
 import ProjectCard from "../../../../components/ProjectCard.astro";
-import { loadAndFormatCollection, getTags } from "../../../../util/collection";
 
 export async function getStaticPaths() {
     const projects = await loadAndFormatCollection("projects", false);
@@ -27,31 +28,35 @@ const tagHasPosts =
     posts.filter((post: any) => post.data.tags.includes(tag)).length > 0;
 ---
 
-<Document title={`Projects tagged with '${tag}'`}>
-    <div class="container container--projects container--cards">
-        <div class="head-container">
-            <Head title="Projects">
-                <h2 class="subheading">Tagged with '{tag}'</h2>
-            </Head>
+<Layout title={`Projects tagged with '${tag}'`}>
+    <Container maxWidth="900px">
+        <Header title="Projects">
+            <h2>Tagged with '{tag}'</h2>
+
+            {
+                tagHasPosts ? (
+                    <div class="see-also">
+                        There are also
+                        <a href={`/posts/tag/${tag}/1`}>posts with this tag</a>
+                    </div>
+                ) : null
+            }
+        </Header>
+
+        <div class="grid grid-2">
+            {projects.map((project) => <ProjectCard project={project} showBody={true} />)}
         </div>
+    </Container>
+</Layout>
 
-        <div class="body">
-            <div class="inner-container">
-                {
-                    tagHasPosts ? (
-                        <p class="text-center text--muted-3" style="margin-top: 0;">
-                            There are also
-                            <a href={`/posts/tag/${tag}/1`}>posts with this tag</a>
-                        </p>
-                    ) : null
-                }
+<style lang="scss">
+h2 {
+    font-variation-settings: "wdth" 100;
+    font-weight: 500;
+    color: var(--color-foreground-muted-2);
+}
 
-                <div class="card-grid">
-                    {projects.map((project) => <ProjectCard project={project} showBody={true} />)}
-                </div>
-            </div>
-        </div>
-
-        <ContentFooter />
-    </div>
-</Document>
+.see-also {
+    font-size: 1.2rem;
+}
+</style>

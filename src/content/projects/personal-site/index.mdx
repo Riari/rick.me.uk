@@ -3,16 +3,20 @@ title: "rick.me.uk"
 description: "You're looking at it!"
 type: "Website"
 weight: 100
-heroImage: "../../../images/project-headers/personal-site.png"
+headerImage: "../../../assets/project-headers/personal-site.png"
 url: "https://www.rick.me.uk/"
 tags: ["web", "js", "static-site-generation"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
+import ExtLink from '../../../components/ExtLink.astro';
 import OpenGraphSummary from '../../../components/OpenGraphSummary.astro';
+import Image from '../../../components/Image.astro';
+import image2025Design from './2025-design.png';
 
-Originally built with <ExternalLink url="https://gohugo.io/">Hugo</ExternalLink>, I rebuilt my personal site with <ExternalLink url="https://astro.build/">Astro</ExternalLink> in 2024. I've built many other websites for myself over the years, but this one has lasted the longest as I've gradually expanded it from a single page with some basic details about myself to the version you see now with posts and examples of my work.
+Originally built with <ExtLink url="https://gohugo.io/">Hugo</ExtLink>, I rebuilt my personal site with <ExtLink url="https://astro.build/">Astro</ExtLink> in 2024. I've built many other websites for myself over the years, but this one has lasted the longest as I've gradually expanded it from a single page with some basic details about myself to the version you see now with posts and examples of my work.
 
-It has a completely custom responsive design with a colour palette based on the popular _Palenight_ syntax theme, content written in a blend of Markdown and <ExternalLink url="https://mdxjs.com/">MDX</ExternalLink>, and styles written in <ExternalLink url="https://sass-lang.com/">SCSS</ExternalLink>.
+In 2026, I gave the site a full redesign in a fresh Astro project. It has a completely custom responsive design, content written in a blend of Markdown and <ExtLink url="https://mdxjs.com/">MDX</ExtLink>, and styles written in <ExtLink url="https://sass-lang.com/">SCSS</ExtLink>.
+
+<Image src={image2025Design} alt="The previous design" caption="The previous design" style="max-width: 600px;" />
 
 The source is available on GitHub:
 

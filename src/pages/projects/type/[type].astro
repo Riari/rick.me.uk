@@ -1,12 +1,12 @@
 ---
 import { projectTypes } from "../../../content/config";
-import { loadAndFormatCollection } from "../../../util/collection";
-import Projects from "../../../components/Projects.astro";
+import { loadAndFormatCollection } from "../../../scripts/utils/collection";
+import Projects from "../../../layouts/Projects.astro";
 
 export async function getStaticPaths() {
     return projectTypes.map((type: string) => ({
         params: { type: type.toLocaleLowerCase() }
-    }))
+    }));
 }
 
 const { type } = Astro.params;

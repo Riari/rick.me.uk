@@ -2,10 +2,10 @@
 title: "Devlog: Flecs City (Part 2)"
 description: "Library and architecture changes"
 pubDate: 2025-09-25
-heroImage: "../../../images/post-headers/pixellated-code-2.png"
+headerImage: "../../../assets/post-headers/pixellated-code-2.png"
 tags: ["devlog", "cpp", "flecs", "ecs"]
 ---
-import ExternalLink from "../../../components/ExternalLink.astro";
+import ExtLink from "../../../components/ExtLink.astro";
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
 
 It's been a while since I [last posted back in May](/posts/2025/05/devlog-flecs-city/). A lot has happened since then: Hytale was cancelled, I entered the job market for the first time in eight years, I spent a few months focusing on sharpening my skills and building my portfolio, and I was lucky enough to catch the interest of several studios. Ultimately I accepted an offer from one of those studios and I'm now working full time on an Unreal Engine project.
@@ -14,9 +14,9 @@ Since settling into that new job, I decided to revisit this project and wanted t
 
 ### Getting Raylib and ENet to co-exist
 
-In the previous post, I mentioned a bug with GameNetworkingSockets on Linux, which I <ExternalLink url="https://github.com/ValveSoftware/GameNetworkingSockets/issues/380">reported here</ExternalLink>. I've not been able to figure this one out and don't feel like investigating it further, so I decided to replace GNS with <ExternalLink url="https://github.com/lsalzman/enet">ENet</ExternalLink>, which is a popular UDP library that has been around for many years and should be more than enough for my purposes. Of course it lacks the Steam integration, but I don't need that for this project.
+In the previous post, I mentioned a bug with GameNetworkingSockets on Linux, which I <ExtLink url="https://github.com/ValveSoftware/GameNetworkingSockets/issues/380">reported here</ExtLink>. I've not been able to figure this one out and don't feel like investigating it further, so I decided to replace GNS with <ExtLink url="https://github.com/lsalzman/enet">ENet</ExtLink>, which is a popular UDP library that has been around for many years and should be more than enough for my purposes. Of course it lacks the Steam integration, but I don't need that for this project.
 
-Switching to it was not the smoothest experience because it uses some Windows headers that lead to collisions with Raylib function names, an issue that has been discussed at length in <ExternalLink url="https://github.com/raysan5/raylib/issues/1217">this GitHub issue</ExternalLink>. For reasons that aren't very clear to me, the author of Raylib has no plans to prefix the library's function names (despite that being a common practice in C where namespacing doesn't exist), making them prone to this type of issue when you're using Windows APIs (whether directly or indirectly).
+Switching to it was not the smoothest experience because it uses some Windows headers that lead to collisions with Raylib function names, an issue that has been discussed at length in <ExtLink url="https://github.com/raysan5/raylib/issues/1217">this GitHub issue</ExtLink>. For reasons that aren't very clear to me, the author of Raylib has no plans to prefix the library's function names (despite that being a common practice in C where namespacing doesn't exist), making them prone to this type of issue when you're using Windows APIs (whether directly or indirectly).
 
 To work around that issue, after some trial and error, I found it was enough to set a few definitions via CMake:
 

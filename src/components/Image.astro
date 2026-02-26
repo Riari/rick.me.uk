@@ -8,3 +8,15 @@ const { src, alt, caption, width = "auto", height = "auto", inferSize = false, z
     <AstroImage src={src} alt={alt} width={width} height={height} inferSize={inferSize} data-zoomable={zoomable ? "" : undefined} style={style} />
     {caption && <div class="caption">{caption}</div>}
 </div>
+
+<style lang="scss">
+.image-container {
+    text-align: center;
+
+    :global(img) {
+        max-width: 100%;
+        width: auto;
+        height: auto;
+    }    
+}
+</style>

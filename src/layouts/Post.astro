@@ -1,17 +1,20 @@
 ---
-import ContentFooter from "../components/ContentFooter.astro";
-import Document from "../components/Document.astro";
-import Head from "../components/Head.astro";
-import TableOfContents from "../components/TableOfContents.astro";
-import { loadAndFormatCollection } from "../util/collection";
-import { truncate } from "../util/string";
 import type { MarkdownHeading } from "astro";
+
+import { loadAndFormatCollection, projectTypeToAccent } from "../scripts/utils/collection";
+import { truncate } from "../scripts/utils/string";
+
+import Layout from "./Layout.astro";
+import Container from "../components/Container.astro";
+import Header from "../components/Header.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import AdjacentContentLinks from "../components/AdjacentContentLinks.astro";
 
 interface Props {
     title: string;
     description: string;
     pubDate: Date;
-    heroImage: {
+    headerImage: {
         src: string;
         width: Number;
         height: Number;
@@ -21,7 +24,7 @@ interface Props {
     headings: MarkdownHeading[];
 }
 
-const { title, description, pubDate, heroImage, tags, headings } = Astro.props as Props;
+const { title, description, pubDate, headerImage, tags, headings } = Astro.props;
 
 const posts: any[] = (await loadAndFormatCollection("posts")).sort(
     (a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
@@ -47,83 +50,127 @@ if (nextPost != null) {
 }
 ---
 
-<Document title={title} description={description}>
-    <div class="container container--post">
-        <div class="head-container">
-            <Head title={title} backgroundImage={heroImage}>
-                <h2 class="subheading">{description}</h2>
+<Layout title={title} withNavbar={true} withShapes={false} withGradient={false}>
+    <Container maxWidth="1100px">
+        <Header title={title} backgroundImage={headerImage}>
+            {description}
 
-                <ul class="button-group button-group--accent-5 text-center">
-                    {
-                        tags.map((tag) => (
-                            <li>
-                                <a href={`/posts/tag/${tag}/1`}>
-                                    <span>{tag}</span>
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </Head>
+            <ul slot="after" class="tags">
+                {tags.map(tag => (<li><a href={`/posts/tag/${tag}`}>{tag}</a></li>))}
+            </ul>
+        </Header>
+
+        <div class="publish-date">
+            {pubDate.toLocaleString("default", { month: "long" })}
+            {pubDate.getDate()}, {pubDate.getFullYear()}
         </div>
+    </Container>
 
-        <div class="body">
-            <div class="inner-container">
-                <div class="publish-date">
-                    <div>
-                        {pubDate.toLocaleString("default", { month: "long" })}
-                        {pubDate.getDate()}, {pubDate.getFullYear()}
+    <div class="content">
+        {
+            headings.length > 0
+                ? (
+                    <div class="content-toc">
+                        <TableOfContents headings={headings} />
                     </div>
-                </div>
-            </div>
+                )
+                : <div class="content-filler"></div>
+        }
 
-            <div class="post-grid">
-                {
-                    headings.length > 0
-                        ? (
-                            <div class="post-grid-toc">
-                                <TableOfContents headings={headings} />
-                            </div>
-                        )
-                        : <div class="post-grid-filler"></div>
-                }
-                <div class="post-grid-content">
-                    <article>
-                        <slot />
-                    </article>
+        <article>
+            <slot />
+        </article>
 
-                    <hr />
-
-                    <div class="adjacent-content-links">
-                        <div class="previous">
-                            {
-                                prevPost != null && (
-                                    <a href={prevPost.absoluteURL}>
-                                        <span class="prefix">‹ Previous post</span>
-                                        <br />
-                                        <span class="title">{prevPost.data.title}</span>
-                                    </a>
-                                )
-                            }
-                        </div>
-
-                        <div class="next">
-                            {
-                                nextPost != null && (
-                                    <a href={nextPost.absoluteURL}>
-                                        <span class="prefix">Next post ›</span>
-                                        <br />
-                                        <span class="title">{nextPost.data.title}</span>
-                                    </a>
-                                )
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="post-grid-filler"></div>
-            </div>
-        </div>
-
-        <ContentFooter />
+        <div class="content-filler"></div>
     </div>
-</Document>
+
+    <Container maxWidth="900px">
+        <hr />
+
+        <AdjacentContentLinks
+            leftItem={prevPost}
+            leftLabel="Previous post"
+            rightItem={nextPost}
+            rightLabel="Next post" />
+    </Container>
+</Layout>
+
+<style lang="scss">
+.publish-date {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--color-foreground-muted-3);
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    max-width: 100%;
+    font-size: 1.2rem;
+    color: var(--color-foreground-muted-1);
+
+    &-toc {
+        flex: 1;
+        min-width: 200px;
+        font-size: 1.1rem;
+    }
+
+    article {
+        flex: 1 1 900px;
+        min-width: 0;
+        width: 100%;
+        max-width: 900px;
+        padding: 0 2rem;
+        box-sizing: border-box;
+    }
+
+    &-filler {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    :global(h1, h2, h3) {
+        margin: 3rem 0 1rem 0;
+        font-variation-settings: "wdth" 100;
+    }
+
+    :global(h2, h3) {
+        scroll-margin-top: 2em;
+    }
+
+    :global(h3) {
+        font-size: 2rem;
+    }
+
+    :global(h4) {
+        font-size: 1.25em;
+    }
+}
+
+@media (width < 48rem) {
+    .content {
+        flex-direction: column;
+
+        &-toc {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 860px;
+            padding: 0 1.5rem;
+            margin: 0 auto 1.5rem auto;
+
+            :global(.toc) {
+                position: static;
+                top: auto;
+            }
+        }
+
+        article {
+            margin: 0 auto;
+        }
+    }
+}
+</style>

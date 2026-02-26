@@ -1,18 +1,16 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import ContentFooter from "../components/ContentFooter.astro";
-import Document from "../components/Document.astro";
-import ExternalLink from "../components/ExternalLink.astro";
-import Head from "../components/Head.astro";
-import { loadAndFormatCollection } from "../util/collection";
-import { typeToBadgeClass } from "../util/frontmatter";
-import { truncate } from "../util/string";
+import Layout from "./Layout.astro";
+import { loadAndFormatCollection, projectTypeToAccent } from "../scripts/utils/collection";
+import { truncate } from "../scripts/utils/string";
 
-type Props = CollectionEntry<"projects">["data"];
+import Container from "../components/Container.astro";
+import Header from "../components/Header.astro";
+import ExtLink from "../components/ExtLink.astro";
+import AdjacentContentLinks from "../components/AdjacentContentLinks.astro";
 
-const { title, description, type, heroImage, url, tags } = Astro.props;
+const { title, description, type, headerImage, url, tags } = Astro.props;
 
-const typeClass = typeToBadgeClass(type);
+const accent = projectTypeToAccent(type);
 const linkLabel = new URL(url).hostname;
 
 const projects: any[] = (await loadAndFormatCollection("projects", false)).sort(
@@ -39,75 +37,40 @@ if (nextProject != null) {
 }
 ---
 
-<Document title={title} description={description}>
-    <div class="container container--project">
-        <div class="head-container">
-            <Head title={title} backgroundImage={heroImage}>
-                <h2 class="subheading">{description}</h2>
+<Layout title={title} withNavbar={true} withShapes={false} withGradient={false}>
+    <Container maxWidth="1100px">
+        <Header title={title} backgroundImage={headerImage}>
+            {description}
 
-                <ul class="button-group button-group--accent-3 text-center">
-                    {
-                        tags.map((tag) => (
-                            <li>
-                                <a href={`/projects/tag/${tag}`}>
-                                    <span>{tag}</span>
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </Head>
+            <ul slot="after" class:list={["tags", accent]}>
+                {tags.map(tag => (<li><a href={`/projects/tag/${tag}`}>{tag}</a></li>))}
+            </ul>
+        </Header>
+
+        <ul class="pills">
+            <li class={accent}><span>Type</span><span>{type}</span></li>
+            <li><span>Link</span><span><ExtLink url={url}>{linkLabel}</ExtLink></span></li>
+        </ul>
+    </Container>
+
+    <Container maxWidth="900px">
+        <div class="content">
+            <slot />
         </div>
 
-        <div class="body">
-            <div class="inner-container">
-                <div class="project-fields">
-                    <span class="badge-joined">
-                        <span class="badge badge--muted-4">Type</span><span class={typeClass}>{type}</span>
-                    </span>
-                    <span class="badge-joined">
-                        <span class="badge badge--muted-4">Link</span><span class="badge badge--muted-3"><ExternalLink url={url}>{linkLabel}</ExternalLink></span>
-                    </span>
-                </div>
+        <hr />
 
-                <article>
-                    <slot />
-                </article>
+        <AdjacentContentLinks
+            leftItem={prevProject}
+            leftLabel="Previous project"
+            rightItem={nextProject}
+            rightLabel="Next project" />
+    </Container>
+</Layout>
 
-                <hr />
-
-                <div class="adjacent-content-links">
-                    <div class="previous">
-                        {
-                            prevProject != null && (
-                                <a href={prevProject.absoluteURL}>
-                                    <span class="prefix">‹ Previous project</span>
-                                    <br />
-                                    <span class="title">
-                                        {prevProject.data.title}
-                                    </span>
-                                </a>
-                            )
-                        }
-                    </div>
-
-                    <div class="next">
-                        {
-                            nextProject != null && (
-                                <a href={nextProject.absoluteURL}>
-                                    <span class="prefix">Next project ›</span>
-                                    <br />
-                                    <span class="title">
-                                        {nextProject.data.title}
-                                    </span>
-                                </a>
-                            )
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <ContentFooter />
-    </div>
-</Document>
+<style lang="scss">
+.content {
+    font-size: 1.2rem;
+    color: var(--color-foreground-muted-1);
+}
+</style>

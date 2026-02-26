@@ -1,21 +1,23 @@
 ---
+import Card from "./Card.astro";
 import FormattedDate from "./FormattedDate.astro";
-import ItemCard from "./ItemCard.astro";
 
-const { post, showBody, showTags } = Astro.props;
+interface Props {
+    post: any;
+    withTags?: boolean;
+}
+
+const { post, withTags = false } = Astro.props;
 ---
 
-<ItemCard item={post} showBody={showBody}>
-    <span class="item-card-inner-header-publish-date" slot="before-title">
-        <FormattedDate date={post.data.pubDate} />
-    </span>
-    { showTags &&
-        <div class="item-card-inner-footer-tags" slot="footer">
-            {
-                post.data.tags.map((tag: string) => (
-                    <a href={`/posts/tag/${tag}/1`}>{tag}</a>
-                ))
-            }
+<Card item={post}>
+    <div slot="before-title">
+        <div class="badge">
+            <FormattedDate date={post.data.pubDate} />
         </div>
-    }
-</ItemCard>
+    </div>
+
+    { withTags && <div class="links" slot="footer">
+        {post.data.tags.map((tag: string) => <a href={`/posts/tag/${tag}`}>{tag}</a>)}
+    </div>}
+</Card>

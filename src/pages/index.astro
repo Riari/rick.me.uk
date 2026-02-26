@@ -1,12 +1,19 @@
 ---
-import CloseIcon from "../components/Icons/CloseIcon.astro";
-import Document from "../components/Document.astro";
+import { Image } from "astro:assets";
+
+import { DrawingCompass } from "griddy-icons";
+
+import Layout from "../layouts/Layout.astro";
+
+import Section from "../components/Section.astro";
+import ExtLink from "../components/ExtLink.astro";
 import PostCard from "../components/PostCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import ExternalLink from "../components/ExternalLink.astro";
-import ThemeIcon from "../components/Icons/ThemeIcon.astro";
-import ThemeSelector from "../components/ThemeSelector.astro";
-import { loadAndFormatCollection } from "../util/collection";
+import Button from "../components/Button.astro";
+
+import logo from "../assets/logo.svg";
+
+import { loadAndFormatCollection } from "../scripts/utils/collection";
 
 const posts = (await loadAndFormatCollection("posts"))
     .sort(
@@ -19,108 +26,236 @@ const projects = (await loadAndFormatCollection("projects", false))
     .slice(0, 3);
 ---
 
-<Document title="Home">
-    <div class="container container--home container--cards">
-        <div class="inner-container">
-            <div class="site-title">
-                <h1><span style="margin-right: 0.2em;">›</span><span class="text--accent-1">rick</span>.<span class="text--accent-7">me</span>.<span class="text--accent-7">uk</span></h1>
+<Layout title="Home" withNavbar={false}>
+    <Section paddingBottom={false}>
+        <div class="header">
+            <Image src={logo} alt="" width={96} />
+        </div>
 
-                <div class="theme-selector-container">
-                    <a
-                        href="#"
-                        class="theme-selector-toggle"
-                        data-toggle=".theme-selector"
-                        title="Change theme"
-                    >
-                        <ThemeIcon width="28px" height="28px" />
-                        <CloseIcon width="28px" height="28px" />
-                    </a>
-                    <div class="theme-selector">
-                        <ThemeSelector />
-                    </div>
-                </div>
+        <div class="intro">
+            <div class="intro-name">
+                <h1>Rick<br>Mann<span>.</span></h1>
             </div>
-
-            <div class="intro">
-                Hi. I'm Rick, a software engineer working in the games industry.
-                <br>
-                You can also find me on <ExternalLink url="https://github.com/Riari">GitHub</ExternalLink> and <ExternalLink url="https://www.linkedin.com/in/rick-uk/">LinkedIn</ExternalLink>.
-            </div>
-
-            <div class="section section--posts section--accent-5">
-                <div class="section__heading">
-                    <h2>Posts</h2>
-                    <a href="/posts/1" class="section__heading-link button button--accent-5">
-                        <span>See more ›</span>
-                    </a>
-                </div>
-                <div class="card-grid">
-                    {posts.map(post => <PostCard post={post} showBody={true} showTags={false} />)}
-                </div>
-            </div>
-
-            <div class="section section--projects section--accent-3">
-                <div class="section__heading">
-                    <h2>Projects</h2>
-                    <a href="/projects" class="section__heading-link button button--accent-3">
-                        <span>See more ›</span>
-                    </a>
-                </div>
-                <div class="card-grid">
-                    {projects.map(project => <ProjectCard project={project} showBody={true} showTags={false} />)}
-                </div>
-            </div>
-
-            <div class="section section--accent-2">
-                <div class="section__heading">
-                    <h2>Proficiencies</h2>
-                </div>
-
-                <p>Some examples of technologies I'm experienced with (in no particular order).</p>
-
-                <div class="proficiencies__row">
-                    <div class="proficiencies__row__label">Languages</div>
-                    <div class="proficiencies__row__pills pills pills--accent-1">
-                        <span>C</span><span>C++</span><span>C#</span><span>Rust</span><span>Python</span><span>PHP</span><span>JavaScript</span>
-                    </div>
-                </div>
-                <div class="proficiencies__row">
-                    <div class="proficiencies__row__label">Frameworks</div>
-                    <div class="proficiencies__row__pills pills pills--accent-2">
-                        <span>.NET</span><span>Laravel</span><span>Express</span><span>Vue</span><span>React</span>
-                    </div>
-                </div>
-                <div class="proficiencies__row">
-                    <div class="proficiencies__row__label">Game Engines</div>
-                    <div class="proficiencies__row__pills pills pills--accent-3">
-                        <span>Unreal</span><span>Unity</span><span>Godot</span><span>Custom</span>
-                    </div>
-                </div>
-                <div class="proficiencies__row">
-                    <div class="proficiencies__row__label">Databases</div>
-                    <div class="proficiencies__row__pills pills pills--accent-4">
-                        <span>MySQL</span><span>PostgreSQL</span><span>MongoDB</span><span>Redis</span>
-                    </div>
-                </div>
-                <div class="proficiencies__row">
-                    <div class="proficiencies__row__label">Editors</div>
-                    <div class="proficiencies__row__pills pills pills--accent-5">
-                        <span>Neovim</span><span>JetBrains IDEs</span><span>VS Code</span>
-                    </div>
-                </div>
-                <div class="proficiencies__row">
-                    <div class="proficiencies__row__label">Platforms</div>
-                    <div class="proficiencies__row__pills pills pills--accent-6">
-                        <span>Desktop</span><span>Web</span><span>Mobile</span>
-                    </div>
-                </div>
-                <div class="proficiencies__row">
-                    <div class="proficiencies__row__label">Tools & Services</div>
-                    <div class="proficiencies__row__pills pills pills--accent-7">
-                        <span>Perforce</span><span>Git</span><span>Docker</span><span>AWS</span><span>Cloudflare</span>
-                    </div>
-                </div>
+            <div class="intro-text">
+                <p><strong>Hello<i>!</i></strong></p>
+                <p>I'm a senior software engineer with 15+ years of professional experience spanning game engineering and full-stack development.</p>
+                <p>See below for articles I've written and examples of my work.</p>
+                <p>You can also find me on <ExtLink url="https://github.com/Riari/">GitHub</ExtLink> and <ExtLink url="https://www.linkedin.com/in/rick-uk/">LinkedIn</ExtLink>.</p>
             </div>
         </div>
-    </div>
-</Document>
+
+        <hr />
+    </Section>
+
+    <Section withBackground={false}>
+        <div class="section-header">
+            <h2>Posts</h2>
+            <Button href="/posts/1">See more</Button>
+        </div>
+        <div class="grid grid-3" style="gap: 2rem;">
+            { posts.map((post: any) => (
+                <PostCard post={post} />
+            )) }
+        </div>
+    </Section>
+
+    <Section withBackground={true}>
+        <div class="section-header">
+            <h2>Projects</h2>
+            <Button href="/projects">See more</Button>
+        </div>
+        <div class="grid grid-3" style="gap: 2rem;">
+            { projects.map((project: any) => (
+                <ProjectCard project={project} />
+            )) }
+        </div>
+    </Section>
+
+    <Section withBackground={false}>
+        <h2>Proficiencies</h2>
+
+        <p class="text-muted-2">Some examples of technologies I'm experienced with (in no particular order).</p>
+
+        <div class="proficiencies grid grid-3" style="gap: 2rem;">
+            <div>
+                <h3>Programming</h3>
+                <ul>
+                    <li>C</li>
+                    <li>C++</li>
+                    <li>C#</li>
+                    <li>Rust</li>
+                    <li>Python</li>
+                    <li>JavaScript</li>
+                    <li>TypeScript</li>
+                    <li>PHP</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Frameworks</h3>
+                <ul>
+                    <li>.NET</li>
+                    <li>WPF</li>
+                    <li>NoesisGUI</li>
+                    <li>Laravel</li>
+                    <li>Express</li>
+                    <li>Vue.js</li>
+                    <li>React</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Game Engines</h3>
+                <ul>
+                    <li>Unreal 4 & 5</li>
+                    <li>Unity</li>
+                    <li>Godot</li>
+                    <li>Proprietary</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Databases</h3>
+                <ul>
+                    <li>SQL</li>
+                    <li>NoSQL</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Platforms</h3>
+                <ul>
+                    <li>Windows</li>
+                    <li>Linux</li>
+                    <li>macOS</li>
+                    <li>Web</li>
+                    <li>Mobile</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Tools & Services</h3>
+                <ul>
+                    <li>Perforce</li>
+                    <li>Git</li>
+                    <li>Docker</li>
+                    <li>Jenkins</li>
+                    <li>Sentry</li>
+                    <li>Cloudflare</li>
+                    <li>AWS</li>
+                </ul>
+            </div>
+        </div>
+    </Section>
+
+    <Section>
+        <div class="no-ai">
+            <DrawingCompass size={24} />
+            <div>Proudly created without AI.</div>
+        </div>
+    </Section>
+</Layout>
+
+<style lang="scss">
+.header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+    user-select: none;
+}
+
+.intro {
+    display: flex;
+    gap: 4rem;
+    margin: 2rem 0 0 0;
+
+    &-name {
+        user-select: none;
+
+        h1 {
+            margin: 0 0 0 -.65rem;
+            font-size: 7rem;
+            font-weight: 600;
+            font-variation-settings: "wdth" 125;
+            text-transform: uppercase;
+            line-height: 1;
+
+            span {
+                color: var(--color-brand);
+                text-shadow: 0 0 30px color-mix(in srgb, var(--color-brand) 90%, transparent);
+            }
+        }
+    }
+
+    &-text {
+        font-size: 1.2rem;
+        font-weight: 500;
+
+        p {
+            margin: 0 0 0.75rem 0;
+            line-height: 1.5;
+            color: var(--color-foreground-muted-2);
+
+            strong {
+                font-size: 1.5rem;
+                color: var(--color-foreground);
+            }
+
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.proficiencies {
+    padding: 1rem 0 1.5rem 0;
+
+    h3 {
+        font-variation-settings: "wdth" 100;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        margin: 1.5rem 0 0 0;
+        padding: 0;
+
+        li {
+            display: block;
+            padding: .1rem .65rem;
+            background: linear-gradient(145deg,
+                var(--color-overlay-light),
+                var(--color-overlay-light),
+                color-mix(in srgb, var(--color-brand) 15%, transparent));
+            border-radius: .5rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--color-brand);
+        }
+    }
+}
+
+.no-ai {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+    padding: 0;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+@media (width < 64rem) {
+    .intro {
+        flex-direction: column;
+    }
+}
+
+@media (width < 48rem) {
+    .intro-name {
+        h1 {
+            font-size: 5rem;
+        }
+    }
+}
+</style>

@@ -2,11 +2,11 @@
 title: 'Unreal Engine: Gameplay Ability System'
 description: "An overview of Unreal Engine's framework for gameplay actions & effects"
 pubDate: 2024-12-22
-heroImage: './post-header.jpg'
+headerImage: './post-header.jpg'
 tags: ["cpp", "gameplay-programming", "unreal-engine", "game-engine"]
 ---
 import Alert from "../../../components/Alert.astro"
-import ExternalLink from "../../../components/ExternalLink.astro"
+import ExtLink from "../../../components/ExtLink.astro"
 import Image from "../../../components/Image.astro"
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
 import Video from "../../../components/Video.astro"
@@ -22,7 +22,7 @@ import geWeaponEnergyRegenDelayImage from "./ge_weaponenergyregendelay.png"
 import bpPickupRifleImage from "./bp_pickup_rifle.png"
 import resultVideo from "./result.mp4"
 
-The Gameplay Ability System (GAS) is a feature released by Epic as a plugin for Unreal Engine 4 and later. According to the <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine">documentation</ExternalLink>:
+The Gameplay Ability System (GAS) is a feature released by Epic as a plugin for Unreal Engine 4 and later. According to the <ExtLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine">documentation</ExtLink>:
 
 > The **Gameplay Ability System** is a framework for building attributes, abilities, and interactions that an Actor can own and trigger. The system is designed to be adapted to a wide variety of Gameplay-Driven projects such as **Role-Playing Games** (RPGs), **Action-Adventure** games, and **Multiplayer Online Battle Arenas** games (MOBA).
 
@@ -51,7 +51,7 @@ Gameplay Effects are changes triggered by executing abilities. They can be broke
 * **Gameplay Cues**. These can be used to signal when cosmetic effects (such as particles or sounds) should occur.
 * **Stacking**. This defines whether the effect can stack on the same target, and if so, what the stacking limitations are.
 
-You can read more about Gameplay Effects in the <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-effects-for-the-gameplay-ability-system-in-unreal-engine">official documentation</ExternalLink>. It's worth noting that Gameplay Effects rely heavily on <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/using-gameplay-tags-in-unreal-engine">Gameplay Tags</ExternalLink>, a general-purpose hierarchical labelling system in Unreal Engine. Specifically, they can be used to apply modifiers conditionally, and they're used by Gameplay Cues to trigger cosmetic events.
+You can read more about Gameplay Effects in the <ExtLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-effects-for-the-gameplay-ability-system-in-unreal-engine">official documentation</ExtLink>. It's worth noting that Gameplay Effects rely heavily on <ExtLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/using-gameplay-tags-in-unreal-engine">Gameplay Tags</ExtLink>, a general-purpose hierarchical labelling system in Unreal Engine. Specifically, they can be used to apply modifiers conditionally, and they're used by Gameplay Cues to trigger cosmetic events.
 
 ### Breaking it down further
 
@@ -101,15 +101,15 @@ PrivateDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "Gamep
 
 Next, some groundwork in C++. Since the project uses the FPS template, I already had a character class, player controller, and a few other useful classes. I created the following C++ classes:
 
-* `ABaseCharacter`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h#L240">ACharacter</ExternalLink> and implements <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemInterface.h#L19">IAbilitySystemInterface</ExternalLink>
-* `UBaseAttributeSet`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h#L180">UAttributeSet</ExternalLink>
+* `ABaseCharacter`, which inherits <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h#L240">ACharacter</ExtLink> and implements <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemInterface.h#L19">IAbilitySystemInterface</ExtLink>
+* `UBaseAttributeSet`, which inherits <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h#L180">UAttributeSet</ExtLink>
 * `UCombatantAttributeSet`, which inherits `UBaseAttributeSet`
-* `UBaseGameplayAbility`, which inherits <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h#L108">UGameplayAbility</ExternalLink>
+* `UBaseGameplayAbility`, which inherits <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h#L108">UGameplayAbility</ExtLink>
 
 I also created the following Blueprint classes:
 
 * `GA_FireEnergyWeapon`, which inherits `UBaseGameplayAbility`
-* Five Gameplay Effects inheriting <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/GameplayEffect.h#L2040">UGameplayEffect</ExternalLink>:
+* Five Gameplay Effects inheriting <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/GameplayEffect.h#L2040">UGameplayEffect</ExtLink>:
     * `GE_DefaultAttributes`
     * `GE_WeaponEnergyCooldown`
     * `GE_WeaponEnergyCost`
@@ -238,7 +238,7 @@ protected:
 };
 ```
 
-It also defines the following macro (used in the next class, `UCombatantAttributeSet`) as suggested in the <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h#L418-L422">source documentation</ExternalLink>:
+It also defines the following macro (used in the next class, `UCombatantAttributeSet`) as suggested in the <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h#L418-L422">source documentation</ExtLink>:
 
 ```cpp
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -452,11 +452,11 @@ Ultimately, I think it's worth considering for any new projects unless you're a 
 
 The official documentation for the Gameplay Ability System is somewhat lacking. It mainly covers the high-level concepts and doesn't go into much detail regarding the actual usage. Thankfully, there are a few resources that fill in the gaps:
 
-* The <ExternalLink url="https://github.com/EpicGames/UnrealEngine/tree/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public">public GAS source files</ExternalLink>. They're reasonably well-commented and you can find a lot of information in the comments that isn't included in the documentation. In particular:
-    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemComponent.h">AbilitySystemComponent.h</ExternalLink>
-    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h">GameplayAbility.h</ExternalLink>
-    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h">AttributeSet.h</ExternalLink>
-    * <ExternalLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/GameplayEffect.h">GameplayEffect.h</ExternalLink>
-* <ExternalLink url="https://github.com/tranek/GASDocumentation">tranek/GASDocumentation</ExternalLink> is a long-established, ongoing effort to understandand GAS and document it in detail. It's an excellent resource that is endorsed by Epic in the official docs.
+* The <ExtLink url="https://github.com/EpicGames/UnrealEngine/tree/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public">public GAS source files</ExtLink>. They're reasonably well-commented and you can find a lot of information in the comments that isn't included in the documentation. In particular:
+    * <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemComponent.h">AbilitySystemComponent.h</ExtLink>
+    * <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h">GameplayAbility.h</ExtLink>
+    * <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AttributeSet.h">AttributeSet.h</ExtLink>
+    * <ExtLink url="https://github.com/EpicGames/UnrealEngine/blob/5.4/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/GameplayEffect.h">GameplayEffect.h</ExtLink>
+* <ExtLink url="https://github.com/tranek/GASDocumentation">tranek/GASDocumentation</ExtLink> is a long-established, ongoing effort to understandand GAS and document it in detail. It's an excellent resource that is endorsed by Epic in the official docs.
 
 That's all for now. As always, thanks for reading!

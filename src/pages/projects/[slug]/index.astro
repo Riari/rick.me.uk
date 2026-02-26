@@ -1,24 +1,23 @@
 ---
-import { type CollectionEntry } from "astro:content"
-import Project from "../../../layouts/Project.astro"
-import { loadAndFormatCollection } from "../../../util/collection"
+import { render } from "astro:content";
+
+import Project from "../../../layouts/Project.astro";
+import { loadAndFormatCollection } from "../../../scripts/utils/collection";
 
 export async function getStaticPaths() {
-    const projects = await loadAndFormatCollection('projects', false)
+    const projects = await loadAndFormatCollection('projects', false);
 
     return projects
         .map((project: any) => {
             return {
                 params: { slug: project.relativeURL },
-                props: project
+                props: { project }
             }
-        })
+        });
 }
 
-type Props = CollectionEntry<'projects'>
-
-const project = Astro.props
-const { Content } = await project.render()
+const { project } = Astro.props;
+const { Content } = await render(project);
 ---
 
 <Project {...project.data}>

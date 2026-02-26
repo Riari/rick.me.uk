@@ -1,0 +1,60 @@
+﻿---
+const { leftItem, leftLabel, rightItem, rightLabel } = Astro.props;
+---
+
+<div class="adjacent-content-links">
+    <div class="left">
+        {
+            leftItem != null && (
+                <a href={leftItem.absoluteURL}>
+                    <span class="prefix">‹ {leftLabel}</span>
+                    <br />
+                    <span class="title">{leftItem.data.title}</span>
+                </a>
+            )
+        }
+    </div>
+
+    <div class="right">
+        {
+            rightItem != null && (
+                <a href={rightItem.absoluteURL}>
+                    <span class="prefix">{rightLabel} ›</span>
+                    <br />
+                    <span class="title">{rightItem.data.title}</span>
+                </a>
+            )
+        }
+    </div>
+</div>
+
+<style lang="scss">
+.adjacent-content-links {
+    display: flex;
+    justify-content: space-between;
+
+    .left,
+    .right {
+        flex: 1;
+    }
+
+    a {
+        display: block;
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-decoration: none;
+
+        .prefix {
+            color: var(--color-foreground-muted-2);
+        }
+
+        &:hover .prefix {
+            color: var(--color-foreground);
+        }
+    }
+
+    .right a {
+        text-align: right;
+    }
+}
+</style>

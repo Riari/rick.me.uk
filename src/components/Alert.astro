@@ -1,24 +1,128 @@
 ---
-import BulbIcon from "./Icons/BulbIcon.astro";
-import InfoIcon from "./Icons/InfoIcon.astro";
-import WarningIcon from "./Icons/WarningIcon.astro";
+import { LightbulbOn, InfoCircle, AlertOctagon } from "griddy-icons";
 
 const { type } = Astro.props;
 
-const classes = `alert alert--${type}`;
+const typeClass = `alert-${type}`;
 
-let Icon = InfoIcon;
+let Icon = InfoCircle;
 switch (type) {
     case "tip":
-        Icon = BulbIcon;
+        Icon = LightbulbOn;
         break;
     case "warn":
-        Icon = WarningIcon;
+        Icon = AlertOctagon;
         break;
 }
 ---
 
-<div class={classes}>
-    <div class="alert-icon"><Icon width="24" height="24" /></div>
+<div class:list={["alert", typeClass]}>
+    <div class="alert-icon"><Icon width="32" height="32" /></div>
     <slot />
 </div>
+
+<style lang="scss">
+.alert {
+    position: relative;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.08);
+    font-size: 1.1rem;
+
+    &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+
+        :global(svg) {
+            display: inline-block;
+        }
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        height: 2px;
+        width: calc(50% - 3.5rem);
+        transform: translateY(-50%);
+    }
+
+    &::before {
+        left: 2rem;
+    }
+
+    &::after {
+        right: 2rem;
+    }
+
+    :global(p:first-of-type) {
+        margin-top: 0;
+    }
+
+    :global(p:last-child) {
+        margin-bottom: 0;
+    }
+}
+
+:global(.alert.alert-info) {
+    :global(.alert-icon) {
+        color: var(--color-accent-1);
+    }
+
+    &::before {
+        background: linear-gradient(to right,
+            color-mix(in srgb, var(--color-accent-1) 0%, transparent),
+            var(--color-accent-1));
+    }
+
+    &::after {
+        background: linear-gradient(to left,
+            color-mix(in srgb, var(--color-accent-1) 0%, transparent),
+            var(--color-accent-1));
+    }
+}
+
+:global(.alert.alert-tip) {
+    :global(.alert-icon) {
+        color: var(--color-accent-4);
+    }
+
+    &::before {
+        background: linear-gradient(to right,
+            color-mix(in srgb, var(--color-accent-4) 0%, transparent),
+            var(--color-accent-4));
+    }
+
+    &::after {
+        background: linear-gradient(to left,
+            color-mix(in srgb, var(--color-accent-4) 0%, transparent),
+            var(--color-accent-4));
+    }
+}
+
+:global(.alert.alert-warn) {
+    :global(.alert-icon) {
+        color: var(--color-accent-3);
+    }
+
+    &::before {
+        background: linear-gradient(to right,
+            color-mix(in srgb, var(--color-accent-3) 0%, transparent),
+            var(--color-accent-3));
+    }
+
+    &::after {
+        background: linear-gradient(to left,
+            color-mix(in srgb, var(--color-accent-3) 0%, transparent),
+            var(--color-accent-3));
+    }
+}
+</style>

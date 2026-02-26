@@ -1,11 +1,12 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
-import ContentFooter from "../../components/ContentFooter.astro";
-import Document from "../../components/Document.astro";
-import Head from "../../components/Head.astro";
+import { loadAndFormatCollection } from "../../scripts/utils/collection";
+
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Container from "../../components/Container.astro";
 import Pagination from "../../components/Pagination.astro";
 import PostCard from "../../components/PostCard.astro";
-import { loadAndFormatCollection } from "../../util/collection";
 import RSSIcon from "../../components/Icons/RSSIcon.astro";
 
 export async function getStaticPaths(options: GetStaticPathsOptions) {
@@ -19,29 +20,37 @@ export async function getStaticPaths(options: GetStaticPathsOptions) {
 const { page } = Astro.props;
 ---
 
-<Document title="Posts">
-    <div class="container container--posts container--cards">
-        <div class="head-container">
-            <Head title="Posts" />
-        </div>
+<Layout title="Posts">
+    <Header title="Posts" />
 
-        <div class="body">
-            <div class="inner-container">
-                {page.data.map((post) => <PostCard post={post} showBody={true} showTags={true} />)}
-
-                <Pagination page={page} />
-
-                <p class="text-center">
-                    Posts are also available via <a
-                        href="/rss.xml"
-                        class="text--accent-3 no-decoration"
-                        target="blank"
-                        ><RSSIcon style="vertical-align: -2px;" /> RSS</a
-                    >.
-                </p>
+    <div class="page">
+        <Container maxWidth="900px">
+            <div class="rss">
+                <a href="/rss.xml" target="_blank"><RSSIcon style="vertical-align: -2px;" /> RSS</a>
             </div>
-        </div>
 
-        <ContentFooter />
+            <div class="posts">
+                {page.data.map((post) => <PostCard post={post} withTags={true} />)}
+            </div>
+
+            <Pagination page={page} />
+        </Container>
     </div>
-</Document>
+</Layout>
+
+<style lang="scss">
+.page {
+    padding-bottom: 2rem;
+}
+
+.rss {
+    padding: 0 0 1rem 0;
+    font-weight: 500;
+    color: var(--color-foreground-muted-2);
+    text-align: right;
+
+    a {
+        text-decoration: none;
+    }
+}
+</style>

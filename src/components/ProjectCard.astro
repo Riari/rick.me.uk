@@ -1,26 +1,25 @@
 ---
-import ItemCard from "./ItemCard.astro";
-import { typeToBadgeClass } from "../util/frontmatter";
+import Card from "./Card.astro";
+import { projectTypeToAccent } from "../scripts/utils/collection";
 
-const { project, showBody, showTags } = Astro.props;
+interface Props {
+    project: any;
+    withTags?: boolean;
+}
 
-const typeClass = typeToBadgeClass(project.data.type);
+const { project, withTags = false } = Astro.props;
+
+const accent = projectTypeToAccent(project.data.type);
 ---
 
-<ItemCard item={project} showBody={showBody}>
-    <span
-        class:list={["item-card-inner-header-type", typeClass]}
-        slot="before-title"
-    >
-        {project.data.type}
-    </span>
-    { showTags &&
-        <div class="item-card-inner-footer-tags" slot="footer">
-            {
-                project.data.tags.map((tag: string) => (
-                    <a href={`/projects/tag/${tag}`}>{tag}</a>
-                ))
-            }
+<Card item={project} accent={accent}>
+    <div slot="before-title">
+        <div class="badge">
+            {project.data.type}
         </div>
-    }
-</ItemCard>
+    </div>
+
+    { withTags && <div class="links" slot="footer">
+        {project.data.tags.map((tag: string) => <a href={`/projects/tag/${tag}`}>{tag}</a>)}
+    </div>}
+</Card>

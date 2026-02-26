@@ -1,11 +1,12 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
-import ContentFooter from "../../../../components/ContentFooter.astro";
-import Document from "../../../../components/Document.astro";
-import Head from "../../../../components/Head.astro";
+import { loadAndFormatCollection, getTags } from "../../../../scripts/utils/collection.ts";
+
+import Layout from "../../../../layouts/Layout.astro";
+import Container from "../../../../components/Container.astro";
+import Header from "../../../../components/Header.astro";
 import Pagination from "../../../../components/Pagination.astro";
 import PostCard from "../../../../components/PostCard.astro";
-import { loadAndFormatCollection, getTags } from "../../../../util/collection";
 
 export async function getStaticPaths(options: GetStaticPathsOptions) {
     const posts = await loadAndFormatCollection("posts");
@@ -35,36 +36,39 @@ const tagHasProjects =
     0;
 ---
 
-<Document title={`Posts tagged with '${tag}'`}>
-    <div class="container container--posts container--cards">
-        <div class="head-container">
-            <Head title="Posts">
-                <h2 class="subheading">Tagged with '{tag}'</h2>
-            </Head>
+<Layout title={`Posts tagged with '${tag}'`}>
+    <Container maxWidth="900px">
+        <Header title="Posts">
+            <h2>Tagged with '{tag}'</h2>
+
+            {
+                tagHasProjects ? (
+                    <div class="see-also">
+                        There are also{" "}
+                        <a href={`/projects/tag/${tag}`}>
+                            projects with this tag
+                        </a>
+                    </div>
+                ) : null
+            }
+        </Header>
+
+        <div class="posts">
+            {page.data.map((post) => <PostCard post={post} showTags={false} />)}
         </div>
 
-        <div class="body">
-            <div class="inner-container">
-                {
-                    tagHasProjects ? (
-                        <p
-                            class="text-center text--muted-3"
-                            style="margin-top: 0;"
-                        >
-                            There are also{" "}
-                            <a href={`/projects/tag/${tag}`}>
-                                projects with this tag
-                            </a>
-                        </p>
-                    ) : null
-                }
+        <Pagination page={page} />
+    </Container>
+</Layout>
 
-                {page.data.map((post) => <PostCard post={post} showBody={true} showTags={false} />)}
+<style lang="scss">
+h2 {
+    font-variation-settings: "wdth" 100;
+    font-weight: 500;
+    color: var(--color-foreground-muted-2);
+}
 
-                <Pagination page={page} />
-            </div>
-        </div>
-
-        <ContentFooter />
-    </div>
-</Document>
+.see-also {
+    font-size: 1.2rem;
+}
+</style>

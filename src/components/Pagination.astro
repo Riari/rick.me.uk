@@ -4,32 +4,84 @@ const { page } = Astro.props;
 
 {
     page.total > page.size ? (
-        <nav class="pagination button-group">
-            {page.url.first ? (
-                <a href={page.url.first} class="button--skew-left"><span>« First</span></a>
-            ) : (
-                <span class="pagination-item-disabled button"><span>« First</span></span>
-            )}
-            {page.url.prev ? (
-                <a href={page.url.prev} class="button--skew-left"><span>‹ Previous</span></a>
-            ) : (
-                <span class="pagination-item-disabled button"><span>‹ Previous</span></span>
-            )}
+        <nav class="pagination">
+            <div class="pagination-group">
+                {page.url.first ? (
+                    <a href={page.url.first} class="button"><span>« First</span></a>
+                ) : (
+                    <span class="button button-disabled"><span>« First</span></span>
+                )}
+                {page.url.prev ? (
+                    <a href={page.url.prev} class="button"><span>‹ Previous</span></a>
+                ) : (
+                    <span class="button button-disabled"><span>‹ Previous</span></span>
+                )}
+            </div>
 
             <span class="pagination-page-number">
                 Page {page.currentPage} of {page.lastPage}
             </span>
 
-            {page.url.next ? (
-                <a href={page.url.next}><span>Next ›</span></a>
-            ) : (
-                <span class="pagination-item-disabled button"><span>Next ›</span></span>
-            )}
-            {page.url.last ? (
-                <a href={page.url.last}><span>Last »</span></a>
-            ) : (
-                <span class="pagination-item-disabled button"><span>Last »</span></span>
-            )}
+            <div class="pagination-group">
+                {page.url.next ? (
+                    <a href={page.url.next} class="button"><span>Next ›</span></a>
+                ) : (
+                    <span class="button button-disabled"><span>Next ›</span></span>
+                )}
+                {page.url.last ? (
+                    <a href={page.url.last} class="button"><span>Last »</span></a>
+                ) : (
+                    <span class="button button-disabled"><span>Last »</span></span>
+                )}
+            </div>
         </nav>
     ) : null
 }
+
+<style lang="scss">
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    user-select: none;
+    white-space: nowrap;
+
+    &-group {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .button {
+        display: block;
+        padding: .4rem 1.2rem;
+        background-color: var(--color-overlay-light);
+        border-radius: .3rem;
+        text-decoration: none;
+
+        &:hover {
+            background-color: var(--color-foreground-muted-2);
+            color: var(--color-foreground-inverted);
+        }
+
+        &-disabled {
+            color: var(--color-foreground-muted-2);
+            opacity: .5;
+
+            &:hover {
+                background-color: var(--color-overlay-light);
+                color: var(--color-foreground-muted-2);
+            }
+        }
+    }
+}
+
+@media (width < 48rem) {
+    .pagination {
+        flex-direction: column;
+    }
+}
+</style>

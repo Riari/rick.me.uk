@@ -1,6 +1,7 @@
-import rss from '@astrojs/rss';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { loadAndFormatCollection } from '../util/collection';
+import rss from "@astrojs/rss";
+
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { loadAndFormatCollection } from "../scripts/utils/collection";
 
 export async function GET(context) {
     const posts = (await loadAndFormatCollection('posts'))

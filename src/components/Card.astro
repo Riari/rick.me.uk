@@ -1,0 +1,221 @@
+---
+
+interface Props {
+    item: any;
+    accent?: string;
+}
+
+const { item, accent = null } = Astro.props;
+---
+
+<div class:list={['card', accent]}>
+    <a class="card-link" href={item.absoluteURL}></a>
+
+    <div class="card-header">
+        <div class="card-header-before-title">
+            <slot name="before-title" />
+        </div>
+
+        <h3 class="card-header-title">
+            {item.data.title}
+        </h3>
+    </div>
+
+    <div class="card-body">
+        {item.data.description}
+    </div>
+
+    <div class="card-footer">
+        <slot name="footer" />
+    </div>
+</div>
+
+<style lang="scss">
+.card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100px;
+    padding: 1.25rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: var(--color-foreground);
+    backdrop-filter: blur(3px);
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        background: linear-gradient(145deg,
+            #ffffff06,
+            color-mix(in srgb, var(--color-brand) 15%, transparent));
+        box-shadow: inset 0 0 0 2px var(--color-overlay-light), 0 0 5px rgba(0, 0, 0, 0.00);
+        opacity: 0.5;
+        transition: opacity 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    &-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &-header-before-title {
+        display: flex;
+        gap: 1rem;
+        font-size: 1rem;
+    }
+
+    .card-header-title {
+        margin: 1rem 0 .35rem 0;
+        font-variation-settings: "wdth" 100;
+        font-size: 1.2rem;
+        color: var(--color-foreground);
+    }
+
+    &-body {
+        flex: 1;
+        color: var(--color-foreground-muted-2);
+        transition: color 0.1s ease;
+    }
+
+    &-footer {
+        :global(.links) {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0 .75rem;
+            margin-top: .5rem;
+        }
+
+        :global(svg) {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        :global(a) {
+            display: inline-block;
+            position: relative;
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--color-brand);
+            z-index: 100;
+            text-decoration: none;
+            transition: color 0.1s ease;
+
+            &:hover {
+                color: var(--color-foreground);
+            }
+        }
+    }
+
+    &.accent {
+        &-1 {
+            &::before {
+                background: linear-gradient(145deg,
+                    #ffffff06,
+                    color-mix(in srgb, var(--color-accent-1) 15%, transparent));
+            }
+
+            :global(.badge) {
+                background-color: var(--color-accent-1);
+            }
+
+            :global(.card-footer a) {
+                color: var(--color-accent-1);
+
+                &:hover {
+                    color: var(--color-foreground);
+                }
+            }
+        }
+
+        &-2 {
+            &::before {
+                background: linear-gradient(145deg,
+                    #ffffff06,
+                    color-mix(in srgb, var(--color-accent-2) 15%, transparent));
+            }
+
+            :global(.badge) {
+                background-color: var(--color-accent-2);
+            }
+
+            :global(.card-footer a) {
+                color: var(--color-accent-2);
+
+                &:hover {
+                    color: var(--color-foreground);
+                }
+            }
+        }
+
+        &-3 {
+            &::before {
+                background: linear-gradient(145deg,
+                    #ffffff06,
+                    color-mix(in srgb, var(--color-accent-3) 15%, transparent));
+            }
+
+            :global(.badge) {
+                background-color: var(--color-accent-3);
+            }
+
+            :global(.card-footer a) {
+                color: var(--color-accent-3);
+
+                &:hover {
+                    color: var(--color-foreground);
+                }
+            }
+        }
+
+        &-4 {
+            &::before {
+                background: linear-gradient(145deg,
+                    #ffffff06,
+                    color-mix(in srgb, var(--color-accent-4) 15%, transparent));
+            }
+
+            :global(.badge) {
+                background-color: var(--color-accent-4);
+            }
+
+            :global(.card-footer a) {
+                color: var(--color-accent-4);
+
+                &:hover {
+                    color: var(--color-foreground);
+                }
+            }
+        }
+    }
+
+    &:hover {
+        &::before {
+            opacity: 1;
+            box-shadow: inset 0 0 0 2px var(--color-overlay-light), 0 0 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header-before-title {
+            color: var(--color-foreground-inverted);
+
+            &-rule {
+                &::before {
+                    background-color: var(--color-brand);
+                }
+            }
+        }
+
+        .card-body {
+            color: var(--color-foreground);
+        }
+    }
+}
+</style>

@@ -2,17 +2,17 @@
 title: 'Advent of Code in Odin'
 description: 'Setting up VS Code for Odin and AoC'
 pubDate: 2024-10-07
-heroImage: '../../../images/post-headers/pixellated-code.png'
+headerImage: '../../../assets/post-headers/pixellated-code.png'
 tags: ["advent-of-code", "odin", "vs-code", "github-template"]
 ---
 import Alert from "../../../components/Alert.astro"
-import ExternalLink from "../../../components/ExternalLink.astro"
+import ExtLink from "../../../components/ExtLink.astro"
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro"
 
-I've been wanting to try <ExternalLink url="https://odin-lang.org/">Odin</ExternalLink> for a while now and decided it's the language I'll use for this year's _Advent of Code_ event.
+I've been wanting to try <ExtLink url="https://odin-lang.org/">Odin</ExtLink> for a while now and decided it's the language I'll use for this year's _Advent of Code_ event.
 
 <Alert type="info">
-For those unfamiliar, <ExternalLink url="https://adventofcode.com/">Advent of Code</ExternalLink> is a Christmas-themed annual event consisting of an advent calendar of programming puzzles. Each day, from the 1st of December to the 25th (inclusive), a puzzle is unlocked. Each puzzle consists of two parts, each requiring an answer. One star is earned per correct answer.
+For those unfamiliar, <ExtLink url="https://adventofcode.com/">Advent of Code</ExtLink> is a Christmas-themed annual event consisting of an advent calendar of programming puzzles. Each day, from the 1st of December to the 25th (inclusive), a puzzle is unlocked. Each puzzle consists of two parts, each requiring an answer. One star is earned per correct answer.
 
 For those who want to take part competitively, there are public leaderboards as well as the option to create private ones.
 
@@ -23,7 +23,7 @@ Before I could properly get familiar with Odin, I wanted to set up an easy way o
 
 At the time of writing, there aren't many public GitHub repos with the specific combination of Odin, VS Code and Advent of Code, and none of them felt suitable as a starting point (especially cross-platform), so I decided to put together some useful utils and VS Code configurations of my own.
 
-First up were the <ExternalLink url="https://code.visualstudio.com/docs/editor/tasks">tasks</ExternalLink>. I wanted to be able to do three things with these:
+First up were the <ExtLink url="https://code.visualstudio.com/docs/editor/tasks">tasks</ExtLink>. I wanted to be able to do three things with these:
 
 * Build the package that the current file belongs to (which should, by Odin's conventions, be the directory the file resides in).
 * Build any tests available in the package the current file belongs to.
@@ -82,7 +82,7 @@ Here's what I came up with:
 
 (Note the "inputs" section—this is a useful feature that allows you to accept input from the user via a prompt.)
 
-Next, the <ExternalLink url="https://code.visualstudio.com/docs/editor/debugging#_launch-configurations">launch configurations</ExternalLink>. I just needed two—one for debugging a solution, and another for debugging its tests.
+Next, the <ExtLink url="https://code.visualstudio.com/docs/editor/debugging#_launch-configurations">launch configurations</ExtLink>. I just needed two—one for debugging a solution, and another for debugging its tests.
 
 Originally, the plan was to make the same configurations work on both Windows and Linux, so I started down the path of using GDB as a debugger on both platforms. Unfortunately that didn't work because Odin on Windows compiles via MSVC, which produces PDB files, which can't be used by GDB. I'd have to either figure out how to make Odin use a different compiler on Windows (assuming that's even possible) or use WSL2. I opted to create separate Windows-specific launch configs instead.
 
@@ -139,7 +139,7 @@ I ended up with this:
 ```
 
 <Alert type="tip">
-The `lldb` configuration type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb">CodeLLDB</ExternalLink> extension and the `cppvsdbg` type is provided by the <ExternalLink url="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</ExternalLink> extension.
+The `lldb` configuration type is provided by the <ExtLink url="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb">CodeLLDB</ExtLink> extension and the `cppvsdbg` type is provided by the <ExtLink url="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</ExtLink> extension.
 </Alert>
 
 There is a slight caveat with the _Debug tests_ configs in that they execute the tests twice—once without a debugger and again with. This is because the only way to build tests (as far as I can tell) is with `odin test` (hence that's what the _Test_ task uses). So _Debug tests_ will run that first to get up-to-date test binaries, then launch the debugger. If I can figure out a way of building the tests without running them, I'll update the config.
