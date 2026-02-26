@@ -142,13 +142,6 @@ const projects = (await loadAndFormatCollection("projects", false))
             </div>
         </div>
     </Section>
-
-    <Section>
-        <div class="no-ai">
-            <DrawingCompass size={24} />
-            <div>Proudly created without AI.</div>
-        </div>
-    </Section>
 </Layout>
 
 <style lang="scss">
@@ -233,16 +226,6 @@ const projects = (await loadAndFormatCollection("projects", false))
             color: var(--color-brand);
         }
     }
-}
-
-.no-ai {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .25rem;
-    padding: 0;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.4);
 }
 
 @media (width < 64rem) {
