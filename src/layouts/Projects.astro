@@ -27,21 +27,23 @@ const title = "Projects";
 
         <div class="filter">
             Filter by:
-            {
-                projectTypes.map((type: string) => (
-                    <a
-                        href={`/projects/type/${type.toLocaleLowerCase()}/`}
-                        class:list={[
-                            projectTypeToAccent(type),
-                            typeFilter === type.toLocaleLowerCase()
-                                ? "active"
-                                : "",
-                        ]}
-                    >
-                        {type}
-                    </a>
-                ))
-            }{ typeFilter && <a href="/projects/" class="clear">Clear</a> }
+            <div>
+                {
+                    projectTypes.map((type: string) => (
+                        <a
+                            href={`/projects/type/${type.toLocaleLowerCase()}/`}
+                            class:list={[
+                                projectTypeToAccent(type),
+                                typeFilter === type.toLocaleLowerCase()
+                                    ? "active"
+                                    : "",
+                            ]}
+                        >
+                            {type}
+                        </a>
+                    ))
+                }{ typeFilter && <a href="/projects/" class="clear">Clear</a> }
+            </div>
         </div>
 
         <div class="projects grid grid-2">
@@ -69,9 +71,16 @@ const title = "Projects";
     font-weight: 500;
     color: var(--color-foreground-muted-2);
 
+    div {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
     a {
         display: inline-block;
-        margin-left: .65rem;
         padding: .1rem .5rem;
         border-radius: .25rem;
         background-color: var(--color-overlay-light);
