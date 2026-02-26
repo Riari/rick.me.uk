@@ -1,0 +1,111 @@
+---
+import { projectTypes } from "../content/config";
+
+import Layout from "./Layout.astro";
+
+import Header from "../components/Header.astro";
+import Container from "../components/Container.astro";
+import ExtLink from "../components/ExtLink.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+import { projectTypeToAccent } from "../scripts/utils/collection";
+
+const { projects, typeFilter = null } = Astro.props;
+
+const title = "Projects";
+---
+
+<Layout title={title}>
+    <Header title={title} />
+
+    <Container maxWidth="900px">
+        <div class="overview">
+            This is a selection of projects I've worked on.
+            <br />
+            You can find more of my software projects on <ExtLink url="https://github.com/Riari">GitHub</ExtLink>.
+        </div>
+
+        <div class="filter">
+            Filter by:
+            {
+                projectTypes.map((type: string) => (
+                    <a
+                        href={`/projects/type/${type.toLocaleLowerCase()}/`}
+                        class:list={[
+                            projectTypeToAccent(type),
+                            typeFilter === type.toLocaleLowerCase()
+                                ? "active"
+                                : "",
+                        ]}
+                    >
+                        {type}
+                    </a>
+                ))
+            }{ typeFilter && <a href="/projects/" class="clear">Clear</a> }
+        </div>
+
+        <div class="projects grid grid-2">
+            {
+                projects.map((project: any) => (
+                    <ProjectCard project={project} withTags={true} />
+                ))
+            }
+        </div>
+    </Container>
+</Layout>
+
+<style lang="scss">
+.overview {
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-foreground-muted-2);
+}
+
+.filter {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 500;
+    color: var(--color-foreground-muted-2);
+
+    a {
+        display: inline-block;
+        margin-left: .65rem;
+        padding: .1rem .5rem;
+        border-radius: .25rem;
+        background-color: var(--color-overlay-light);
+        text-decoration: none;
+
+        &.accent-1.active {
+            color: var(--color-foreground-inverted);
+            background-color: var(--color-accent-1);
+        }
+
+        &.accent-2.active {
+            color: var(--color-foreground-inverted);
+            background-color: var(--color-accent-2);
+        }
+
+        &.accent-3.active {
+            color: var(--color-foreground-inverted);
+            background-color: var(--color-accent-3);
+        }
+
+        &.accent-4.active {
+            color: var(--color-foreground-inverted);
+            background-color: var(--color-accent-4);
+        }
+    }
+
+    a.clear {
+        padding: 0;
+        background: none;
+    }
+}
+
+.projects {
+    padding-bottom: 2rem;
+    gap: 1rem;
+}
+</style>

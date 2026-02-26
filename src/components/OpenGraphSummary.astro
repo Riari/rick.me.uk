@@ -42,3 +42,30 @@ const image = properties.ogImage && properties.ogImage.length > 0
         <a href={url} target="_blank">{properties.ogTitle}</a>
     </div>
 </div>
+
+<style lang="scss">
+.og-summary {
+    text-align: center;
+    margin-top: 2em;
+
+    :global(.image-container) {
+        display: inline-block;
+        max-width: 500px;
+        opacity: .9;
+        transition: opacity .1s;
+
+        :global(img) {
+            display: inline-block;
+            border-radius: .3em;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .caption {
+        margin-top: .65em;
+    }
+}
+</style>

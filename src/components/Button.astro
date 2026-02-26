@@ -1,14 +1,53 @@
 ---
+import { ArrowRight } from "griddy-icons";
+
 const { href } = Astro.props;
 ---
 
-<a
-    href={href}
-    rel="noopener"
-    target="_blank"
-    class="button"
->
+<a href={href} class="button">
     <span class="button__inner">
-        <slot />
+        <slot /> <ArrowRight size={16} />
     </span>
 </a>
+
+<style lang="scss">
+.button {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    padding: 0.25rem 1.5rem;
+    font-weight: 600;
+    color: var(--color-foreground-muted-2);
+    transition: color 0.1s ease;
+    backdrop-filter: blur(3px);
+    user-select: none;
+
+    :global(svg) {
+        vertical-align: -3px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.3rem;
+        border-bottom-right-radius: 1rem;
+        box-shadow: inset 0 0 0 2px var(--color-overlay-light);
+        background-image: linear-gradient(145deg, #ffffff10, #ffffff20);
+        z-index: -1;
+        opacity: 0.5;
+        transition: opacity 0.1s ease;
+    }
+
+    &:hover {
+        color: var(--color-foreground);
+
+        &::before {
+            opacity: 1;
+        }
+    }
+}
+</style>

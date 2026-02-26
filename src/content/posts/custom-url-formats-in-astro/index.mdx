@@ -2,13 +2,13 @@
 title: "Custom URL formats in Astro"
 description: "How to construct static URLs with multiple parameters"
 pubDate: 2024-03-15
-heroImage: '../../../images/post-headers/pixellated-code.png'
+headerImage: '../../../assets/post-headers/pixellated-code.png'
 tags: ["web", "js", "framework", "static-site-generation"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
+import ExtLink from '../../../components/ExtLink.astro';
 import OpenGraphSummary from '../../../components/OpenGraphSummary.astro';
 
-I recently migrated this site from <ExternalLink url="https://gohugo.io/">Hugo</ExternalLink> to <ExternalLink url="https://astro.build/">Astro</ExternalLink>. Hugo served me well, but despite years of experience with it, it never felt very intuitive to me. Having the simplicity of Markdown files with all the power of a JS/TS framework made Astro an attractive alternative, so I made the switch and it's mostly been smooth sailing.
+I recently migrated this site from <ExtLink url="https://gohugo.io/">Hugo</ExtLink> to <ExtLink url="https://astro.build/">Astro</ExtLink>. Hugo served me well, but despite years of experience with it, it never felt very intuitive to me. Having the simplicity of Markdown files with all the power of a JS/TS framework made Astro an attractive alternative, so I made the switch and it's mostly been smooth sailing.
 
 The only real snag I hit was with routing. Because I was already using a `/posts/YYYY/MM/slug/` format for post URLs, I needed Astro to do the same thing.
 

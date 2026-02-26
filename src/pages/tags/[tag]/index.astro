@@ -1,5 +1,5 @@
 ---
-import { loadAndFormatCollection, getTags } from "../../../util/collection";
+import { loadAndFormatCollection, getTags } from "../../../scripts/utils/collection";
 
 export async function getStaticPaths() {
     const posts = await loadAndFormatCollection("posts");

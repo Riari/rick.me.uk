@@ -3,16 +3,16 @@ title: "Hytale"
 description: "A sandbox game by Hypixel Studios"
 type: "Game"
 weight: 10
-heroImage: "../../../images/project-headers/hytale.jpg"
+headerImage: "../../../assets/project-headers/hytale.jpg"
 url: "https://hytale.com/"
 tags: ["csharp", "java", "cpp", "flecs", "game-engine", "game-dev"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
+import ExtLink from '../../../components/ExtLink.astro';
 import Image from '../../../components/Image.astro';
 import logoImage from './hytale-logo.webp';
 import howlingSandsImage from './howling-sands.jpg';
 
-<div style="margin: 2rem 0;">
+<div style="margin: 2rem 0;" class="text-center">
     <Image src={logoImage} alt="Logo" caption="" width="400px" />
 </div>
 
@@ -20,8 +20,8 @@ Hytale is a sandbox game that was previously under development at Hypixel Studio
 
 Just five months later, in November 2025, the original founders of Hypixel Studios successfully closed a deal with Riot to re-acquire the project in order to finally deliver it to fans around the world through early access.
 
-During my eight years with the original studio, I worked on many aspects of the game across both its original C# client and Java server as well as its newer C++ engine developed using <ExternalLink url="https://www.flecs.dev/flecs/">Flecs</ExternalLink> as its architectural backbone.
+During my eight years with the original studio, I worked on many aspects of the game across both its original C# client and Java server as well as its newer C++ engine developed using <ExtLink url="https://www.flecs.dev/flecs/">Flecs</ExtLink> as its architectural backbone.
 
-You can read more about the game on the <ExternalLink url="https://www.hytale.com/">official website</ExternalLink>.
+You can read more about the game on the <ExtLink url="https://www.hytale.com/">official website</ExtLink>.
 
 <Image src={howlingSandsImage} alt="Howling Sands wallpaper" />

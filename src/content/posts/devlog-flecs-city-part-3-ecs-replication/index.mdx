@@ -2,17 +2,17 @@
 title: "Devlog: Flecs City (Part 3)"
 description: "ECS replication system"
 pubDate: 2026-01-18
-heroImage: "../../../images/post-headers/pixellated-code-2.png"
+headerImage: "../../../assets/post-headers/pixellated-code-2.png"
 tags: ["devlog", "cpp", "flecs", "ecs", "enet", "netcode"]
 ---
-import ExternalLink from "../../../components/ExternalLink.astro";
+import ExtLink from "../../../components/ExtLink.astro";
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
 import Image from "../../../components/Image.astro";
 import Video from "../../../components/Video.astro";
 import threadFlowDiagram from "./thread-flow-diagram.png";
 import demoVideo from "./demo.mp4";
 
-In the <a href="/posts/2025/09/devlog-flecs-city-part-2-library-and-architecture-changes/">previous devlog</a>, I integrated <ExternalLink url="http://enet.bespin.org/">ENet</ExternalLink> and implemented a network thread with support for sending and receiving basic messages.
+In the <a href="/posts/2025/09/devlog-flecs-city-part-2-library-and-architecture-changes/">previous devlog</a>, I integrated <ExtLink url="http://enet.bespin.org/">ENet</ExtLink> and implemented a network thread with support for sending and receiving basic messages.
 
 My next goal was to implement replication support for entities and components. I wanted to leverage the ECS itself to drive this as much as reasonably possible by registering component types as replicable, flagging entities for replication, and using systems to process them accordingly. To that end, I formed a rough plan:
 
@@ -24,7 +24,7 @@ My next goal was to implement replication support for entities and components. I
 
 ### The replication component
 
-I started by defining a component that can be used to mark an entity as replicable and keep track of when it's dirty. I'm not sure whether I'll stick with this approach for the "dirty" and "newly created" flags as it may be more efficient to use a set of tags instead, especially as they can be enabled/disabled (a <ExternalLink url="https://www.flecs.dev/flecs/group__enabling__disabling.html">feature of Flecs</ExternalLink>) to control when they get matched by queries. For now, though, the component by itself works just fine.
+I started by defining a component that can be used to mark an entity as replicable and keep track of when it's dirty. I'm not sure whether I'll stick with this approach for the "dirty" and "newly created" flags as it may be more efficient to use a set of tags instead, especially as they can be enabled/disabled (a <ExtLink url="https://www.flecs.dev/flecs/group__enabling__disabling.html">feature of Flecs</ExtLink>) to control when they get matched by queries. For now, though, the component by itself works just fine.
 
 I wanted this component to be able to support delta replication by keeping track of which components have changed, so I included a set of component IDs and some utilities for working with it:
 
@@ -242,7 +242,7 @@ struct ReplicationRequest
 
 `mRecipient` is used to specify a single peer to send the packet to. This is used for replicating full entity snapshots to newly connected clients. When it's `nullptr`, the data is broadcast to all clients.
 
-As a sidenote, I've not looked into compression yet. Superficial research suggests <ExternalLink url="https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)">LZ4</ExternalLink> might be a suitable algorithm for that, so I may try that out. Since I'm only testing functionality with a very small number of entities using a handful of components, it's not a high priority.
+As a sidenote, I've not looked into compression yet. Superficial research suggests <ExtLink url="https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)">LZ4</ExtLink> might be a suitable algorithm for that, so I may try that out. Since I'm only testing functionality with a very small number of entities using a handful of components, it's not a high priority.
 
 I extended the server application loop to include an "update replication" step, which does two things:
 
@@ -369,7 +369,7 @@ Those changes were the last pieces needed to get fully functioning replication i
 <Video src={demoVideo} alt="Demonstration of a server instance with two clients" />
 <div class="caption">Replication demo</div>
 
-If you'd like to see the full code diff for the whole system, you can view the PR <ExternalLink url="https://github.com/Riari/flecs-city/pull/1">here</ExternalLink>.
+If you'd like to see the full code diff for the whole system, you can view the PR <ExtLink url="https://github.com/Riari/flecs-city/pull/1">here</ExtLink>.
 
 ### What's next
 

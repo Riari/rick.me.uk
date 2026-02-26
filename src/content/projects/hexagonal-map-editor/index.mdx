@@ -3,11 +3,11 @@ title: "Hexagonal Map Editor"
 description: "A hexagonal map editor implemented in Unity"
 type: "Tool"
 weight: 30
-heroImage: "../../../images/project-headers/hex-map-editor.jpg"
+headerImage: "../../../assets/project-headers/hex-map-editor.jpg"
 url: "https://github.com/Riari/unity-hex-map-editor"
 tags: ["unity", "csharp", "game-dev", "game-dev-tool"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
+import ExtLink from '../../../components/ExtLink.astro';
 import Image from '../../../components/Image.astro';
 import Video from '../../../components/Video.astro';
 import screenshotShaderSettings from './screenshot-shader-settings.png';
@@ -25,9 +25,9 @@ It consists of the following:
 * `HexagonalMapData`: A `ScriptableObject` implementation to persist cell data (which includes asset references for prefabs to spawn in each cell)
 * `HexagonalMap`: A `MonoBehaviour` implementation that handles the grid settings, updates to the shader properties, and updates to the cell data
 * `HexagonalMapEditor`: A `CustomEditor` implementation for `HexagonalMap` that exposes the grid settings via the inspector and draws previews of content placed in the cells
-* `HexagonalMapEditorWindow`: An `EditorWindow` implementation using the <ExternalLink url="https://docs.unity3d.com/Packages/com.unity.addressables@2.6/manual/index.html">Addressables</ExternalLink> package for grouping, listing, and selecting prefabs to place in the currently selected cell
+* `HexagonalMapEditorWindow`: An `EditorWindow` implementation using the <ExtLink url="https://docs.unity3d.com/Packages/com.unity.addressables@2.6/manual/index.html">Addressables</ExtLink> package for grouping, listing, and selecting prefabs to place in the currently selected cell
 
-The source code is available at <ExternalLink url="https://github.com/Riari/unity-hex-map-editor">github.com/Riari/unity-hex-map-editor</ExternalLink>.
+The source code is available at <ExtLink url="https://github.com/Riari/unity-hex-map-editor">github.com/Riari/unity-hex-map-editor</ExtLink>.
 
 Here's a video of the editor in action:
 
@@ -35,7 +35,7 @@ Here's a video of the editor in action:
 
 <hr />
 
-<div class="columns columns--2">
+<div class="grid grid-3">
     <Image src={screenshotMapEditorWindow} alt="Map editor window" />
     <Image src={screenshotMapSettings} alt="Map settings" />
     <Image src={screenshotShaderSettings} alt="Shader settings" />
@@ -45,4 +45,4 @@ Here's a video of the editor in action:
 
 <hr />
 
-_The tile assets I used in this project are from <ExternalLink url="https://lauwet.itch.io/dice-lands-hexagon-tile-assets">itch.io/dice-lands-hexagon-tile-assets</ExternalLink>._
+_The tile assets I used in this project are from <ExtLink url="https://lauwet.itch.io/dice-lands-hexagon-tile-assets">itch.io/dice-lands-hexagon-tile-assets</ExtLink>._

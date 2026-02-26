@@ -1,13 +1,14 @@
 ---
-import Document from "../components/Document.astro";
+import Container from "../components/Container.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Document title="Page not found">
-    <div class="container container--centred container--404">
-        <div class="inner-container text-center">
+<Layout title="Page not found">
+    <Container>
+        <div class="text-center">
             <h1>Page not found</h1>
             <p>That URL doesn't appear to be valid :(</p>
             <p><a href="/">Go home</a>?</p>
         </div>
-    </div>
-</Document>
+    </Container>
+</Layout>

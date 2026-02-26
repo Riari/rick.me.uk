@@ -1,6 +1,7 @@
 ---
-import { loadAndFormatCollection } from "../../util/collection"
-import Projects from "../../components/Projects.astro"
+import { loadAndFormatCollection } from "../../scripts/utils/collection";
+
+import Projects from "../../layouts/Projects.astro"
 
 let projects: any[] = (await loadAndFormatCollection("projects", false)).sort(
     (a: any, b: any) => a.data.weight - b.data.weight,

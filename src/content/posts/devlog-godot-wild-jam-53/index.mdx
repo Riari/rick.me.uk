@@ -2,10 +2,10 @@
 title: 'Devlog: Godot Wild Jam #53'
 description: 'A wild jam in Godot.'
 pubDate: 2023-01-25
-heroImage: '../../../images/post-headers/godot-wild-jam-53.jpg'
+headerImage: '../../../assets/post-headers/godot-wild-jam-53.jpg'
 tags: ["devlog", "game-jam", "godot"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
+import ExtLink from '../../../components/ExtLink.astro';
 import Image from '../../../components/Image.astro';
 import Audio from '../../../components/Audio.astro';
 import Video from '../../../components/Video.astro';
@@ -23,9 +23,9 @@ import videoExplosionVFX from './video-explosion-vfx.mp4';
 import videoMissileShader from './video-missile-shader.mp4';
 import videoTrainSpawnEffect from './video-train-spawn-effect.mp4';
 
-<ExternalLink url="https://godotwildjam.com/">Godot Wild Jam</ExternalLink> is a monthly game jam centred around building games in the <ExternalLink url="https://godotengine.org/">Godot game engine</ExternalLink>. It starts on the second Friday of each month and lasts for nine days.
+<ExtLink url="https://godotwildjam.com/">Godot Wild Jam</ExtLink> is a monthly game jam centred around building games in the <ExtLink url="https://godotengine.org/">Godot game engine</ExtLink>. It starts on the second Friday of each month and lasts for nine days.
 
-Godot has been gaining a lot of traction in recent years. It's considerably newer than Unity and Unreal (its first release appeared back in 2014) and while it's not as popular for large, complex projects, <ExternalLink url="https://godotengine.org/article/whats-missing-in-godot-for-aaa/">that's something the authors are actively working to improve</ExternalLink>. Version 4 is in beta at the time of writing and the first stable release of it seems imminent.
+Godot has been gaining a lot of traction in recent years. It's considerably newer than Unity and Unreal (its first release appeared back in 2014) and while it's not as popular for large, complex projects, <ExtLink url="https://godotengine.org/article/whats-missing-in-godot-for-aaa/">that's something the authors are actively working to improve</ExtLink>. Version 4 is in beta at the time of writing and the first stable release of it seems imminent.
 
 Previously, I had only done a handful of experimental projects in Godot. A jam seemed like a good way to dive right into it and build something more substantial, so I signed up for GWJ #53 (Jan 13 - Jan 22).
 
@@ -43,7 +43,7 @@ In this post, I'll cover some of the key features of the game and how I implemen
 
 ### The first scene
 
-The first thing I wanted to do was get a feel for visuals. I opted to make the game in 3D (which in hindsight was probably not the best idea as the extra dimension made development more complicated than it was worth), and while I have some basic Blender skills, they weren't up to the task of creating all the models I'd need in a reasonable amount of time. Instead, I used <ExternalLink url="https://assetforge.io/">Asset Forge Deluxe</ExternalLink> to quickly piece together the terrain, scenery, track, train cars, and enemy structures.
+The first thing I wanted to do was get a feel for visuals. I opted to make the game in 3D (which in hindsight was probably not the best idea as the extra dimension made development more complicated than it was worth), and while I have some basic Blender skills, they weren't up to the task of creating all the models I'd need in a reasonable amount of time. Instead, I used <ExtLink url="https://assetforge.io/">Asset Forge Deluxe</ExtLink> to quickly piece together the terrain, scenery, track, train cars, and enemy structures.
 
 <Image src={screenshotAssetForgeTrain} alt="Train model" />
 
@@ -51,7 +51,7 @@ The first thing I wanted to do was get a feel for visuals. I opted to make the g
 
 <div class="caption">Train and projectile models made in Asset Forge</div>
 
-With most of the models exported, I mocked up the first scene in Godot to get an idea of how the first level might look. Using <ExternalLink url="https://docs.godotengine.org/en/stable/tutorials/3d/using_gridmaps.html">GridMaps</ExternalLink>, I laid out some terrain, scenery, track, and an enemy turret:
+With most of the models exported, I mocked up the first scene in Godot to get an idea of how the first level might look. Using <ExtLink url="https://docs.godotengine.org/en/stable/tutorials/3d/using_gridmaps.html">GridMaps</ExtLink>, I laid out some terrain, scenery, track, and an enemy turret:
 
 <Image src={screenshotGodotFirstScene} alt="Godot - first scene" />
 
@@ -61,17 +61,17 @@ For everything else, I eventually had to implement my own grid logic, which was 
 
 ### Dynamic tracks
 
-The next thing I tackled was dynamic track placement. Since the player has to be able to place new track segments during gameplay, the game can't predetermine the path of the track. My initial attempt to solve that was direct and lazy; I had two scenes, one for each type of track (straight and curved), and added a <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_path.html">Path</ExternalLink> (with enclosed <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_pathfollow.html#class-pathfollow">PathFollow</ExternalLink>) to each. The idea was to place a train car in the PathFollow node, move it along the segment at a given speed, then pass it to the next segment and repeat the process until the train car reaches the end. This came with some obvious drawbacks:
+The next thing I tackled was dynamic track placement. Since the player has to be able to place new track segments during gameplay, the game can't predetermine the path of the track. My initial attempt to solve that was direct and lazy; I had two scenes, one for each type of track (straight and curved), and added a <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_path.html">Path</ExtLink> (with enclosed <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_pathfollow.html#class-pathfollow">PathFollow</ExtLink>) to each. The idea was to place a train car in the PathFollow node, move it along the segment at a given speed, then pass it to the next segment and repeat the process until the train car reaches the end. This came with some obvious drawbacks:
 
 * Baking the path into each track piece meant it wouldn't necessarily go in the correct direction, which was awkward to account for in scripting.
 * There would need to be a PathFollow node per train car per track segment, which would quickly add up and bring additional unnecessary overhead.
 * Seamless transitions between segments would be difficult.
 
-I went back to the drawing board and decided to write a system that would instead generate a path at runtime. To do this, I replaced the paths in the track segment scenes with <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_spatial.html">Spatial</ExternalLink> nodes representing the points to construct a path with:
+I went back to the drawing board and decided to write a system that would instead generate a path at runtime. To do this, I replaced the paths in the track segment scenes with <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_spatial.html">Spatial</ExtLink> nodes representing the points to construct a path with:
 
 <Image src={screenshotGodotTrackPoints} alt="Track curve points" />
 
-The game needs to start with some existing track (otherwise the player would lose instantly), so the system works by traversing track nodes that already exist when the scene is loaded. Player-spawned track segments are added to the same node and the system extends the path (or more specifically, the path's <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_curve3d.html">Curve3D</ExternalLink>) accordingly:
+The game needs to start with some existing track (otherwise the player would lose instantly), so the system works by traversing track nodes that already exist when the scene is loaded. Player-spawned track segments are added to the same node and the system extends the path (or more specifically, the path's <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_curve3d.html">Curve3D</ExtLink>) accordingly:
 
 ```gdscript
 # update_curve updates the given curve to match the current state of track segments
@@ -104,7 +104,7 @@ A big part of the gameplay is the ability to spawn more cars. Making the track s
 
 My first attempt was sloppy and involved spawning the car invisibly with the same position and rotation as the rearmost car, waiting until that car was some distance ahead, then making the new one visible. Luckily, PathFollow's `PathFollow.ROTATION_ORIENTED` rotation mode—which uses the up vector information generated by the path's curve—meant I could just set each car's offset value and the engine would automatically take care of the rest (with correct positioning and rotation). With that in place, I ditched the invisibility workaround.
 
-To make spawning a little more interesting, I integrated the vertical dissolve shader from <ExternalLink url="https://github.com/ceceppa/godot-shaders">{"https://github.com/ceceppa/godot-shaders"}</ExternalLink>, which unfortunately doesn't seem to work in HTML5 exports, but it's better than anything I could produce with my current shader skills. Here's how it looks in the editor:
+To make spawning a little more interesting, I integrated the vertical dissolve shader from <ExtLink url="https://github.com/ceceppa/godot-shaders">{"https://github.com/ceceppa/godot-shaders"}</ExtLink>, which unfortunately doesn't seem to work in HTML5 exports, but it's better than anything I could produce with my current shader skills. Here's how it looks in the editor:
 
 <Video src={videoTrainSpawnEffect} type="video/mp4" loop={true} />
 
@@ -112,11 +112,11 @@ To make spawning a little more interesting, I integrated the vertical dissolve s
 
 My original plan was to have a few different weapon types and create some size variants of each. By the end of the jam, I was only able to implement missile-firing turrets, but that was enough to at least prove out the combat. To make turrets work, I needed three things: an aggro radius, an aiming/targeting system, and a projectile to fire. I started with enemy turrets.
 
-For the aggro radius, I simply used an <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_area.html">Area</ExternalLink> with a cylindrical <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_collisionshape.html">CollisionShape</ExternalLink> to represent the aggro radius. All I needed to do was connect the `body_entered(node: Node)` and `body_exited(node: Node)` <ExternalLink url="https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html">signals</ExternalLink> to a script and use <ExternalLink url="https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html">Groups</ExternalLink> to skip any nodes I don't want the turret to react to.
+For the aggro radius, I simply used an <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_area.html">Area</ExtLink> with a cylindrical <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_collisionshape.html">CollisionShape</ExtLink> to represent the aggro radius. All I needed to do was connect the `body_entered(node: Node)` and `body_exited(node: Node)` <ExtLink url="https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html">signals</ExtLink> to a script and use <ExtLink url="https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html">Groups</ExtLink> to skip any nodes I don't want the turret to react to.
 
 For targeting, I kept track of relevant nodes entering the aggro radius and prioritised the oldest one as a target. As long as a target exists, the turret rotates towards it (with some linear interpolation) and initiates firing based on a given interval.
 
-For the projectile, I created a missile in Asset Forge (as seen earlier in the post) and used the engine flame shader from <ExternalLink url="https://github.com/miskatonicstudio/godot-experiments">{"https://github.com/miskatonicstudio/godot-experiments"}</ExternalLink> for the exhaust effect:
+For the projectile, I created a missile in Asset Forge (as seen earlier in the post) and used the engine flame shader from <ExtLink url="https://github.com/miskatonicstudio/godot-experiments">{"https://github.com/miskatonicstudio/godot-experiments"}</ExtLink> for the exhaust effect:
 
 <Video src={videoMissileShader} type="video/mp4" loop={true} />
 
@@ -126,7 +126,7 @@ I went through a few iterations of that system over the course of the jam, and w
 
 <Image src={screenshotTurretScriptExports} alt="Turret script exports" caption="Configuration exposed by the turret script" />
 
-To make the missiles explode on impact, I just used more of Godot's physics nodes: a <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_staticbody.html">StaticBody</ExternalLink> on the missile itself and <ExternalLink url="https://docs.godotengine.org/en/stable/classes/class_area.html">Area</ExternalLink> nodes on anything missiles should be able to hit (the terrain and the train cars). To make the impact more visually appealing, I integrated the explosion effect from <ExternalLink url="https://github.com/drcd1/GodotSimpleExplosionVFX">{"https://github.com/drcd1/GodotSimpleExplosionVFX"}</ExternalLink>:
+To make the missiles explode on impact, I just used more of Godot's physics nodes: a <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_staticbody.html">StaticBody</ExtLink> on the missile itself and <ExtLink url="https://docs.godotengine.org/en/stable/classes/class_area.html">Area</ExtLink> nodes on anything missiles should be able to hit (the terrain and the train cars). To make the impact more visually appealing, I integrated the explosion effect from <ExtLink url="https://github.com/drcd1/GodotSimpleExplosionVFX">{"https://github.com/drcd1/GodotSimpleExplosionVFX"}</ExtLink>:
 
 <Video src={videoExplosionVFX} type="video/mp4" loop={true} />
 
@@ -184,7 +184,7 @@ I decided early on to make it so that newly placed track could only lead north, 
 
 ### Audio
 
-I invested very little time in audio—around thirty minutes at most—mainly because the game only needed a very limited set of sound effects. For the explosions, I used some effects from <ExternalLink url="https://www.zapsplat.com/">zapsplat.com</ExternalLink>, which is an excellent source of royalty-free sound effects in reasonably good quality.
+I invested very little time in audio—around thirty minutes at most—mainly because the game only needed a very limited set of sound effects. For the explosions, I used some effects from <ExtLink url="https://www.zapsplat.com/">zapsplat.com</ExtLink>, which is an excellent source of royalty-free sound effects in reasonably good quality.
 
 For the music, I used an old track I wrote a long time (almost ten years!) ago. I recalled some people commenting at the time that it sounded like it would go well in a video game, and it has a steadily increasing tempo, which seemed to fit the concept of this game in particular. If I decide to continue working on the game, I'd like to explore dynamic music that builds up based on game state, and perhaps have the speed of the train gradually increase alongside the tempo.
 
@@ -196,9 +196,9 @@ Aside from the music, I created two sound effects: the missile launch sound and 
 
 ### UI
 
-I worked on the UI throughout the project, adding to it in small increments as parts of the gameplay and features needed for user input came together. I think I could have done a much better job of the UI were it not for time constraints, but it could be much worse! For the font, I used Bebas Neue (see <ExternalLink url="https://fonts.google.com/specimen/Bebas+Neue">Google Fonts</ExternalLink>), which was fine for some elements but the all-caps is a little too much for paragraphs of text. An expanded font family would certainly be an improvement.
+I worked on the UI throughout the project, adding to it in small increments as parts of the gameplay and features needed for user input came together. I think I could have done a much better job of the UI were it not for time constraints, but it could be much worse! For the font, I used Bebas Neue (see <ExtLink url="https://fonts.google.com/specimen/Bebas+Neue">Google Fonts</ExtLink>), which was fine for some elements but the all-caps is a little too much for paragraphs of text. An expanded font family would certainly be an improvement.
 
-For the buttons, I opted to create some textures for the normal, hovered, and pressed states in Photoshop. I didn't use <ExternalLink url="https://en.wikipedia.org/wiki/9-slice_scaling">9-slicing</ExternalLink>, so the buttons all ended up being the same aspect ratio and scale, but that wasn't a problem since I only used buttons in the main menus and in-game pause menu.
+For the buttons, I opted to create some textures for the normal, hovered, and pressed states in Photoshop. I didn't use <ExtLink url="https://en.wikipedia.org/wiki/9-slice_scaling">9-slicing</ExtLink>, so the buttons all ended up being the same aspect ratio and scale, but that wasn't a problem since I only used buttons in the main menus and in-game pause menu.
 
 <Image src={screenshotMainMenu} alt="Main menu" caption="The main menu" />
 
@@ -208,12 +208,12 @@ Aside from creating some textures for the health bars (one in the HUD for the tr
 
 <Image src={screenshotHUDBottom} alt="HUD - bottom section" caption="The bottom section of the HUD" />
 
-Like some other parts of the game, I used <ExternalLink url="https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html">signals</ExternalLink> for both upwards and lateral communication in the scene tree and direct calls to script functions for downwards communication. For example, the HUD script receives signals for button presses, changes to the train's integrity value, (un)pausing the game, and win/loss conditions (to show the corresponding modal UI to the player).
+Like some other parts of the game, I used <ExtLink url="https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html">signals</ExtLink> for both upwards and lateral communication in the scene tree and direct calls to script functions for downwards communication. For example, the HUD script receives signals for button presses, changes to the train's integrity value, (un)pausing the game, and win/loss conditions (to show the corresponding modal UI to the player).
 
 One of the biggest issues with the UI turned out to be its poor response to lower resolutions, since I developed the game on my 3440x1440 ultrawide and didn't test at lower resolutions as much as I should have. But just like everything else in a jam, that's something I might have addressed if I had more time!
 
 ---
 
-That covers the more interesting (or perhaps not so interesting depending on your experience with Godot!) aspects of the game. If I decide to continue working on it, I'll consider redeveloping it in 2D and creating the artwork myself with <ExternalLink url="https://www.aseprite.org/">Aseprite</ExternalLink>. Some of the best submissions I played in this jam are polished 2D experiences with tightly defined scope and a nice pixel art style, so I could probably learn a thing or two from those.
+That covers the more interesting (or perhaps not so interesting depending on your experience with Godot!) aspects of the game. If I decide to continue working on it, I'll consider redeveloping it in 2D and creating the artwork myself with <ExtLink url="https://www.aseprite.org/">Aseprite</ExtLink>. Some of the best submissions I played in this jam are polished 2D experiences with tightly defined scope and a nice pixel art style, so I could probably learn a thing or two from those.
 
-The game is <ExternalLink url="https://riari89.itch.io/train-blazer">hosted on itch.io</ExternalLink> if you'd like to try it, and the source is available on GitHub at <ExternalLink url="https://github.com/Riari/gwj-jan-2023">{"https://github.com/Riari/gwj-jan-2023"}</ExternalLink>. Thanks for reading!
+The game is <ExtLink url="https://riari89.itch.io/train-blazer">hosted on itch.io</ExtLink> if you'd like to try it, and the source is available on GitHub at <ExtLink url="https://github.com/Riari/gwj-jan-2023">{"https://github.com/Riari/gwj-jan-2023"}</ExtLink>. Thanks for reading!

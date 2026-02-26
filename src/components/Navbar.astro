@@ -1,0 +1,91 @@
+---
+import Image from "astro/components/Image.astro";
+
+import Container from "./Container.astro";
+
+import logo from "../assets/logo.svg";
+---
+
+<nav class="navbar">
+    <Container maxWidth="900px">
+        <div class="navbar-inner">
+            <a href="/">
+                <Image src={logo} alt="" width={64} />
+            </a>
+            <ul>
+                <li><a href="/posts/1">Posts</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/tags">Tags</a></li>
+            </ul>
+        </div>
+    </Container>
+</nav>
+
+<script lang="ts">
+    let navbar = document.querySelector(".navbar");
+
+    if (window.scrollY > 0) {
+        navbar.classList.add("scrolled");
+    }
+
+    document.addEventListener("scroll", event => {
+        if (window.scrollY > 0) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+</script>
+
+<style lang="scss">
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0;
+    background-color: rgba(34, 37, 47, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.0);
+    transition: background-color 0.1s ease, box-shadow 0.1s ease;
+
+    &.scrolled {
+        background-color: rgba(34, 37, 47, 0.95);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    &-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        :global(img) {
+            display: block;
+        }
+
+        :global(a:hover img) {
+            filter: brightness(1.5) saturate(0);
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+
+            a {
+                display: block;
+                padding: .75rem .5rem;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 1.25rem;
+                color: var(--color-foreground-muted-2);
+
+                &:hover {
+                    color: var(--color-foreground);
+                }
+            }
+        }
+    }
+}
+</style>

@@ -1,0 +1,7 @@
+---
+import { LinkExternal } from "griddy-icons";
+
+const { url } = Astro.props;
+---
+
+<a href={url} target="_blank" title={url} class="external-link"><slot></slot><LinkExternal size={16} /></a>

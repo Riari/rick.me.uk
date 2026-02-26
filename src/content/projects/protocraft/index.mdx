@@ -3,14 +3,14 @@ title: "Protocraft"
 description: "A multiplayer survival RPG prototype built in Unreal 5"
 type: "Game"
 weight: 20
-heroImage: "../../../images/project-headers/protocraft.jpg"
+headerImage: "../../../assets/project-headers/protocraft.jpg"
 url: "https://github.com/Riari/ue5-craft"
 tags: ["cpp", "unreal-engine", "multiplayer", "game-dev"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
+import ExtLink from '../../../components/ExtLink.astro';
 import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
 import Image from '../../../components/Image.astro';
-import { YouTube } from 'astro-embed';
+import Video from '../../../components/Video.astro';
 import screenshotMining from './screenshot-mining.jpg';
 import screenshotMeleeAttack from './screenshot-melee-attack.jpg';
 import screenshotDroppedLoot from './screenshot-dropped-loot.jpg';
@@ -18,7 +18,7 @@ import screenshotServerPhysics from './screenshot-server-physics.png';
 
 Protocraft is a multiplayer RPG I started developing in late January 2026 using Unreal. It's primarily an exercise in designing and implementing the kind of gameplay mechanics typically seen in survival crafting games.
 
-This project uses the <ExternalLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine"><b>Gameplay Ability System</b> (GAS)</ExternalLink>. It implements server-authoritative gameplay features using GAS to power gameplay attributes, effects, and abilities.
+This project uses the <ExtLink url="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine"><b>Gameplay Ability System</b> (GAS)</ExtLink>. It implements server-authoritative gameplay features using GAS to power gameplay attributes, effects, and abilities.
 
 To read more about GAS, see my <a href="/posts/2024/12/unreal-engine-gameplay-ability-system/">2024 write-up</a>.
 
@@ -33,7 +33,7 @@ Current features include:
 
 <hr />
 
-<div class="columns columns--2">
+<div class="grid grid-2">
     <Image src={screenshotMining} alt="Mining iron ore" />
     <Image src={screenshotMeleeAttack} alt="Melee attack in PvP" />
     <Image src={screenshotDroppedLoot} alt="Dropped loot" />
@@ -42,6 +42,4 @@ Current features include:
 
 <hr />
 
-<div class="video-container">
-    <YouTube id="iIsWC61PM1I" />
-</div>
+<Video src="iIsWC61PM1I" isYouTube={true} />

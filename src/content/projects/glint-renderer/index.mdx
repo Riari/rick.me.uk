@@ -3,16 +3,16 @@ title: "Glint Renderer"
 description: "An OpenGL-based renderer written in C++"
 type: "Tool"
 weight: 60
-heroImage: "../../../images/project-headers/glint-renderer.png"
+headerImage: "../../../assets/project-headers/glint-renderer.png"
 url: "https://github.com/Riari/glint-renderer"
 tags: ["cpp", "opengl"]
 ---
-import ExternalLink from '../../../components/ExternalLink.astro';
+import ExtLink from '../../../components/ExtLink.astro';
 import Image from '../../../components/Image.astro';
 import screenshotImage from './screenshot.jpg';
 
-Glint is my second attempt at writing an OpenGL renderer in C++. I built it while following the Udemy course _<ExternalLink url="https://www.udemy.com/course/graphics-with-modern-opengl/">Computer Graphics with Modern OpenGL and C++</ExternalLink>_, developing a rudimentary JSON-based asset system along the way.
+Glint is my second attempt at writing an OpenGL renderer in C++. I built it while following the Udemy course _<ExtLink url="https://www.udemy.com/course/graphics-with-modern-opengl/">Computer Graphics with Modern OpenGL and C++</ExtLink>_, developing a rudimentary JSON-based asset system along the way.
 
-It uses <ExternalLink url="https://github.com/assimp/assimp">assimp</ExternalLink> for model and material import and supports basic <ExternalLink url="https://en.wikipedia.org/wiki/Bui_Tuong_Phong">Phong</ExternalLink> lighting as well as shadowmapping.
+It uses <ExtLink url="https://github.com/assimp/assimp">assimp</ExtLink> for model and material import and supports basic <ExtLink url="https://en.wikipedia.org/wiki/Bui_Tuong_Phong">Phong</ExtLink> lighting as well as shadowmapping.
 
 <Image src={screenshotImage} alt="Screenshot" caption="Screenshot" />

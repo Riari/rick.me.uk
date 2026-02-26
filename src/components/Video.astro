@@ -1,5 +1,7 @@
 ---
-const { src, type, caption = "", loop = false, autoplay = false } = Astro.props;
+import { YouTube } from "astro-embed";
+
+const { src, type, caption = "", loop = false, autoplay = false, isYouTube = false } = Astro.props;
 
 let properties: any = {
     'controls': true,
@@ -9,9 +11,28 @@ let properties: any = {
 ---
 
 <div class="video-container">
-    <video { ...properties }>
-        <source src={src} type={type}>
-        Video playback is not supported in your browser. :(
-    </video>
+    { isYouTube
+        ? <YouTube id={src} />
+        : <video { ...properties }>
+            <source src={src} type={type}>
+            Video playback is not supported in your browser. :(
+        </video> }
     { caption && <div class="caption">{caption}</div> }
 </div>
+
+<style lang="scss">
+.video-container {
+    text-align: center;
+
+    video {
+        width: 100%;
+        height: auto;
+        max-width: 800px;
+        max-height: 400px;
+    }
+
+    :global(lite-youtube) {
+        margin: 0 auto;
+    }
+}
+</style>

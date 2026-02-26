@@ -1,8 +1,9 @@
 ---
-import ContentFooter from "../../components/ContentFooter.astro";
-import Document from "../../components/Document.astro";
-import Head from "../../components/Head.astro";
-import { loadAndFormatCollection, getTags } from "../../util/collection";
+import { loadAndFormatCollection, getTags } from "../../scripts/utils/collection";
+
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Container from "../../components/Container.astro";
 
 const posts = await loadAndFormatCollection("posts");
 const projects = await loadAndFormatCollection("projects", false);
@@ -10,46 +11,54 @@ const postTags = await getTags(posts);
 const projectTags = await getTags(projects);
 ---
 
-<Document title="Tags">
+<Layout title="Tags">
     <div class="container container--tags">
         <div class="head-container">
-            <Head title="Tags" />
+            <Header title="Tags" />
         </div>
 
-        <div class="body">
-            <div class="inner-container text-center">
-                <h3 style="margin-top: 0;" class="text--muted-2">
-                    Browse posts tagged with…
-                </h3>
+        <Container maxWidth="700px">
+            <h2>Browse posts tagged with…</h2>
 
-                <ul class="button-group button-group--accent-5">
-                    {
-                        postTags.map((tag) => (
-                            <li>
-                                <a href={`/posts/tag/${tag}/1`}>
-                                    <span>{tag}</span>
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
+            <ul class="tags">
+                {
+                    postTags.map((tag) => (
+                        <li>
+                            <a href={`/posts/tag/${tag}/1`}>
+                                <span>{tag}</span>
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
 
-                <h3 class="text--muted-2">Browse projects tagged with…</h3>
+            <hr />
 
-                <ul class="button-group button-group--accent-3">
-                    {
-                        projectTags.map((tag) => (
-                            <li>
-                                <a href={`/projects/tag/${tag}`}>
-                                    <span>{tag}</span>
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </div>
-        </div>
+            <h2>Browse projects tagged with…</h2>
 
-        <ContentFooter />
+            <ul class="tags">
+                {
+                    projectTags.map((tag) => (
+                        <li>
+                            <a href={`/projects/tag/${tag}`}>
+                                <span>{tag}</span>
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </Container>
     </div>
-</Document>
+</Layout>
+
+<style lang="scss">
+h2 {
+    font-variation-settings: "wdth" 100;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+ul.tags li a span {
+    font-size: 1.25rem;
+}
+</style>

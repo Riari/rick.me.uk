@@ -1,0 +1,54 @@
+---
+import Container from "../components/Container.astro";
+
+interface Props {
+    paddingBottom?: boolean;
+    paddingTop?: boolean;
+    withBackground?: boolean;
+}
+
+const { paddingBottom = true, paddingTop = true, withBackground = false } = Astro.props;
+---
+
+<div
+    class:list={['section', { 'section--background': withBackground }]}
+    style={`padding-top: ${paddingTop ? '2rem' : '0'}; padding-bottom: ${paddingBottom ? '3rem' : '0'}`}
+>
+    <Container>
+        <slot />
+    </Container>
+</div>
+
+
+<style lang="scss">
+.section {
+    &--background {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    :global(.section-header) {
+        display: flex;
+        align-items: center;
+        margin: 0 0 1rem 0;
+
+        :global(h1, h2, h3) {
+            margin: 0;
+            flex: 1;
+        }
+    }
+
+    :global(h2) {
+        font-size: 2.2rem;
+        font-weight: 500;
+    }
+
+    :global(h3) {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+    :global(p) {
+        font-size: 1.2rem;
+    }
+}
+</style>
