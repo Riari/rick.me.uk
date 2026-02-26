@@ -1,7 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
-import shapes from "../assets/shapes.svg";
 import shapesTop from "../assets/shapes-top.svg";
 import shapesBottom from "../assets/shapes-bottom.svg";
 import noise from "../assets/noise.svg";
@@ -415,6 +414,16 @@ body {
     color: var(--color-foreground-muted-2);
 }
 
+:global(table) {
+    width: 100%;
+    border-collapse: collapse;
+
+    :global(th, td) {
+        padding: 0.3rem .7rem;
+        border: 1px solid var(--color-overlay-light);
+    }
+}
+
 :global(p > code, li > code) {
     display: inline-block;
     padding: .1rem .4em;
@@ -445,7 +454,7 @@ body {
     :global(.grid-2) {
         grid-template-columns: repeat(1, 1fr);
     }
-    
+
     :global(.grid-3) {
         grid-template-columns: repeat(1, 1fr);
     }
