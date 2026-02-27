@@ -39,27 +39,16 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
 
         <link rel="canonical" href={canonicalURL} />
 
-        <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website" />
         <meta property="og:url" content={Astro.url} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={new URL(image, Astro.url)} />
 
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={Astro.url} />
-        <meta property="twitter:title" content={pageTitle} />
-        <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content={new URL(image, Astro.url)} />
-
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@50..125,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
-
-        <link rel="preload" href="/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" />
+        <link rel="preload" href="/fonts/Saira.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
     </head>
     <body class:list={[{"with-gradient": withGradient}]}>
         <div class="backdrops">
@@ -96,6 +85,16 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
     --color-accent-3: #ff96a7;
     --color-accent-4: #f3d68c;
     --color-overlay-light: rgba(255, 255, 255, 0.08);
+}
+
+@font-face {
+    font-family: 'Saira';
+    font-style: normal;
+    font-weight: 400 700;
+    font-stretch: 100% 125%;
+    font-display: swap;
+    src: local('Saira'), url('/fonts/Saira.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
