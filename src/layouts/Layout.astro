@@ -162,22 +162,24 @@ body {
 .page {
     padding-bottom: 2rem;
 }
+</style>
 
-:global(.expressive-code) {
+<style is:global lang="scss">
+.expressive-code {
     margin: 1.2em 0;
     --ec-frm-trmTtbBg: #232734;
     --ec-frm-edTabBarBg: #232734;
     --ec-frm-edActTabIndBtmCol: var(--color-accent-4);
 
-    :global(figure.frame) {
+    figure.frame {
         --header-border-radius: .3em;
         box-shadow: none;
 
-        :global(.copy) {
+        .copy {
             --ec-frm-tooltipSuccessBg: var(--color-accent-1);
             --ec-frm-tooltipSuccessFg: var(--color-foreground-inverted);
 
-            :global(button::before) {
+            button::before {
                 border: none;
             }
         }
@@ -188,7 +190,7 @@ body {
     }
 }
 
-:global(hr) {
+hr {
     border: 0;
     margin: 2rem 0;
     height: 4px;
@@ -196,32 +198,32 @@ body {
     background: var(--color-overlay-light);
 }
 
-:global(h1, h2, h3) {
+h1, h2, h3 {
     font-weight: 600;
     font-variation-settings: "wdth" 125;
 }
 
-:global(ul li) {
+ul li {
     margin: .25rem 0;
 }
 
-:global(.text-center) {
+.text-center {
     text-align: center;
 }
 
-:global(.text-right) {
+.text-right {
     text-align: right;
 }
 
-:global(.text-muted-1) {
+.text-muted-1 {
     color: var(--color-foreground-muted-1);
 }
 
-:global(.text-muted-2) {
+.text-muted-2 {
     color: var(--color-foreground-muted-2);
 }
 
-:global(a) {
+a {
     color: var(--color-link);
     text-decoration: underline solid var(--color-overlay-light);
     text-decoration-thickness: 2px;
@@ -233,7 +235,7 @@ body {
     }
 }
 
-:global(a.accent-1) {
+a.accent-1 {
     color: var(--color-accent-1);
 
     &:hover {
@@ -241,7 +243,7 @@ body {
     }
 }
 
-:global(a.accent-2) {
+a.accent-2 {
     color: var(--color-accent-2);
 
     &:hover {
@@ -249,7 +251,7 @@ body {
     }
 }
 
-:global(a.accent-3) {
+a.accent-3 {
     color: var(--color-accent-3);
 
     &:hover {
@@ -257,7 +259,7 @@ body {
     }
 }
 
-:global(a.accent-4) {
+a.accent-4 {
     color: var(--color-accent-4);
 
     &:hover {
@@ -265,7 +267,7 @@ body {
     }
 }
 
-:global(.badge) {
+.badge {
     display: inline-block;
     background-color: var(--color-brand);
     font-weight: 500;
@@ -274,20 +276,20 @@ body {
     border-radius: 0.25rem;
 }
 
-:global(.posts) {
+.posts {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 3rem;
 
-    :global(.card-header) {
+    .card-header {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
         gap: 1rem;
         margin-bottom: .75rem;
 
-        :global(.card-header-title) {
+        .card-header-title {
             flex: 1;
             margin: 0 !important;
             font-size: 1.4rem !important;
@@ -295,7 +297,7 @@ body {
     }
 }
 
-:global(.tags) {
+.tags {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -304,11 +306,11 @@ body {
     padding: 0;
     margin: 0;
 
-    :global(li) {
+    li {
         margin: 0;
     }
 
-    :global(li a) {
+    li a {
         display: inline-block;
         font-size: 1.1rem;
         font-weight: 500;
@@ -321,27 +323,27 @@ body {
     }
 }
 
-:global(.tags.accent-1 li a) {
+.tags.accent-1 li a {
     color: var(--color-accent-1);
     &:hover { color: inherit; }
 }
 
-:global(.tags.accent-2 li a) {
+.tags.accent-2 li a {
     color: var(--color-accent-2);
     &:hover { color: inherit; }
 }
 
-:global(.tags.accent-3 li a) {
+.tags.accent-3 li a {
     color: var(--color-accent-3);
     &:hover { color: inherit; }
 }
 
-:global(.tags.accent-4 li a) {
+.tags.accent-4 li a {
     color: var(--color-accent-4);
     &:hover { color: inherit; }
 }
 
-:global(ul.pills) {
+ul.pills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -350,63 +352,63 @@ body {
     padding: 0;
     margin: 2rem 0;
 
-    :global(li) {
+    li {
         display: flex;
         gap: 0.15rem;
         font-size: 1rem;
         font-weight: 500;
 
-        &.accent-1 :global(span:last-child) {
+        &.accent-1 span:last-child {
             color: var(--color-accent-1);
         }
 
-        &.accent-2 :global(span:last-child) {
+        &.accent-2 span:last-child {
             color: var(--color-accent-2);
         }
 
-        &.accent-3 :global(span:last-child) {
+        &.accent-3 span:last-child {
             color: var(--color-accent-3);
         }
 
-        &.accent-4 :global(span:last-child) {
+        &.accent-4 span:last-child {
             color: var(--color-accent-4);
         }
 
-        :global(span:first-child) {
+        span:first-child {
             padding: 0.1rem 0.5rem 0.1rem 0.75rem;
             border-top-left-radius: 1rem;
             border-bottom-left-radius: 1rem;
             background: var(--color-overlay-light);
         }
 
-        :global(span:last-child) {
+        span:last-child {
             padding: 0.1rem 0.75rem 0.1rem 0.5rem;
             border-top-right-radius: 1rem;
             border-bottom-right-radius: 1rem;
             background: var(--color-overlay-light);
             color: var(--color-foreground-muted-2);
 
-            :global(a) {
+            a {
                 text-decoration: none;
             }
         }
     }
 }
 
-:global(.grid) {
+.grid {
     display: grid;
     gap: 1rem;
 }
 
-:global(.grid-2) {
+.grid-2 {
     grid-template-columns: repeat(2, 1fr);
 }
 
-:global(.grid-3) {
+.grid-3 {
     grid-template-columns: repeat(3, 1fr);
 }
 
-:global(.caption) {
+.caption {
     margin: 1rem 0 2rem 0;
     text-align: center;
     font-size: .9em;
@@ -414,17 +416,17 @@ body {
     color: var(--color-foreground-muted-2);
 }
 
-:global(table) {
+table {
     width: 100%;
     border-collapse: collapse;
 
-    :global(th, td) {
+    th, td {
         padding: 0.3rem .7rem;
         border: 1px solid var(--color-overlay-light);
     }
 }
 
-:global(p > code, li > code) {
+p > code, li > code {
     display: inline-block;
     padding: .1rem .4em;
     border-radius: .3em;
@@ -434,28 +436,28 @@ body {
     word-wrap: anywhere;
 }
 
-:global(.medium-zoom-overlay, .medium-zoom-image) {
+.medium-zoom-overlay, .medium-zoom-image {
     z-index: 200;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    :global(*),
-    :global(*::before) {
+    *,
+    *::before {
         transition: none !important;
     }
 }
 
 @media (width < 48rem) {
-    :global(.posts .card-header) {
+    .posts .card-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    :global(.grid-2) {
+    .grid-2 {
         grid-template-columns: repeat(1, 1fr);
     }
 
-    :global(.grid-3) {
+    .grid-3 {
         grid-template-columns: repeat(1, 1fr);
     }
 }
