@@ -4,4 +4,13 @@ import { LinkExternal } from "griddy-icons";
 const { url } = Astro.props;
 ---
 
+<style lang="scss">
+    .external-link {
+        :global(svg) {
+            vertical-align: -2px;
+            margin-left: 1px;
+        }
+    }
+</style>
+
 <a href={url} target="_blank" title={url} class="external-link"><slot></slot><LinkExternal size={16} /></a>
