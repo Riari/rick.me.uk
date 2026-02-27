@@ -13,11 +13,13 @@ const { href } = Astro.props;
 <style lang="scss">
 .button {
     display: inline-block;
+    box-sizing: border-box;
     position: relative;
-    text-decoration: none;
-    padding: 0.25rem 1.5rem;
+    padding: 0.4rem 1.5rem;
     font-weight: 600;
-    color: var(--color-foreground-muted-2);
+    color: var(--color-foreground);
+    text-decoration: none;
+    text-align: center;
     transition: color 0.1s ease;
     backdrop-filter: blur(3px);
     user-select: none;
@@ -33,8 +35,7 @@ const { href } = Astro.props;
         left: 0;
         width: 100%;
         height: 100%;
-        border-radius: 0.3rem;
-        border-bottom-right-radius: 1rem;
+        border-radius: 0.3rem 0.3rem 1rem 0.3rem;
         box-shadow: inset 0 0 0 2px var(--color-overlay-light);
         background-image: linear-gradient(145deg, #ffffff10, #ffffff20);
         z-index: -1;

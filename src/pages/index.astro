@@ -57,6 +57,9 @@ const projects = (await loadAndFormatCollection("projects", false))
                 <PostCard post={post} />
             )) }
         </div>
+        <div class="see-more">
+            <Button href="/posts">See more</Button>
+        </div>
     </Section>
 
     <Section withBackground={true}>
@@ -68,6 +71,9 @@ const projects = (await loadAndFormatCollection("projects", false))
             { projects.map((project: any) => (
                 <ProjectCard project={project} />
             )) }
+        </div>
+        <div class="see-more">
+            <Button href="/projects">See more</Button>
         </div>
     </Section>
 
@@ -198,6 +204,15 @@ const projects = (await loadAndFormatCollection("projects", false))
     }
 }
 
+.see-more {
+    display: none;
+    margin-top: 2rem;
+
+    :global(.button) {
+        width: 100%;
+    }
+}
+
 .proficiencies {
     padding: 1rem 0 1.5rem 0;
 
@@ -240,6 +255,14 @@ const projects = (await loadAndFormatCollection("projects", false))
         h1 {
             font-size: 5rem;
         }
+    }
+
+    .section-header :global(.button) {
+        display: none;
+    }
+
+    .see-more {
+        display: block;
     }
 }
 </style>
