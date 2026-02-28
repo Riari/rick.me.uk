@@ -202,8 +202,31 @@ h1, h2, h3 {
     font-variation-settings: "wdth" 125;
 }
 
+strong {
+    font-weight: 600;
+}
+
 ul li {
     margin: .25rem 0;
+}
+
+blockquote {
+    position: relative;
+    margin: 0;
+    padding: 0.15rem 1.5rem 0.15rem calc(1.5rem + 4px);
+    border-radius: 0 1rem 1rem 0;
+    background-color: rgba(0, 0, 0, 0.15);
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 4px;
+        background: linear-gradient(to bottom, #FFAA87, #FFCAA9 50%, #FF8D87 100%);
+    }
 }
 
 .text-center {
