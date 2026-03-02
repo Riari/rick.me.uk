@@ -18,6 +18,6 @@ const { post, withTags = false } = Astro.props;
     </div>
 
     { withTags && <div class="links" slot="footer">
-        {post.data.tags.map((tag: string) => <a href={`/posts/tag/${tag}`}>{tag}</a>)}
+        {post.data.tags.map((tag: string) => <a href={`/posts/tag/${tag}/1`}>{tag}</a>)}
     </div>}
 </Card>
