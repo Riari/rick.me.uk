@@ -18,4 +18,10 @@ const { maxWidth = "1100px" } = Astro.props;
     width: 100%;
     box-sizing: border-box;
 }
+
+@media (width < 40rem) {
+    .container {
+        padding: 0 1.5rem;
+    }
+}
 </style>

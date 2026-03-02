@@ -21,14 +21,14 @@ import logo from "../assets/logo.svg";
     </Container>
 </nav>
 
-<script lang="ts">
+<script>
     let navbar = document.querySelector(".navbar");
 
     if (window.scrollY > 0) {
         navbar.classList.add("scrolled");
     }
 
-    document.addEventListener("scroll", event => {
+    document.addEventListener("scroll", _event => {
         if (window.scrollY > 0) {
             navbar.classList.add("scrolled");
         } else {

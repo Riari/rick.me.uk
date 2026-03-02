@@ -251,18 +251,18 @@ const projects = (await loadAndFormatCollection("projects", false))
 }
 
 @media (width < 48rem) {
-    .intro-name {
-        h1 {
-            font-size: 5rem;
-        }
-    }
-
     .section-header :global(.button) {
         display: none;
     }
 
     .see-more {
         display: block;
+    }
+}
+
+@media (width < 40rem) {
+    .intro-name h1 {
+        font-size: 5rem;
     }
 }
 </style>
