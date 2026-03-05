@@ -11,6 +11,7 @@ interface Props {
     title: string;
     description?: string;
     image?: string;
+    classes?: string;
     withNavbar?: boolean;
     withShapes?: boolean;
     withGradient?: boolean;
@@ -20,6 +21,7 @@ const {
     title,
     description = SITE_DESCRIPTION,
     image = "/default-og-preview.png",
+    classes = "",
     withNavbar = true,
     withShapes = true,
     withGradient = true
@@ -61,7 +63,7 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
 
         { withNavbar && <div style="padding-top: 6rem;"><Navbar /></div> }
 
-        <div class="page">
+        <div class:list={["page", classes]}>
             <slot />
         </div>
 
@@ -81,9 +83,17 @@ let pageTitle = title ? `${title} • ${SITE_TITLE}` : SITE_TITLE;
     --color-link: #82aaff;
     --color-brand: #ffb49c;
     --color-accent-1: #7cdeb5;
+    --color-accent-1-lighter: hsl(from var(--color-accent-1) h s calc(l + 10));
+    --color-accent-1-darker: hsl(from var(--color-accent-1) h s calc(l - 10));
     --color-accent-2: #b8a4ff;
+    --color-accent-2-lighter: hsl(from var(--color-accent-2) h s calc(l + 10));
+    --color-accent-2-darker: hsl(from var(--color-accent-2) h s calc(l - 10));
     --color-accent-3: #ff96a7;
+    --color-accent-3-lighter: hsl(from var(--color-accent-3) h s calc(l + 10));
+    --color-accent-3-darker: hsl(from var(--color-accent-3) h s calc(l - 10));
     --color-accent-4: #f3d68c;
+    --color-accent-4-lighter: hsl(from var(--color-accent-4) h s calc(l + 10));
+    --color-accent-4-darker: hsl(from var(--color-accent-4) h s calc(l - 10));
     --color-overlay-light: rgba(255, 255, 255, 0.08);
 }
 

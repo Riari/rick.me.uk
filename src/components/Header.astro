@@ -68,6 +68,26 @@ const hasAfterContent = Astro.slots.has('after');
     }
 }
 
+:global(.page.accent-1) .header h1 {
+    color: var(--color-accent-1);
+    background-image: linear-gradient(135deg, var(--color-accent-1) 25%, var(--color-accent-1-lighter) 50%, var(--color-accent-1-darker) 100%);
+}
+
+:global(.page.accent-2) .header h1 {
+    color: var(--color-accent-2);
+    background-image: linear-gradient(135deg, var(--color-accent-2) 25%, var(--color-accent-2-lighter) 50%, var(--color-accent-2-darker) 100%);
+}
+
+:global(.page.accent-3) .header h1 {
+    color: var(--color-accent-3);
+    background-image: linear-gradient(135deg, var(--color-accent-3) 25%, var(--color-accent-3-lighter) 50%, var(--color-accent-3-darker) 100%);
+}
+
+:global(.page.accent-4) .header h1 {
+    color: var(--color-accent-4);
+    background-image: linear-gradient(135deg, var(--color-accent-4) 25%, var(--color-accent-4-lighter) 50%, var(--color-accent-4-darker) 100%);
+}
+
 @media (width < 48rem) {
     .header {
         font-size: 1.2rem;
