@@ -45,15 +45,13 @@ My process for migrating everything was very manual and pretty uninteresting. In
 
 I heavily relied on DigitalOcean's snapshots as a backup solution. AlphaVPS doesn't offer an equivalent service, but relying on snapshots alone isn't great anyway and I wanted a solution that would give me more control over how, when, and where backups are made.
 
-After researching ways of setting up my own automation, I chose to use <ExtLink url="https://restic.net/">Restic</ExtLink> (with <ExtLink url="https://github.com/garethgeorge/backrest">Backrest</ExtLink> as an orchestrator and frontend) and an S3 bucket for remote storage of snapshots.
+After researching ways of setting up my own automation, I chose to set up <ExtLink url="https://restic.net/">Restic</ExtLink> (with <ExtLink url="https://github.com/garethgeorge/backrest">Backrest</ExtLink> as an orchestrator and frontend) and configure it to write snapshots to both AWS S3 and Backblaze B2. I can stay well within free tier usage limits for both of those services, so it costs me nothing.
 
 Restic is brilliant as it supports independent configurations for backup plans (which govern when and what to back up) and repositories (which define the places your snapshots can be written to). It also efficiently handles snapshots through delta compression, so you can store a high number of snapshots without losing bandwidth and storage capacity to duplicated data.
 
 <Image src={backrestImage} caption="Backrest dashboard" alt="Screenshot of the Backrest dashboard" />
 
-One thing I should do is set up a second repository so that I'm approximately using the <ExtLink url="https://en.wikipedia.org/wiki/Backup#3-2-1_Backup_Rule">3-2-1 backup rule</ExtLink>. I'll look into that soon.
-
-Restic doesn't support directly exporting from database systems. To include database backups, I have a script set up to dump all of my MariaDB databases (retaining up to a certain number of them) an hour before my Restic plan kicks off, so they get included in the snapshots.
+Restic doesn't support directly exporting from database systems, so too include database backups, I wrote a script that dumps all of my MariaDB databases (retaining up to a certain number of them). Cron runs it an hour before my Restic plan kicks off, so they get included in the snapshots.
 
 ## Self-hosted git
 
