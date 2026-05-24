@@ -31,7 +31,7 @@ Lastly, since most C and C++ libraries don't support building via Zig, to save m
 
 Building a simple C++ program with Zig is straightforward. Its build system looks for two files when building any given package: **build.zig** and **build.zig.zon**.
 
-**build.zig** is a Zig source file contains a `build` function that accepts a pointer to the current build graph, allowing various operations (such as defining new modules and executables) to be carried out on the graph at build time.
+**build.zig** is a Zig source file containing a `build` function that accepts a pointer to the current build graph, allowing various operations (such as defining new modules and executables) to be carried out on the graph at build time.
 
 **build.zig.zon** contains a Zig struct (which is somewhat semblant of JSON) that specifies some details about the package, such as name, version, dependencies (which Zig can fetch from various sources--there's no official, central package registry), and paths to files or directories that should be included in the package.
 
@@ -210,7 +210,7 @@ int main(int argc, char** argv)
     return RUN_ALL_TESTS();
 }
 ```
-```cpp title="src/Tests/Utils.cpp"
+```cpp title="src/Tests/Unit/Utils.cpp"
 #include <gtest/gtest.h>
 
 #include "Utils/Hash.h"
