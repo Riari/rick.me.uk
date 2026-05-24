@@ -1,0 +1,324 @@
+---
+title: "Devlog: Flecs City (Part 4)"
+description: "From CMake to Zig, and setting up GoogleTest"
+pubDate: 2026-05-24
+headerImage: "./header.jpg"
+tags: ["devlog", "cpp", "cmake", "zig", "gtest"]
+---
+import ExtLink from "../../../components/ExtLink.astro";
+import OpenGraphSummary from "../../../components/OpenGraphSummary.astro";
+import Image from "../../../components/Image.astro";
+import Alert from "../../../components/Alert.astro";
+import zigBuildGif from "./zig-build.gif";
+
+Last time, I built a <a href="/posts/2026/01/devlog-flecs-city-part-3-ecs-replication/">replication layer between Flecs and ENet</a> to enable server-authoritative replication of entities and components.
+
+More recently, unrelated to this project, I started exploring <ExtLink url="https://ziglang.org/">Zig</ExtLink>--a language I had been meaning to try out for the past year or so. I didn't know much about Zig other than it being another attempt at "C, but better", so I was pleasantly surprised to learn that it's a drop-in C and C++ compiler and has an elegant build system that uses Zig rather than some obscure DSL.
+
+In my <a href="/posts/2025/05/devlog-flecs-city/">first post of this series</a>, I mentioned that I'm not a big fan of CMake. It didn't take long before the idea of migrating this project from CMake to Zig's build system crossed my mind, so I set out to do exactly that.
+
+## Goals
+
+I had three main goals for this migration.
+
+Firstly, in the CMake-based setup, the project's modules are built and linked as shared libraries. The same goes for third-party dependencies. There's no particular reason for this choice other than it being an interesting learning exercise that has already taught me a thing or two about ABIs. So, to be satisfied with the switch to Zig, I wanted to preserve this aspect.
+
+Secondly, because I dual-boot Windows 11 and Arch, I wanted to retain reasonable build support for both Windows and Linux.
+
+Lastly, since most C and C++ libraries don't support building via Zig, to save myself the potentially enormous effort of adding that support for every dependency, I decided to keep using vcpkg, so I needed to make that work nicely with Zig.
+
+## Hello Zig
+
+Building a simple C++ program with Zig is straightforward. Its build system looks for two files when building any given package: **build.zig** and **build.zig.zon**.
+
+**build.zig** is a Zig source file contains a `build` function that accepts a pointer to the current build graph, allowing various operations (such as defining new modules and executables) to be carried out on the graph at build time.
+
+**build.zig.zon** contains a Zig struct (which is somewhat semblant of JSON) that specifies some details about the package, such as name, version, dependencies (which Zig can fetch from various sources--there's no official, central package registry), and paths to files or directories that should be included in the package.
+
+Given a typical "hello world" style program like this:
+
+```cpp title="src/main.cpp"
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello Zig" << std::endl;
+    return 0;
+}
+```
+
+And these build files:
+
+```zig title="build.zig"
+const std = @import("std");
+
+pub fn build(b: *std.Build) void
+{
+    // Target architecture/platform and optimization mode can be overridden with args
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
+
+    // Modules are collections of source files
+    const mod = b.createModule(.{
+        .target = target,
+        .optimize = optimize,
+    });
+
+    mod.addCSourceFiles(.{
+        .files = &.{"src/main.cpp"},
+        .flags = &.{"-std=c++17"},
+    });
+
+    mod.linkSystemLibrary("c++", .{});
+
+    // Executables expect a root module with an entry point (main.cpp in this case)
+    const exe = b.addExecutable(.{
+        .name = "zig_cpp",
+        .root_module = mod,
+    });
+
+    b.installArtifact(exe);
+
+    const run_step = b.step("run", "Run the app");
+
+    const run_cmd = b.addRunArtifact(exe);
+    run_step.dependOn(&run_cmd.step);
+
+    run_cmd.step.dependOn(b.getInstallStep());
+
+    // This enables any args after '--' to be passed directly to the executable
+    if (b.args) |args|
+    {
+        run_cmd.addArgs(args);
+    }
+}
+```
+
+```zig title="build.zig.zon"
+.{
+    .name = .zig_cpp,
+    .version = "0.0.0",
+    .fingerprint = 0x89242592ae4160ad,
+    .minimum_zig_version = "0.16.0",
+    .dependencies = .{
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}
+```
+
+`zig build run` successfully builds and runs a debug release:
+
+<Image src={zigBuildGif} alt="Gif showing the 'zig build' command running" />
+
+## Modules
+
+Figuring out how best to handle the modules took the most time. Initially, I set them up as individual packages, each with their own build files. This enabled me to use Zig's dependency system to include the module packages when building the main executable, but also gave me the option of building any given module independently.
+
+One drawback with that approach is that the build files quickly grew with duplicated code, which would only get worse with every new module. Extracting code into separate files to import isn't an option in this case since the build system won't allow a file to be imported by more than one package in the same build graph.
+
+The solution I settled on was to remove the `build.zig.zon` file from the module and modify its build function in `build.zig` to take in the current target, current optimize mode, and vcpkg util (more on this below), as well as return the module's library. This meant, instead of using the dependency system, I could import and use the function like this:
+
+```zig
+const core = @import("src/Modules/Core/build.zig");
+const core_lib = core.build(b, target, optimize, vcpkg);
+```
+With this setup it's no longer possible to build modules independently since they're no longer packages, but if I ever want to reinstate them as packages, I think I could easily do that by moving the build logic into a different file that could then be imported by both the main package and the module package. Since they still wouldn't be using the dependency system, the import limitation wouldn't apply.
+
+## Vcpkg
+
+Vcpkg has no Zig support out of the box, so getting it to work nicely with Zig is a bit more of a manual process than it is with CMake. Thankfully vcpkg is pretty good about using consistent, predictable paths for its output when installing packages, so pointing Zig in the right direction is quite simple.
+
+One other thing to worry about here is ABI compatibility--both vcpkg and Zig need to produce compatible binaries. I found it was enough to specify vcpkg's triplet when installing. I chose `x64-mingw-dynamic` for Windows and `x64-linux-dynamic` for Linux. So far, no issues.
+
+To facilitate vcpkg integration, I created a small utility:
+
+```zig title="zig/vcpkg.zig"
+const std = @import("std");
+
+pub const Vcpkg = struct
+{
+    root: []const u8,
+    triplet: []const u8,
+    inc_path: std.Build.LazyPath,
+    lib_path: std.Build.LazyPath,
+    bin_path: std.Build.LazyPath,
+
+    pub fn init(b: *std.Build, target: std.Build.ResolvedTarget) Vcpkg
+    {
+        const root = b.option([]const u8, "vcpkg_root", "") orelse "vcpkg_installed";
+        const default_triplet = if (target.result.os.tag == .windows) "x64-mingw-dynamic" else "x64-linux-dynamic";
+        const triplet = b.option([]const u8, "vcpkg_triplet", "") orelse default_triplet;
+
+        return Vcpkg
+        {
+            .root = root,
+            .triplet = triplet,
+            .inc_path = b.path(b.fmt("{s}/{s}/include", .{ root, triplet })),
+            .lib_path = b.path(b.fmt("{s}/{s}/lib", .{ root, triplet })),
+            .bin_path = b.path(b.fmt("{s}/{s}/bin", .{ root, triplet })),
+        };
+    }
+};
+```
+Packages simply initialise it with the build graph and target, then use the paths when configuring a module that needs to link vcpkg-installed libraries:
+
+```zig
+const vcpkg = Vcpkg.init(b, target);
+mod.addIncludePath(vcpkg.inc_path);
+mod.addLibraryPath(vcpkg.lib_path);
+```
+
+I did run into one issue with library names. For some reason, they differ based on the triplet used. For example, GLFW 3 is "glfw3dll" on Windows, but it's simply "glfw" on Linux. Some libraries are suffixed with ".dll" on Windows while there's no suffix at all on Linux. This might be for legacy reasons, or perhaps it's just a side effect of using community-maintained triplets (which is the case for both of the ones I'm using).
+
+Presumably the vcpkg CMake toolchain also has to handle these differences. It's not the end of the world, but does lead to some platform-specific code:
+
+```zig
+if (target.result.os.tag == .windows)
+{
+    utils.Windows.linkRaylib(mod);
+    mod.linkSystemLibrary("flecs.dll", .{});
+    mod.linkSystemLibrary("glfw3dll", .{});
+}
+else
+{
+    mod.linkSystemLibrary("raylib", .{});
+    mod.linkSystemLibrary("flecs", .{});
+    mod.linkSystemLibrary("glfw", .{});
+}
+```
+
+<Alert type="info">
+    Note the `utils.Windows.linkRaylib` function--this links not only Raylib, but also some required system libraries with some features disabled to resolve conflicts between Raylib and ENet, an issue I covered in the <a href="/posts/2025/09/devlog-flecs-city-part-2-library-and-architecture-changes/#getting-raylib-and-enet-to-co-exist">second devlog</a>.
+</Alert>
+
+## GoogleTest
+
+Setting up GoogleTest was supposed to be my next goal before I got sidetracked by this Zig migration. An obvious convention would be to give each Zig package its own set of tests (and therefore its own test executable), so that's what I did.
+
+To start with, I added some basic unit tests and an entry point to the main package:
+
+```cpp title="src/Tests/main.cpp"
+#include <gtest/gtest.h>
+
+int main(int argc, char** argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+```
+```cpp title="src/Tests/Utils.cpp"
+#include <gtest/gtest.h>
+
+#include "Utils/Hash.h"
+
+TEST(Utils, HashString_ProducesKnownValues)
+{
+    auto h1 = fc::Utils::HashString("hello");
+    auto h2 = fc::Utils::HashString("hello");
+    EXPECT_EQ(h1, h2);
+}
+
+TEST(Utils, HashString_ProducesUniqueValues)
+{
+    auto h1 = fc::Utils::HashString("abc");
+    auto h2 = fc::Utils::HashString("xyz");
+    EXPECT_NE(h1, h2);
+}
+
+TEST(Utils, HashString_IsCaseSensitive)
+{
+    auto lower = fc::Utils::HashString("abc");
+    auto upper = fc::Utils::HashString("ABC");
+    EXPECT_NE(lower, upper);
+}
+```
+
+I couldn't get vcpkg to build a gtest library compatible with the main executable, so I decided to directly compile and statically link it using the source from vcpkg like so:
+
+```zig
+const gtest_mod = b.createModule(.{
+    .target = target,
+    .optimize = optimize,
+});
+
+gtest_mod.addCSourceFiles(.{
+    .files = &.{ b.fmt("{s}/{s}/src/gtest-all.cc", .{ vcpkg.root, vcpkg.triplet }) },
+    .flags = &.{"-std=c++17", "-Wno-implicit-int-conversion"},
+});
+
+gtest_mod.addIncludePath(vcpkg.inc_path);
+gtest_mod.addIncludePath(b.path(b.fmt("{s}/{s}", .{ vcpkg.root, vcpkg.triplet })));
+gtest_mod.linkSystemLibrary("c++", .{});
+
+const gtest_lib = b.addLibrary(.{
+    .name = "gtest",
+    .root_module = gtest_mod,
+    .linkage = .static
+});
+
+const test_mod = b.createModule(.{
+    .target = target,
+    .optimize = optimize,
+});
+
+test_mod.addCSourceFiles(.{
+    .files = &.{
+        "src/Tests/main.cpp",
+        "src/Tests/Unit/Utils.cpp",
+    },
+    .flags = &.{"-std=c++17"},
+});
+
+test_mod.addIncludePath(b.path("src/Public"));
+test_mod.addIncludePath(vcpkg.inc_path);
+test_mod.addLibraryPath(vcpkg.lib_path);
+
+test_mod.linkSystemLibrary("c++", .{});
+test_mod.linkLibrary(gtest_lib);
+test_mod.linkLibrary(core_lib);
+
+const test_exe = b.addExecutable(.{
+    .name = "tests",
+    .root_module = test_mod,
+});
+
+b.installArtifact(test_exe);
+
+const test_cmd = b.addRunArtifact(test_exe);
+test_cmd.step.dependOn(b.getInstallStep());
+
+const test_step = b.step("test", "Run unit tests");
+test_step.dependOn(&test_cmd.step);
+```
+
+With that in place, `zig build test` builds and runs the tests nicely:
+
+```sh
+❯ zig build test
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from Utils
+[ RUN      ] Utils.HashString_ProducesKnownValues
+[       OK ] Utils.HashString_ProducesKnownValues (0 ms)
+[ RUN      ] Utils.HashString_ProducesUniqueValues
+[       OK ] Utils.HashString_ProducesUniqueValues (0 ms)
+[ RUN      ] Utils.HashString_IsCaseSensitive
+[       OK ] Utils.HashString_IsCaseSensitive (0 ms)
+[----------] 3 tests from Utils (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 3 tests.
+```
+
+It would make sense to extract `gtest_mod` into its own package so that it can be built once and re-used as a local dependency, but that's a job for later.
+
+---
+
+That's all for this one. I should really get back on track with the C++ code for the next devlog. Thank you for reading! You can find the source code for this project here:
+
+<OpenGraphSummary url="https://code.rick.me.uk/rm/flecs-city" />
