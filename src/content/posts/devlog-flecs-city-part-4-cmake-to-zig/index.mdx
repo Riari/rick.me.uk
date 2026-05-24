@@ -13,7 +13,7 @@ import zigBuildGif from "./zig-build.gif";
 
 Last time, I built a <a href="/posts/2026/01/devlog-flecs-city-part-3-ecs-replication/">replication layer between Flecs and ENet</a> to enable server-authoritative replication of entities and components.
 
-More recently, unrelated to this project, I started exploring <ExtLink url="https://ziglang.org/">Zig</ExtLink>--a language I had been meaning to try out for the past year or so. I didn't know much about Zig other than it being another attempt at "C, but better", so I was pleasantly surprised to learn that it's a drop-in C and C++ compiler and has an elegant build system that uses Zig rather than some obscure DSL.
+More recently, unrelated to this project, I started exploring <ExtLink url="https://ziglang.org/">Zig</ExtLink>--a language I had been meaning to try out for the past year or so. I didn't know much about Zig other than it being another attempt at "C, but better", so I was pleasantly surprised to learn that it has a drop-in C and C++ compiler and an elegant build system that uses Zig rather than some obscure DSL.
 
 In my <a href="/posts/2025/05/devlog-flecs-city/">first post of this series</a>, I mentioned that I'm not a big fan of CMake. It didn't take long before the idea of migrating this project from CMake to Zig's build system crossed my mind, so I set out to do exactly that.
 
@@ -197,7 +197,7 @@ else
 
 ## GoogleTest
 
-Setting up GoogleTest was supposed to be my next goal before I got sidetracked by this Zig migration. An obvious convention would be to give the main package and each module its own set of tests (and therefore its own test executable), so that's what I did.
+Setting up GoogleTest was supposed to be my next goal before I got sidetracked by this Zig migration. An obvious convention would be to give the main package and each module their own test suites (and therefore their own test executables), so I went with that.
 
 To start with, I added some basic unit tests and an entry point to the main package:
 
