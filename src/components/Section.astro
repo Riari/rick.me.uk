@@ -20,34 +20,34 @@ const { paddingBottom = true, paddingTop = true, withBackground = false } = Astr
 </div>
 
 
-<style lang="scss">
+<style lang="scss" is:global>
 .section {
     &--background {
         background: rgba(0, 0, 0, 0.1);
     }
 
-    :global(.section-header) {
+    .section-header {
         display: flex;
         align-items: center;
         margin: 0 0 1rem 0;
 
-        :global(h1, h2, h3) {
+        h1, h2, h3 {
             margin: 0;
             flex: 1;
         }
     }
 
-    :global(h2) {
+    h2 {
         font-size: 2.2rem;
         font-weight: 500;
     }
 
-    :global(h3) {
+    h3 {
         font-size: 1.5rem;
         font-weight: 500;
     }
 
-    :global(p) {
+    p {
         font-size: 1.2rem;
     }
 }

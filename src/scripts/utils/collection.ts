@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { ProjectType } from "../../content/config";
+import { ProjectType } from "../../content.config";
 import { Accent } from "../types";
 
 export async function loadAndFormatCollection(name: any, withDate = true) {
