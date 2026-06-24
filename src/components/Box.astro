@@ -1,0 +1,25 @@
+---
+---
+
+<div class="box">
+    <slot />
+</div>
+
+<style lang="scss">
+.box {
+    padding: 1rem;
+    border-color: var(--color-overlay-light);
+    border-style: solid;
+    border-width: 2px;
+    border-radius: .5rem;
+
+    :global(h4) {
+        margin: 0 0 .35rem 0;
+        color: var(--color-brand);
+    }
+
+    :global(p) {
+        margin: 0;
+    }
+}
+</style>

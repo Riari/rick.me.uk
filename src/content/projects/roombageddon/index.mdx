@@ -1,0 +1,66 @@
+---
+title: "Roombageddon"
+description: "An action RPG developed for Godot Wild Jam #94"
+type: "Game"
+weight: 25
+headerImage: "./header.png"
+url: "https://riari89.itch.io/roombageddon"
+tags: ["godot", "game-jam", "game-dev"]
+---
+import ExtLink from '../../../components/ExtLink.astro';
+import Image from '../../../components/Image.astro';
+import Video from '../../../components/Video.astro';
+import Box from '../../../components/Box.astro';
+import imageScreenshot1 from './screenshot-1.png';
+import imageScreenshot2 from './screenshot-2.png';
+import imageScreenshot3 from './screenshot-3.png';
+import imageScreenshot4 from './screenshot-4.png';
+import imageScreenshot5 from './screenshot-5.png';
+
+**Roombageddon** is an action game I developed with <ExtLink url="https://terra.me.uk/">Matt Ellis</ExtLink> in nine days for <ExtLink url="https://itch.io/jam/godot-wild-jam-94">Godot Wild Jam #94</ExtLink>.
+
+In this game, the player assumes the role of a robotic vacuum cleaner fighting back against everyday household objects that have come to life and chosen violence. The core gameplay loop has a big emphasis on loot, where each enemy type has a chance of dropping an 'ability card'.
+
+Ability cards represent Common, Rare, or Legendary versions of abilities. They allow players to acquire enemy abilities and equip them at the end of each level.
+
+Unlike many other action RPGs, physics plays a major role in Roombageddon. Enemies have fully physics-enabled collision, and most abilities have varying degrees of knockback strength, leading to fun ways in which to collide with enemies and push them around.
+
+Highlights of my work on this game include:
+
+<div class="grid grid-2">
+    <Box>
+        <h4>3Cs</h4>
+        Character, Controls, Camera
+    </Box>
+    <Box>
+        <h4>Ability System</h4>
+        A powerful system allowing abilities to be implemented based on charging, firing, and cooldown phases
+    </Box>
+    <Box>
+        <h4>Enemy AI</h4>
+        A tunable AI system for driving enemy movement, player pursuit, and ability usage
+    </Box>
+    <Box>
+        <h4>Loot System</h4>
+        A tiered loot system integrated with the ability system
+    </Box>
+    <Box>
+        <h4>UI</h4>
+        HUD and win screen with a vibrant but clean design
+    </Box>
+    <Box>
+        <h4>Music & SFX</h4>
+        An original soundtrack and custom sound effects
+    </Box>
+</div>
+
+## Media
+
+<div class="grid grid-2">
+    <Image src={imageScreenshot1} alt="Screenshot 1" />
+    <Image src={imageScreenshot2} alt="Screenshot 2" />
+    <Image src={imageScreenshot3} alt="Screenshot 3" />
+    <Image src={imageScreenshot4} alt="Screenshot 4" />
+    <Image src={imageScreenshot5} alt="Screenshot 5" />
+    <Video src="mg7JOvqwvVI" isYouTube={true} />
+</div>

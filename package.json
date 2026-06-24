@@ -16,7 +16,7 @@
     "@types/react-dom": "^19.2.3",
     "astro": "^7.0.2",
     "astro-embed": "^0.13.0",
-    "astro-expressive-code": "^0.41.7",
+    "astro-expressive-code": "^0.43.1",
     "griddy-icons": "^0.2.0",
     "medium-zoom": "^1.1.0",
     "open-graph-scraper": "^6.11.0",
