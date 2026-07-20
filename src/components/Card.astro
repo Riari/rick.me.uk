@@ -1,10 +1,6 @@
 ---
-interface Props {
-    item: any;
-    accent?: string;
-}
-
-const { item, accent = null } = Astro.props;
+const { item, accent = null, background = null } = Astro.props;
+const backgroundUrl = background == null ? "none" : `url(${background})`;
 ---
 
 <div class:list={['card', accent]}>
@@ -29,7 +25,7 @@ const { item, accent = null } = Astro.props;
     </div>
 </div>
 
-<style lang="scss">
+<style lang="scss" define:vars={{ backgroundUrl }}>
 .card {
     display: flex;
     flex-direction: column;
@@ -56,6 +52,21 @@ const { item, accent = null } = Astro.props;
         box-shadow: inset 0 0 0 2px var(--color-overlay-light), 0 0 5px rgba(0, 0, 0, 0.00);
         opacity: 0.5;
         transition: opacity 0.1s ease, box-shadow 0.1s ease;
+    }
+    
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        background: var(--backgroundUrl) center/cover no-repeat;
+        filter: brightness(0.75);
+        opacity: 0.6;
     }
 
     &-link {

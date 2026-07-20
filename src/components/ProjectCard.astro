@@ -10,9 +10,10 @@ interface Props {
 const { project, withTags = false } = Astro.props;
 
 const accent = projectTypeToAccent(project.data.type);
+const backgroundUrl = project.data.headerImage.src;
 ---
 
-<Card item={project} accent={accent}>
+<Card item={project} accent={accent} background={backgroundUrl}>
     <div slot="before-title">
         <div class="badge">
             {project.data.type}
