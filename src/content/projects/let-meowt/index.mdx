@@ -1,0 +1,46 @@
+---
+title: "Let Meowt"
+description: "A 90s-inspired cat-themed platformer"
+type: "Game"
+weight: 30
+headerImage: "./header.jpg"
+url: "https://riari89.itch.io/let-meowt"
+tags: ["godot", "game-jam", "game-dev"]
+---
+import ExtLink from '../../../components/ExtLink.astro';
+import Image from '../../../components/Image.astro';
+import Video from '../../../components/Video.astro';
+import imageScreenshot1 from './screenshot-1.png';
+import imageScreenshot2 from './screenshot-2.png';
+import imageScreenshot3 from './screenshot-3.png';
+import imageScreenshot4 from './screenshot-4.png';
+import videoGameplay from './gameplay.mp4';
+
+**Let Meowt** is my submission to Godot Wild Jam #95. The theme for this jam was "Retro", and the game is a 90s-inspired platformer in which you play as a cat wreaking havoc!
+
+I teamed up with <ExtLink src="https://www.linkedin.com/in/dianna-koh-yy/">Dianna Koh</ExtLink> (who did most of the art) and <ExtLink src="https://terra.me.uk/">Matt Ellis</ExtLink> (who contributed to the code) to develop the game. The core idea was to turn <ExtLink src="https://www.youtube.com/watch?v=o6QPOUgbS6c">cats' general obsession with knocking things over</ExtLink> into a central gameplay mechanic.
+
+Features I implemented include:
+
+* Fixed 320x180 resolution and a limited 16-colour palette to achieve a late 80s / early 90s look and feel
+* A component system for composing character behaviours, including components for movement, combat, and animation
+* Enemy AI with player seeking and platform detection for jumping/dropping
+* A custom player camera with smooth following
+* A player controller with the ability to Meow and Loaf
+* Music for the main menu and win screen
+
+Beyond these systems, I also handled most of the other development tasks, such as integrating artwork, setting up animation frames, designing levels, implementing collision, and creating a UI theme that works within the limited screen resolution.
+
+You can <ExtLink url="https://riari89.itch.io/let-meowt">play it in the browser on itch.io</ExtLink>.
+
+<div class="grid grid-2">
+    <Image src={imageScreenshot1} alt="Screenshot 1" />
+    <Image src={imageScreenshot2} alt="Screenshot 2" />
+    <Image src={imageScreenshot3} alt="Screenshot 3" />
+    <Image src={imageScreenshot4} alt="Screenshot 4" />
+</div>
+<div class="caption">Screenshots</div>
+
+<Video src={videoGameplay} />
+<div class="caption">Gameplay video</div>
+
