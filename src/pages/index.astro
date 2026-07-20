@@ -69,7 +69,7 @@ const projects = (await loadAndFormatCollection("projects", false))
         </div>
         <div class="grid grid-3" style="gap: 2rem;">
             { projects.map((project: any) => (
-                <ProjectCard project={project} />
+                <ProjectCard project={project} withBackground={true} />
             )) }
         </div>
         <div class="see-more">

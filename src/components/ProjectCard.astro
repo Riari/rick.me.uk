@@ -4,16 +4,18 @@ import { projectTypeToAccent } from "../scripts/utils/collection";
 
 interface Props {
     project: any;
+    withBackground?: boolean;
     withTags?: boolean;
+    minHeight?: string;
 }
 
-const { project, withTags = false } = Astro.props;
+const { project, withBackground = false, withTags = false, minHeight = null } = Astro.props;
 
 const accent = projectTypeToAccent(project.data.type);
-const backgroundUrl = project.data.headerImage.src;
+const backgroundUrl = withBackground ? project.data.headerImage.src : null;
 ---
 
-<Card item={project} accent={accent} background={backgroundUrl}>
+<Card item={project} accent={accent} backgroundImage={backgroundUrl} minHeight={minHeight}>
     <div slot="before-title">
         <div class="badge">
             {project.data.type}

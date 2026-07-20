@@ -1,9 +1,13 @@
 ---
-const { item, accent = null, background = null } = Astro.props;
-const backgroundUrl = background == null ? "none" : `url(${background})`;
+const { item, accent = null, backgroundImage = null, minHeight = null } = Astro.props;
+const backgroundImageValue = backgroundImage == null ? "none" : `url(${backgroundImage})`;
+const minHeightValue = minHeight == null ? "100px" : minHeight;
+const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
 ---
 
-<div class:list={['card', accent]}>
+<div class:list={['card', accent, contrastClass]}>
+    {backgroundImage != null && <div class="card-background"></div>}
+
     <a class="card-link" href={item.absoluteURL}></a>
 
     <div class="card-header">
@@ -25,16 +29,18 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
     </div>
 </div>
 
-<style lang="scss" define:vars={{ backgroundUrl }}>
+<style lang="scss" define:vars={{ backgroundImageValue, minHeightValue }}>
 .card {
     display: flex;
     flex-direction: column;
     position: relative;
-    min-height: 100px;
+    min-height: var(--minHeightValue);
     padding: 1.25rem;
+    border-radius: 0.5rem;
     text-decoration: none;
     font-size: 1.1rem;
     color: var(--color-foreground);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(4px);
 
     &::before {
@@ -49,13 +55,12 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
         background: linear-gradient(145deg,
             #ffffff06,
             color-mix(in srgb, var(--color-brand) 15%, transparent));
-        box-shadow: inset 0 0 0 2px var(--color-overlay-light), 0 0 5px rgba(0, 0, 0, 0.00);
+        box-shadow: inset 0 0 0 2px var(--color-overlay-light);
         opacity: 0.5;
         transition: opacity 0.1s ease, box-shadow 0.1s ease;
     }
-    
-    &::after {
-        content: "";
+
+    &-background {
         display: block;
         position: absolute;
         top: 0;
@@ -64,9 +69,28 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
         width: 100%;
         height: 100%;
         border-radius: 0.5rem;
-        background: var(--backgroundUrl) center/cover no-repeat;
-        filter: brightness(0.75);
-        opacity: 0.6;
+        opacity: 0.75;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: var(--backgroundImageValue) center/cover no-repeat;
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-background-lower);
+            opacity: 0.65;
+        }
     }
 
     &-link {
@@ -125,12 +149,18 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
         }
     }
 
+    &-high-contrast {
+        .card-body {
+            color: var(--color-foreground);
+        }
+    }
+
     &.accent {
         &-1 {
             &::before {
                 background: linear-gradient(145deg,
                     #ffffff06,
-                    color-mix(in srgb, var(--color-accent-1) 15%, transparent));
+                    color-mix(in srgb, var(--color-accent-1) 25%, transparent));
             }
 
             :global(.badge) {
@@ -150,7 +180,7 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
             &::before {
                 background: linear-gradient(145deg,
                     #ffffff06,
-                    color-mix(in srgb, var(--color-accent-2) 15%, transparent));
+                    color-mix(in srgb, var(--color-accent-2) 25%, transparent));
             }
 
             :global(.badge) {
@@ -170,7 +200,7 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
             &::before {
                 background: linear-gradient(145deg,
                     #ffffff06,
-                    color-mix(in srgb, var(--color-accent-3) 15%, transparent));
+                    color-mix(in srgb, var(--color-accent-3) 25%, transparent));
             }
 
             :global(.badge) {
@@ -190,7 +220,7 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
             &::before {
                 background: linear-gradient(145deg,
                     #ffffff06,
-                    color-mix(in srgb, var(--color-accent-4) 15%, transparent));
+                    color-mix(in srgb, var(--color-accent-4) 25%, transparent));
             }
 
             :global(.badge) {
@@ -210,7 +240,7 @@ const backgroundUrl = background == null ? "none" : `url(${background})`;
     &:hover {
         &::before {
             opacity: 1;
-            box-shadow: inset 0 0 0 2px var(--color-overlay-light), 0 0 5px rgba(0, 0, 0, 0.15);
+            box-shadow: inset 0 0 0 2px var(--color-overlay-light);
         }
 
         .card-header-before-title {

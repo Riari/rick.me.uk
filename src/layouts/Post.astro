@@ -57,7 +57,7 @@ if (nextPost != null) {
     withShapes={false}
     withGradient={false}>
     <Container maxWidth="1100px">
-        <Header title={title} backgroundImage={headerImage}>
+        <Header title={title} backgroundImage={headerImage.src}>
             {description}
 
             <ul slot="after" class="tags">
@@ -66,8 +66,7 @@ if (nextPost != null) {
         </Header>
 
         <div class="publish-date">
-            {pubDate.toLocaleString("default", { month: "long" })}
-            {pubDate.getDate()}, {pubDate.getFullYear()}
+            {pubDate.toLocaleString("default", { month: "long" })} {pubDate.getDate()}, {pubDate.getFullYear()}
         </div>
     </Container>
 
