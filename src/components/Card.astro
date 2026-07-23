@@ -3,6 +3,7 @@ const { item, accent = null, backgroundImage = null, minHeight = null } = Astro.
 const backgroundImageValue = backgroundImage == null ? "none" : `url(${backgroundImage})`;
 const minHeightValue = minHeight == null ? "100px" : minHeight;
 const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
+const gradientStart = backgroundImage == null ? "#ffffff06" : "#ffffff04";
 ---
 
 <div class:list={['card', accent, contrastClass]}>
@@ -29,7 +30,7 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
     </div>
 </div>
 
-<style lang="scss" define:vars={{ backgroundImageValue, minHeightValue }}>
+<style lang="scss" define:vars={{ backgroundImageValue, minHeightValue, gradientStart }}>
 .card {
     display: flex;
     flex-direction: column;
@@ -51,13 +52,28 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
         left: 0;
         width: 100%;
         height: 100%;
+        z-index: 0;
         border-radius: 0.5rem;
         background: linear-gradient(145deg,
-            #ffffff06,
+            var(--gradientStart),
             color-mix(in srgb, var(--color-brand) 15%, transparent));
+        opacity: 0.5;
+        transition: opacity 0.1s ease, filter 0.1s ease;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        border-radius: 0.5rem;
         box-shadow: inset 0 0 0 2px var(--color-overlay-light);
         opacity: 0.5;
-        transition: opacity 0.1s ease, box-shadow 0.1s ease;
+        transition: box-shadow 0.1s ease;
     }
 
     &-background {
@@ -99,6 +115,7 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
         left: 0;
         width: 100%;
         height: 100%;
+        z-index: 1;
     }
 
     &-header-before-title {
@@ -153,13 +170,21 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
         .card-body {
             color: var(--color-foreground);
         }
+
+        &::before {
+            filter: saturate(0);
+        }
+
+        &::after {
+            opacity: 0.65;
+        }
     }
 
     &.accent {
         &-1 {
             &::before {
                 background: linear-gradient(145deg,
-                    #ffffff06,
+                    var(--gradientStart),
                     color-mix(in srgb, var(--color-accent-1) 25%, transparent));
             }
 
@@ -179,7 +204,7 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
         &-2 {
             &::before {
                 background: linear-gradient(145deg,
-                    #ffffff06,
+                    var(--gradientStart),
                     color-mix(in srgb, var(--color-accent-2) 25%, transparent));
             }
 
@@ -199,7 +224,7 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
         &-3 {
             &::before {
                 background: linear-gradient(145deg,
-                    #ffffff06,
+                    var(--gradientStart),
                     color-mix(in srgb, var(--color-accent-3) 25%, transparent));
             }
 
@@ -219,7 +244,7 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
         &-4 {
             &::before {
                 background: linear-gradient(145deg,
-                    #ffffff06,
+                    var(--gradientStart),
                     color-mix(in srgb, var(--color-accent-4) 25%, transparent));
             }
 
@@ -240,7 +265,11 @@ const contrastClass = backgroundImage == null ? "" : "card-high-contrast";
     &:hover {
         &::before {
             opacity: 1;
-            box-shadow: inset 0 0 0 2px var(--color-overlay-light);
+            filter: saturate(1);
+        }
+
+        &::after {
+            opacity: 1;
         }
 
         .card-header-before-title {
